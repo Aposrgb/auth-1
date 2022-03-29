@@ -1,0 +1,17 @@
+*{
+    margin: 0;
+}
+nav{
+    height: 10vh;
+    width: 100%;
+    background: #81ff86;
+    font-size: 4vh;
+    font-family: monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+nav ul{
+    padding: 0;
+    list-style:none;
+}

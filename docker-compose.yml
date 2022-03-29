@@ -1,0 +1,52 @@
+version: '3.7'
+services:
+    postgres:
+        container_name: postgres-auth
+        image: postgres
+        ports:
+            - 5460:5432
+        environment:
+            POSTGRES_PASSWORD: root
+            POSTGRES_USER: root
+            POSTGRES_DB: auth_db
+        networks:
+            - auth
+
+    php-fpm:
+        container_name: php-fpm-auth
+        build:
+            context: ./build/php-fpm
+            dockerfile: Dockerfile
+            args:
+                - XDEBUG_MODE
+                - XDEBUG_CLIENT_HOST
+        environment:
+            - SYMFONY_ENV
+            - PHP_IDE_CONFIG
+        ports:
+            - 9612:9000
+        volumes:
+            - ./symfony:/var/www/symfony:cached
+            - ./logs/symfony:/var/www/symfony/var/log:cached
+            - ./auth/:/var/www/auth/:delegated
+        depends_on:
+            - postgres
+        networks:
+            - auth
+
+    nginx:
+        image: nginx:latest
+        container_name: nginx-auth
+        ports:
+            - 8560:80
+        depends_on:
+            - php-fpm
+        networks:
+            - auth
+        volumes:
+            - ./build/nginx/local:/etc/nginx/conf.d/
+            - ./build/nginx/client_max_body_size.conf:/etc/nginx/conf.d/client_max_body_size.conf
+            - ./auth/public:/var/www/auth/public:rw,cached
+
+networks:
+    auth:

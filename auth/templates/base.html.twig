@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}{% endblock %}</title>
+        <style>{% include 'styles/nav.css'%}</style>
+        <style>{% include 'styles/input.css'%}</style>
+        {% block script%}{%endblock%}
+    </head>
+    <body>
+    {% block header %}
+        <nav>
+            <ul>
+                <li>Фирма</li>
+            </ul>
+        </nav>
+    {% endblock %}
+    {% block body%}{%endblock%}
+    </body>
+</html>
