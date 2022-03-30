@@ -1,8 +1,8 @@
-api:
-    resource: '../src/Controller/Api'
-    type:     annotation
-    prefix:   /api
-    trailing_slash_on_root: false
+#api:
+#    resource: '../src/Controller/Api'
+#    type:     annotation
+#    prefix:   /api
+#    trailing_slash_on_root: false
 
 index:
     resource: '../src/Controller'

@@ -28,6 +28,7 @@ input{
     height: 3vh;
     padding: 1vh;
     border-radius: 2vh;
+    font-size: 2vh;
 }
 .submit{
     margin-top: 5vh;
