@@ -4,17 +4,16 @@
 
 {% block body %}
     <form method="post">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
-
+        <p>Добро пожаловать</p>
         {% if app.user %}
             <div class="mb-3">
                 Вы зашли под {{ app.user.username }},<a href="{{ path('app_logout') }}">Выйти</a>
             </div>
         {% endif %}
 
-        <p>Добро пожаловать</p>
+        {% if error %}
+            <div class="error">Неверные данные</div>
+        {% endif %}
         <label for="inputUsername">
             <input type="text" value="{{ last_username }}" placeholder="Имя пользователя" name="username"
                    id="inputUsername" class="form-control" autocomplete="username" required autofocus>
@@ -41,4 +40,5 @@
 
         <input class="submit" type="submit" value="Вход"/>
     </form>
+    <p id="poweredBy">Powered by<br>Podovinnikov<br>(2022-2022)</p>
 {% endblock %}

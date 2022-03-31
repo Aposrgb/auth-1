@@ -1,2 +1,9 @@
 {% extends 'base.html.twig' %}
-{%block body%}asd{%endblock%}
+{%block logout%}
+    {% if app.user %}
+        <li>
+            <a href="{{ path('app_logout') }}">Выйти</a>
+        </li>
+    {% endif %}
+{%endblock%}
+{%block body%}{%endblock%}

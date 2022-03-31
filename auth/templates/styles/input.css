@@ -40,3 +40,10 @@ input{
     border-radius: 2vh;
     color: black;
 }
+#poweredBy{
+    text-align: end;
+    font-size: 1.5vh;
+    color: gray;
+    padding: 15vh;
+    padding-bottom: 0;
+}
