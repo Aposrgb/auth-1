@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{% block title %}{% endblock %}</title>
-        <style>{% include 'styles/nav.css'%}</style>
-        <style>{% include 'styles/input.css'%}</style>
-        {% block script%}{%endblock%}
-    </head>
-    <body>
-    {% block header %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+
+    {% block styles %}{% endblock %}
+    {% block script %}{% endblock %}
+</head>
+<body>
+{% block header %}
+    <header>
         <nav>
             <ul>
                 <li>Фирма</li>
-                {% block logout%}{% endblock%}
+                {% block logout %}{% endblock %}
             </ul>
         </nav>
-    {% endblock %}
-    {% block body%}{%endblock%}
-    </body>
+    </header>
+{% endblock %}
+{% block body %}{% endblock %}
+</body>
 </html>

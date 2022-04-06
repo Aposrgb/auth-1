@@ -1,9 +1,3 @@
-api:
-    resource: '../src/Controller/Api'
-    type:     annotation
-    prefix:   /api
-    trailing_slash_on_root: false
-
 index:
     path: /
     controller: App\Controller\SecurityController::login
@@ -11,6 +5,15 @@ index:
 controller:
     resource: '../src/Controller'
     type:     annotation
+    trailing_slash_on_root: false
+
+api_login_check:
+    path: /api/login_check
+
+api:
+    resource: '../src/Controller/Api'
+    type:     annotation
+    prefix:   /api
     trailing_slash_on_root: false
 
 app.swagger_ui:

@@ -6,12 +6,13 @@ namespace App\EventListener;
 use App\Helper\Exception\ApiException;
 use App\Helper\Exception\ResponseCode;
 use Psr\Log\LoggerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\KernelInterface;
 
-class ExceptionListener
+class ExceptionListener extends AbstractController
 {
     /**
      * @var LoggerInterface
@@ -28,9 +29,16 @@ class ExceptionListener
 
     public function onKernelException(ExceptionEvent $event): void
     {
-        // You get the exception object from the received event
+        $path = $event->getRequest()->getPathInfo();
+
         $exception = $event->getThrowable();
         $this->logger->error($exception->getMessage(), $exception->getTrace());
+        if (!str_contains($path, "/api")){
+            $event->setResponse($this->render("error/error.html.twig", [
+                "ex" => $exception
+            ]));
+            return;
+        }
         $apiException = $exception;
         if (!$exception instanceof ApiException) {
             $statusCode = method_exists($exception, 'getStatusCode') ?
