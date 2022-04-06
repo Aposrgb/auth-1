@@ -1,0 +1,17 @@
+{% extends 'index/index.html.twig' %}
+{% block linkStyles %}
+    <link href="../styles/index/styles.css" rel="stylesheet">
+    <link href="../styles/index/vendor.css" rel="stylesheet">
+    <link href="../styles/summary/summary.css" rel="stylesheet">
+    <link href="../styles/summary/table.css" rel="stylesheet">
+    <link href="../styles/summary/table2.css" rel="stylesheet">
+    <script src="js/jquery-3.1.1.min.js"></script>
+{% endblock %}
+{% block body %}
+    <div id="mp-stats-app" class="main-content container-fluid"><div id="global-loader-block" aria-hidden="true" class="mp-loader-overlay ag-overlay hidden"><div class="ag-overlay-panel"><div class="ag-overlay-wrapper ag-layout-normal ag-overlay-loading-wrapper"><div class="mp-loader-static"></div></div></div></div> <div data-v-0ead128c="" id="app-layout"><section data-v-512674d2="" data-v-0ead128c="" class="px-3 py-3 pt-md-5 pb-md-4"><div data-v-512674d2="" class="row"><div data-v-512674d2="" class="col-md-12 col-lg-6 offset-lg-3"><div data-v-512674d2="" class="mx-auto text-center"><h1 data-v-512674d2="" class="display-4">Страница результатов поиска (SERP)</h1> <p data-v-512674d2="" class="lead">Удобный способ увидеть историю выдачи по ключевому слову за выбранный период, похожие запросы и многое другое.</p></div></div></div> <div data-v-512674d2="" class="row mt-7"><div data-v-512674d2="" class="col-md-12 col-lg-6 offset-lg-3"><div data-v-512674d2="" class="row g-3"><div data-v-512674d2="" class="col"><div data-v-512674d2="" id="autosuggest" class="input-group"><div role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-owns="autosuggest-autosuggest__results"><input style="width: 45vw;" type="text" autocomplete="off" aria-autocomplete="list" aria-activedescendant="" aria-controls="autosuggest-autosuggest__results" id="autosuggest__input" placeholder="Я ищу..." name="query" class="form-control"></div><div data-v-512674d2="" class="input-group-append"><button onclick="redirect()" data-v-512674d2="" type="button" class="btn btn-primary"><svg data-v-512674d2="" viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img" aria-label="arrow return left" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi-arrow-return-left b-icon bi" style="font-size: 150%;"><g data-v-512674d2=""><path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"></path></g></svg></button></div> <div id="autosuggest-autosuggest__results" class="autosuggest__results-container"><!----> </div></div> <h5 data-v-512674d2="" class="mt-1">Введите <span data-v-512674d2="" class="dashed cursor-pointer">поисковый запрос</span></h5></div></div></div></div></section></div> <div><!----> <div class="snotify snotify-left_top"></div><div class="snotify snotify-left_center"></div><div class="snotify snotify-left_bottom"></div><div class="snotify snotify-right_top"></div><div class="snotify snotify-right_center"></div><div class="snotify snotify-right_bottom"></div><div class="snotify snotify-center_top"></div><div class="snotify snotify-center_center"></div><div class="snotify snotify-center_bottom"></div></div></div>
+    <script>
+        function redirect(){
+            window.location = "keyword/name"
+        }
+    </script>
+{%endblock%}

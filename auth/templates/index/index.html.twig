@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="styles/index/styles.css" rel="stylesheet">
-    <link href="styles/index/vendor.css" rel="stylesheet">
+    {% block linkStyles%}
+        <link href="styles/index/styles.css" rel="stylesheet">
+        <link href="styles/index/vendor.css" rel="stylesheet">
+    {%endblock%}
 </head>
 <body>
 <div class="be-wrapper be-nosidebar-left">
+    {%block header%}
     <nav id="mp-stats-header" class="top-menu navbar navbar-expand-xl be-top-header fixed-top shadow-sm">
         <div class="logo d-none d-xl-flex"><a href="/" class="d-flex align-items-center"><img
                 src="https://mpstats.io/i/logo.svg"
@@ -35,10 +38,7 @@
                         <div class="dropdown-divider"></div>
                         <a href="/cabinet/import/cost-price" class="dropdown-item"><span>Импорт себестоимости и параметров товара</span></a>
                         <a href="/cabinet/compare" class="dropdown-item"><span>Сравнение периодов</span></a> <a
-                                href="/cabinet/income-calc" class="dropdown-item d-flex justify-content-between"><span>Расчет поставки</span>
-                            <span class="badge badge-success">NEW</span></a> <a href="/cabinet/income-calc-old"
-                                                                                class="dropdown-item d-flex justify-content-between"><span>Расчет поставки</span>
-                            <span class="badge badge-secondary">OLD</span></a>
+                                href="/cabinet/income-calc" class="dropdown-item d-flex justify-content-between"><span>Расчет поставки</span></a>
                         <div class="dropdown-divider"></div>
                         <a href="/cabinet/weekly-reports" class="dropdown-item"><span>Еженедельные отчеты</span></a> <a
                                 href="/cabinet/connect" class="dropdown-item"><span>Подключения</span></a></div>
@@ -153,6 +153,8 @@
 
         }
     </script>
+    {% endblock %}
+    {% block body%}
     <div class="be-content">
 
         <div id="mp-stats-app" class="main-content container-fluid">
@@ -251,8 +253,8 @@
                 <div class="snotify snotify-center_bottom"></div>
             </div>
         </div>
-
-
+        {%endblock%}
+        {% block footer%}
         <footer class="be-footer">
             <div class="container-fluid">
                 <div class="row">
@@ -353,6 +355,7 @@
                 </div>
             </div>
         </footer>
+        {%endblock%}
     </div>
 </div>
 </body>
