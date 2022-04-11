@@ -11,7 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     #[Route('/users', name: 'get_users', methods: ["GET"])]
-    #[IsGranted("ROLE_USER")]
     public function getUsers(): JsonResponse
     {
         return $this->json(["user"]);

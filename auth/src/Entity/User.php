@@ -25,6 +25,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private $password;
 
+    #[ORM\Column(type: 'string', nullable: true,unique: true)]
+    private $token;
+
+    public function generateToken()
+    {
+        return $this->token = (md5(microtime() . rand(100000, 10000000)));
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -94,4 +102,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    /**
+     * @return string
+     */
+    public function getToken(): string
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param string $token
+     */
+    public function setToken(string $token): void
+    {
+        $this->token = $token;
+    }
+
+
 }

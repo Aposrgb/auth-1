@@ -1,0 +1,56 @@
+{% extends 'index/index.html.twig' %}
+{% block linkStyles %}
+    <link href="../../styles/index/styles.css" rel="stylesheet">
+    <link href="../../styles/index/vendor.css" rel="stylesheet">
+    <link href="../../styles/summary/summary.css" rel="stylesheet">
+    <link href="../../styles/summary/table.css" rel="stylesheet">
+    <link href="../../styles/summary/table2.css" rel="stylesheet">
+    <link href="../../styles/seo/selection.css" rel="stylesheet">
+    <link href="../../styles/seo/slider.css" rel="stylesheet">
+    <link href="../../styles/seo/table.css" rel="stylesheet">
+    <script src="js/jquery-3.1.1.min.js"></script>
+{% endblock %}
+{% block body %}
+    <div class="main-content container-fluid" id="mp-stats-app">
+        <div id="global-loader-block" class="mp-loader-overlay ag-overlay hidden" aria-hidden="true">
+            <div class="ag-overlay-panel">
+                <div class="ag-overlay-wrapper ag-layout-normal ag-overlay-loading-wrapper">
+                    <div class="mp-loader-static"></div>
+                </div>
+            </div>
+        </div>
+
+        <form action="/wb/bysearch" method="GET">
+            <div class="row">
+                <div class="col-12 col-xl-6">
+                    <div class="card card-border-color card-border-color-primary self-align-center">
+                        <div class="card-header card-header-divider">
+                            Поиск по товарам
+                            <br>
+                            <span class="card-subtitle">Аналитика по товарам из результата поиска</span>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label class="col-4 col-lg-3 col-form-label text-right" for="inputEmail2">Запрос</label>
+                                <div class="col-8 col-lg-9">
+                                    <input class="form-control" id="inputEmail2" type="text" placeholder="Джинсы" name="query">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3 col-lg-2"></div>
+                                <div class="col-9 col-lg-10">
+                                    <button class="btn btn-xl float-right btn-space btn-primary" type="submit">
+                                        Искать
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <vue-snotify></vue-snotify>
+    </div>
+{%endblock%}

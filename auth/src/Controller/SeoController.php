@@ -28,5 +28,20 @@ class SeoController extends AbstractController
     {
         return $this->render('seo/selection.html.twig');
     }
+    #[Route(path: '/position-tracking', name: 'position_tracking')]
+    public function positionTracking(): Response
+    {
+        return $this->render('seo/position-tracking.twig');
+    }
+    #[Route(path: '/tools/wb-card-checker', name: 'wb_card_checker')]
+    public function toolsCardChecker(): Response
+    {
+        return $this->render('seo/wb-card-checker.html.twig');
+    }
+    #[Route(path: '/tools/wb-sku-compare', name: 'wb_sku_compare')]
+    public function toolsSkuCompare(): Response
+    {
+        return $this->render('seo/wb-sku-compare.html.twig');
+    }
 
 }
