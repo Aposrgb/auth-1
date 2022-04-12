@@ -2,17 +2,31 @@
 
 namespace App\Controller;
 
+use App\Entity\ApiToken;
+use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route("/cabinet")]
 class CabinetController extends AbstractController
 {
+    public function __construct(
+        protected EntityManagerInterface $entityManager
+    )
+    {
+    }
+
     #[Route(path: '/summary', name: 'summary')]
     public function summary(): Response
     {
-        return $this->render('cabinet/summary.html.twig');
+        $user = $this->getUser();
+        return $this->render('cabinet/summary.html.twig',
+            ['token' => $user->getApiToken()?$user->getApiToken()->last():null]
+        );
     }
     #[Route(path: '/sales', name: 'sales')]
     public function sales(): Response
@@ -54,10 +68,43 @@ class CabinetController extends AbstractController
     {
         return $this->render('cabinet/weekly-reports.html.twig');
     }
-    #[Route(path: '/connect', name: 'connect')]
+    #[Route(path: '/connect', name: 'connect', methods: ["GET"])]
     public function connect(): Response
     {
-        return $this->render('cabinet/connect.html.twig');
+        return $this->render('cabinet/connect.html.twig',
+            ['tokens' => $this->getUser()->getApiToken()]
+        );
     }
+    #[Route(path: '/connect', name: 'connect_post', methods: ["POST"])]
+    public function connectAddToken(Request $request): Response
+    {
 
+        $key = $request->request->get('api_key');
+        $name = $request->request->get('name');
+        $error = '';
+        /** @var User $user */
+        $user = $this->getUser();
+        if(!$key || !$name){
+            $error = "Не заполнено поле";
+        }else if($key and $name){
+            $token = $this->entityManager->getRepository(ApiToken::class)->findBy(['name' => $name]);
+            $token = $token??$this->entityManager->getRepository(ApiToken::class)->findBy(['token' => $key]);
+            if($token){
+                $error = "Уже есть такой токен";
+            }else{
+                $user->addApiToken((new ApiToken())
+                    ->setApiUser($user)
+                    ->setName($name)
+                    ->setToken($key)
+                );
+                $this->entityManager->flush();
+            }
+        }
+        return $this->render('cabinet/connect.html.twig',
+            [
+                'tokens' => $user->getApiToken(),
+                'error' => $error
+            ]
+        );
+    }
 }

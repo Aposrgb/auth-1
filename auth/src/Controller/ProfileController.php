@@ -35,18 +35,9 @@ class ProfileController extends AbstractController
     {
         return $this->render('lk/bills.html.twig');
     }
-    #[Route(path: '/userpanel', name: 'userpanel', methods: ["GET"])]
+    #[Route(path: '/userpanel', name: 'userpanel')]
     public function userPanel(): Response
     {
-        return $this->render('lk/userpanel.html.twig', [
-            'user' => $this->getUser()
-        ]);
-    }
-    #[Route(path: '/userpanel', name: 'userpanel_post', methods: ["POST"])]
-    public function userPanelPost(): Response
-    {
-        $this->getUser()->generateToken();
-        $this->entityManager->flush();
         return $this->render('lk/userpanel.html.twig', [
             'user' => $this->getUser()
         ]);

@@ -90,6 +90,11 @@
                 <li class="nav-item"><a href="/chrome-plugin" class="nav-link ">
                     Плагин Chrome
                 </a></li>
+                {% if is_granted("ROLE_ADMIN") %}
+                    <li class="nav-item dropdown"><a href="../admin" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">Админ панель</a>
+                        <div role="menu" style="display:none;" class="dropdown-menu show">
+                    </li>
+                {% endif%}
             </ul>
         </div>
         <div class="be-right-navbar d-flex align-items-center">

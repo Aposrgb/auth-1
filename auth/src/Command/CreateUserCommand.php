@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class CreateClientCommand extends Command
+class CreateUserCommand extends Command
 {
     public function __construct(
         protected EntityManagerInterface $entityManager,

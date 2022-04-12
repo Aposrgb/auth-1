@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -25,12 +27,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private $password;
 
-    #[ORM\Column(type: 'string', nullable: true,unique: true)]
-    private $token;
+    #[ORM\OneToMany(mappedBy: 'apiUser', targetEntity: ApiToken::class, cascade: ['persist', 'remove'])]
+    private $apiToken;
 
-    public function generateToken()
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private $dateExpired;
+
+    public function __construct()
     {
-        return $this->token = (md5(microtime() . rand(100000, 10000000)));
+        $this->apiToken = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -71,6 +76,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return array_unique($roles);
     }
+    public function addRole($role): self
+    {
+        $this->roles[] = $role;
+
+        return $this;
+    }
 
     public function setRoles(array $roles): self
     {
@@ -104,20 +115,45 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return string
+     * @return Collection<int, ApiToken>
      */
-    public function getToken(): string
+    public function getApiToken(): Collection
     {
-        return $this->token;
+        return $this->apiToken;
     }
 
-    /**
-     * @param string $token
-     */
-    public function setToken(string $token): void
+    public function addApiToken(ApiToken $apiToken): self
     {
-        $this->token = $token;
+        if (!$this->apiToken->contains($apiToken)) {
+            $this->apiToken[] = $apiToken;
+            $apiToken->setApiUser($this);
+        }
+
+        return $this;
     }
 
+    public function removeApiToken(ApiToken $apiToken): self
+    {
+        if ($this->apiToken->removeElement($apiToken)) {
+            // set the owning side to null (unless already changed)
+            if ($apiToken->getApiUser() === $this) {
+                $apiToken->setApiUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDateExpired(): ?\DateTimeInterface
+    {
+        return $this->dateExpired;
+    }
+
+    public function setDateExpired(\DateTimeInterface $dateExpired): self
+    {
+        $this->dateExpired = $dateExpired;
+
+        return $this;
+    }
 
 }

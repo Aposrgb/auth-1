@@ -1,0 +1,85 @@
+{% extends 'index/index.html.twig' %}
+{% block linkStyles %}
+    <link href="../styles/index/styles.css" rel="stylesheet">
+    <link href="../styles/index/vendor.css" rel="stylesheet">
+    <link href="../styles/summary/summary.css" rel="stylesheet">
+    <link href="../styles/summary/table.css" rel="stylesheet">
+    <link href="../styles/summary/table2.css" rel="stylesheet">
+    <script src="js/jquery-3.1.1.min.js"></script>
+{% endblock %}
+{% block body %}
+    <form id="create_user" method="post">
+        {% if error ?? false %}
+{#            <div class="error">{{error}}</div>#}
+            <div class="error">Неверные данные</div>
+        {% endif %}
+        <div>
+            <label>Имя<input name="name" type="text"/></label>
+        </div>
+        <div>
+            <label>Пароль<input name="password" type="password"/></label>
+        </div>
+        <div>
+            <label>
+                Дата истечения срока жизни аккаунта
+                <select name="dateExpired">
+                    <option value="always">Навсегда</option>
+                    <option value="month">30 дней</option>
+                </select>
+            </label>
+        </div>
+        <div><input class="submit" type="submit" value="Создать"/></div>
+    </form>
+    <style>
+        #create_user{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20vh;
+            padding-bottom: 20vh;
+            background: white;
+            border-radius: 2vh;
+            width: 40vw;
+            margin: 0 auto;
+        }
+        #create_user :only-child{
+            margin: 2vh;
+        }
+        label{
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+        p{
+            margin-bottom: 5vh;
+        }
+        .error{
+            color:red;
+            font-size: 2vh;
+            margin: 0;
+        }
+        form input{
+            background: #c4c4c4;
+            text-align: center;
+            border:none;
+            width: 12vw;
+            height: 3vh;
+            padding: 1vh;
+            border-radius: 2vh;
+            font-size: 2vh;
+        }
+        .submit{
+            margin-top: 5vh;
+            width: auto;
+            background: #81ff86;
+            font-size: 3vh;
+            height: auto;
+            padding: 1vh 3vh;
+            border-radius: 2vh;
+            color: black;
+        }
+        select{
+            text-align: center;
+        }
+    </style>
+{% endblock %}

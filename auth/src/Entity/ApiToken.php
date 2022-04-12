@@ -1,0 +1,66 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\ApiTokenRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: ApiTokenRepository::class)]
+class ApiToken
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private $id;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $token;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $name;
+
+    #[ORM\ManyToOne(targetEntity: User::class, cascade: ['persist', 'remove'], inversedBy: 'apiToken')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $apiUser;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(string $token): self
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getApiUser(): ?User
+    {
+        return $this->apiUser;
+    }
+
+    public function setApiUser(?User $apiUser): self
+    {
+        $this->apiUser = $apiUser;
+
+        return $this;
+    }
+}
