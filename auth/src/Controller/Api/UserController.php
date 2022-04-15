@@ -2,12 +2,14 @@
 
 namespace App\Controller\Api;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use OpenApi\Annotations as OA;
 
-#[Route('/api')]
+/**
+ * @OA\Tag(name="User")
+ */
 class UserController extends AbstractController
 {
     #[Route('/users', name: 'get_users', methods: ["GET"])]
@@ -15,9 +17,5 @@ class UserController extends AbstractController
     {
         return $this->json(["user"]);
     }
-    #[Route('/login_check', name: 'login', methods: ["GET"])]
-    public function login(): JsonResponse
-    {
-        return $this->json(["log"]);
-    }
+
 }

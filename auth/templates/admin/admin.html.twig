@@ -9,6 +9,7 @@
 {% endblock %}
 {% block body %}
     <form id="create_user" method="post">
+        <h1>Создание пользователя</h1>
         {% if error ?? false %}
 {#            <div class="error">{{error}}</div>#}
             <div class="error">Неверные данные</div>
@@ -24,7 +25,9 @@
                 Дата истечения срока жизни аккаунта
                 <select name="dateExpired">
                     <option value="always">Навсегда</option>
-                    <option value="month">30 дней</option>
+                    <option value="30">30 дней</option>
+                    <option value="14">14 дней</option>
+                    <option value="7">7 дней</option>
                 </select>
             </label>
         </div>

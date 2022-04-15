@@ -2,25 +2,45 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    #[Route(path: '/', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function __construct(
+        protected EntityManagerInterface $entityManager
+    )
     {
-         if ($this->getUser()) {
-             return $this->redirectToRoute('index');
-         }
+    }
+    #[Route(path: '/', name: 'redirect_login')]
+    public function redirectToLogin()
+    {
+        return $this->redirectToRoute("app_login");
+    }
+
+    #[Route(path: '/login', name: 'app_login')]
+    public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
+    {
+        $client = $this->getUser();
+        if($client && $client->getAllowIpAddress()){
+            if($request->getClientIp() != $client->getAllowIpAddress()){
+                return $this->render('security/login.html.twig', ['logout' => true, 'ipAddr' => true ]);
+            }
+        }
+        if ($client) {
+            $client->setAllowIpAddress($request->getClientIp());
+            $this->entityManager->flush();
+            return $this->redirectToRoute('index');
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 

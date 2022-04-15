@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Helper\Status\StatusTrait;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,6 +14,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Table(name: '`user`')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    use StatusTrait;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -33,8 +35,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'datetime', nullable: true)]
     private $dateExpired;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $allowIpAddress;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Device::class, cascade: ["persist", "remove"])]
+    private $devices;
+
     public function __construct()
     {
+        $this->devices = new ArrayCollection();
         $this->apiToken = new ArrayCollection();
     }
 
@@ -156,4 +165,49 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getAllowIpAddress()
+    {
+        return $this->allowIpAddress;
+    }
+
+    /**
+     * @param mixed $allowIpAddress
+     */
+    public function setAllowIpAddress($allowIpAddress): void
+    {
+        $this->allowIpAddress = $allowIpAddress;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getDevices(): Collection
+    {
+        return $this->devices;
+    }
+
+    public function addDevice(Device $device): self
+    {
+        if (!$this->devices->contains($device)) {
+            $this->devices[] = $device;
+            $device->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDevice(Device $device): self
+    {
+        if ($this->devices->removeElement($device)) {
+            // set the owning side to null (unless already changed)
+            if ($device->getUser()=== $this) {
+                $device->setUser(null);
+            }
+        }
+
+        return $this;
+    }
 }

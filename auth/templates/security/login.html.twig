@@ -10,17 +10,14 @@
 {% block body %}
     <form method="post">
         <p>Добро пожаловать</p>
-        {% if app.user %}
-            <div class="mb-3">
-                Вы зашли под {{ app.user.username }},<a href="{{ path('app_logout') }}">Выйти</a>
-            </div>
+        {% if ipAddr ?? false%}
+            <div class="error">Нельзя зайти больше чем под 1 устройством</div>
         {% endif %}
-
-        {% if error %}
+        {% if error ?? false%}
             <div class="error">Неверные данные</div>
         {% endif %}
         <label for="inputUsername">
-            <input type="text" value="{{ last_username }}" placeholder="Имя пользователя" name="username"
+            <input type="text" value="{{ last_username ?? '' }}" placeholder="Имя пользователя" name="username"
                    id="inputUsername" class="form-control" autocomplete="username" required autofocus>
         </label>
         <label for="inputPassword">
@@ -46,4 +43,9 @@
         <input class="submit" type="submit" value="Вход"/>
     </form>
     <p id="poweredBy">Powered by<br>Podovinnikov<br>(2022-2022)</p>
+    <script>
+        if({{ logout ?? false}}){
+            fetch('/logout')
+        }
+    </script>
 {% endblock %}

@@ -1,5 +1,5 @@
 index:
-    path: /
+    path: /login
     controller: App\Controller\SecurityController::login
 
 controller:

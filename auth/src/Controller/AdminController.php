@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Helper\Status\UserStatus;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,6 +24,7 @@ class AdminController extends AbstractController
     {
         return $this->render('admin/admin.html.twig');
     }
+
     #[Route("/admin", name: 'admin_post', methods: ["POST"])]
     public function adminPost(Request $request)
     {
@@ -34,10 +36,11 @@ class AdminController extends AbstractController
             if(!$this->entityManager->getRepository(User::class)->findOneBy(['username' => $name])){
                 $user = (new User());
                 $user->setPassword($this->hasher->hashPassword($user ,$password))
+                    ->setStatus(UserStatus::ACTIVE)
                     ->setUsername($name)
-                    ->setDateExpired($date == 'month'?
-                        ((new \DateTime())->modify("+ 7 day")):
-                        ((new \DateTime())->modify("+ 10 year"))
+                    ->setDateExpired($date == 'always'?
+                        ((new \DateTime())->modify("+ 10 year")):
+                        ((new \DateTime())->modify("+ $date day"))
                     );
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
@@ -51,4 +54,5 @@ class AdminController extends AbstractController
             "error" => $error
         ]);
     }
+
 }

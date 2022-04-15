@@ -4,6 +4,14 @@ nelmio_api_doc:
             title: My App
             description: This is an awesome app!
             version: 1.0.0
+        components:
+            securitySchemes:
+                ApiKeyAuth: # arbitrary name for the security scheme
+                    type: apiKey
+                    in: header
+                    name: token
+        security:
+            - ApiKeyAuth: [ ]
     areas: # to filter documented areas
         default:
             path_patterns: [ ^/api ]

@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Entity\Client;
 use App\Entity\User;
+use App\Helper\Status\UserStatus;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -47,7 +48,7 @@ class CreateUserCommand extends Command
 
         $password = $helper->ask($input, $output, $question);
         $user->setPassword($this->hasher->hashPassword($user, $password));
-
+        $user->setStatus(UserStatus::ACTIVE);
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
