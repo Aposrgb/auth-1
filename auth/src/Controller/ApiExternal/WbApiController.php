@@ -1,17 +1,19 @@
 <?php
 
-namespace App\Controller\Api;
+namespace App\Controller\ApiExternal;
 
+use App\Helper\Exception\ApiException;
 use App\Service\ValidatorService;
 use App\Service\WbApiService;
+use OpenApi\Annotations as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-use OpenApi\Annotations as OA;
 
 /**
  * @OA\Tag(name="WB")
  */
+#[Route('/wb')]
 class WbApiController extends AbstractController
 {
     public function __construct(

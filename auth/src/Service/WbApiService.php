@@ -15,8 +15,13 @@ class WbApiService extends AbstractController
 
     protected function sendRequest( $token, string $path, string $method = 'GET', array $data = [] )
     {
-        $data['dateFrom'] = date( DATE_RFC3339, strtotime( $data['dateFrom'] ) );
-        $data['dateTo'] = date( DATE_RFC3339, strtotime( isset( $data['dateTo'] ) ? $data['dateTo'] : 'now' ) );
+        $data['dateFrom'] = (new \DateTime())
+            ->modify('- 1 month')
+            ->format("Y-m-d");
+
+        $data['dateTo'] = (new \DateTime())
+            ->format("Y-m-d");
+
         $data['key'] = $token;
         $request = (new Client())
             ->request($method, $this->apiUrl . $path . "?" . http_build_query( $data ));
