@@ -44,7 +44,7 @@
     </form>
     <p id="poweredBy">Powered by<br>Podovinnikov<br>(2022-2022)</p>
     <script>
-        if({{ logout ?? false}}){
+        if({{ logout ?? "false"}}){
             fetch('/logout')
         }
     </script>

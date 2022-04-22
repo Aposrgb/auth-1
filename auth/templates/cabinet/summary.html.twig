@@ -8,91 +8,70 @@
 {% endblock %}
 {% block body %}
     {% if token %}
-        <p style="display:none;z-index: 15;position: fixed;bottom: 4vh;padding: 3vh;background: red;color: snow;border-radius: 0.3vh;font-size: 1.5vh;" id="error">
-            Ошибка обращения к API, слишком много запросов
-        </p>
-        {% include 'cabinet/HTML/summary.html'%}
-        <script>
-            let intFormatter = new Intl.NumberFormat()
-            let salesUrl = '../wb/sales'
-            let ordersUrl = '../wb/orders'
-            let stocksUrl = '../wb/stocks'
+        {% if processing ?? false %}
+            <div class="be-content">
+                <div id="mp-stats-app" class="main-content container-fluid">
+                    <div id="global-loader-block" aria-hidden="true" class="mp-loader-overlay ag-overlay hidden">
+                        <div class="ag-overlay-panel">
+                            <div class="ag-overlay-wrapper ag-layout-normal ag-overlay-loading-wrapper">
+                                <div class="mp-loader-static"></div>
+                            </div>
+                        </div>
+                    </div> <!---->
+                    <div>
+                        <div class="card">
+                            <div class="card-header d-md-flex justify-content-between align-items-start pb-3 pt-3">
+                                <div class="d-flex flex-column flex-lg-row justify-content-between justify-content-lg-start align-items-lg-center">
+                                    <div class="d-flex flex-column flex-lg-block flex-lg-row">
+                                        <div class="d-block-inline dropdown-period mr-3">
+                                            <div class="btn-group d-flex flex-column flex-lg-block flex-lg-row">
+                                                Происходит обработка, пожалуйста повторите позже
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p style="display:none;z-index: 15;position: fixed;bottom: 4vh;padding: 3vh;background: red;color: snow;border-radius: 0.3vh;font-size: 1.5vh;"
+               id="error">
+                Ошибка обращения к API, слишком много запросов
+            </p>
 
-            async function sendRequest(path){
-                let data = await fetch(path)
-                    .then((response) => {
-                        if (response.ok) {
-                            return response.json();
-                        }
-                        throw new Error('Something went wrong');
-                    }).catch(catchApi)
-                return data["data"]
-            }
+            {% include 'cabinet/HTML/summary.html.twig' %}
 
-            async function sales(){
-                let saleResult = 0;
-                let sales = await sendRequest(salesUrl)
-                let length = 0, profit  = 0, commis = 0, returnedPrice = 0, returnedLength = 0,
-                    rent= 0, mardj = 0
-                for(let i=0;i<sales.length;i++){
-                    if(sales[i]["quantity"] === 0) continue
-                    if(sales[i]["quantity"] < 0){
-                        returnedPrice += sales[i]["priceWithDisc"]
-                        returnedLength += sales[i]["quantity"]
-                    }
-                    rent += sales[i]["forPay"]/sales[i]["totalPrice"] * 100
-                    mardj += (sales[i]["totalPrice"] - sales[i]["forPay"]) / sales[i]["totalPrice"] * 100
-                    saleResult += (sales[i]["priceWithDisc"]*sales[i]["quantity"])
-                    length += sales[i]["quantity"]
-                    profit += (sales[i]["finishedPrice"]*sales[i]["quantity"])
-                    commis += (sales[i]["finishedPrice"]*sales[i]["quantity"]) - (sales[i]["forPay"]*sales[i]["quantity"])
+            <script>
+                formatter("summa_price")
+                formatter("summa_length")
+                formatter("summa_profit")
+                formatter("summa_comm")
+                formatter("returned_length")
+                formatter("returned_price")
+                formatter("rent")
+                formatter("mardj")
+                formatter("orders_price")
+                formatter("orders_length")
+                formatter("stocks_cost_price")
+                formatter("stocks_retail_price")
+
+                function formatter(id) {
+                    let intFormatter = new Intl.NumberFormat()
+                    let prop = document.getElementById(id)
+                    prop.innerText = intFormatter.format(prop.innerText)
                 }
-                document.getElementById("summa_price").innerText = intFormatter.format(saleResult)
-                document.getElementById("summa_length").innerText = intFormatter.format(length)
-                document.getElementById("summa_profit").innerText = intFormatter.format(profit)
-                document.getElementById("summa_comm").innerText = intFormatter.format(commis)
-                document.getElementById("returned_length").innerText = intFormatter.format(returnedLength)
-                document.getElementById("returned_price").innerText = intFormatter.format(returnedPrice)
-                document.getElementById("rent").innerText = intFormatter.format(parseInt(rent/sales.length))
-                document.getElementById("mardj").innerText = intFormatter.format(parseInt(mardj/sales.length))
-                orders()
-            }
 
-            async function orders(){
-                let saleResult = 0;
-                let sales = await sendRequest(ordersUrl)
-                let length = 0
-                for(let i=0;i<sales.length;i++){
-                    if(sales[i]["quantity"] === 0) continue
-                    saleResult += (sales[i]["totalPrice"]*sales[i]["quantity"])
-                    length += sales[i]["quantity"]
+                function catchApi(error) {
+                    document.getElementById('error').style.display = 'block'
+                    setTimeout(() => {
+                        document.getElementById('error').style.display = 'none'
+                    }, 7000)
                 }
-                document.getElementById("orders_price").innerText = intFormatter.format(saleResult)
-                document.getElementById("orders_length").innerText = intFormatter.format(length)
-                stocks()
-            }
 
-            async function stocks(){
-                let cost = 0;
-                let sales = await sendRequest(stocksUrl)
-                let retail = 0
-                for(let i=0;i<sales.length;i++){
-                    if(sales[i]["quantity"] === 0) continue
-                    cost += (sales[i]["Price"]*sales[i]["quantity"]*sales[i]["Discount"])/100
-                    retail += (sales[i]["Price"]*sales[i]["quantity"])
-                }
-                document.getElementById("stocks_cost_price").innerText = intFormatter.format(cost)
-                document.getElementById("stocks_retail_price").innerText = intFormatter.format(retail)
-            }
-
-            sales()
-
-            function catchApi(error){
-                document.getElementById('error').style.display = 'block'
-                setTimeout(()=>{document.getElementById('error').style.display = 'none'}, 7000)
-            }
-
-        </script>
+            </script>
+        {% endif %}
     {% else %}
         <div id="mp-stats-app" class="main-content container-fluid">
             <div id="global-loader-block" aria-hidden="true" class="mp-loader-overlay ag-overlay hidden">

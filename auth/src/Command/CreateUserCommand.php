@@ -2,7 +2,6 @@
 
 namespace App\Command;
 
-use App\Entity\Client;
 use App\Entity\User;
 use App\Helper\Status\UserStatus;
 use Doctrine\ORM\EntityManagerInterface;

@@ -17329,7 +17329,6 @@ canvas {
     line-height: 60px;
     height: 60px;
     width: 230px;
-    background-image: url(/i/logo.png);
     background-repeat: no-repeat;
     background-position: center center;
     padding: 0 20px;
@@ -17339,7 +17338,6 @@ canvas {
 
 @media (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi) {
     .be-top-header .be-navbar-header .navbar-brand {
-        background-image: url(/i/logo-xx.png);
         background-size: 102px 27px
     }
 }
@@ -17869,15 +17867,7 @@ canvas {
     border-bottom-color: #4285f4
 }
 
-.be-color-header .be-top-header .be-navbar-header .navbar-brand {
-    background-image: url(/i/logo-white.png)
-}
 
-@media (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi) {
-    .be-color-header .be-top-header .be-navbar-header .navbar-brand {
-        background-image: url(/i/logo-white-xx.png)
-    }
-}
 
 .be-color-header .be-top-header .page-title {
     color: #fff
@@ -23022,7 +23012,6 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 .invoice-logo {
     height: 54px;
     min-width: 204px;
-    background-image: url(/i/logo-xx.png);
     background-repeat: no-repeat;
     background-position: 0
 }
@@ -23031,7 +23020,6 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     .invoice-logo {
         height: 27px;
         width: 102px;
-        background-image: url(/i/logo.png)
     }
 }
 
@@ -23047,7 +23035,6 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     .invoice-logo {
         height: 27px !important;
         width: 102px !important;
-        background-image: url(/i/logo.png) !important;
         display: block !important;
         background-repeat: no-repeat !important
     }

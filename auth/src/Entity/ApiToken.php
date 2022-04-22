@@ -19,7 +19,7 @@ class ApiToken
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    #[ORM\ManyToOne(targetEntity: User::class, cascade: ['persist', 'remove'], inversedBy: 'apiToken')]
+    #[ORM\ManyToOne(targetEntity: User::class, cascade: ['persist'], inversedBy: 'apiToken')]
     #[ORM\JoinColumn(nullable: false)]
     private $apiUser;
 

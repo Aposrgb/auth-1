@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
-use App\Controller\ApiExternal\WbApiController;
 use App\Entity\ApiToken;
 use App\Entity\User;
+use App\Entity\WbDataEntity\WbData;
+use App\Entity\WbDataEntity\WbDataProperty;
+use App\Service\CabinetWbService;
+use App\Service\WbApiService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +19,7 @@ class CabinetController extends AbstractController
 {
     public function __construct(
         protected EntityManagerInterface $entityManager,
-        protected WbApiController $controller
+        protected CabinetWbService $cabinetWbService
     )
     {
     }
@@ -25,11 +28,9 @@ class CabinetController extends AbstractController
     public function summary(): Response
     {
         $user = $this->getUser();
+        $token = $user->getApiToken()->last();
         return $this->render('cabinet/summary.html.twig',
-            [
-                'token' => $user->getApiToken()?$user->getApiToken()->last():null
-            ]
-        );
+            $this->cabinetWbService->getWbData($token));
     }
     #[Route(path: '/sales', name: 'sales')]
     public function sales(): Response
@@ -79,9 +80,8 @@ class CabinetController extends AbstractController
         );
     }
     #[Route(path: '/connect', name: 'connect_post', methods: ["POST"])]
-    public function connectAddToken(Request $request): Response
+    public function connectAddToken(Request $request, WbApiService $service): Response
     {
-
         $key = $request->request->get('api_key');
         $name = $request->request->get('name');
         $error = '';
@@ -101,13 +101,27 @@ class CabinetController extends AbstractController
                     ->setToken($key)
                 );
                 $this->entityManager->flush();
+                shell_exec("php ../bin/console wb:data:processing $key > /dev/null &");
             }
         }
         return $this->render('cabinet/connect.html.twig',
             [
                 'tokens' => $user->getApiToken(),
-                'error' => $error
+                'error' => $error,
+                'data' => $error == ''?$key:null
             ]
         );
+    }
+    #[Route(path: '/token/{id}', name: 'delete_token', methods: ["GET"])]
+    public function deleteToken(ApiToken $token): Response
+    {
+        $this->entityManager->remove($token);
+        $wbData = $this->entityManager->getRepository(WbData::class)->findOneBy(["apiToken" => $token->getId()]);
+        if($wbData){
+            $this->entityManager->remove($wbData);
+            $this->entityManager->getRepository(WbDataProperty::class)->removeAllProp($wbData->getId());
+        }
+        $this->entityManager->flush();
+        return $this->json(["data" => ["messages" => "ok"]]);
     }
 }

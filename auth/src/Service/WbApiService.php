@@ -2,18 +2,26 @@
 
 namespace App\Service;
 
+use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class WbApiService extends AbstractController
+class WbApiService
 {
+    protected $token;
+
     public function __construct(
         protected $apiUrl,
+        protected EntityManagerInterface $entityManager
     )
     {
     }
 
-    protected function sendRequest( $token, string $path, string $method = 'GET', array $data = [] )
+    public function setToken($token)
+    {
+        $this->token = $token;
+    }
+
+    protected function sendRequest(string $path, string $method = 'GET', array $data = [] )
     {
         $data['dateFrom'] = (new \DateTime())
             ->modify('- 1 month')
@@ -22,7 +30,7 @@ class WbApiService extends AbstractController
         $data['dateTo'] = (new \DateTime())
             ->format("Y-m-d");
 
-        $data['key'] = $token;
+        $data['key'] = $this->token;
         $request = (new Client())
             ->request($method, $this->apiUrl . $path . "?" . http_build_query( $data ));
 
@@ -34,39 +42,39 @@ class WbApiService extends AbstractController
 
     }
 
-    public function incomes( $token, string $dateFrom = null )
+    public function incomes(string $dateFrom = null )
     {
         $data = ['dateFrom' => $dateFrom ?? $this->dateFrom ?? null];
-        return $this->sendRequest( $token,'incomes', 'GET', $data );
+        return $this->sendRequest('incomes', 'GET', $data );
     }
 
-    public function stocks( $token, string $dateFrom = null )
+    public function stocks(string $dateFrom = null )
     {
         $data = ['dateFrom' => $dateFrom ?? $this->dateFrom ?? null];
-        return $this->sendRequest( $token,'stocks', 'GET', $data );
+        return $this->sendRequest('stocks', 'GET', $data );
     }
 
-    public function orders( $token, string $dateFrom = null, int $flag = 0 )
+    public function orders(string $dateFrom = null, int $flag = 0 )
     {
         $data = ['dateFrom' => $dateFrom ?? $this->dateFrom ?? null, 'flag' => $flag];
-        return $this->sendRequest( $token,'orders', 'GET', $data );
+        return $this->sendRequest('orders', 'GET', $data );
     }
 
-    public function sales( $token, string $dateFrom = null, int $flag = 0 )
+    public function sales(string $dateFrom = null, int $flag = 0 )
     {
         $data = ['dateFrom' => $dateFrom ?? $this->dateFrom ?? null, 'flag' => $flag];
-        return $this->sendRequest( $token,'sales', 'GET', $data );
+        return $this->sendRequest('sales', 'GET', $data );
     }
 
-    public function reportDetailByPeriod( $token, string $dateFrom = null, string $dateTo = null, int $limit = 100, int $rrdid = 0 )
+    public function reportDetailByPeriod(string $dateFrom = null, string $dateTo = null, int $limit = 100, int $rrdid = 0 )
     {
         $data = ['dateFrom' => $dateFrom ?? $this->dateFrom ?? null, 'dateTo' => $dateTo, 'limit' => $limit, 'rrdid' => $rrdid];
-        return $this->sendRequest( $token,'reportDetailByPeriod', 'GET', $data );
+        return $this->sendRequest('reportDetailByPeriod', 'GET', $data );
     }
 
-    public function exciseGoods( $token, string $dateFrom = null )
+    public function exciseGoods(string $dateFrom = null )
     {
         $data = ['dateFrom' => $dateFrom ?? $this->dateFrom ?? null];
-        return $this->sendRequest( $token,'exciseGoods', 'GET', $data );
+        return $this->sendRequest('excise-goods', 'GET', $data );
     }
 }

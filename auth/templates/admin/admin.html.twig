@@ -11,7 +11,7 @@
     <form id="create_user" method="post">
         <h1>Создание пользователя</h1>
         {% if error ?? false %}
-{#            <div class="error">{{error}}</div>#}
+            {#            <div class="error">{{error}}</div> #}
             <div class="error">Неверные данные</div>
         {% endif %}
         <div>
@@ -25,6 +25,7 @@
                 Дата истечения срока жизни аккаунта
                 <select name="dateExpired">
                     <option value="always">Навсегда</option>
+                    <option value="60">60 дней</option>
                     <option value="30">30 дней</option>
                     <option value="14">14 дней</option>
                     <option value="7">7 дней</option>
@@ -33,8 +34,60 @@
         </div>
         <div><input class="submit" type="submit" value="Создать"/></div>
     </form>
+    <div style="display: flex;align-items: center;flex-direction: column;margin: 0 auto;">
+        <table class="styled-table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Date expires</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users%}
+                <tr>
+                    <td>{{user.id}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.dateExpired|date("m/d/Y") }}</td>
+                </tr>
+            {% endfor%}
+            </tbody>
+        </table>
+    </div>
     <style>
-        #create_user{
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #009879;
+        }
+
+        .styled-table th,
+        .styled-table td {
+            padding: 12px 15px;
+        }
+
+        .styled-table thead tr {
+            background-color: #009879;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            min-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+        #create_user {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -45,33 +98,39 @@
             width: 40vw;
             margin: 0 auto;
         }
-        #create_user :only-child{
+
+        #create_user :only-child {
             margin: 2vh;
         }
-        label{
+
+        label {
             text-align: center;
             display: flex;
             flex-direction: column;
         }
-        p{
+
+        p {
             margin-bottom: 5vh;
         }
-        .error{
-            color:red;
+
+        .error {
+            color: red;
             font-size: 2vh;
             margin: 0;
         }
-        form input{
+
+        form input {
             background: #c4c4c4;
             text-align: center;
-            border:none;
+            border: none;
             width: 12vw;
             height: 3vh;
             padding: 1vh;
             border-radius: 2vh;
             font-size: 2vh;
         }
-        .submit{
+
+        .submit {
             margin-top: 5vh;
             width: auto;
             background: #81ff86;
@@ -81,7 +140,8 @@
             border-radius: 2vh;
             color: black;
         }
-        select{
+
+        select {
             text-align: center;
         }
     </style>

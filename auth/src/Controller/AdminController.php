@@ -22,7 +22,9 @@ class AdminController extends AbstractController
     #[Route("/admin", name: 'admin', methods: ["GET"])]
     public function admin()
     {
-        return $this->render('admin/admin.html.twig');
+        return $this->render('admin/admin.html.twig', [
+            "users" => $this->entityManager->getRepository(User::class)->findAll()
+        ]);
     }
 
     #[Route("/admin", name: 'admin_post', methods: ["POST"])]
@@ -51,7 +53,8 @@ class AdminController extends AbstractController
             $error = true;
         }
         return $this->render('admin/admin.html.twig', [
-            "error" => $error
+            "error" => $error,
+            "users" => $this->entityManager->getRepository(User::class)->findAll()
         ]);
     }
 
