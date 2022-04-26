@@ -27,15 +27,16 @@ class CabinetController extends AbstractController
     #[Route(path: '/summary', name: 'summary')]
     public function summary(): Response
     {
-        $user = $this->getUser();
-        $token = $user->getApiToken()->last();
+        $token = $this->getUser()->getApiToken()->last();
         return $this->render('cabinet/summary.html.twig',
             $this->cabinetWbService->getWbData($token));
     }
     #[Route(path: '/sales', name: 'sales')]
     public function sales(): Response
     {
-        return $this->render('cabinet/sales.html.twig');
+        $token = $this->getUser()->getApiToken()->last();
+        return $this->render('cabinet/sales.html.twig',
+            $this->cabinetWbService->getOrders($token));
     }
     #[Route(path: '/products', name: 'products')]
     public function products(): Response
@@ -89,27 +90,7 @@ class CabinetController extends AbstractController
     {
         $key = $request->request->get('api_key');
         $name = $request->request->get('name');
-        $error = '';
-        /** @var User $user */
-        $user = $this->getUser();
-        if(!$key || !$name){
-            $error = "Не заполнено поле";
-        }else if($key and $name){
-            $repos = $this->entityManager->getRepository(ApiToken::class);
-            $token = $repos->findBy(['name' => $name, 'apiUser' => $user->getId()]);
-            $token = $token || $repos->findBy(['token' => $key]);
-            if($token){
-                $error = "Уже есть такой токен";
-            }else{
-                $user->addApiToken((new ApiToken())
-                    ->setApiUser($user)
-                    ->setName($name)
-                    ->setToken($key)
-                );
-                $this->entityManager->flush();
-                shell_exec("php ../bin/console wb:data:processing $key > /dev/null &");
-            }
-        }
+        $error = $this->cabinetWbService->addApiToken($user = $this->getUser(), $name, $key);
         return $this->redirectToRoute('connect',
             [
                 'tokens' => $user->getApiToken(),

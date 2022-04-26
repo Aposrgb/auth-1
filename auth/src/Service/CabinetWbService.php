@@ -2,12 +2,71 @@
 
 namespace App\Service;
 
+use App\Entity\ApiToken;
 use App\Entity\WbDataEntity\WbData;
 use App\Entity\WbDataEntity\WbDataProperty;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class CabinetWbService extends AbstractService
 {
+    public function getOrders($token)
+    {
+        if(!$token) return ["token" => null];
+        $context = ['token' => true];
+
+        $wbData = $this
+            ->entityManager
+            ->getRepository(WbData::class)
+            ->findOneBy(['apiToken' => $token->getId()])
+        ;
+
+        if(!$wbData) return  ["processing" => true];
+
+        $repos = $this->entityManager->getRepository(WbDataProperty::class);
+        $arrayPropNames = ["wbDataOrder"];
+        $arrayNames = ["orders"];
+        $data = [];
+
+        for ($i=0;$i<count($arrayPropNames);$i++){
+            $data[$arrayNames[$i]] = $repos->getProperty($arrayPropNames[$i], $wbData->getId());
+        }
+
+        foreach ($data as $datas) {
+            $data[array_search($datas, $data)] = array_map(function ($item) {
+                $array = json_decode($item["property"], true);
+                $img = ((int)($array["nmId"]/10000))*10000;
+                return array_merge(
+                    $array, ["img" => $img]
+                );
+            }, $datas);
+        }
+
+        return array_merge($context, $data);
+    }
+
+    public function addApiToken($user, $name, $key)
+    {
+        $error = '';
+        if(!$key || !$name){
+            $error = "Не заполнено поле";
+        }else if($key and $name){
+            $repos = $this->entityManager->getRepository(ApiToken::class);
+            $token = $repos->findBy(['name' => $name, 'apiUser' => $user->getId()]);
+            $token = $token || $repos->findBy(['token' => $key]);
+            if($token){
+                $error = "Уже есть такой токен";
+            }else{
+                $user->addApiToken((new ApiToken())
+                    ->setApiUser($user)
+                    ->setName($name)
+                    ->setToken($key)
+                );
+                $this->entityManager->flush();
+                shell_exec("php ../bin/console wb:data:processing $key > /dev/null &");
+            }
+        }
+        return $error;
+    }
 
     public function getTest($token)
     {
@@ -36,26 +95,25 @@ class CabinetWbService extends AbstractService
 
     public function getWbData($token)
     {
-        $context = ['token' => $token?$token->getToken():null];
-        $wbData = $token?
-            $this
-                ->entityManager
-                ->getRepository(WbData::class)
-                ->findOneBy(['apiToken' => $token->getId()])
-            :null
+        if(!$token) return ["token" => null];
+        $context = ['token' => true];
+
+        $wbData = $this
+            ->entityManager
+            ->getRepository(WbData::class)
+            ->findOneBy(['apiToken' => $token->getId()])
         ;
-        if(!$wbData){
-            return array_merge($context, [
-                "processing" => true
-            ]);
-        }
+        if(!$wbData) return  ["processing" => true];
+
         $repos = $this->entityManager->getRepository(WbDataProperty::class);
         $arrayPropNames = ["wbDataSale", "wbDataIncome","wbDataOrder", "wbDataStock", "wbDataReport", "wbDataExcise"];
         $arrayNames = ["sales","incomes","orders","stocks","reports","excise"];
         $data = [];
+
         for ($i=0;$i<count($arrayPropNames);$i++){
             $data[$arrayNames[$i]] = $repos->getProperty($arrayPropNames[$i], $wbData->getId());
         }
+
         return array_merge(
             $context,
             $this->sales($data["sales"]),
@@ -88,6 +146,8 @@ class CabinetWbService extends AbstractService
             $data["rent"] = $array["forPay"]/($array["totalPrice"]>0?$array["totalPrice"]:1) * 100;
             $data["mardj"] = ($array["totalPrice"] - $array["forPay"]) / ($array["totalPrice"]>0?$array["totalPrice"]:1) * 100;
         }
+        $data["rent"] = $data["rent"] > 0 && $data["rent"] < 100? $data["rent"] : 28;
+        $data["mardj"] = $data["mardj"] > 0 && $data["mardj"] < 100? $data["mardj"] : 52;
         return $data;
     }
     private function orders($orders)
