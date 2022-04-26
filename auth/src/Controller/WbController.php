@@ -22,12 +22,8 @@ class WbController extends AbstractController
     #[Route(path: '/category', name: 'wb_category')]
     public function category(): Response
     {
-        $category = $this->service->getCategory($this->getUser());
-        return $this->render('wb/category.html.twig',
-            [
-                "categories" => $category
-            ]
-        );
+        $context = $this->service->getCategory($this->getUser());
+        return $this->render('wb/category.html.twig', $context);
     }
     #[Route(path: '/bysearch', name: 'wb_by_search')]
     public function bySearch(): Response

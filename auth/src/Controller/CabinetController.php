@@ -27,16 +27,14 @@ class CabinetController extends AbstractController
     #[Route(path: '/summary', name: 'summary')]
     public function summary(): Response
     {
-        $token = $this->getUser()->getApiToken()->last();
         return $this->render('cabinet/summary.html.twig',
-            $this->cabinetWbService->getWbData($token));
+            $this->cabinetWbService->getWbData($this->getUser()->getId()));
     }
     #[Route(path: '/sales', name: 'sales')]
     public function sales(): Response
     {
-        $token = $this->getUser()->getApiToken()->last();
         return $this->render('cabinet/sales.html.twig',
-            $this->cabinetWbService->getOrders($token));
+            $this->cabinetWbService->getOrders($this->getUser()->getId()));
     }
     #[Route(path: '/products', name: 'products')]
     public function products(): Response

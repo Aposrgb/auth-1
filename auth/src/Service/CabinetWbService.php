@@ -5,12 +5,17 @@ namespace App\Service;
 use App\Entity\ApiToken;
 use App\Entity\WbDataEntity\WbData;
 use App\Entity\WbDataEntity\WbDataProperty;
+use App\Helper\Status\ApiTokenStatus;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class CabinetWbService extends AbstractService
 {
-    public function getOrders($token)
+    public function getOrders($id)
     {
+        $token = $this->entityManager->getRepository(ApiToken::class)->findOneBy([
+            'apiUser' => $id,
+            'status' => ApiTokenStatus::ACTIVE
+        ]);
         if(!$token) return ["token" => null];
         $context = ['token' => true];
 
@@ -20,7 +25,10 @@ class CabinetWbService extends AbstractService
             ->findOneBy(['apiToken' => $token->getId()])
         ;
 
-        if(!$wbData) return  ["processing" => true];
+        if(!$wbData){
+            $context["processing"] = true;
+            return $context;
+        }
 
         $repos = $this->entityManager->getRepository(WbDataProperty::class);
         $arrayPropNames = ["wbDataOrder"];
@@ -93,8 +101,12 @@ class CabinetWbService extends AbstractService
         return $data;
     }
 
-    public function getWbData($token)
+    public function getWbData($id)
     {
+        $token = $this->entityManager->getRepository(ApiToken::class)->findOneBy([
+            'apiUser' => $id,
+            'status' => ApiTokenStatus::ACTIVE
+        ]);
         if(!$token) return ["token" => null];
         $context = ['token' => true];
 
@@ -103,7 +115,10 @@ class CabinetWbService extends AbstractService
             ->getRepository(WbData::class)
             ->findOneBy(['apiToken' => $token->getId()])
         ;
-        if(!$wbData) return  ["processing" => true];
+        if(!$wbData){
+            $context["processing"] = true;
+            return $context;
+        }
 
         $repos = $this->entityManager->getRepository(WbDataProperty::class);
         $arrayPropNames = ["wbDataSale", "wbDataIncome","wbDataOrder", "wbDataStock", "wbDataReport", "wbDataExcise"];

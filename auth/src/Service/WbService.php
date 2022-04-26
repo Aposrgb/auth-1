@@ -2,20 +2,33 @@
 
 namespace App\Service;
 
+use App\Entity\ApiToken;
 use App\Entity\User;
 use App\Entity\WbDataEntity\WbData;
 use App\Entity\WbDataEntity\WbDataProperty;
+use App\Helper\Status\ApiTokenStatus;
 
 class WbService extends AbstractService
 {
-    public function getCategory(User $user)
+    public function getCategory($id)
     {
-        $token = $user->getApiToken()->last();
-        
+        $token = $this->entityManager->getRepository(ApiToken::class)->findOneBy([
+            'apiUser' => $id,
+            'status' => ApiTokenStatus::ACTIVE
+        ]);
+
+        if(!$token) return ["token" => null];
+        $context = ['token' => true];
+
         $wbData = $this
             ->entityManager
             ->getRepository(WbData::class)
             ->findOneBy(['apiToken' => $token->getId()]);
+
+        if(!$wbData){
+            $context["processing"] = true;
+            return $context;
+        }
 
         $stocks = $this
             ->entityManager
@@ -39,6 +52,7 @@ class WbService extends AbstractService
                 }
             }
         }
-        return $category;
+        $context['categories'] = $category;
+        return $context;
     }
 }
