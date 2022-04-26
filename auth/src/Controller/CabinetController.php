@@ -73,14 +73,19 @@ class CabinetController extends AbstractController
         return $this->render('cabinet/weekly-reports.html.twig');
     }
     #[Route(path: '/connect', name: 'connect', methods: ["GET"])]
-    public function connect(): Response
+    public function connect(Request $request): Response
     {
-        return $this->render('cabinet/connect.html.twig',
-            ['tokens' => $this->getUser()->getApiToken()]
-        );
+        $query = $request->query->all();
+        $context = [
+            'tokens' => $this->getUser()->getApiToken()
+        ];
+        if(key_exists("error", $query))
+            $context  = array_merge($context, ['error' => $query["error"]]);
+
+        return $this->render('cabinet/connect.html.twig',$context);
     }
     #[Route(path: '/connect', name: 'connect_post', methods: ["POST"])]
-    public function connectAddToken(Request $request, WbApiService $service): Response
+    public function connectAddToken(Request $request): Response
     {
         $key = $request->request->get('api_key');
         $name = $request->request->get('name');
@@ -90,8 +95,9 @@ class CabinetController extends AbstractController
         if(!$key || !$name){
             $error = "Не заполнено поле";
         }else if($key and $name){
-            $token = $this->entityManager->getRepository(ApiToken::class)->findBy(['name' => $name]);
-            $token = $token??$this->entityManager->getRepository(ApiToken::class)->findBy(['token' => $key]);
+            $repos = $this->entityManager->getRepository(ApiToken::class);
+            $token = $repos->findBy(['name' => $name, 'apiUser' => $user->getId()]);
+            $token = $token || $repos->findBy(['token' => $key]);
             if($token){
                 $error = "Уже есть такой токен";
             }else{
@@ -104,7 +110,7 @@ class CabinetController extends AbstractController
                 shell_exec("php ../bin/console wb:data:processing $key > /dev/null &");
             }
         }
-        return $this->render('cabinet/connect.html.twig',
+        return $this->redirectToRoute('connect',
             [
                 'tokens' => $user->getApiToken(),
                 'error' => $error,

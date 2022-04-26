@@ -4,9 +4,36 @@ namespace App\Service;
 
 use App\Entity\WbDataEntity\WbData;
 use App\Entity\WbDataEntity\WbDataProperty;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class CabinetWbService extends AbstractService
 {
+
+    public function getTest($token)
+    {
+        $wbData = $token?
+            $this
+                ->entityManager
+                ->getRepository(WbData::class)
+                ->findOneBy(['apiToken' => $token->getId()])
+            :null
+        ;
+        $repos = $this->entityManager->getRepository(WbDataProperty::class);
+        $arrayPropNames = ["wbDataSale", "wbDataIncome","wbDataOrder", "wbDataStock", "wbDataReport", "wbDataExcise"];
+        $arrayNames = ["sales","incomes","orders","stocks","reports","excise"];
+        $data = [];
+        for ($i=0;$i<count($arrayPropNames);$i++){
+            $data[$arrayNames[$i]] = $repos->getProperty($arrayPropNames[$i], $wbData->getId());
+        }
+        $data = new ArrayCollection($data);
+        foreach ($data as $datas) {
+            $data[$data->indexOf($datas)] = array_map(function ($item) {
+                return json_decode($item["property"], true);
+            }, $datas);
+        }
+        return $data;
+    }
+
     public function getWbData($token)
     {
         $context = ['token' => $token?$token->getToken():null];
@@ -58,8 +85,8 @@ class CabinetWbService extends AbstractService
             $data["summaLength"] += $array["quantity"];
             $data["summaProfit"] += $array["finishedPrice"]*$array["quantity"];
             $data["summaComm"] += ($array["finishedPrice"]*$array["quantity"]) - ($array["forPay"]*$array["quantity"]);
-            $data["rent"] = $array["forPay"]/$array["totalPrice"] * 100;
-            $data["mardj"] = ($array["totalPrice"] - $array["forPay"]) / $array["totalPrice"] * 100;
+            $data["rent"] = $array["forPay"]/($array["totalPrice"]>0?$array["totalPrice"]:1) * 100;
+            $data["mardj"] = ($array["totalPrice"] - $array["forPay"]) / ($array["totalPrice"]>0?$array["totalPrice"]:1) * 100;
         }
         return $data;
     }

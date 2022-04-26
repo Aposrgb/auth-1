@@ -25,7 +25,7 @@ class WbDataProperty
     #[ORM\ManyToOne(targetEntity: WbData::class, cascade: ['persist', 'remove'], inversedBy: 'wbDataIncomes')]
     private $wbDataIncome;
 
-    #[ORM\ManyToOne(targetEntity: WbData::class, cascade: ['persist', 'remove'], inversedBy: 'wbDataStock')]
+    #[ORM\ManyToOne(targetEntity: WbData::class, cascade: ['persist', 'remove'], inversedBy: 'wbDataStocks')]
     private $wbDataStock;
 
     #[ORM\ManyToOne(targetEntity: WbData::class, cascade: ['persist', 'remove'], inversedBy: 'wbDataReports')]

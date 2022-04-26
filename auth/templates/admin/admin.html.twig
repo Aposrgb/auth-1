@@ -48,7 +48,13 @@
                 <tr>
                     <td>{{user.id}}</td>
                     <td>{{user.username}}</td>
-                    <td>{{user.dateExpired|date("m/d/Y") }}</td>
+                    <td>
+                        {% if user.dateExpired %}
+                            {{user.dateExpired|date("m/d/Y") }}
+                        {% else %}
+                            Date empty
+                        {%endif%}
+                    </td>
                 </tr>
             {% endfor%}
             </tbody>

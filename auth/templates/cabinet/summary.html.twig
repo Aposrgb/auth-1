@@ -36,11 +36,6 @@
                 </div>
             </div>
         {% else %}
-            <p style="display:none;z-index: 15;position: fixed;bottom: 4vh;padding: 3vh;background: red;color: snow;border-radius: 0.3vh;font-size: 1.5vh;"
-               id="error">
-                Ошибка обращения к API, слишком много запросов
-            </p>
-
             {% include 'cabinet/HTML/summary.html.twig' %}
 
             <script>
@@ -62,12 +57,8 @@
                     let prop = document.getElementById(id)
                     prop.innerText = intFormatter.format(prop.innerText)
                 }
+                function allKeys(){
 
-                function catchApi(error) {
-                    document.getElementById('error').style.display = 'block'
-                    setTimeout(() => {
-                        document.getElementById('error').style.display = 'none'
-                    }, 7000)
                 }
 
             </script>

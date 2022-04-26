@@ -2,12 +2,15 @@
 
 namespace App\Entity;
 
+use App\Helper\Status\ApiTokenStatus;
+use App\Helper\Status\StatusTrait;
 use App\Repository\ApiTokenRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ApiTokenRepository::class)]
 class ApiToken
 {
+    use StatusTrait;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -22,6 +25,12 @@ class ApiToken
     #[ORM\ManyToOne(targetEntity: User::class, cascade: ['persist'], inversedBy: 'apiToken')]
     #[ORM\JoinColumn(nullable: false)]
     private $apiUser;
+
+    public function __construct()
+    {
+        $this->status = ApiTokenStatus::ACTIVE;
+    }
+
 
     public function getId(): ?int
     {

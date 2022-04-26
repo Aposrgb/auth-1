@@ -65,16 +65,4 @@ class ValidatorService
                 status: ResponseCode::HTTP_BAD_REQUEST);
         }
     }
-
-    public function checkTokenUser($user)
-    {
-        $token = count($user->getApiToken())>0?$user->getApiToken()->last()->getToken(): null;
-        if(!$token){
-            throw new ApiException(
-                message: 'Нету токена для получения статистики',
-                detail: 'Missing token',
-                status: ResponseCode::HTTP_BAD_REQUEST);
-        }
-        return $token;
-    }
 }

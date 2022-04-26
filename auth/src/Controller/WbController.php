@@ -2,6 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\WbDataEntity\WbData;
+use App\Entity\WbDataEntity\WbDataProperty;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,10 +13,44 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route("/wb")]
 class WbController extends AbstractController
 {
+    public function __construct(
+        protected EntityManagerInterface $em
+    )
+    {
+    }
+
     #[Route(path: '/category', name: 'wb_category')]
     public function category(): Response
     {
-        return $this->render('wb/category.html.twig');
+        $user = $this->getUser();
+        $token = $user->getApiToken()->last();
+
+        $wbData = $this
+            ->em
+            ->getRepository(WbData::class)
+            ->findOneBy(['apiToken' => $token->getId()]);
+
+        $stocks = $this
+            ->em
+            ->getRepository(WbDataProperty::class)
+            ->getProperty('wbDataStock', $wbData->getId());
+
+        $category = new ArrayCollection();
+        $categories = [];
+        foreach ($stocks as $stock) {
+            $stock = json_decode($stock["property"], true);
+            $data = new ArrayCollection(array_column($category->toArray(), 'name'));
+            if(!$data->contains($stock["category"])){
+                $category[] = [
+                    "name" => $stock["category"],
+                ];
+            }
+        }
+        return $this->render('wb/category.html.twig',
+            [
+                "categories" => $category
+            ]
+        );
     }
     #[Route(path: '/bysearch', name: 'wb_by_search')]
     public function bySearch(): Response

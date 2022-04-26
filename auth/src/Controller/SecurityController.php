@@ -2,12 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Device;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -18,7 +18,7 @@ class SecurityController extends AbstractController
     {
     }
     #[Route(path: '/', name: 'redirect_login')]
-    public function redirectToLogin()
+    public function redirectToLogin(Request $request)
     {
         return $this->redirectToRoute("app_login");
     }
@@ -27,11 +27,13 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
     {
         $client = $this->getUser();
+
         if($client && $client->getAllowIpAddress()){
             if($request->getClientIp() != $client->getAllowIpAddress()){
                 return $this->render('security/login.html.twig', ['logout' => true, 'ipAddr' => true ]);
             }
         }
+
         if ($client) {
             $client->setAllowIpAddress($request->getClientIp());
             $this->entityManager->flush();
@@ -46,8 +48,12 @@ class SecurityController extends AbstractController
     }
 
     #[Route(path: '/logout', name: 'app_logout')]
-    public function logout(): Response
+    public function logout(TokenStorageInterface $tokenStorage, Request $request): Response
     {
-        return $this->render('security/login.html.twig');
+        $this->getUser()->setAllowIpAddress(null);
+        $this->entityManager->flush();
+        $request->getSession()->invalidate();
+        $tokenStorage->setToken();
+        return $this->redirectToRoute("app_login");
     }
 }
