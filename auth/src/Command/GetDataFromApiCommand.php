@@ -3,10 +3,6 @@
 namespace App\Command;
 
 use App\Entity\ApiToken;
-use App\Entity\WbDataEntity\WbData;
-use App\Entity\WbDataEntity\WbDataProperty;
-use App\Service\WbApiService;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -17,6 +13,7 @@ class GetDataFromApiCommand extends AbstractDataGetApi
         $this
             ->setName('wb:data:processing')
             ->addArgument("apiToken")
+            ->addArgument("apiUser")
         ;
     }
 
@@ -25,7 +22,10 @@ class GetDataFromApiCommand extends AbstractDataGetApi
         $token = $this
             ->entityManager
             ->getRepository(ApiToken::class)
-            ->findOneBy(["token" => $input->getArgument("apiToken")]);
+            ->findOneBy([
+                "token" => $input->getArgument("apiToken"),
+                "apiUser" => $input->getArgument("apiUser")
+            ]);
 
         $this->insertData($token);
         return Command::SUCCESS;

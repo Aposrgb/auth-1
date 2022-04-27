@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\WbDataEntity\WbData;
 use App\Helper\Status\ApiTokenStatus;
 use App\Helper\Status\StatusTrait;
 use App\Repository\ApiTokenRepository;
@@ -26,11 +27,13 @@ class ApiToken
     #[ORM\JoinColumn(nullable: false)]
     private $apiUser;
 
+    #[ORM\ManyToOne(targetEntity: WbData::class, cascade: ['persist'], inversedBy: 'apiToken')]
+    private $wbData;
+
     public function __construct()
     {
         $this->status = ApiTokenStatus::ACTIVE;
     }
-
 
     public function getId(): ?int
     {
@@ -69,6 +72,18 @@ class ApiToken
     public function setApiUser(?User $apiUser): self
     {
         $this->apiUser = $apiUser;
+
+        return $this;
+    }
+
+    public function getWbData(): ?WbData
+    {
+        return $this->wbData;
+    }
+
+    public function setWbData(?WbData $wbData): self
+    {
+        $this->wbData = $wbData;
 
         return $this;
     }

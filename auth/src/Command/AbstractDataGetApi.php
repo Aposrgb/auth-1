@@ -40,28 +40,37 @@ abstract class AbstractDataGetApi extends Command
                     $sales = $this->service->sales();
             }
         }
+
+        $wbData = $token->getWbData();
+
+        if($wbData){
+            $wbData->setDate(new \DateTime());
+        }else{
+            $wbData = $this
+                ->entityManager
+                ->getRepository(ApiToken::class)
+                ->getTokenWithWbData($token->getToken());
+
+            $wbData = $wbData?$wbData->getWbData():null;
+            $token->setWbData($wbData ?? new WbData());
+
+            if($wbData){
+                $this->entityManager->flush();
+                return;
+            }
+
+        }
+
         $incomes = $this->service->incomes();
         $orders = $this->service->orders();
         $stocks = $this->service->stocks();
         $reports = $this->service->reportDetailByPeriod();
 
-        $wbData = $this
-            ->entityManager
-            ->getRepository(WbData::class)
-            ->findOneBy(['apiToken' => $token->getId()])
-        ;
-
-        if($wbData){
+        if($wbData->getId()){
             $this
                 ->entityManager
                 ->getRepository(WbDataProperty::class)
                 ->removeAllProp($wbData->getId());
-
-            $wbData->setDate(new \DateTime());
-        }else{
-            $wbData = (new WbData())
-                ->setApiToken($token);
-            $this->entityManager->persist($wbData);
         }
 
         // todo пока удалить метод был удален из wb
@@ -104,17 +113,18 @@ abstract class AbstractDataGetApi extends Command
         }
         $this->entityManager->flush();
     }
+
     public function deleteOldWbData()
     {
         $wbDatas = $this->entityManager->getRepository(WbData::class)->findAll();
+        $wbDataPropRepos =
+            $this->entityManager->getRepository(WbDataProperty::class)
+        ;
         foreach ($wbDatas as $wbData){
             if($wbData->getDate()->modify("+1 day") < new \DateTime()){
-                $this
-                    ->entityManager
-                    ->getRepository(WbDataProperty::class)
-                    ->removeAllProp($wbData->getId())
-                ;
+                $wbDataPropRepos->removeAllProp($wbData->getId());
             }
         }
     }
+
 }

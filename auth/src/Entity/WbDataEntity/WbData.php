@@ -16,7 +16,7 @@ class WbData
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\OneToOne(targetEntity: ApiToken::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'wbData', targetEntity: ApiToken::class, cascade: ['persist'])]
     private $apiToken;
 
     #[ORM\Column(type: 'datetime')]
@@ -43,6 +43,7 @@ class WbData
     public function __construct()
     {
         $this->date = new \DateTime();
+        $this->apiToken = new ArrayCollection();
         $this->wbDataSales = new ArrayCollection();
         $this->wbDataOrders = new ArrayCollection();
         $this->wbDataExcises = new ArrayCollection();
@@ -56,14 +57,29 @@ class WbData
         return $this->id;
     }
 
-    public function getApiToken(): ?ApiToken
+    public function getApiToken(): Collection
     {
-        return $this->apiToken;
+        return $this->wbDataExcises;
     }
 
-    public function setApiToken(?ApiToken $apiToken): self
+    public function addApiToken(ApiToken $apiToken): self
     {
-        $this->apiToken = $apiToken;
+        if (!$this->apiToken->contains($apiToken)) {
+            $this->apiToken[] = $apiToken;
+            $apiToken->setWbData($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApiToken(ApiToken $apiToken): self
+    {
+        if ($this->apiToken->removeElement($apiToken)) {
+            // set the owning side to null (unless already changed)
+            if ($apiToken->getWbData() === $this) {
+                $apiToken->setWbData(null);
+            }
+        }
 
         return $this;
     }

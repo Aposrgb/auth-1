@@ -27,9 +27,19 @@ class RegularGetApiDataCommand extends AbstractDataGetApi
                 ->getRepository(ApiToken::class)
                 ->findBy(['status' => ApiTokenStatus::ACTIVE]);
 
-            foreach ($allToken as $token){
+            $tokens = array_map(
+                function (ApiToken $item){
+                    return ['token' => $item->getToken(), 'user' => $item->getApiUser()->getId()];
+            }, $allToken);
+
+            $allToken = null;
+            $callStack = [];
+            foreach ($tokens as $token){
                 $this->deleteOldWbData();
-                shell_exec("bin/console wb:data:processing ".$token->getToken()." > /dev/null &");
+                if(!in_array($token["token"], $callStack)){
+                    $callStack["token"] = $token["token"];
+                    shell_exec("bin/console wb:data:processing ".$token["token"]." ".$token["user"]." > /dev/null &");
+                }
 //                $this->insertData($token);
             }
 

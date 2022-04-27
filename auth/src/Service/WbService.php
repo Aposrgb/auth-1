@@ -3,8 +3,6 @@
 namespace App\Service;
 
 use App\Entity\ApiToken;
-use App\Entity\User;
-use App\Entity\WbDataEntity\WbData;
 use App\Entity\WbDataEntity\WbDataProperty;
 use App\Helper\Status\ApiTokenStatus;
 
@@ -20,10 +18,7 @@ class WbService extends AbstractService
         if(!$token) return ["token" => null];
         $context = ['token' => true];
 
-        $wbData = $this
-            ->entityManager
-            ->getRepository(WbData::class)
-            ->findOneBy(['apiToken' => $token->getId()]);
+        $wbData = $token->getWbData();
 
         if(!$wbData){
             $context["processing"] = true;

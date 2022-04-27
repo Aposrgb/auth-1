@@ -29,31 +29,31 @@ class ExceptionListener extends AbstractController
 
     public function onKernelException(ExceptionEvent $event): void
     {
-        $path = $event->getRequest()->getPathInfo();
-
-        $exception = $event->getThrowable();
-        $this->logger->error($exception->getMessage(), $exception->getTrace());
-        if (!str_contains($path, "/api")){
-            $event->setResponse($this->render("error/error.html.twig", [
-                "ex" => $exception
-            ]));
-            return;
-        }
-        $apiException = $exception;
-        if (!$exception instanceof ApiException) {
-            $statusCode = method_exists($exception, 'getStatusCode') ?
-                $exception->getStatusCode() :
-                Response::HTTP_INTERNAL_SERVER_ERROR;
-
-            $apiException = new ApiException(
-                ResponseCode::getStatusTexts()[$statusCode] ?? null,
-                $this->environment === 'dev' ? $exception->getMessage() : null,
-                $statusCode,
-                [],
-            );
-        }
-        $errorJsonResponse = new JsonResponse($apiException->responseBody(), $apiException->getStatusCode());
-        $event->setResponse($errorJsonResponse);
+//        $path = $event->getRequest()->getPathInfo();
+//
+//        $exception = $event->getThrowable();
+//        $this->logger->error($exception->getMessage(), $exception->getTrace());
+//        if (!str_contains($path, "/api")){
+//            $event->setResponse($this->render("error/error.html.twig", [
+//                "ex" => $exception
+//            ]));
+//            return;
+//        }
+//        $apiException = $exception;
+//        if (!$exception instanceof ApiException) {
+//            $statusCode = method_exists($exception, 'getStatusCode') ?
+//                $exception->getStatusCode() :
+//                Response::HTTP_INTERNAL_SERVER_ERROR;
+//
+//            $apiException = new ApiException(
+//                ResponseCode::getStatusTexts()[$statusCode] ?? null,
+//                $this->environment === 'dev' ? $exception->getMessage() : null,
+//                $statusCode,
+//                [],
+//            );
+//        }
+//        $errorJsonResponse = new JsonResponse($apiException->responseBody(), $apiException->getStatusCode());
+//        $event->setResponse($errorJsonResponse);
     }
 
 }

@@ -3,10 +3,8 @@
 namespace App\Service;
 
 use App\Entity\ApiToken;
-use App\Entity\WbDataEntity\WbData;
 use App\Entity\WbDataEntity\WbDataProperty;
 use App\Helper\Status\ApiTokenStatus;
-use Doctrine\Common\Collections\ArrayCollection;
 
 class CabinetWbService extends AbstractService
 {
@@ -19,11 +17,7 @@ class CabinetWbService extends AbstractService
         if(!$token) return ["token" => null];
         $context = ['token' => true];
 
-        $wbData = $this
-            ->entityManager
-            ->getRepository(WbData::class)
-            ->findOneBy(['apiToken' => $token->getId()])
-        ;
+        $wbData = $token->getWbData();
 
         if(!$wbData){
             $context["processing"] = true;
@@ -52,15 +46,39 @@ class CabinetWbService extends AbstractService
         return array_merge($context, $data);
     }
 
+    public function deleteApiToken(ApiToken $token)
+    {
+        $apiTokens = $this
+            ->entityManager
+            ->getRepository(ApiToken::class)
+            ->getTokenWithWbData($token->getToken(), false);
+
+        if(count($apiTokens) == 1){
+            $wbData = $token->getWbData();
+            if($wbData){
+                $this->entityManager->remove($wbData);
+                $this->entityManager->getRepository(WbDataProperty::class)->removeAllProp($wbData->getId());
+            }
+        }
+
+        $this->entityManager->remove($token);
+        $this->entityManager->flush();
+    }
+
     public function addApiToken($user, $name, $key)
     {
         $error = '';
         if(!$key || !$name){
             $error = "Не заполнено поле";
         }else if($key and $name){
-            $repos = $this->entityManager->getRepository(ApiToken::class);
-            $token = $repos->findBy(['name' => $name, 'apiUser' => $user->getId()]);
-            $token = $token || $repos->findBy(['token' => $key]);
+            $token = $this
+                ->entityManager
+                ->getRepository(ApiToken::class)
+                ->findBy([
+                    'name' => $name,
+                    'apiUser' => $user->getId(),
+                    'token' => $key
+                ]);
             if($token){
                 $error = "Уже есть такой токен";
             }else{
@@ -70,35 +88,10 @@ class CabinetWbService extends AbstractService
                     ->setToken($key)
                 );
                 $this->entityManager->flush();
-                shell_exec("php ../bin/console wb:data:processing $key > /dev/null &");
+                shell_exec("php ../bin/console wb:data:processing $key ".$user->getId()." > /dev/null &");
             }
         }
         return $error;
-    }
-
-    public function getTest($token)
-    {
-        $wbData = $token?
-            $this
-                ->entityManager
-                ->getRepository(WbData::class)
-                ->findOneBy(['apiToken' => $token->getId()])
-            :null
-        ;
-        $repos = $this->entityManager->getRepository(WbDataProperty::class);
-        $arrayPropNames = ["wbDataSale", "wbDataIncome","wbDataOrder", "wbDataStock", "wbDataReport", "wbDataExcise"];
-        $arrayNames = ["sales","incomes","orders","stocks","reports","excise"];
-        $data = [];
-        for ($i=0;$i<count($arrayPropNames);$i++){
-            $data[$arrayNames[$i]] = $repos->getProperty($arrayPropNames[$i], $wbData->getId());
-        }
-        $data = new ArrayCollection($data);
-        foreach ($data as $datas) {
-            $data[$data->indexOf($datas)] = array_map(function ($item) {
-                return json_decode($item["property"], true);
-            }, $datas);
-        }
-        return $data;
     }
 
     public function getWbData($id)
@@ -110,11 +103,7 @@ class CabinetWbService extends AbstractService
         if(!$token) return ["token" => null];
         $context = ['token' => true];
 
-        $wbData = $this
-            ->entityManager
-            ->getRepository(WbData::class)
-            ->findOneBy(['apiToken' => $token->getId()])
-        ;
+        $wbData = $token->getWbData();
         if(!$wbData){
             $context["processing"] = true;
             return $context;

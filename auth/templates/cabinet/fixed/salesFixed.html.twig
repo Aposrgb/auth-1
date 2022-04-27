@@ -1,0 +1,117 @@
+{% extends 'index/index.html.twig' %}
+{% block linkStyles %}
+    <link href="../styles/index/styles.css" rel="stylesheet">
+    <link href="../styles/index/vendor.css" rel="stylesheet">
+    <link href="../styles/summary/summary.css" rel="stylesheet">
+    <link href="../styles/summary/table.css" rel="stylesheet">
+    <link href="../styles/summary/table2.css" rel="stylesheet">
+
+{% endblock %}
+{% block body %}
+    {% if token %}
+        {% if processing ?? false %}
+            <div class="be-content">
+                <div id="mp-stats-app" class="main-content container-fluid">
+                    <div id="global-loader-block" aria-hidden="true" class="mp-loader-overlay ag-overlay hidden">
+                        <div class="ag-overlay-panel">
+                            <div class="ag-overlay-wrapper ag-layout-normal ag-overlay-loading-wrapper">
+                                <div class="mp-loader-static"></div>
+                            </div>
+                        </div>
+                    </div> <!---->
+                    <div>
+                        <div class="card">
+                            <div class="card-header d-md-flex justify-content-between align-items-start pb-3 pt-3">
+                                <div class="d-flex flex-column flex-lg-row justify-content-between justify-content-lg-start align-items-lg-center">
+                                    <div class="d-flex flex-column flex-lg-block flex-lg-row">
+                                        <div class="d-block-inline dropdown-period mr-3">
+                                            <div class="btn-group d-flex flex-column flex-lg-block flex-lg-row">
+                                                Происходит обработка, пожалуйста повторите позже
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <style>
+                tr{border: solid;max-height: 35px}
+            </style>
+            <div class="card">
+                <table>
+                    <tr>
+                        <th scope="col">Фото</th>
+                        <th scope="col">Название</th>
+                        <th scope="col">SKU</th>
+                        <th scope="col">Категория</th>
+                        <th scope="col">Артикул</th>
+                        <th scope="col">Бренд</th>
+                        <th scope="col">Закуп</th>
+                        <th scope="col">Номер заказа</th>
+                        <th scope="col">ШК товара</th>
+                        <th scope="col">Оплачено</th>
+                        <th scope="col">Комиссия</th>
+                        <th scope="col">Возврат</th>
+                        <th scope="col">К выплате</th>
+                        <th scope="col">Прибыль</th>
+                        <th scope="col">Заказ</th>
+                    </tr>
+                    {% for order in orders %}
+                            <tr>
+                                <td>
+                                    <img src="https://img1.wbstatic.net/c252x336/new/{{order.img}}/{{order.nmId}}-1.jpg" />
+                                </td>
+                                <td>{{ order.subject}}</td>
+                                <td>{{ order.nmId}}</td>
+                                <td>{{ order.category}}</td>
+                                <td>{{ order.brand}}</td>
+                                <td>34567горчичный</td>
+                                <td>0,00</td>
+                                <td>{{order.gNumber}}</td>
+                                <td></td>
+                                <td>0,00</td>
+                                <td>102</td>
+                                <td>0,00</td>
+                                <td>-45</td>
+                                <td>-45</td>
+                                <td>{{order.date|date("Y.m.d H:i:s")}}</td>
+                            </tr>
+                    {% endfor%}
+                </table>
+            </div>
+        {% endif %}
+    {% else %}
+        <div id="mp-stats-app" class="main-content container-fluid">
+            <div id="global-loader-block" aria-hidden="true" class="mp-loader-overlay ag-overlay hidden">
+                <div class="ag-overlay-panel">
+                    <div class="ag-overlay-wrapper ag-layout-normal ag-overlay-loading-wrapper">
+                        <div class="mp-loader-static"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card card-border-color card-border-color-warning col-12 py-5">
+                    <div class="card-body py-4"><p class="lead text-center">Для работы с разделами личного кабинета
+                            необходимо добавить ключи API</p>
+                        <div class="d-flex justify-content-center"><a href="/cabinet/connect" class="btn btn-success">Добавить</a>
+                        </div>
+                    </div>
+                </div>
+            </div> <!---->
+            <div><!---->
+                <div class="snotify snotify-left_top"></div>
+                <div class="snotify snotify-left_center"></div>
+                <div class="snotify snotify-left_bottom"></div>
+                <div class="snotify snotify-right_top"></div>
+                <div class="snotify snotify-right_center"></div>
+                <div class="snotify snotify-right_bottom"></div>
+                <div class="snotify snotify-center_top"></div>
+                <div class="snotify snotify-center_center"></div>
+                <div class="snotify snotify-center_bottom"></div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

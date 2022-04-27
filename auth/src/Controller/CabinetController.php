@@ -3,11 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\ApiToken;
-use App\Entity\User;
-use App\Entity\WbDataEntity\WbData;
 use App\Entity\WbDataEntity\WbDataProperty;
 use App\Service\CabinetWbService;
-use App\Service\WbApiService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -100,13 +97,7 @@ class CabinetController extends AbstractController
     #[Route(path: '/token/{id}', name: 'delete_token', methods: ["GET"])]
     public function deleteToken(ApiToken $token): Response
     {
-        $this->entityManager->remove($token);
-        $wbData = $this->entityManager->getRepository(WbData::class)->findOneBy(["apiToken" => $token->getId()]);
-        if($wbData){
-            $this->entityManager->remove($wbData);
-            $this->entityManager->getRepository(WbDataProperty::class)->removeAllProp($wbData->getId());
-        }
-        $this->entityManager->flush();
+        $this->cabinetWbService->deleteApiToken($token);
         return $this->json(["data" => ["messages" => "ok"]]);
     }
 }

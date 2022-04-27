@@ -2,10 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\WbDataEntity\WbData;
-use App\Entity\WbDataEntity\WbDataProperty;
 use App\Service\WbService;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
