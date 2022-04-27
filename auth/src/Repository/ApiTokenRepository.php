@@ -20,12 +20,25 @@ class ApiTokenRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, ApiToken::class);
     }
+    
+    public function getTokenWithUser($user)
+    {
+        $qb = $this
+            ->createQueryBuilder('a')
+            ->where("a.wbData is not null")
+            ->andWhere("a.status = 1")
+            ->andWhere('a.apiUser = :user')
+            ->setParameter('user', $user)
+            ->getQuery();
+        return $qb->getOneOrNullResult();
+    }
 
     public function getTokenWithWbData($token, $oneRes = true)
     {
         $qb = $this
             ->createQueryBuilder('a')
             ->where("a.wbData is not null")
+            ->andWhere("a.status = 1")
             ->andWhere('a.token = :token')
             ->setParameter('token', $token)
             ->getQuery();
