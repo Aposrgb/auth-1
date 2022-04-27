@@ -10,10 +10,7 @@ class CabinetWbService extends AbstractService
 {
     public function getOrders($id)
     {
-        $token = $this->entityManager->getRepository(ApiToken::class)->findOneBy([
-            'apiUser' => $id,
-            'status' => ApiTokenStatus::ACTIVE
-        ]);
+        $token = $this->entityManager->getRepository(ApiToken::class)->getTokenWithUser($id);
         if(!$token) return ["token" => null];
         $context = ['token' => true];
 
@@ -96,10 +93,7 @@ class CabinetWbService extends AbstractService
 
     public function getWbData($id)
     {
-        $token = $this->entityManager->getRepository(ApiToken::class)->findOneBy([
-            'apiUser' => $id,
-            'status' => ApiTokenStatus::ACTIVE
-        ]);
+        $token = $this->entityManager->getRepository(ApiToken::class)->getTokenWithUser($id);
         if(!$token) return ["token" => null];
         $context = ['token' => true];
 
