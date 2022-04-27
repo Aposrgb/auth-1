@@ -29,8 +29,9 @@ class ApiTokenRepository extends ServiceEntityRepository
             ->andWhere("a.status = 1")
             ->andWhere('a.apiUser = :user')
             ->setParameter('user', $user)
-            ->getQuery();
-        return $qb->getOneOrNullResult();
+            ->getQuery()
+            ->getResult();
+        return $qb?$qb[0]:null;
     }
 
     public function getTokenWithWbData($token, $oneRes = true)
