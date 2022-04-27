@@ -51,8 +51,8 @@ abstract class AbstractDataGetApi extends Command
                 ->getRepository(ApiToken::class)
                 ->getTokenWithWbData($token->getToken());
 
-            $wbData = $wbData?$wbData->getWbData():null;
-            $token->setWbData($wbData ?? new WbData());
+            $wbData = $wbData?$wbData->getWbData():new WbData();
+            $token->setWbData($wbData);
 
             if($wbData){
                 $this->entityManager->flush();
