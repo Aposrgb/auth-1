@@ -20,8 +20,6 @@ class RegularGetApiDataCommand extends AbstractDataGetApi
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         while(1){
-            shell_exec("bin/console cancel:data:processing > /dev/null &");
-
             $allToken = $this
                 ->entityManager
                 ->getRepository(ApiToken::class)
@@ -35,13 +33,12 @@ class RegularGetApiDataCommand extends AbstractDataGetApi
             $allToken = null;
             $callStack = [];
             foreach ($tokens as $token){
-                $this->deleteOldWbData();
                 if(!in_array($token["token"], $callStack)){
                     $callStack["token"] = $token["token"];
                     shell_exec("bin/console wb:data:processing ".$token["token"]." ".$token["user"]." > /dev/null &");
                 }
-//                $this->insertData($token);
             }
+            $this->deleteOldWbData();
 
             sleep(2*60*60);
         }

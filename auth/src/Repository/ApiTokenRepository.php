@@ -20,6 +20,33 @@ class ApiTokenRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, ApiToken::class);
     }
+
+    public function findAndSet($token, $wbId)
+    {
+        $this
+            ->createQueryBuilder('q')
+            ->update()
+            ->set('q.wbData', $wbId)
+            ->where('q.token = :token')
+            ->setParameter('token', $token)
+            ->getQuery()
+            ->execute();
+        ;
+    }
+
+    public function deleteWbData($id)
+    {
+        $this
+            ->createQueryBuilder('q')
+            ->update()
+            ->set('q.wbData', ':null')
+            ->where('q.wbData = :id')
+            ->setParameter('id', $id)
+            ->setParameter('null', null)
+            ->getQuery()
+            ->execute();
+        ;
+    }
     
     public function getTokenWithUser($user)
     {

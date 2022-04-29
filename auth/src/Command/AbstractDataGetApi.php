@@ -42,24 +42,21 @@ abstract class AbstractDataGetApi extends Command
         }
 
         $wbData = $token->getWbData();
+        $apiTokenRep = $this
+            ->entityManager
+            ->getRepository(ApiToken::class);
 
         if($wbData){
             $wbData->setDate(new \DateTime());
         }else{
-            $wbData = $this
-                ->entityManager
-                ->getRepository(ApiToken::class)
+            $wbData = $apiTokenRep
                 ->getTokenWithWbData($token->getToken());
 
             $wbData = $wbData?$wbData->getWbData():new WbData();
             $token->setWbData($wbData);
-
-            if($wbData){
-                $this->entityManager->flush();
-                return;
-            }
-
         }
+        $apiTokenRep
+            ->findAndSet($token->getToken(), $wbData->getId());
 
         $incomes = $this->service->incomes();
         $orders = $this->service->orders();
@@ -116,15 +113,20 @@ abstract class AbstractDataGetApi extends Command
 
     public function deleteOldWbData()
     {
-        $wbDatas = $this->entityManager->getRepository(WbData::class)->findAll();
+        $repos = $this->entityManager->getRepository(WbData::class);
+        $wbDatas = $repos->findAll();
         $wbDataPropRepos =
             $this->entityManager->getRepository(WbDataProperty::class)
         ;
+        $apiTokenRepos = $this->entityManager->getRepository(ApiToken::class);
         foreach ($wbDatas as $wbData){
             if($wbData->getDate()->modify("+1 day") < new \DateTime()){
                 $wbDataPropRepos->removeAllProp($wbData->getId());
+                $apiTokenRepos->deleteWbData($wbData->getId());
+                $repos->remove($wbData);
             }
         }
+        $this->entityManager->flush();
     }
 
 }
