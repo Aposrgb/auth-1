@@ -34,7 +34,7 @@ class RegularGetApiDataCommand extends AbstractDataGetApi
             $callStack = [];
             foreach ($tokens as $token){
                 if(!in_array($token["token"], $callStack)){
-                    $callStack["token"] = $token["token"];
+                    $callStack[] = $token["token"];
                     shell_exec("bin/console wb:data:processing ".$token["token"]." ".$token["user"]." > /dev/null &");
                 }
             }
