@@ -55,8 +55,10 @@ abstract class AbstractDataGetApi extends Command
             $wbData = $wbData?$wbData->getWbData():new WbData();
             $token->setWbData($wbData);
         }
-        $apiTokenRep
-            ->findAndSet($token->getToken(), $wbData->getId());
+        try {
+            $apiTokenRep
+                ->findAndSet($token->getToken(), $wbData->getId());
+        }catch (\Exception $exception){}
 
         $incomes = $this->service->incomes();
         $orders = $this->service->orders();

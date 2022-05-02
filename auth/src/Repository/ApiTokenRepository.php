@@ -48,17 +48,16 @@ class ApiTokenRepository extends ServiceEntityRepository
         ;
     }
     
-    public function getTokenWithUser($user)
+    public function getTokenWithUser($user, $array = false)
     {
         $qb = $this
             ->createQueryBuilder('a')
-            ->where("a.wbData is not null")
             ->andWhere("a.status = 1")
             ->andWhere('a.apiUser = :user')
             ->setParameter('user', $user)
             ->getQuery()
             ->getResult();
-        return $qb?$qb[0]:null;
+        return $qb? ($array?$qb:$qb[0]) :null;
     }
 
     public function getTokenWithWbData($token, $oneRes = true)

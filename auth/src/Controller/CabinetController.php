@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\ApiToken;
-use App\Entity\WbDataEntity\WbDataProperty;
 use App\Service\CabinetWbService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,21 +21,25 @@ class CabinetController extends AbstractController
     }
 
     #[Route(path: '/summary', name: 'summary')]
-    public function summary(): Response
+    public function summary(Request $request): Response
     {
+        $query = $request->query->all();
         return $this->render('cabinet/summary.html.twig',
-            $this->cabinetWbService->getWbData($this->getUser()->getId()));
+            $this->cabinetWbService->getWbData($this->getUser()->getId(), $query));
     }
     #[Route(path: '/sales', name: 'sales')]
-    public function sales(): Response
+    public function sales(Request $request): Response
     {
+        $query = $request->query->all();
         return $this->render('cabinet/sales.html.twig',
-            $this->cabinetWbService->getOrders($this->getUser()->getId()));
+            $this->cabinetWbService->getOrders($this->getUser()->getId(), $query));
     }
     #[Route(path: '/products', name: 'products')]
-    public function products(): Response
+    public function products(Request $request): Response
     {
-        return $this->render('cabinet/products.html.twig');
+        $query = $request->query->all();
+        return $this->render('cabinet/products.html.twig',
+            $this->cabinetWbService->getProducts($this->getUser()->getId(), $query));
     }
     #[Route(path: '/warehouses', name: 'warehouse')]
     public function warehouse(): Response

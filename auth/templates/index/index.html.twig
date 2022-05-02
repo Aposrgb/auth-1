@@ -23,7 +23,7 @@
             </button>
             <div id="be-navbar-collapse" class="navbar-collapse collapse">
                 <ul class="navbar-nav w-100">
-                    <li class="nav-item dropdown" onclick="dropdown(this)"><a  data-toggle="dropdown"
+                    <li class="nav-item dropdown" onclick="dropdown(this)"><a data-toggle="dropdown"
                                                                               role="button"
                                                                               aria-expanded="false"
                                                                               class="nav-link dropdown-toggle">
@@ -48,11 +48,11 @@
                             <a
                                     href="/cabinet/connect" class="dropdown-item"><span>Подключения</span></a></div>
                     </li>
-                    <li class="nav-item dropdown seo-dropdown" onclick="dropdown(this)"><a 
-                                                                                           data-toggle="dropdown"
-                                                                                           role="button"
-                                                                                           aria-expanded="false"
-                                                                                           class="nav-link dropdown-toggle">
+                    <li class="nav-item dropdown seo-dropdown" onclick="dropdown(this)"><a
+                                data-toggle="dropdown"
+                                role="button"
+                                aria-expanded="false"
+                                class="nav-link dropdown-toggle">
                             SEO &#709;</a>
                         <div role="menu" style="display:none;" class="dropdown-menu show"><a href="/seo/keyword"
                                                                                              class="dropdown-item keyword-dashboard"><span>Результаты поиска (SERP)</span></a>
@@ -67,7 +67,7 @@
                                class="dropdown-item wb-sku-compare"><span>Сравнение групп SKU</span></a></div>
                     </li>
                     <li class="nav-item"><a href="/groups" class="nav-link ">Группы</a></li>
-                    <li class="nav-item dropdown" onclick="dropdown(this)"><a  data-toggle="dropdown"
+                    <li class="nav-item dropdown" onclick="dropdown(this)"><a data-toggle="dropdown"
                                                                               role="button"
                                                                               aria-expanded="false"
                                                                               class="nav-link dropdown-toggle">
@@ -78,7 +78,7 @@
                                                                                                       class="dropdown-item"><span>Бренды</span></a>
                             <a href="/ozon/search" class="dropdown-item"><span>Поиск по SKU</span></a></div>
                     </li>
-                    <li class="nav-item dropdown" onclick="dropdown(this)"><a  data-toggle="dropdown"
+                    <li class="nav-item dropdown" onclick="dropdown(this)"><a data-toggle="dropdown"
                                                                               role="button"
                                                                               aria-expanded="false"
                                                                               class="nav-link dropdown-toggle">
@@ -98,9 +98,6 @@
                                     href="/wb/top-sellers" class="dropdown-item"><span>Рейтинг поставщиков</span></a>
                         </div>
                     </li>
-                    <li class="nav-item"><a href="/chrome-plugin" class="nav-link ">
-                            Плагин Chrome
-                        </a></li>
                     {% if is_granted("ROLE_ADMIN") %}
                         <li class="nav-item dropdown"><a href="../admin" data-toggle="dropdown" role="button"
                                                          aria-expanded="false" class="nav-link dropdown-toggle">Админ
@@ -121,7 +118,7 @@
                                                                                  class="col-3 btn btn-primary"></form>
                 </div>
                 <ul class="nav navbar-nav float-right be-user-nav">
-                    <li class="nav-item dropdown" onclick="dropdown(this)"><a  data-toggle="dropdown"
+                    <li class="nav-item dropdown" onclick="dropdown(this)"><a data-toggle="dropdown"
                                                                               role="button"
                                                                               aria-expanded="false"
                                                                               class="nav-link dropdown-toggle"><img
@@ -172,12 +169,22 @@
                     element.classList.add("show")
                     menu.style.display = "block";
                 }
-
             }
+            {% if tokens is defined %}
+            function allKeys() {
+                let buttonAllkey = document.getElementById("__BVID__11");
+                if (buttonAllkey !== undefined) {
+                    buttonAllkey.children[buttonAllkey.children.length - 1].style.display = "block";
+                }
+            }
+            function selectKey(id, url){
+                window.location.href = url+"?index="+id;
+            }
+            {% endif %}
         </script>
     {% endblock %}
     {% block body %}
-    <div class="be-content">
+    <div class="be-content" >
 
         <div id="mp-stats-app" class="main-content container-fluid">
             <div id="global-loader-block" aria-hidden="true" class="mp-loader-overlay ag-overlay hidden">
@@ -375,7 +382,6 @@
                                         </li>
                                         <li><a class="text-reset" href="/wb/top-brands">Рейтинг брендов</a></li>
                                         <li><a class="text-reset" href="/integrations">API документация</a></li>
-                                        <li><a class="text-reset" href="/chrome-plugin">Плагин для Google Chrome</a>
                                         </li>
                                         <li>
                                             <a class="text-reset" href="https://telegram.me/mpstatsio" target="_blank">
@@ -389,6 +395,111 @@
                     </div>
                 </div>
             </footer>
+        {% endblock %}
+        {% block customStyles %}
+            <style>
+                .dropdown_keys {
+                    z-index: 11;
+                    list-style-type: none;
+                    position: absolute;
+                    background: white;
+                    padding: 0;
+                }
+                .dropdown_keys li  {
+                    min-width: 5.5vw;
+                    text-align: center;
+                    padding: 5px 0px;
+                    border: solid 1px;
+                }
+                .dropdown_keys :hover {
+                    background: #badfff82;
+                    box-shadow: 0px 0px 7px 0px #030b3e2b;
+                }
+                #scrollbar{
+                    -webkit-appearance: none;
+                    width: 100%;
+                }
+                #scrollbar :focus{
+                    outline: none;
+                }
+                #scrollbar:focus {
+                    outline: none;
+                }
+                #scrollbar::-webkit-slider-runnable-track {
+                    width: 100%;
+                    height: 8.4px;
+                    cursor: pointer;
+                    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+                    background: #87ddfd96;;
+                    border-radius: 1.3px;
+                }
+                #scrollbar::-webkit-slider-thumb {
+                    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+                    border: 1px solid #000000;
+                    height: 36px;
+                    width: 16px;
+                    border-radius: 3px;
+                    background: snow;
+                    cursor: pointer;
+                    -webkit-appearance: none;
+                    margin-top: -14px;
+                }
+                #scrollbar:focus::-webkit-slider-runnable-track {
+                    background: #87ddfd96;;
+                }
+                #scrollbar::-moz-range-track {
+                    width: 100%;
+                    height: 8.4px;
+                    cursor: pointer;
+                    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+                    background: #3071a9;
+                    border-radius: 1.3px;
+                }
+                #scrollbar::-moz-range-thumb {
+                    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+                    height: 36px;
+                    width: 16px;
+                    border-radius: 3px;
+                    background: #ffffff;
+                    cursor: pointer;
+                }
+                #scrollbar::-ms-track {
+                    width: 100%;
+                    height: 8.4px;
+                    cursor: pointer;
+                    background: transparent;
+                    border-color: transparent;
+                    border-width: 16px 0;
+                    color: transparent;
+                }
+                #scrollbar::-ms-fill-lower {
+                    background: #2a6495;
+                    border: 0.2px solid #010101;
+                    border-radius: 2.6px;
+                    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+                }
+                #scrollbar::-ms-fill-upper {
+                    background: #3071a9;
+                    border: 0.2px solid #010101;
+                    border-radius: 2.6px;
+                    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+                }
+                #scrollbar::-ms-thumb {
+                    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+                    border: 1px solid #000000;
+                    height: 36px;
+                    width: 16px;
+                    border-radius: 3px;
+                    background: #ffffff;
+                    cursor: pointer;
+                }
+                #scrollbar:focus::-ms-fill-lower {
+                    background: #3071a9;
+                }
+                #scrollbar:focus::-ms-fill-upper {
+                    background: #367ebd;
+                }
+            </style>
         {% endblock %}
     </div>
 </div>
