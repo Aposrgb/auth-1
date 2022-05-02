@@ -68,10 +68,15 @@ class ApiTokenRepository extends ServiceEntityRepository
             ->andWhere("a.status = 1")
             ->andWhere('a.token = :token')
             ->setParameter('token', $token)
-            ->getQuery();
+        ;
         return $oneRes?
-            $qb->getOneOrNullResult():
-            $qb->getResult();
+            $qb
+		->setMaxResults(1)
+            	->getQuery()
+		->getOneOrNullResult():
+            $qb
+		->getQuery()
+		->getResult();
     }
 
     /**
