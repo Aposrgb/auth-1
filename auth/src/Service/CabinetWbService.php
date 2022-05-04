@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\ApiToken;
 use App\Entity\WbDataEntity\WbDataProperty;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class CabinetWbService extends AbstractService
 {
@@ -18,6 +19,62 @@ class CabinetWbService extends AbstractService
         return $token ?
             ['wbData' => $token->getWbData(), 'token' => $token, 'tokens' => $tokens]:
             ['wbData' => null, 'token'=> null];
+    }
+
+    public function getWarehouses($id, $query)
+    {
+        $dataWb = $this->checkStatusToken($id, $query);
+        $context['token'] = $dataWb['token'];
+
+        if(!$dataWb['wbData']){
+            $context["processing"] = true;
+            return $context;
+        }
+
+        $repos = $this->entityManager->getRepository(WbDataProperty::class);
+        $arrayPropNames = ["wbDataStock"];
+        $arrayNames = ["stocks"];
+        $data = [];
+        $city = [];
+        for ($i=0;$i<count($arrayPropNames);$i++){
+            $data[$arrayNames[$i]] = $repos->getProperty($arrayPropNames[$i], $dataWb['wbData']->getId());
+        }
+
+        $data["stock"] = $data["stocks"];
+        $data["stocks"] = [];
+        foreach ($data["stock"] as $stock){
+            $array = json_decode($stock["property"], true);
+            $array["img"] = ((int)($array["nmId"]/10000))*10000;
+            if(!in_array($array['warehouseName'], array_column($city,'name'))){
+                $city[] = ['name' => $array['warehouseName']];
+            }
+            $isAdd = true;
+            $i=0;
+            foreach ($data["stocks"] as $stok){
+                if($array['nmId'] == $stok['nmId'] && $array['warehouseName'] == $stok['warehouseName']){
+                    $data["stocks"][$i] = $array;
+                    $isAdd = false;
+                }
+                $i++;
+            }
+            if($isAdd){
+                $data["stocks"][] = $array;
+            }
+        }
+        foreach ($city as $item){
+            $data["stocks"] = array_map(
+                function ($items) use ($item){
+                    $city = ($items['warehouseName'] == $item['name'])?$items['quantityFull']:0;
+                    $items['cities'][] = $city;
+                    $items['cityResult'] = ($items['cityResult']??0)+$city;
+                    return $items;
+            }, $data["stocks"]);
+        }
+        $data["stock"] = [];
+        $context["cities"] = $city;
+        $context["count"] = count($data['stocks']);
+        $context["tokens"] = $dataWb['tokens'] instanceof ApiToken ?[$dataWb['tokens']]:$dataWb['tokens'];
+        return array_merge($context, $data);
     }
 
     public function getProducts($id, $query)

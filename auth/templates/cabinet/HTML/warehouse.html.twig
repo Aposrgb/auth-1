@@ -1,0 +1,1333 @@
+<div>
+    <div class="card">
+        <div class="card-header d-sm-flex justify-content-between align-items-start">
+            <nav aria-label="breadcrumb" role="navigation">
+                <ol class="breadcrumb page-head-nav page-header pl-0 mb-0">
+                    <li class="breadcrumb-item"><a href="/cabinet/summary">Сводка</a></li>
+                    <li class="breadcrumb-item">Раскладка по складам</li>
+                </ol>
+            </nav>
+            <div class="d-flex flex-column flex-lg-row justify-content-between justify-content-lg-start align-items-lg-center">
+                <div class="btn-group d-flex flex-column flex-lg-block flex-lg-row">
+                    <div class="api-key-selector d-flex align-items-start align-items-xxl-center">
+                        <div class="mr-2" style="display: none;"></div>
+                        <div class="dropdown b-dropdown btn-group" id="__BVID__11"><!---->
+                            <button aria-haspopup="true" onclick="allKeys()" aria-expanded="false" type="button"
+                                    class="btn dropdown-toggle btn-secondary" id="__BVID__11__BV_toggle_">
+                                <span>Все ключи API</span>
+                            </button>
+
+                            <ul role="menu" style="display:none" class="dropdown_keys">
+                                {% for token in tokens %}
+                                    <li role="presentation"
+                                        onclick="selectKey({{ loop.index-1 }}, '{{ path("warehouse") }}')">
+                                        {{ token.name }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="w35">
+                <div groupdisplaytype="singleColumn" class="ag-theme-balham">
+                    <div class="ag-root-wrapper ag-layout-normal ag-ltr">
+                        <!--AG-GRID-HEADER-DROP-ZONES-->
+                        <div class="ag-column-drop-wrapper">
+                            <div class="ag-unselectable ag-column-drop ag-column-drop-horizontal ag-column-drop-empty ag-hidden">
+                                <div class="ag-column-drop-title-bar ag-column-drop-horizontal-title-bar"><span
+                                            class="ag-icon ag-icon-group ag-column-drop-icon ag-column-drop-horizontal-icon"
+                                    ></span></div>
+                                <div class="ag-column-drop-list ag-column-drop-horizontal-list"><span
+                                            class="ag-column-drop-empty-message ag-column-drop-horizontal-empty-message">Перетащите сюда для группировки по строкам</span>
+                                </div>
+                            </div>
+                            <div class="ag-unselectable ag-column-drop ag-column-drop-horizontal ag-column-drop-empty ag-hidden">
+                                <div class="ag-column-drop-title-bar ag-column-drop-horizontal-title-bar"><span
+                                            class="ag-icon ag-icon-pivot ag-column-drop-icon ag-column-drop-horizontal-icon"
+                                    ></span></div>
+                                <div class="ag-column-drop-list ag-column-drop-horizontal-list"><span
+                                            class="ag-column-drop-empty-message ag-column-drop-horizontal-empty-message">Перетащите сюда, чтобы задать заголовки столбам</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ag-root-wrapper-body ag-layout-normal ag-focus-managed">
+                            <div class="ag-tab-guard ag-tab-guard-top" tabindex="0"></div>
+                            <!--AG-GRID-BODY-->
+                            <div class="ag-root ag-unselectable ag-layout-normal" role="grid"
+                                 aria-rowcount="94" aria-colcount="81" aria-multiselectable="true">
+                                <!--AG-HEADER-ROOT-->
+                                <div class="ag-header ag-focus-managed ag-pivot-off"
+                                     style="height: 125px; min-height: 125px;">
+                                    <div class="ag-pinned-left-header"
+                                         style="width: 687px; max-width: 687px; min-width: 687px;">
+                                        <div class="ag-header-row ag-header-row-column-group" role="row"
+                                             style="top: 0px; height: 31px; width: 687px;">
+                                            <div class="ag-header-group-cell ag-focus-managed ag-header-group-cell-with-group"
+                                                 role="columnheader" aria-colspan="2"
+                                                 style="width: 687px; left: 0px;">
+                                                <div class="ag-header-cell-resize"></div>
+                                                <div class="ag-header-group-cell-label">
+                                                    <span class="ag-header-group-text">Товар</span>
+                                                    <span class="ag-header-icon ag-header-expand-icon ag-header-expand-icon-expanded ag-hidden"><span
+                                                                class="ag-icon ag-icon-expanded"></span></span>
+                                                    <span class="ag-header-icon ag-header-expand-icon ag-header-expand-icon-collapsed ag-hidden"><span
+                                                                class="ag-icon ag-icon-contracted"></span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ag-header-row ag-header-row-column-group" role="row"
+                                             style="top: 31px; height: 31px; width: 687px;">
+                                            <div class="ag-header-group-cell ag-focus-managed ag-header-group-cell-no-group"
+                                                 role="columnheader" aria-colspan="2"
+                                                 style="width: 687px; left: 0px;">
+                                                <div class="ag-header-cell-resize"></div>
+                                                <div class="ag-header-group-cell-label">
+                                                    <span class="ag-header-group-text"></span>
+                                                    <span class="ag-header-icon ag-header-expand-icon ag-header-expand-icon-expanded ag-hidden"><span
+                                                                class="ag-icon ag-icon-expanded"></span></span>
+                                                    <span class="ag-header-icon ag-header-expand-icon ag-header-expand-icon-collapsed ag-hidden"><span
+                                                                class="ag-icon ag-icon-contracted"></span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ag-header-row ag-header-row-column" role="row"
+                                             style="top: 62px; height: 31px; width: 687px;">
+                                            <div class="ag-header-cell ag-focus-managed" role="columnheader"
+
+                                                 style="width: 50px; left: 0px;">
+                                                <div class="ag-header-cell-resize ag-hidden"></div>
+                                                <!--AG-CHECKBOX-->
+                                                <div
+                                                        class="ag-header-select-all ag-labeled ag-label-align-right ag-checkbox ag-input-field ag-hidden">
+                                                    <div class="ag-input-field-label ag-label ag-hidden ag-checkbox-label"></div>
+                                                    <div class="ag-wrapper ag-input-wrapper ag-checkbox-input-wrapper">
+                                                        <input class="ag-input-field-input ag-checkbox-input"
+                                                               type="checkbox" id="ag-116-input">
+                                                    </div>
+                                                </div>
+                                                <div class="ag-cell-label-container">
+                                                    <span class="ag-header-icon ag-header-cell-menu-button"><span
+                                                                class="ag-icon ag-icon-menu"></span></span>
+                                                    <div class="ag-header-cell-label">
+                                                        <span class="ag-header-cell-text">Фото</span>
+                                                        <span class="ag-header-icon ag-header-label-icon ag-filter-icon ag-hidden"><span
+                                                                    class="ag-icon ag-icon-filter"></span></span>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
+
+
+                                                 style="width: 637px; left: 50px;">
+                                                <div class="ag-header-cell-resize"></div>
+                                                <!--AG-CHECKBOX-->
+                                                <div
+                                                        class="ag-header-select-all ag-labeled ag-label-align-right ag-checkbox ag-input-field ag-hidden">
+                                                    <div class="ag-input-field-label ag-label ag-hidden ag-checkbox-label"></div>
+                                                    <div class="ag-wrapper ag-input-wrapper ag-checkbox-input-wrapper">
+                                                        <input class="ag-input-field-input ag-checkbox-input"
+                                                               type="checkbox" id="ag-119-input">
+                                                    </div>
+                                                </div>
+                                                <div class="ag-cell-label-container ag-header-cell-sorted-none">
+                                                    <span class="ag-header-icon ag-header-cell-menu-button"><span
+                                                                class="ag-icon ag-icon-menu"></span></span>
+                                                    <div class="ag-header-cell-label">
+                                                        <span class="ag-header-cell-text">Название</span>
+                                                        <span class="ag-header-icon ag-header-label-icon ag-filter-icon ag-hidden"><span
+                                                                    class="ag-icon ag-icon-filter"></span></span>
+                                                        <span class="ag-header-icon ag-header-label-icon ag-sort-order ag-hidden"></span>
+                                                        <span class="ag-header-icon ag-header-label-icon ag-sort-ascending-icon ag-hidden"><span
+                                                                    class="ag-icon ag-icon-asc"></span></span>
+                                                        <span class="ag-header-icon ag-header-label-icon ag-sort-descending-icon ag-hidden"><span
+                                                                    class="ag-icon ag-icon-desc"></span></span>
+                                                        <span class="ag-header-icon ag-header-label-icon ag-sort-none-icon ag-hidden"><span
+                                                                    class="ag-icon ag-icon-none"></span></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ag-header-row ag-header-row-floating-filter" role="row"
+                                             style="top: 93px; height: 31px; width: 687px;">
+                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                 style="width: 50px; left: 0px;">
+                                                <div class="ag-floating-filter-full-body"></div>
+                                                <div class="ag-floating-filter-button ag-hidden">
+                                                    <button type="button" aria-label="Open Filter Menu"
+                                                            class="ag-floating-filter-button-button"></button>
+                                                </div>
+                                            </div>
+                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                 style="width: 637px; left: 50px;">
+                                                <div class="ag-floating-filter-body">
+                                                    <div class="ag-floating-filter-input">
+                                                        <!--AG-INPUT-TEXT-FIELD-->
+                                                        <div class="ag-labeled ag-label-align-left ag-text-field ag-input-field">
+                                                            <div
+                                                                    class="ag-input-field-label ag-label ag-hidden ag-text-field-label"
+                                                            ></div>
+                                                            <div
+                                                                    class="ag-wrapper ag-input-wrapper ag-text-field-input-wrapper"
+                                                            >
+                                                                <input
+                                                                        class="ag-input-field-input ag-text-field-input"
+                                                                        type="text" id="ag-124-input"
+                                                                        aria-label="Название Filter Input">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="ag-floating-filter-button">
+                                                    <button type="button" aria-label="Open Filter Menu"
+                                                            class="ag-floating-filter-button-button"><span
+                                                                class="ag-icon ag-icon-filter"></span></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ag-header-viewport">
+                                        <div id="table_sale_header" class="ag-header-container" role="rowgroup"
+                                             style="width: 1846px; transform: translateX(0px);">
+                                            <div class="ag-header-row ag-header-row-column-group" role="row"
+                                                 style="top: 0px; height: 31px; width: 1846px;">
+                                                <div class="ag-header-group-cell ag-focus-managed ag-header-group-cell-with-group"
+                                                     role="columnheader" aria-colspan="5"
+                                                     style="width: 742px; left: 0px;">
+                                                    <div class="ag-header-cell-resize"></div>
+                                                    <div class="ag-header-group-cell-label">
+                                                        <span class="ag-header-group-text">Товар</span>
+                                                        <span class="ag-header-icon ag-header-expand-icon ag-header-expand-icon-expanded ag-hidden"><span
+                                                                    class="ag-icon ag-icon-expanded"></span></span>
+                                                        <span class="ag-header-icon ag-header-expand-icon ag-header-expand-icon-collapsed ag-hidden"><span
+                                                                    class="ag-icon ag-icon-contracted"></span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="ag-header-group-cell ag-focus-managed ag-header-group-cell-with-group"
+                                                     role="columnheader"
+                                                     style="width: 92px; left: 742px;">
+                                                    <div class="ag-header-cell-resize"></div>
+                                                    <div class="ag-header-group-cell-label">
+                                                        <span class="ag-header-group-text">Общее</span>
+                                                        <span class="ag-header-icon ag-header-expand-icon ag-header-expand-icon-expanded ag-hidden"><span
+                                                                    class="ag-icon ag-icon-expanded"></span></span>
+                                                        <span class="ag-header-icon ag-header-expand-icon ag-header-expand-icon-collapsed ag-hidden"><span
+                                                                    class="ag-icon ag-icon-contracted"></span></span>
+                                                    </div>
+                                                </div>
+                                                {% for city in cities %}
+                                                    <div class="ag-header-group-cell ag-focus-managed ag-header-group-cell-with-group"
+                                                         role="columnheader"
+                                                         style="width: 92px; left: {{ 834 + (92 * (loop.index-1)) }}px;">
+                                                        <div class="ag-header-cell-resize"></div>
+                                                        <div class="ag-header-group-cell-label">
+                                                            <span class="ag-header-group-text">{{ city.name }}</span>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="ag-header-row ag-header-row-column-group" role="row"
+                                                 style="top: 31px; height: 31px; width: 1846px;">
+                                                <div class="ag-header-group-cell ag-focus-managed ag-header-group-cell-with-group"
+                                                     role="columnheader"
+                                                     style="width: 92px; left: 742px;">
+                                                    <div class="ag-header-cell-resize"></div>
+                                                    <div class="ag-header-group-cell-label">
+                                                        <span class="ag-header-group-text">API</span>
+                                                        <span class="ag-header-icon ag-header-expand-icon ag-header-expand-icon-expanded ag-hidden"><span
+                                                                    class="ag-icon ag-icon-expanded"></span></span>
+                                                        <span class="ag-header-icon ag-header-expand-icon ag-header-expand-icon-collapsed ag-hidden"><span
+                                                                    class="ag-icon ag-icon-contracted"></span></span>
+                                                    </div>
+                                                </div>
+                                                {% for city in cities %}
+                                                    <div class="ag-header-group-cell ag-focus-managed ag-header-group-cell-with-group"
+                                                         role="columnheader"
+                                                         style="width: 92px; left: {{ 834 + (92 * (loop.index-1)) }}px;">
+                                                        <div class="ag-header-cell-resize"></div>
+                                                        <div class="ag-header-group-cell-label">
+                                                            <span class="ag-header-group-text">API</span>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="ag-header-row ag-header-row-column" role="row"
+                                                 style="top: 62px; height: 31px; width: 1846px;">
+                                                <div class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
+
+
+                                                     style="width: 199px; left: 0px;">
+                                                    <div class="ag-header-cell-resize"></div>
+                                                    <!--AG-CHECKBOX-->
+                                                    <div class="ag-header-select-all ag-labeled ag-label-align-right ag-checkbox ag-input-field ag-hidden">
+                                                        <div class="ag-input-field-label ag-label ag-hidden ag-checkbox-label"></div>
+                                                        <div class="ag-wrapper ag-input-wrapper ag-checkbox-input-wrapper">
+                                                            <input
+                                                                    class="ag-input-field-input ag-checkbox-input"
+                                                                    type="checkbox" id="ag-76-input">
+                                                        </div>
+                                                    </div>
+                                                    <div class="ag-cell-label-container ag-header-cell-sorted-none">
+                                                        <span class="ag-header-icon ag-header-cell-menu-button"><span
+                                                                    class="ag-icon ag-icon-menu"></span></span>
+                                                        <div class="ag-header-cell-label">
+                                                            <span class="ag-header-cell-text">Товарная группа</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
+
+
+                                                     style="width: 199px; left: 199px;">
+                                                    <div class="ag-header-cell-resize"></div>
+                                                    <!--AG-CHECKBOX-->
+                                                    <div class="ag-header-select-all ag-labeled ag-label-align-right ag-checkbox ag-input-field ag-hidden">
+                                                        <div class="ag-input-field-label ag-label ag-hidden ag-checkbox-label"></div>
+                                                        <div class="ag-wrapper ag-input-wrapper ag-checkbox-input-wrapper">
+                                                            <input
+                                                                    class="ag-input-field-input ag-checkbox-input"
+                                                                    type="checkbox" id="ag-79-input">
+                                                        </div>
+                                                    </div>
+                                                    <div class="ag-cell-label-container ag-header-cell-sorted-none">
+                                                        <span class="ag-header-icon ag-header-cell-menu-button"><span
+                                                                    class="ag-icon ag-icon-menu"></span></span>
+                                                        <div class="ag-header-cell-label">
+                                                            <span class="ag-header-cell-text">Артикул</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="ag-header-cell ag-focus-managed ag-header-cell-sortable ag-right-aligned-header"
+                                                     style="width: 96px; left: 398px;">
+                                                    <div class="ag-header-cell-resize"></div>
+                                                    <!--AG-CHECKBOX-->
+                                                    <div class="ag-header-select-all ag-labeled ag-label-align-right ag-checkbox ag-input-field ag-hidden">
+                                                        <div class="ag-input-field-label ag-label ag-hidden ag-checkbox-label"></div>
+                                                        <div class="ag-wrapper ag-input-wrapper ag-checkbox-input-wrapper">
+                                                            <input
+                                                                    class="ag-input-field-input ag-checkbox-input"
+                                                                    type="checkbox" id="ag-82-input">
+                                                        </div>
+                                                    </div>
+                                                    <div class="ag-cell-label-container ag-header-cell-sorted-none">
+                                                        <span class="ag-header-icon ag-header-cell-menu-button"><span
+                                                                    class="ag-icon ag-icon-menu"></span></span>
+                                                        <div class="ag-header-cell-label">
+                                                            <span class="ag-header-cell-text">SKU</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
+                                                     style="width: 100px; left: 494px;">
+                                                    <div class="ag-header-cell-resize"></div>
+                                                    <!--AG-CHECKBOX-->
+                                                    <div class="ag-header-select-all ag-labeled ag-label-align-right ag-checkbox ag-input-field ag-hidden">
+                                                        <div class="ag-input-field-label ag-label ag-hidden ag-checkbox-label"></div>
+                                                        <div class="ag-wrapper ag-input-wrapper ag-checkbox-input-wrapper">
+                                                            <input
+                                                                    class="ag-input-field-input ag-checkbox-input"
+                                                                    type="checkbox" id="ag-85-input">
+                                                        </div>
+                                                    </div>
+                                                    <div class="ag-cell-label-container ag-header-cell-sorted-none">
+                                                        <span class="ag-header-icon ag-header-cell-menu-button"><span
+                                                                    class="ag-icon ag-icon-menu"></span></span>
+                                                        <div class="ag-header-cell-label">
+                                                            <span class="ag-header-cell-text">Бренд</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="ag-header-cell ag-focus-managed ag-header-cell-sortable ag-right-aligned-header"
+
+
+                                                     style="width: 148px; left: 594px;">
+                                                    <div class="ag-header-cell-resize"></div>
+                                                    <!--AG-CHECKBOX-->
+                                                    <div class="ag-header-select-all ag-labeled ag-label-align-right ag-checkbox ag-input-field ag-hidden">
+                                                        <div class="ag-input-field-label ag-label ag-hidden ag-checkbox-label"></div>
+                                                        <div class="ag-wrapper ag-input-wrapper ag-checkbox-input-wrapper">
+                                                            <input
+                                                                    class="ag-input-field-input ag-checkbox-input"
+                                                                    type="checkbox" id="ag-88-input">
+                                                        </div>
+                                                    </div>
+                                                    <div class="ag-cell-label-container ag-header-cell-sorted-none">
+                                                        <span class="ag-header-icon ag-header-cell-menu-button"><span
+                                                                    class="ag-icon ag-icon-menu"></span></span>
+                                                        <div class="ag-header-cell-label">
+                                                            <span class="ag-header-cell-text">Себестоимость</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="ag-header-cell ag-focus-managed ag-header-cell-sortable ag-right-aligned-header"
+                                                     style="width: 92px; left: 742px;">
+                                                    <div class="ag-header-cell-resize"></div>
+                                                    <!--AG-CHECKBOX-->
+                                                    <div class="ag-header-select-all ag-labeled ag-label-align-right ag-checkbox ag-input-field ag-hidden">
+                                                        <div class="ag-input-field-label ag-label ag-hidden ag-checkbox-label"></div>
+                                                        <div class="ag-wrapper ag-input-wrapper ag-checkbox-input-wrapper">
+                                                            <input
+                                                                    class="ag-input-field-input ag-checkbox-input"
+                                                                    type="checkbox" id="ag-91-input">
+                                                        </div>
+                                                    </div>
+                                                    <div class="ag-cell-label-container ag-header-cell-sorted-none">
+                                                        <span class="ag-header-icon ag-header-cell-menu-button"><span
+                                                                    class="ag-icon ag-icon-menu"></span></span>
+                                                        <div class="ag-header-cell-label">
+                                                            <span class="ag-header-cell-text">Всего</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% for city in cities %}
+                                                    <div class="ag-header-cell ag-focus-managed ag-header-cell-sortable ag-right-aligned-header"
+                                                         style="width: 92px; left: {{ 834 + (92 * (loop.index-1)) }}px;">
+                                                        <div class="ag-header-cell-resize"></div>
+                                                        <div class="ag-cell-label-container ag-header-cell-sorted-none">
+                                                        <span class="ag-header-icon ag-header-cell-menu-button"><span
+                                                                    class="ag-icon ag-icon-menu"></span></span>
+                                                            <div class="ag-header-cell-label">
+                                                                <span class="ag-header-cell-text">Всего</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="ag-header-row ag-header-row-floating-filter" role="row"
+                                                 style="top: 93px; height: 31px; width: 1846px;">
+                                                <div class="ag-header-cell ag-focus-managed"
+                                                     style="width: 199px; left: 0px;">
+                                                    <div class="ag-floating-filter-body">
+                                                        <div class="ag-floating-filter-input">
+                                                            <!--AG-INPUT-TEXT-FIELD-->
+                                                            <div
+                                                                    class="ag-labeled ag-label-align-left ag-text-field ag-input-field ag-disabled"
+                                                                    disabled="">
+                                                                <div
+                                                                        class="ag-input-field-label ag-label ag-hidden ag-text-field-label"></div>
+                                                                <div
+                                                                        class="ag-wrapper ag-input-wrapper ag-text-field-input-wrapper">
+                                                                    <input
+                                                                            class="ag-input-field-input ag-text-field-input"
+                                                                            type="text" id="ag-95-input" disabled=""
+                                                                            aria-label="Товарная группа Filter Input">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ag-floating-filter-button">
+                                                        <button type="button" aria-label="Open Filter Menu"
+                                                                class="ag-floating-filter-button-button"><span
+                                                                    class="ag-icon ag-icon-filter"></span></button>
+                                                    </div>
+                                                </div>
+                                                <div class="ag-header-cell ag-focus-managed"
+                                                     style="width: 199px; left: 199px;">
+                                                    <div class="ag-floating-filter-body">
+                                                        <div class="ag-floating-filter-input">
+                                                            <!--AG-INPUT-TEXT-FIELD-->
+                                                            <div
+                                                                    class="ag-labeled ag-label-align-left ag-text-field ag-input-field">
+                                                                <div
+                                                                        class="ag-input-field-label ag-label ag-hidden ag-text-field-label"></div>
+                                                                <div
+                                                                        class="ag-wrapper ag-input-wrapper ag-text-field-input-wrapper">
+                                                                    <input
+                                                                            class="ag-input-field-input ag-text-field-input"
+                                                                            type="text" id="ag-98-input"
+                                                                            aria-label="Артикул Filter Input">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ag-floating-filter-button">
+                                                        <button type="button" aria-label="Open Filter Menu"
+                                                                class="ag-floating-filter-button-button"><span
+                                                                    class="ag-icon ag-icon-filter"></span></button>
+                                                    </div>
+                                                </div>
+                                                <div class="ag-header-cell ag-focus-managed"
+                                                     style="width: 96px; left: 398px;">
+                                                    <div class="ag-floating-filter-body">
+                                                        <div class="ag-floating-filter-input">
+                                                            <!--AG-INPUT-TEXT-FIELD-->
+                                                            <div
+                                                                    class="ag-labeled ag-label-align-left ag-text-field ag-input-field">
+                                                                <div
+                                                                        class="ag-input-field-label ag-label ag-hidden ag-text-field-label"></div>
+                                                                <div
+                                                                        class="ag-wrapper ag-input-wrapper ag-text-field-input-wrapper">
+                                                                    <input
+                                                                            class="ag-input-field-input ag-text-field-input"
+                                                                            type="text" id="ag-101-input"
+                                                                            aria-label="SKU Filter Input">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ag-floating-filter-button">
+                                                        <button type="button" aria-label="Open Filter Menu"
+                                                                class="ag-floating-filter-button-button"><span
+                                                                    class="ag-icon ag-icon-filter"></span></button>
+                                                    </div>
+                                                </div>
+                                                <div class="ag-header-cell ag-focus-managed"
+                                                     style="width: 100px; left: 494px;">
+                                                    <div class="ag-floating-filter-body">
+                                                        <div class="ag-floating-filter-input">
+                                                            <!--AG-INPUT-TEXT-FIELD-->
+                                                            <div
+                                                                    class="ag-labeled ag-label-align-left ag-text-field ag-input-field">
+                                                                <div
+                                                                        class="ag-input-field-label ag-label ag-hidden ag-text-field-label"></div>
+                                                                <div
+                                                                        class="ag-wrapper ag-input-wrapper ag-text-field-input-wrapper">
+                                                                    <input
+                                                                            class="ag-input-field-input ag-text-field-input"
+                                                                            type="text" id="ag-104-input"
+                                                                            aria-label="Бренд Filter Input">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ag-floating-filter-button">
+                                                        <button type="button" aria-label="Open Filter Menu"
+                                                                class="ag-floating-filter-button-button"><span
+                                                                    class="ag-icon ag-icon-filter"></span></button>
+                                                    </div>
+                                                </div>
+                                                <div class="ag-header-cell ag-focus-managed"
+                                                     style="width: 148px; left: 594px;">
+                                                    <div class="ag-floating-filter-body">
+                                                        <div class="ag-floating-filter-input">
+                                                            <!--AG-INPUT-TEXT-FIELD-->
+                                                            <div
+                                                                    class="ag-labeled ag-label-align-left ag-text-field ag-input-field">
+                                                                <div
+                                                                        class="ag-input-field-label ag-label ag-hidden ag-text-field-label"></div>
+                                                                <div
+                                                                        class="ag-wrapper ag-input-wrapper ag-text-field-input-wrapper">
+                                                                    <input
+                                                                            class="ag-input-field-input ag-text-field-input"
+                                                                            type="text" id="ag-107-input"
+                                                                            aria-label="Себестоимость Filter Input">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ag-floating-filter-button">
+                                                        <button type="button" aria-label="Open Filter Menu"
+                                                                class="ag-floating-filter-button-button"><span
+                                                                    class="ag-icon ag-icon-filter"></span></button>
+                                                    </div>
+                                                </div>
+                                                <div class="ag-header-cell ag-focus-managed"
+                                                     style="width: 92px; left: 742px;">
+                                                    <div class="ag-floating-filter-body">
+                                                        <div class="ag-floating-filter-input">
+                                                            <!--AG-INPUT-TEXT-FIELD-->
+                                                            <div
+                                                                    class="ag-labeled ag-label-align-left ag-text-field ag-input-field">
+                                                                <div
+                                                                        class="ag-input-field-label ag-label ag-hidden ag-text-field-label"></div>
+                                                                <div
+                                                                        class="ag-wrapper ag-input-wrapper ag-text-field-input-wrapper">
+                                                                    <input
+                                                                            class="ag-input-field-input ag-text-field-input"
+                                                                            type="text" id="ag-110-input"
+                                                                            aria-label="Всего Filter Input">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ag-floating-filter-button">
+                                                        <button type="button" aria-label="Open Filter Menu"
+                                                                class="ag-floating-filter-button-button"><span
+                                                                    class="ag-icon ag-icon-filter"></span></button>
+                                                    </div>
+                                                </div>
+                                                {% for city in cities %}
+                                                    <div class="ag-header-cell ag-focus-managed"
+                                                         style="width: 92px; left: {{ 834 + (92 * (loop.index-1)) }}px;">
+                                                        <div class="ag-floating-filter-body">
+                                                            <div class="ag-floating-filter-input">
+                                                                <!--AG-INPUT-TEXT-FIELD-->
+                                                                <div class="ag-labeled ag-label-align-left ag-text-field ag-input-field">
+                                                                    <div class="ag-input-field-label ag-label ag-hidden ag-text-field-label"></div>
+                                                                    <div class="ag-wrapper ag-input-wrapper ag-text-field-input-wrapper">
+                                                                        <input class="ag-input-field-input ag-text-field-input"
+                                                                               type="text" id="ag-195-input"
+                                                                               aria-label="Всего Filter Input">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="ag-floating-filter-button">
+                                                            <button type="button" aria-label="Open Filter Menu"
+                                                                    class="ag-floating-filter-button-button">
+                                                                <span class="ag-icon ag-icon-filter"></span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ag-pinned-right-header ag-hidden"
+                                         style="width: 14px; max-width: 14px; min-width: 14px;">
+                                        <div class="ag-header-row ag-header-row-column-group" role="row"
+                                             style="top: 0px; height: 31px; width: 0px;"></div>
+                                        <div class="ag-header-row ag-header-row-column-group" role="row"
+                                             style="top: 31px; height: 31px; width: 0px;"></div>
+                                        <div class="ag-header-row ag-header-row-column" role="row"
+                                             style="top: 62px; height: 31px; width: 0px;"></div>
+                                        <div class="ag-header-row ag-header-row-floating-filter" role="row"
+                                             style="top: 93px; height: 31px; width: 0px;"></div>
+                                    </div>
+                                </div>
+                                <div class="ag-floating-top"
+                                     style="min-height: 0px; height: 0px; display: none; overflow-y: scroll;">
+                                    <!--AG-ROW-CONTAINER-->
+                                    <div class="ag-pinned-left-floating-top"
+
+                                         style="width: 687px; max-width: 687px; min-width: 687px;"></div>
+                                    <!--AG-ROW-CONTAINER-->
+                                    <div class="ag-floating-top-viewport"
+                                    >
+                                        <div class="ag-floating-top-container"
+
+                                             style="width: 1846px; transform: translateX(0px);"></div>
+                                    </div>
+                                    <!--AG-ROW-CONTAINER-->
+                                    <div class="ag-pinned-right-floating-top ag-hidden"
+                                    ></div>
+                                    <!--AG-ROW-CONTAINER-->
+                                    <div class="ag-floating-top-full-width-container"
+                                    ></div>
+                                </div>
+
+                                <div class="ag-body-viewport ag-layout-normal ag-row-no-animation">
+                                    <div class="ag-pinned-left-cols-container"
+                                         style="height: 3150px; width: 687px; max-width: 687px; min-width: 687px;">
+                                        {% for lTable in stocks %}
+                                            <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
+                                                 style="height: 35px; transform: translateY({{ (loop.index-1) * 35 }}px); ">
+                                                <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height d-flex justify-content-center ag-cell-value"
+                                                     style="width: 50px; left: 0px;  ">
+                                                    <div class="ag-grid-thumb-cell">
+                                                        <div>
+                                                            <img src="https://img1.wbstatic.net/c252x336/new/{{ lTable.img }}/{{ lTable.nmId }}-1.jpg"
+                                                                 id="thumb_39">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-last-left-pinned ag-cell-value"
+                                                     style="width: 637px; left: 50px;"><span>{{ lTable.subject }}</span>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="ag-center-cols-clipper" style="height: {{ (count * 35)+15 }}px;">
+                                        <div id="table_sale" class="ag-center-cols-viewport"
+                                             style="width: fit-content;overflow: hidden;">
+                                            <div class="ag-center-cols-container"
+                                                 style="width: 1846px;">
+                                                {% for rTable in stocks %}
+                                                    <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
+                                                         style="height: 35px; transform: translateY({{ (loop.index-1) * 35 }}px); ">
+                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
+                                                             style="width: 199px; left: 0px;">
+                                                            <span>{{ rTable.category }}</span></div>
+                                                        <div
+                                                                class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
+                                                                style="width: 199px; left: 199px;">
+                                                            <span>2140арт2146олива</span></div>
+                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                             style="width: 96px; left: 398px;">
+                                                            {{ rTable.nmId }}
+                                                        </div>
+                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
+                                                             style="width: 100px; left: 494px;"><a
+                                                                    href="/wb/brand?brand=HobbyBag" title="HobbyBag"
+                                                                    target="_blank">{{ rTable.brand }}</a></div>
+                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                             aria-selected="false"
+                                                             style="width: 148px; left: 594px; cursor: pointer; background: rgba(196, 243, 255, 0.5); text-decoration-style: dotted;">
+                                                            0
+                                                        </div>
+                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value" style="width: 92px; left: 742px;">
+                                                            {{ rTable.cityResult }}
+                                                        </div>
+                                                        {% for city in rTable.cities %}
+                                                            <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                                 style="width: 92px;left: {{ 834 + (92 * (loop.index-1)) }}px;">
+                                                                {{ city }}
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--AG-ROW-CONTAINER-->
+                                    <!--AG-ROW-CONTAINER-->
+                                    <div class="ag-full-width-container"
+
+                                         style="height: 3150px;"></div>
+                                </div>
+                                <div class="ag-floating-bottom"
+                                     style="min-height: 36px; height: 36px; display: inherit; overflow-y: scroll;">
+                                    <!--AG-ROW-CONTAINER-->
+                                    <div class="ag-pinned-left-floating-bottom"
+
+                                         style="width: 687px; max-width: 687px; min-width: 687px;">
+                                        <div role="row" row-index="b-0" row-id="b-0"
+
+                                             class="ag-row ag-row-no-focus ag-row-even ag-row-pinned ag-row-level-0 ag-row-position-absolute ag-row-first"
+                                             aria-selected="false"
+                                             style="height: 35px; transform: translateY(0px); "
+                                             aria-label="Press SPACE to select this row.">
+                                            <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height d-flex justify-content-center ag-cell-value"
+                                                 style="width: 50px; left: 0px;  ">
+                                                <div class="ag-grid-thumb-cell"><!----> <!----></div>
+                                            </div>
+                                            <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-last-left-pinned text-right ag-cell-value"
+                                                 style="width: 637px; left: 50px;">
+                                                <span>Итого</span></div>
+                                        </div>
+                                    </div>
+                                    <!--AG-ROW-CONTAINER-->
+                                    <div class="ag-floating-bottom-viewport"
+                                    >
+                                        <div id="table_sale_footer" class="ag-floating-bottom-container"
+                                             style="width: 1846px; transform: translateX(0px);">
+                                            <div role="row" row-index="b-0" row-id="b-0"
+
+                                                 class="ag-row ag-row-no-focus ag-row-even ag-row-pinned ag-row-level-0 ag-row-position-absolute ag-row-first"
+                                                 aria-selected="false"
+                                                 style="height: 35px; transform: translateY(0px); "
+                                                 aria-label="Press SPACE to select this row.">
+                                                <div
+
+                                                        class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
+                                                        style="width: 199px; left: 0px;">
+                                                    <div>—</div>
+                                                </div>
+                                                <div
+
+                                                        class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
+                                                        style="width: 199px; left: 199px;">
+                                                    <div>—</div>
+                                                </div>
+                                                <div
+
+                                                        class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                        style="width: 96px; left: 398px;"></div>
+                                                <div
+
+                                                        class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
+                                                        style="width: 100px; left: 494px;">
+                                                    <div>—</div>
+                                                </div>
+                                                <div
+
+                                                        class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                        style="width: 148px; left: 594px;"></div>
+                                                <div
+
+                                                        class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                        style="width: 92px; left: 742px;">670
+                                                </div>
+                                                {% for city in cities %}
+                                                    <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                         style="width: 92px;left: {{ 834 + (92 * (loop.index-1)) }}px;">
+                                                        0
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--AG-ROW-CONTAINER-->
+                                    <div class="ag-pinned-right-floating-bottom ag-hidden"
+
+                                    >
+                                        <div role="row" row-index="b-0" row-id="b-0"
+
+                                             class="ag-row ag-row-no-focus ag-row-even ag-row-pinned ag-row-level-0 ag-row-position-absolute ag-row-first"
+                                             aria-selected="false"
+                                             style="height: 35px; transform: translateY(0px); "
+                                             aria-label="Press SPACE to select this row."></div>
+                                    </div>
+                                    <!--AG-ROW-CONTAINER-->
+                                    <div class="ag-floating-bottom-full-width-container"
+
+                                    ></div>
+                                </div>
+                                <!--AG-FAKE-HORIZONTAL-SCROLL-->
+                            </div>
+                            <!--AG-SIDE-BAR-->
+                            <div class="ag-side-bar ag-unselectable ag-side-bar-right">
+                                <!--AG-SIDE-BAR-BUTTONS-->
+                                <div class="ag-side-buttons">
+                                    <div class="ag-side-button">
+                                        <button type="button" class="ag-side-button-button">
+                                            <div class="ag-side-button-icon-wrapper"><span
+                                                        class="ag-icon ag-icon-columns"></span></div>
+                                            <span class="ag-side-button-label">Столбцы</span>
+                                        </button>
+                                    </div>
+                                    <div class="ag-side-button">
+                                        <button type="button" class="ag-side-button-button">
+                                            <div class="ag-side-button-icon-wrapper"><span
+                                                        class="ag-icon ag-icon-filter"></span></div>
+                                            <span class="ag-side-button-label">Фильтры</span>
+                                        </button>
+                                    </div>
+                                    <div class="ag-side-button">
+                                        <button type="button" class="ag-side-button-button">
+                                            <div class="ag-side-button-icon-wrapper"><span
+                                                        class="ag-icon ag-icon-group"></span></div>
+                                            <span class="ag-side-button-label">Настройки</span>
+                                        </button>
+                                    </div>
+                                    <div class="ag-side-button">
+                                        <button type="button" class="ag-side-button-button">
+                                            <div class="ag-side-button-icon-wrapper"><span
+                                                        class="ag-icon ag-icon-tick"></span></div>
+                                            <span class="ag-side-button-label">Помощь</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="ag-tool-panel-wrapper ag-hidden">
+                                    <div class="ag-tool-panel-horizontal-resize"></div>
+                                    <div class="ag-column-panel">
+                                        <div class="ag-column-select ag-focus-managed ag-column-panel-column-select">
+                                            <div class="ag-tab-guard ag-tab-guard-top"
+                                                 tabindex="0"></div>
+                                            <!--AG-PRIMARY-COLS-HEADER-->
+                                            <div class="ag-column-select-header"
+                                            >
+                                                <div class="ag-column-select-header-icon"
+                                                     tabindex="0"><span class="ag-icon ag-icon-tree-open"
+
+                                                    ></span><span
+                                                            class="ag-icon ag-icon-tree-closed ag-hidden"></span><span
+                                                            class="ag-icon ag-icon-tree-indeterminate ag-hidden"></span>
+                                                </div>
+                                                <!--AG-CHECKBOX-->
+                                                <div
+                                                        class="ag-column-select-header-checkbox ag-labeled ag-label-align-right ag-checkbox ag-input-field">
+                                                    <div class="ag-input-field-label ag-label ag-hidden ag-checkbox-label"></div>
+                                                    <div class="ag-wrapper ag-input-wrapper ag-checkbox-input-wrapper ag-indeterminate">
+                                                        <input class="ag-input-field-input ag-checkbox-input"
+                                                               type="checkbox" id="ag-31-input"
+                                                               aria-label="Toggle Select All Columns">
+                                                    </div>
+                                                </div>
+                                                <!--AG-INPUT-TEXT-FIELD-->
+                                                <div
+                                                        class="ag-column-select-header-filter-wrapper ag-labeled ag-label-align-left ag-text-field ag-input-field">
+                                                    <div class="ag-input-field-label ag-label ag-hidden ag-text-field-label"></div>
+                                                    <div class="ag-wrapper ag-input-wrapper ag-text-field-input-wrapper">
+                                                        <input class="ag-input-field-input ag-text-field-input"
+                                                               type="text" id="ag-32-input"
+                                                               aria-label="Filter Columns Input"
+                                                               placeholder="Поиск...">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--AG-PRIMARY-COLS-LIST-->
+                                            <div class="ag-column-select-list" role="tree"
+                                            >
+                                                <div class="ag-virtual-list-viewport ag-column-select-virtual-list-viewport ag-focus-managed"
+                                                     role="listbox">
+                                                    <div class="ag-tab-guard ag-tab-guard-top"
+                                                         tabindex="0"></div>
+                                                    <div class="ag-virtual-list-container ag-column-select-virtual-list-container"
+                                                         style="height: 2438px;">
+                                                        <div class="ag-virtual-list-item ag-column-select-virtual-list-item"
+                                                             role="treeitem" aria-setsize="106" aria-posinset="1"
+
+                                                             aria-label="Товар column group toggle visibility (hidden)"
+                                                             aria-expanded="true" style="height: 23px; top: 0px;">
+                                                            <div class="ag-column-select-column-group ag-column-select-indent-0">
+            <span class="ag-column-group-icons">
+                <span class="ag-column-group-closed-icon ag-hidden"><span
+                            class="ag-icon ag-icon-tree-closed"></span></span>
+                <span class="ag-column-group-opened-icon"><span class="ag-icon ag-icon-tree-open"
+
+                    ></span></span>
+            </span>
+                                                                <!--AG-CHECKBOX-->
+                                                                <div
+                                                                        class="ag-column-select-checkbox ag-labeled ag-label-align-right ag-checkbox ag-input-field">
+                                                                    <div
+                                                                            class="ag-input-field-label ag-label ag-hidden ag-checkbox-label"
+                                                                    ></div>
+                                                                    <div
+                                                                            class="ag-wrapper ag-input-wrapper ag-checkbox-input-wrapper ag-indeterminate"
+                                                                    >
+                                                                        <input
+                                                                                class="ag-input-field-input ag-checkbox-input"
+                                                                                type="checkbox" id="ag-1343-input">
+                                                                    </div>
+                                                                </div>
+                                                                <span class="ag-icon ag-icon-grip ag-drag-handle ag-column-select-column-group-drag-handle"
+                                                                ></span>
+                                                                <span class="ag-column-select-column-label"
+                                                                >Товар</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ag-tab-guard ag-tab-guard-bottom"
+                                                         tabindex="0"></div>
+                                                </div>
+                                            </div>
+                                            <div class="ag-tab-guard ag-tab-guard-bottom"
+                                                 tabindex="0"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ag-tool-panel-wrapper ag-hidden">
+                                    <div class="ag-tool-panel-horizontal-resize"></div>
+                                    <div class="ag-filter-toolpanel">
+                                        <!--AG-FILTERS-TOOL-PANEL-HEADER-->
+                                        <div class="ag-filter-toolpanel-search"
+                                        >
+                                            <div class="ag-filter-toolpanel-expand"><span
+                                                        class="ag-icon ag-icon-tree-open"></span><span
+                                                        class="ag-icon ag-icon-tree-closed ag-hidden"></span><span
+                                                        class="ag-icon ag-icon-tree-indeterminate ag-hidden"></span>
+                                            </div>
+                                            <!--AG-INPUT-TEXT-FIELD-->
+                                            <div
+                                                    class="ag-filter-toolpanel-search-input ag-labeled ag-label-align-left ag-text-field ag-input-field">
+                                                <div
+                                                        class="ag-input-field-label ag-label ag-hidden ag-text-field-label"></div>
+                                                <div
+                                                        class="ag-wrapper ag-input-wrapper ag-text-field-input-wrapper">
+                                                    <input class="ag-input-field-input ag-text-field-input"
+                                                           type="text" id="ag-39-input" aria-label="Search"
+                                                           placeholder="Поиск...">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ag-tool-panel-wrapper ag-hidden">
+                                    <div class="ag-tool-panel-horizontal-resize"></div>
+                                    <div class="ag-filter-toolpanel">
+                                        <div class="ag-filter-list-panel">
+                                            <div class="ag-filter-toolpanel-group-wrapper ag-first-group-visible">
+                                                <div class="ag-group ag-filter-toolpanel-group ag-group-item-alignment-stretch ag-filter-toolpanel-group-level-0">
+                                                    <div tabindex="0"
+                                                         class="ag-group-title-bar ag-filter-toolpanel-group-title-bar ag-unselectable ag-filter-toolpanel-group-level-0-header ag-filter-toolpanel-header">
+                                                            <span class="ag-group-title-bar-icon ag-filter-toolpanel-group-title-bar-icon ag-hidden"><span
+
+                                                                        class="ag-icon ag-icon-tree-open"></span></span>
+                                                        <span class="ag-group-title-bar-icon ag-filter-toolpanel-group-title-bar-icon"><span
+
+                                                                    class="ag-icon ag-icon-tree-closed"></span></span>
+                                                        <span class="ag-group-title ag-filter-toolpanel-group-title">Столбцы</span>
+                                                    </div>
+                                                    <div class="ag-group-container ag-group-container-vertical ag-filter-toolpanel-group-container ag-hidden">
+                                                        <div class="ag-filter-toolpanel-instance ag-group-item ag-filter-toolpanel-group-item">
+                                                            <div class="ag-filter-toolpanel-instance-body ag-filter">
+                                                                <div class="ag-filter-toolpanel-instance-filter">
+                                                                    <div class="ag-filter-wrapper ag-focus-managed">
+                                                                        <div class="ag-filter-body-wrapper ag-simple-filter-body-wrapper">
+                                                                            <div role="group"
+                                                                                 class="btn-group-vertical">
+                                                                                <button type="button"
+                                                                                        title="Изменяет вид таблицы до состояния столбцов по-умолчанию. Изменяется порядок и видимость столбцов до первоначально заданных. Ширина столбцов сжимается или расширяется с учетом ширины контента в ячейках и заголовка столбца"
+                                                                                        class="btn font-weight-light btn-secondary">
+                                                                                    Сбросить колонки
+                                                                                </button>
+                                                                                <button type="button"
+                                                                                        title="Ширина столбцов сжимается или расширяется с учетом ширины контента в ячейках и заголовка столбца"
+                                                                                        class="btn font-weight-light btn-secondary">
+                                                                                    Автоширина
+                                                                                </button>
+                                                                                <button type="button"
+                                                                                        title="Ширина столбцов сжимается или расширяется с учетом ширины контента"
+                                                                                        class="btn font-weight-light btn-secondary">
+                                                                                    Автоширина (без учета
+                                                                                    заголовков)
+                                                                                </button>
+                                                                                <button type="button"
+                                                                                        title="Сжимет или растягивает столбцы по ширине чтобы попытаться уместить все видимые столбцы в видимой области таблицы"
+                                                                                        class="btn font-weight-light btn-secondary">
+                                                                                    По ширине таблицы
+                                                                                </button>
+                                                                                <button type="button"
+                                                                                        title="Растягивает таблицу на всю высоту контента без скроллинга внутри таблицы"
+                                                                                        class="btn font-weight-light btn-secondary">
+                                                                                    Автовысота
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="ag-filter-toolpanel-group-wrapper">
+                                                <div class="ag-group ag-filter-toolpanel-group ag-group-item-alignment-stretch ag-filter-toolpanel-group-level-0">
+                                                    <div tabindex="1"
+                                                         class="ag-group-title-bar ag-filter-toolpanel-group-title-bar ag-unselectable ag-filter-toolpanel-group-level-0-header ag-filter-toolpanel-header">
+                                                            <span class="ag-group-title-bar-icon ag-filter-toolpanel-group-title-bar-icon ag-hidden"><span
+
+                                                                        class="ag-icon ag-icon-tree-open"></span></span>
+                                                        <span class="ag-group-title-bar-icon ag-filter-toolpanel-group-title-bar-icon"><span
+
+                                                                    class="ag-icon ag-icon-tree-closed"></span></span>
+                                                        <span class="ag-group-title ag-filter-toolpanel-group-title">Представления таблицы</span>
+                                                    </div>
+                                                    <div class="ag-group-container ag-group-container-vertical ag-filter-toolpanel-group-container ag-hidden">
+                                                        <div class="ag-filter-toolpanel-instance ag-group-item ag-filter-toolpanel-group-item">
+                                                            <div class="ag-filter-toolpanel-instance-body ag-filter">
+                                                                <div class="ag-filter-toolpanel-instance-filter">
+                                                                    <div class="ag-filter-wrapper ag-focus-managed">
+                                                                        <div class="ag-filter-body-wrapper ag-simple-filter-body-wrapper">
+                                                                            <div role="group"
+                                                                                 class="btn-group-vertical">
+                                                                                <button type="button"
+                                                                                        title="Сохранить текущее представление таблицы"
+                                                                                        class="btn font-weight-light btn-secondary">
+                                                                                    Сохранить представление
+                                                                                </button>
+                                                                                <button type="button"
+                                                                                        title="Изменяет вид таблицы до состояния столбцов по-умолчанию. Изменяется порядок и видимость столбцов до первоначально заданных. Ширина столбцов сжимается или расширяется с учетом ширины контента в ячейках и заголовка столбца"
+                                                                                        class="btn font-weight-light btn-secondary">
+                                                                                    Сбросить колонки
+                                                                                </button>
+                                                                                <div id="dropdown-2"
+                                                                                     class="dropdown b-dropdown btn-group">
+                                                                                    <!---->
+                                                                                    <button id="dropdown-2__BV_toggle_"
+                                                                                            aria-haspopup="true"
+                                                                                            aria-expanded="false"
+                                                                                            type="button"
+                                                                                            class="btn dropdown-toggle btn-secondary font-weight-normal">
+                                                                                        Сохраненные предст.
+                                                                                    </button>
+                                                                                    <ul role="menu"
+                                                                                        aria-labelledby="dropdown-2__BV_toggle_"
+                                                                                        class="dropdown-menu">
+                                                                                        <li><a
+                                                                                                    role="menuitem"
+                                                                                                    href="#"
+                                                                                                    target="_self"
+                                                                                                    class="dropdown-item">Управление
+                                                                                                предст.</a></li>
+                                                                                        <!----> </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="ag-filter-toolpanel-group-wrapper">
+                                                <div class="ag-group ag-filter-toolpanel-group ag-group-item-alignment-stretch ag-filter-toolpanel-group-level-0">
+                                                    <div tabindex="2"
+                                                         class="ag-group-title-bar ag-filter-toolpanel-group-title-bar ag-unselectable ag-filter-toolpanel-group-level-0-header ag-filter-toolpanel-header">
+                                                            <span class="ag-group-title-bar-icon ag-filter-toolpanel-group-title-bar-icon"><span
+
+                                                                        class="ag-icon ag-icon-tree-open"></span></span>
+                                                        <span class="ag-group-title-bar-icon ag-filter-toolpanel-group-title-bar-icon ag-hidden"><span
+
+                                                                    class="ag-icon ag-icon-tree-closed"></span></span>
+                                                        <span class="ag-group-title ag-filter-toolpanel-group-title">Пресеты фильтров</span>
+                                                    </div>
+                                                    <div class="ag-group-container ag-group-container-vertical ag-filter-toolpanel-group-container">
+                                                        <div class="ag-filter-toolpanel-instance ag-group-item ag-filter-toolpanel-group-item">
+                                                            <div class="ag-filter-toolpanel-instance-body ag-filter">
+                                                                <div class="ag-filter-toolpanel-instance-filter">
+                                                                    <div class="ag-filter-wrapper ag-focus-managed">
+                                                                        <div class="ag-filter-body-wrapper ag-simple-filter-body-wrapper">
+                                                                            <div role="group"
+                                                                                 class="btn-group-vertical">
+                                                                                <button type="button"
+                                                                                        title="Сохранить заданный в таблице фильтр"
+                                                                                        class="btn font-weight-light btn-secondary">
+                                                                                    Сохранить фильтр
+                                                                                </button>
+                                                                                <button type="button"
+                                                                                        title="Сбросить установленный фильтр"
+                                                                                        class="btn font-weight-light btn-secondary">
+                                                                                    Сбросить фильтр
+                                                                                </button>
+                                                                                <div id="dropdown-1"
+                                                                                     class="dropdown b-dropdown btn-group">
+                                                                                    <!---->
+                                                                                    <button id="dropdown-1__BV_toggle_"
+                                                                                            aria-haspopup="true"
+                                                                                            aria-expanded="false"
+                                                                                            type="button"
+                                                                                            class="btn dropdown-toggle btn-secondary font-weight-normal">
+                                                                                        Сохраненные фильтры
+                                                                                    </button>
+                                                                                    <ul role="menu"
+                                                                                        aria-labelledby="dropdown-1__BV_toggle_"
+                                                                                        class="dropdown-menu">
+                                                                                        <li><a
+                                                                                                    role="menuitem"
+                                                                                                    href="#"
+                                                                                                    target="_self"
+                                                                                                    class="dropdown-item">Управление
+                                                                                                фильтрами</a></li>
+                                                                                        <!----> </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> <!----> <!----> <!----> <!----></div>
+                                </div>
+                                <div class="ag-tool-panel-wrapper ag-hidden">
+                                    <div class="ag-tool-panel-horizontal-resize"></div>
+                                    <div data-v-1becae0c="" class="ag-filter-toolpanel">
+                                        <div data-v-1becae0c="" class="ag-filter-list-panel">
+                                            <div data-v-1becae0c=""
+                                                 class="ag-filter-toolpanel-group-wrapper ag-first-group-visible">
+                                                <div data-v-1becae0c=""
+                                                     class="ag-group ag-filter-toolpanel-group ag-group-item-alignment-stretch ag-filter-toolpanel-group-level-0">
+                                                    <div data-v-1becae0c=""
+                                                         class="ag-group-container ag-group-container-vertical ag-filter-toolpanel-group-container">
+                                                        <div data-v-1becae0c=""
+                                                             class="ag-filter-toolpanel-instance ag-group-item ag-filter-toolpanel-group-item">
+                                                            <div data-v-1becae0c=""
+                                                                 class="ag-filter-toolpanel-instance-body ag-filter">
+                                                                <div data-v-1becae0c=""
+                                                                     class="ag-filter-toolpanel-instance-filter">
+                                                                    <div data-v-1becae0c=""
+                                                                         class="ag-filter-wrapper ag-focus-managed">
+                                                                        <div data-v-1becae0c=""
+                                                                             class="ag-filter-body-wrapper ag-simple-filter-body-wrapper">
+                                                                            <div data-v-1becae0c="" role="group"
+                                                                                 class="btn-group-vertical">
+                                                                                <button data-v-1becae0c=""
+                                                                                        type="button"
+                                                                                        class="btn font-weight-light btn-secondary">
+                                                                                    Описание полей
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> <!----></div>
+                                </div>
+                            </div>
+                            <div class="ag-tab-guard ag-tab-guard-bottom" tabindex="0"></div>
+                        </div>
+                        <div class="ag-body-horizontal-scroll" aria-hidden="true"
+                             style="height: 14px; max-height: 14px; min-height: 14px;">
+                            <input value="0" id="scrollbar"
+                                   type="range" min="0" max="100"/>
+                        </div>
+                        <!--AG-STATUS-BAR-->
+                        <div class="ag-status-bar">
+                            <div class="ag-status-bar-left">
+                                <div class="ag-status-name-value ag-hidden ag-status-panel ag-status-panel-selected-row-count">
+                                    <span>Выделенные</span>:&nbsp;
+                                    <span class="ag-status-name-value-value">0</span>
+                                </div>
+                                <div class="dropdown b-dropdown d-flex align-items-center position-static btn-group"
+                                     id="__BVID__33"><!---->
+                                    <button aria-haspopup="true" aria-expanded="false" type="button"
+                                            class="btn dropdown-toggle btn-secondary btn-xs"
+                                            id="__BVID__33__BV_toggle_">
+                                        Экспорт
+                                        <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false"
+                                             role="img" aria-label="file earmark excel"
+                                             xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                             class="bi-file-earmark-excel b-icon bi">
+                                            <g>
+                                                <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"></path>
+                                                <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"></path>
+                                            </g>
+                                        </svg>
+                                    </button>
+                                    <ul role="menu" class="dropdown-menu"
+                                        aria-labelledby="__BVID__33__BV_toggle_">
+                                        <li>
+                                            <header class="dropdown-header">CSV формат:</header>
+                                            <ul role="group" class="list-unstyled">
+                                                <li>
+                                                    <button role="menuitem" type="button" class="dropdown-item">
+                                                        Скачать только включенные колонки (19/81)
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button role="menuitem" type="button" class="dropdown-item">
+                                                        Скачать все колонки
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <header class="dropdown-header">Xlsx формат:</header>
+                                            <ul role="group" class="list-unstyled">
+                                                <li>
+                                                    <button role="menuitem" type="button" class="dropdown-item">
+                                                        Скачать только включенные колонки (19/81)
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button role="menuitem" type="button" class="dropdown-item">
+                                                        Скачать все колонки
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="ag-status-bar-center"></div>
+                            <div class="ag-status-bar-right">
+                                <div class="ag-status-panel ag-status-panel-aggregations">
+                                    <!--AG-NAME-VALUE-->
+                                    <div class="ag-status-name-value ag-hidden">
+                                        <span>Среднее значение</span>:&nbsp;
+                                        <span class="ag-status-name-value-value">NaN</span>
+                                    </div>
+                                    <!--AG-NAME-VALUE-->
+                                    <div class="ag-status-name-value ag-hidden">
+                                        <span>Количество</span>:&nbsp;
+                                        <span class="ag-status-name-value-value">0</span>
+                                    </div>
+                                    <!--AG-NAME-VALUE-->
+                                    <div class="ag-status-name-value ag-hidden">
+                                        <span>Минимум</span>:&nbsp;
+                                        <span class="ag-status-name-value-value"></span>
+                                    </div>
+                                    <!--AG-NAME-VALUE-->
+                                    <div class="ag-status-name-value ag-hidden">
+                                        <span>Максимум</span>:&nbsp;
+                                        <span class="ag-status-name-value-value"></span>
+                                    </div>
+                                    <!--AG-NAME-VALUE-->
+                                    <div class="ag-status-name-value ag-hidden">
+                                        <span>Сумма</span>:&nbsp;
+                                        <span class="ag-status-name-value-value">0</span>
+                                    </div>
+                                </div>
+                                <div class="ag-paging-panel ag-unselectable font-weight-normal border-0"><span
+                                            class="ag-paging-row-summary-panel" style=""><span
+                                                class="ag-paging-row-summary-panel-number">1</span> <span>к</span> <span
+                                                class="ag-paging-row-summary-panel-number">90</span> <span>из</span> <span
+                                                class="ag-paging-row-summary-panel-number">90</span></span> <span
+                                            class="ag-paging-page-summary-panel mr-0"><div
+                                                role="button" aria-label="На первую страницу" tabindex="0"
+                                                aria-disabled="true" class="ag-paging-button ag-disabled"><span
+                                                    class="ag-icon ag-icon-first"></span></div> <div role="button"
+                                                                                                     aria-label="Предыдцщая страница"
+                                                                                                     tabindex="0"
+                                                                                                     aria-disabled="true"
+                                                                                                     class="ag-paging-button ag-disabled"><span
+                                                    class="ag-icon ag-icon-previous"></span></div> <span
+
+                                                class="ag-paging-description"><span>Страница</span> <span
+                                                    class="ag-paging-number">1</span> <span>из</span> <span
+                                                    class="ag-paging-number">1</span></span> <div role="button"
+                                                                                                  aria-label="Следующая страница"
+                                                                                                  tabindex="0"
+                                                                                                  aria-disabled="false"
+                                                                                                  class="ag-paging-button ag-disabled"><span
+                                                    class="ag-icon ag-icon-next"></span></div> <div role="button"
+                                                                                                    aria-label="На последнюю страницу"
+                                                                                                    tabindex="0"
+                                                                                                    aria-disabled="false"
+                                                                                                    class="ag-paging-button mr-0 ag-disabled"><span
+                                                    class="ag-icon ag-icon-last"></span></div></span></div>
+                            </div>
+                        </div>
+                        <!--AG-PAGINATION-->
+                        <div class="ag-paging-panel ag-unselectable ag-hidden" id="ag-53" aria-live="polite"
+                             aria-describedby="ag-53-start-page ag-53-start-page-number ag-53-of-page ag-53-of-page-number ag-53-first-row ag-53-to ag-53-last-row ag-53-of ag-53-row-count">
+                <span class="ag-paging-row-summary-panel">
+                    <span id="ag-53-first-row" class="ag-paging-row-summary-panel-number"></span>
+                    <span id="ag-53-to">к</span>
+                    <span id="ag-53-last-row" class="ag-paging-row-summary-panel-number"></span>
+                    <span id="ag-53-of">из</span>
+                    <span id="ag-53-row-count" class="ag-paging-row-summary-panel-number"></span>
+                </span>
+                            <span class="ag-paging-page-summary-panel">
+                    <div class="ag-paging-button" role="button" aria-label="First Page" tabindex="0"><span
+                                class="ag-icon ag-icon-first"></span></div>
+                    <div class="ag-paging-button" role="button" aria-label="Previous Page"
+                         tabindex="0"><span class="ag-icon ag-icon-previous"
+                        ></span></div>
+                    <span class="ag-paging-description">
+                        <span id="ag-53-start-page">Страница</span>
+                        <span id="ag-53-start-page-number" class="ag-paging-number"></span>
+                        <span id="ag-53-of-page">из</span>
+                        <span id="ag-53-of-page-number" class="ag-paging-number"></span>
+                    </span>
+                    <div class="ag-paging-button" role="button" aria-label="Next Page" tabindex="0"><span
+                                class="ag-icon ag-icon-next"></span></div>
+                    <div class="ag-paging-button" role="button" aria-label="Last Page" tabindex="0"><span
+                                class="ag-icon ag-icon-last"></span></div>
+                </span>
+                        </div>
+                        <!--AG-WATERMARK-->
+                        <div class="ag-watermark ag-hidden">
+                            <div class="ag-watermark-text"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between mt-3">
+                <div class="d-flex flex-column">
+                    <div class="d-flex align-items-center mb-1">
+                        <div class="row-bg-info mr-1" style="background: cornsilk;"></div>
+                        - строки с товарами где по данным API есть товары на складах, но нет в данных с сайта
+                    </div>
+                    <div class="d-flex align-items-center mb-1">
+                        <div class="row-bg-info mr-1" style="background: rgb(220, 220, 220);"></div>
+                        - исключенные товары
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <div class="row-bg-info ag-grid-editable-cell mr-1"></div>
+                        - редактируемые поля. Значение будет сохранено в базу данных
+                    </div>
+                </div>
+                <div data-v-08387b56="" class="d-inline-block text-left switcher-xs">
+                    <div data-v-08387b56="" class="switcher-button-wrapper">
+                        <div data-v-08387b56=""
+                             class="switch-button mr-1 switch-button-xs switcher-on-off disabled"><input
+                                    data-v-08387b56="" type="checkbox" name="switcher-element-6837"
+                                    id="switcher-element-6837" disabled="disabled"> <span data-v-08387b56=""><label
+                                        data-v-08387b56="" for="switcher-element-6837"></label></span></div>
+                        <span data-v-08387b56="" class="switcher-text text-muted">
+                Показать выведенные из номенклатуры
+                (<span data-v-08387b56="">0</span> шт
+                <i data-v-08387b56="" class="fas fa-info-circle text-muted ml-1"></i>)
+            </span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
