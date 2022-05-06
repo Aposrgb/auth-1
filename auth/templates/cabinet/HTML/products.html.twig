@@ -1424,7 +1424,7 @@
                   <!--AG-ROW-CONTAINER-->
                   <div class="ag-pinned-left-cols-container" ref="leftContainer"
                        role="presentation" unselectable="on" name="left"
-                       style="height: 3150px; width: 799px; max-width: 799px; min-width: 799px;">
+                       style="height: {{(products|length)*35}}px; width: 799px; max-width: 799px; min-width: 799px;">
                     {% for product in products %}
                       <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first" style="height: 35px; transform: translateY({{ (loop.index-1) * 35 }}px); ">
                         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height d-flex justify-content-center">
@@ -1467,10 +1467,10 @@
                   </div>
                   <!--AG-ROW-CONTAINER-->
                   <div class="ag-center-cols-clipper" ref="centerContainer" role="presentation"
-                       unselectable="on" name="center" style="height: 3150px;">
+                       unselectable="on" name="center" style="height:{{(products|length)*35}}px;">
                     <div class="ag-center-cols-viewport" ref="eViewport" role="presentation"
                          style="height: calc(100% + 14px);">
-                      <div class="ag-center-cols-container" id="table_sale" style="width: 7889px; height: 3150px;">
+                      <div class="ag-center-cols-container" id="table_sale" style="width: 7889px;">
                         {% for product in products %}
                           <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first" style="height: 35px; transform: translateY({{ (loop.index-1) * 35 }}px); ">
                             <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value" style="width: 96px; left: 0px;">
@@ -1501,7 +1501,7 @@
                               {{ product.techSize }}
                             </div>
                             <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value" style="width: 154px; left: 1340px;">
-                              {{ product.techSize }}
+                              {{ product.daysOnSite }}
                             </div>
                           </div>
                         {% endfor %}
