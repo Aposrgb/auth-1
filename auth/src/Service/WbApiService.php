@@ -23,8 +23,8 @@ class WbApiService
 
     protected function sendRequest(string $path, string $method = 'GET', array $data = [] )
     {
-        $data['dateFrom'] = (new \DateTime())
-            ->modify('- 3 month')
+        $data['dateFrom'] = $data['dateFrom']??(new \DateTime())
+            ->modify('- 1 month')
             ->format("Y-m-d");
 
         $data['dateTo'] = (new \DateTime())

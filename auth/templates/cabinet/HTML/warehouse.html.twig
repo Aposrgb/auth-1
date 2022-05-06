@@ -611,9 +611,9 @@
                                     ></div>
                                 </div>
 
-                                <div class="ag-body-viewport ag-layout-normal ag-row-no-animation">
+                                <div style="height: {{ (count * 35)+15 }}px;" class="ag-body-viewport ag-layout-normal ag-row-no-animation">
                                     <div class="ag-pinned-left-cols-container"
-                                         style="height: 3150px; width: 687px; max-width: 687px; min-width: 687px;">
+                                         style="height: {{ (count * 35)+15 }}px;width: 687px; max-width: 687px; min-width: 687px;">
                                         {% for lTable in stocks %}
                                             <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
                                                  style="height: 35px; transform: translateY({{ (loop.index-1) * 35 }}px); ">
@@ -1144,7 +1144,7 @@
                         </div>
                         <div class="ag-body-horizontal-scroll" aria-hidden="true"
                              style="height: 14px; max-height: 14px; min-height: 14px;">
-                            <input value="0" id="scrollbar"
+                            <input value="0" id="scrollbar" class="scrollbar"
                                    type="range" min="0" max="100"/>
                         </div>
                         <!--AG-STATUS-BAR-->

@@ -53,9 +53,11 @@ class CabinetController extends AbstractController
         );
     }
     #[Route(path: '/order-region', name: 'order-region')]
-    public function orderRegion(): Response
+    public function orderRegion(Request $request): Response
     {
-        return $this->render('cabinet/order-region.html.twig');
+        $query = $request->query->all();
+        return $this->render('cabinet/order-region.html.twig',
+            $this->cabinetWbService->getOrderRegion($this->getUser()->getId(), $query));
     }
     #[Route(path: '/import/cost-price', name: 'cost-price')]
     public function costPrice(): Response
@@ -73,9 +75,11 @@ class CabinetController extends AbstractController
         return $this->render('cabinet/income-calc.html.twig');
     }
     #[Route(path: '/weekly-reports', name: 'weekly-reports')]
-    public function weeklyReports(): Response
+    public function weeklyReports(Request $request): Response
     {
-        return $this->render('cabinet/weekly-reports.html.twig');
+        $query = $request->query->all();
+        return $this->render('cabinet/weekly-reports.html.twig',
+            $this->cabinetWbService->getWeeklyReports($this->getUser()->getId(), $query));
     }
     #[Route(path: '/connect', name: 'connect', methods: ["GET"])]
     public function connect(Request $request): Response

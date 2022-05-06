@@ -174,7 +174,9 @@
             function allKeys() {
                 let buttonAllkey = document.getElementById("__BVID__11");
                 if (buttonAllkey !== undefined) {
-                    buttonAllkey.children[buttonAllkey.children.length - 1].style.display = "block";
+                    let display = buttonAllkey.children[buttonAllkey.children.length - 1].style.display
+                    display = display === "block" ? "none":"block"
+                    buttonAllkey.children[buttonAllkey.children.length - 1].style = `display:${display};margin-block: 32px -65px;`
                 }
             }
             function selectKey(id, url){
@@ -415,39 +417,36 @@
                     background: #badfff82;
                     box-shadow: 0px 0px 7px 0px #030b3e2b;
                 }
-                #scrollbar{
+                .scrollbar{
                     -webkit-appearance: none;
                     width: 100%;
                 }
-                #scrollbar :focus{
+                .scrollbar :focus{
                     outline: none;
                 }
-                #scrollbar:focus {
+                .scrollbar:focus {
                     outline: none;
                 }
-                #scrollbar::-webkit-slider-runnable-track {
+                .scrollbar::-webkit-slider-runnable-track {
                     width: 100%;
                     height: 8.4px;
                     cursor: pointer;
                     box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-                    background: #87ddfd96;;
+                    /*background: #87ddfd96;*/
                     border-radius: 1.3px;
                 }
-                #scrollbar::-webkit-slider-thumb {
+                .scrollbar::-webkit-slider-thumb {
                     box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
                     border: 1px solid #000000;
-                    height: 36px;
-                    width: 16px;
-                    border-radius: 3px;
+                    height: 15px;
+                    width: 60px;
+                    border-radius: 5px;
                     background: snow;
                     cursor: pointer;
                     -webkit-appearance: none;
-                    margin-top: -14px;
+                    margin-top: -5px;
                 }
-                #scrollbar:focus::-webkit-slider-runnable-track {
-                    background: #87ddfd96;;
-                }
-                #scrollbar::-moz-range-track {
+                .scrollbar::-moz-range-track {
                     width: 100%;
                     height: 8.4px;
                     cursor: pointer;
@@ -455,7 +454,7 @@
                     background: #3071a9;
                     border-radius: 1.3px;
                 }
-                #scrollbar::-moz-range-thumb {
+                .scrollbar::-moz-range-thumb {
                     box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
                     height: 36px;
                     width: 16px;
@@ -463,7 +462,7 @@
                     background: #ffffff;
                     cursor: pointer;
                 }
-                #scrollbar::-ms-track {
+                .scrollbar::-ms-track {
                     width: 100%;
                     height: 8.4px;
                     cursor: pointer;
@@ -472,19 +471,19 @@
                     border-width: 16px 0;
                     color: transparent;
                 }
-                #scrollbar::-ms-fill-lower {
+                .scrollbar::-ms-fill-lower {
                     background: #2a6495;
                     border: 0.2px solid #010101;
                     border-radius: 2.6px;
                     box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
                 }
-                #scrollbar::-ms-fill-upper {
+                .scrollbar::-ms-fill-upper {
                     background: #3071a9;
                     border: 0.2px solid #010101;
                     border-radius: 2.6px;
                     box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
                 }
-                #scrollbar::-ms-thumb {
+                .scrollbar::-ms-thumb {
                     box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
                     border: 1px solid #000000;
                     height: 36px;
@@ -493,10 +492,10 @@
                     background: #ffffff;
                     cursor: pointer;
                 }
-                #scrollbar:focus::-ms-fill-lower {
+                .scrollbar:focus::-ms-fill-lower {
                     background: #3071a9;
                 }
-                #scrollbar:focus::-ms-fill-upper {
+                .scrollbar:focus::-ms-fill-upper {
                     background: #367ebd;
                 }
             </style>

@@ -2115,15 +2115,12 @@
               <div class="ag-body-viewport ag-layout-normal ag-row-no-animation"
 
               >
-                <div class="ag-center-cols-clipper" ref="centerContainer"
-                     role="presentation"
-                     unselectable="on"
-                     name="center" style="height: 3220px;">
+                <div class="ag-center-cols-clipper" style="height: {{(orders|length)*35}}px;">
                   <div class="ag-center-cols-viewport" ref="eViewport" role="presentation"
                        style="height: calc(100% + 14px);">
                     <div class="ag-center-cols-container" ref="eContainer"
                          role="rowgroup"
-                         style="width: 3051px; height: 3220px;">
+                         style="width: 3051px;">
                       {% for order in orders %}
                         <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
                              style="height: 35px; transform: translateY({{ (loop.index-1) * 35 }}px); ">
@@ -2149,7 +2146,7 @@
                           </div>
                           <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
                                style="width: 194px; left: 457px;  ">
-                            34567горчичный
+                            {{ order.barcode }}
                           </div>
                           <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
                                style="width: 182px; left: 651px;  ">
@@ -2157,7 +2154,7 @@
                           </div>
                           <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
                                style="width: 93px; left: 833px;  ">
-                            0,00
+                            {{ order.forPay }}
                           </div>
                           <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
                                style="width: 141px; left: 926px;  ">
@@ -2167,33 +2164,25 @@
                                style="width: 123px; left: 1067px;  ">
                             <div></div>
                           </div>
-                          <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                               style="width: 119px; left: 1190px;  ">
-                            0,00
+                          <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value" style="width: 119px; left: 1190px;  ">
+                            {{ order.forPay }}
                           </div>
-                          <div
-
-                                  col-id="final_commission"
-                                  class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                  style="width: 118px; left: 1309px;  "><i
-                                    class="text-muted"
-                                    title="Ожидаемая комиссия">102,45</i>
+                          <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value" style="width: 118px; left: 1309px;  ">
+                            <i class="text-muted" title="Ожидаемая комиссия">{{ order.commission }}</i>
                           </div>
                           <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
                                style="width: 107px; left: 1427px;  ">
-                            0,00
+                            {{ order.return }}
                           </div>
                           <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
                                style="width: 121px; left: 1534px;  ">
-                            -45,00
+                            {{ order.forPay }}
                           </div>
-                          <div
-                                  class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                          <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
                                   style="width: 116px; left: 1655px;  ">
-                            -45,00
+                            {{ order.resultPay }}
                           </div>
-                          <div
-                                  class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
+                          <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
                                   style="width: 149px; left: 1771px;  ">
                             {{ order.date|date("Y.m.d H:i:s") }}
                           </div>
@@ -3804,7 +3793,7 @@
           </div>
           <div class="ag-body-horizontal-scroll" aria-hidden="true"
                style="height: 14px; max-height: 14px; min-height: 14px;">
-            <input value="0" id="scrollbar"
+            <input value="0" id="scrollbar" class="scrollbar" class="scrollbar"
                    type="range" min="0" max="100"/>
           </div>
           <!--AG-STATUS-BAR-->

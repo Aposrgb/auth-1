@@ -75,7 +75,8 @@
             let el = document.getElementById("scrollbar")
             el.addEventListener("input",
                 function () {
-                    let value = el.offsetWidth/250 * el.value
+                    let width = document.getElementById("table_sale").offsetWidth
+                    let value = el.value * width/1800*width/1800
                     document.getElementById("table_sale").style.transform = "translateX(-" + value + "px)"
                     document.getElementById("table_sale_header").style.transform = "translateX(-" + value + "px)"
                     document.getElementById("table_sale_footer").style.transform = "translateX(-" + value + "px)"

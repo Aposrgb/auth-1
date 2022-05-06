@@ -71,12 +71,12 @@ class ApiTokenRepository extends ServiceEntityRepository
         ;
         return $oneRes?
             $qb
-		->setMaxResults(1)
+		        ->setMaxResults(1)
             	->getQuery()
-		->getOneOrNullResult():
+		        ->getOneOrNullResult():
             $qb
-		->getQuery()
-		->getResult();
+		        ->getQuery()
+		        ->getResult();
     }
 
     /**
