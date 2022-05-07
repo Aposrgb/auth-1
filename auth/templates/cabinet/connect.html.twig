@@ -58,7 +58,7 @@
                                                 <div class="card-subtitle mt-2">
                                                     {% if token.status == 1 %}
                                                     Оборот:
-                                                    <span class="font-weight-normal">38 226,67 ₽</span> <i
+                                                    <span class="font-weight-normal">{{token.turnovers}} ₽</span> <i
                                                             class="fas fa-info-circle ml-2"></i>
                                                     {%endif%}
                                                 </div>
@@ -84,37 +84,40 @@
                                                     <tr>
                                                         <td>Заказы</td>
                                                         <td class="text-right"><span
-                                                                    id="ls_tooltip_order">06.04 22:28</span>
-                                                            <!----></td>
-                                                        <td class="text-right"><span id="last_tooltip_order">04.04</span>
-                                                            <!----></td>
+                                                                    id="ls_tooltip_order">{{token.orders.date}}</span>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <span id="last_tooltip_order">{{token.orders.order}}</span>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td>Продажи</td>
-                                                        <td class="text-right"><span id="ls_tooltip_sale">06.04 23:53</span>
+                                                        <td class="text-right"><span id="ls_tooltip_sale">{{token.sales.date}}</span>
                                                             <!----></td>
-                                                        <td class="text-right"><span id="last_tooltip_sale">06.04</span>
+                                                        <td class="text-right"><span id="last_tooltip_sale">{{token.sales.sale}}</span>
                                                             <!---->
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>Склад</td>
                                                         <td class="text-right"><span
-                                                                    id="ls_tooltip_stock">06.04 19:58</span>
+                                                                    id="ls_tooltip_stock">{{token.incomes.date}}</span>
                                                             <!----></td>
-                                                        <td class="text-right"><span id="last_tooltip_stock">06.04</span>
+                                                        <td class="text-right"><span id="last_tooltip_stock">{{token.incomes.income}}</span>
                                                             <!----></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Еженедельный отчет</td>
-                                                        <td class="text-right"><span
-                                                                    id="ls_tooltip_ls_sbs">05.04 13:48</span>
-                                                            <!----></td>
-                                                        <td class="text-right"><span id="last_tooltip_ls_sbs">27.03</span>
-                                                            <!----></td>
+                                                        <td class="text-right">
+                                                            <span id="ls_tooltip_ls_sbs">{{token.reports.date}}</span>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <span id="last_tooltip_ls_sbs">{{token.reports.report}}</span>
+                                                        </td>
                                                     </tr>
                                                     </tbody>
-                                                </table> <!----> <!----></div>
+                                                </table>
+                                            </div>
                                         {% endif%}
                                         <div class="mp-loader-overlay ag-overlay hidden" aria-hidden="true">
                                             <div class="ag-overlay-panel">

@@ -22,7 +22,7 @@ abstract class AbstractDataGetApi extends Command
 
     protected function insertData(ApiToken $token)
     {
-        if($token->getStatus() != ApiTokenStatus::ACTIVE){
+        if($token->getStatus() != ApiTokenStatus::ACTIVE && $token->getStatus() != ApiTokenStatus::UPDATING){
             return;
         }
         $this->service->setToken($token->getToken());
@@ -59,7 +59,7 @@ abstract class AbstractDataGetApi extends Command
         $incomes = $this->service->incomes();
         $orders = $this->service->orders();
         $stocks = $this->service->stocks();
-        $reports = $this->service->reportDetailByPeriod((new \DateTime())->modify('- 6 month')->format("Y-m-d"),null, 100000);
+        $reports = $this->service->reportDetailByPeriod((new \DateTime())->modify('- 6 month')->format("Y-m-d"),null, 10000);
         $this->entityManager->flush();
 
         try {
@@ -112,6 +112,7 @@ abstract class AbstractDataGetApi extends Command
                     ->setWbDataReport($wbData)
             );
         }
+        $token->setStatus(ApiTokenStatus::ACTIVE);
         $this->entityManager->flush();
     }
 

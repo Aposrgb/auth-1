@@ -27,6 +27,7 @@ class ApiTokenRepository extends ServiceEntityRepository
             ->createQueryBuilder('q')
             ->update()
             ->set('q.wbData', $wbId)
+            ->set('q.status', 1)
             ->where('q.token = :token')
             ->setParameter('token', $token)
             ->getQuery()

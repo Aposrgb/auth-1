@@ -85,13 +85,8 @@ class CabinetController extends AbstractController
     public function connect(Request $request): Response
     {
         $query = $request->query->all();
-        $context = [
-            'tokens' => $this->getUser()->getApiToken()
-        ];
-        if(key_exists("error", $query))
-            $context  = array_merge($context, ['error' => $query["error"]]);
-
-        return $this->render('cabinet/connect.html.twig',$context);
+        return $this->render('cabinet/connect.html.twig',
+            $this->cabinetWbService->connected($this->getUser()->getApiToken(), $query));
     }
     #[Route(path: '/connect', name: 'connect_post', methods: ["POST"])]
     public function connectAddToken(Request $request): Response

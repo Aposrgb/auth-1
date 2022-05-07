@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\ApiToken;
 use App\Entity\WbDataEntity\WbDataProperty;
+use App\Helper\Status\ApiTokenStatus;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 
@@ -45,42 +46,37 @@ class CabinetWbService extends AbstractService
             $array['rr_dt'] = (new \DateTime($array['rr_dt']))->format('d.m.Y');
             $id = array_column($data["reports"], 'realizationreport_id');
             $array['isSale'] = $array["doc_type_name"] == "Продажа";
-            $commission = $array['retail_amount']*$array['commission_percent'];
-            if(in_array($array['realizationreport_id'], $id)){
+            $commission = $array['retail_amount'] * $array['commission_percent'];
+            if (in_array($array['realizationreport_id'], $id)) {
                 $index = array_search($array['realizationreport_id'], $id);
                 $dataArray = $data["reports"][$index];
                 $array['dateStart'] = min(
                     new \DateTime($data["reports"][$index]['dateStart']),
                     new \DateTime($array['rr_dt']))
-                    ->format('d.m.Y')
-                ;
+                    ->format('d.m.Y');
                 $array['dateEnd'] = max(
                     new \DateTime($data["reports"][$index]['dateEnd']),
                     new \DateTime($array['rr_dt']))
-                    ->format('d.m.Y')
-                ;
-                $array['retail'] = $array['isSale']?
-                    $dataArray['retail']+$array['retail_amount']:
-                    $dataArray['retail']
-                ;
-                $array['returned'] = !$array['isSale']?
-                    $dataArray['returned']-$array['retail_amount']:
-                    $dataArray['returned']
-                ;
-                $array["retail_price"] = !$array['isSale']?
-                    $dataArray["retail_price"]+$array["retail_price"]:
-                    $dataArray["retail_price"]
-                ;
-                $array['commission'] = $array['isSale']?$dataArray["commission"]+$commission:$dataArray["commission"];
-                $array['com_return'] = !$array['isSale']?$dataArray["com_return"]-$commission:$dataArray["com_return"];
+                    ->format('d.m.Y');
+                $array['retail'] = $array['isSale'] ?
+                    $dataArray['retail'] + $array['retail_amount'] :
+                    $dataArray['retail'];
+                $array['returned'] = !$array['isSale'] ?
+                    $dataArray['returned'] - $array['retail_amount'] :
+                    $dataArray['returned'];
+                $array["retail_price"] = !$array['isSale'] ?
+                    $dataArray["retail_price"] + $array["retail_price"] :
+                    $dataArray["retail_price"];
+                $array['commission'] = $array['isSale'] ? $dataArray["commission"] + $commission : $dataArray["commission"];
+                $array['com_return'] = !$array['isSale'] ? $dataArray["com_return"] - $commission : $dataArray["com_return"];
                 $array['com_return'] = (float)number_format($array['com_return'], 2);
                 $array['commission'] = (float)number_format($array['commission'], 2);
                 $data["reports"][$index] = $array;
-            }else{
-                $array['retail'] = $array['isSale']?$array['retail_amount']:0;
-                $array['returned'] = !$array['isSale']?$array['retail_amount']:0;
-                $array['commission'] = $array['isSale']?$commission:0;
-                $array['com_return'] = !$array['isSale']?-$commission:0;
+            } else {
+                $array['retail'] = $array['isSale'] ? $array['retail_amount'] : 0;
+                $array['returned'] = !$array['isSale'] ? $array['retail_amount'] : 0;
+                $array['commission'] = $array['isSale'] ? $commission : 0;
+                $array['com_return'] = !$array['isSale'] ? -$commission : 0;
                 $array['dateStart'] = $array['rr_dt'];
                 $array['dateEnd'] = $array['rr_dt'];
                 $data["reports"][] = $array;
@@ -116,7 +112,7 @@ class CabinetWbService extends AbstractService
             $array['oblast'] = $array['oblast'] == "" ? "Не указан" : $array['oblast'];
             $orders = array_column($data["orders"], 'city');
             $index = array_search($array['oblast'], $orders);
-            if($array['isCancel']) continue;
+            if ($array['isCancel']) continue;
             if ($index) {
                 $data["orders"][$index] =
                     [
@@ -134,8 +130,8 @@ class CabinetWbService extends AbstractService
             }
         }
         $percent = array_sum(array_column($data['orders'], 'quantity'));
-        $data["orders"] = array_map(function ($item)use($percent){
-            $item['percent'] = number_format(($item['quantity']*100)/$percent, 1);
+        $data["orders"] = array_map(function ($item) use ($percent) {
+            $item['percent'] = number_format(($item['quantity'] * 100) / $percent, 1);
             return $item;
         }, $data['orders']);
         $data["sale"] = $data["sales"];
@@ -162,15 +158,15 @@ class CabinetWbService extends AbstractService
             }
         }
         $percent = array_sum(array_column($data['sales'], 'quantity'));
-        $data["sales"] = array_map(function ($item)use($percent){
-            $item['percent'] = number_format(($item['quantity']*100)/$percent, 1);
+        $data["sales"] = array_map(function ($item) use ($percent) {
+            $item['percent'] = number_format(($item['quantity'] * 100) / $percent, 1);
             return $item;
         }, $data['sales']);
         $context["tokens"] = $dataWb['tokens'] instanceof ApiToken ? [$dataWb['tokens']] : $dataWb['tokens'];
-        $context["orders"] =(new ArrayCollection($data["orders"]))
+        $context["orders"] = (new ArrayCollection($data["orders"]))
             ->matching(Criteria::create()->orderBy(['price' => Criteria::DESC]))
             ->getValues();
-        $context["sales"] =(new ArrayCollection($data["sales"]))
+        $context["sales"] = (new ArrayCollection($data["sales"]))
             ->matching(Criteria::create()->orderBy(['price' => Criteria::DESC]))
             ->getValues();
         return $context;
@@ -302,17 +298,19 @@ class CabinetWbService extends AbstractService
             $data[$arrayNames[$i]] = $repos->getProperty($arrayPropNames[$i], $dataWb['wbData']->getId());
         }
         $count = min(count($data["orders"]), 100);
-        for ($i=0;$i<$count;$i++){
+        for ($i = 0; $i < $count; $i++) {
             $array = json_decode($data["orders"][$i]["property"], true);
             $array["img"] = ((int)($array["nmId"] / 10000)) * 10000;
-            $sales = array_map(function ($item){ return json_decode($item["property"], true);}, $data["sales"]);
+            $sales = array_map(function ($item) {
+                return json_decode($item["property"], true);
+            }, $data["sales"]);
             $sale = array_column($sales, 'orderId');
             $index = array_search($array['number'], $sale);
             $sale = $sales[$index];
-            $array['forPay'] = !$array['isCancel']?$sale['forPay']:0;
-            $array['return'] = $array['isCancel']?-$sale['forPay']:0;
-            $array['commission'] = $sale['priceWithDisc']-$sale['forPay'];
-            $array['resultPay'] = !$array['isCancel']?$sale['forPay']:-$sale['forPay'];
+            $array['forPay'] = !$array['isCancel'] ? $sale['forPay'] : 0;
+            $array['return'] = $array['isCancel'] ? -$sale['forPay'] : 0;
+            $array['commission'] = $sale['priceWithDisc'] - $sale['forPay'];
+            $array['resultPay'] = !$array['isCancel'] ? $sale['forPay'] : -$sale['forPay'];
             $data["order"][$i] = $array;
         }
         $context["tokens"] = $dataWb['tokens'] instanceof ApiToken ? [$dataWb['tokens']] : $dataWb['tokens'];
@@ -360,6 +358,7 @@ class CabinetWbService extends AbstractService
                     ->setApiUser($user)
                     ->setName($name)
                     ->setToken($key)
+                    ->setStatus(ApiTokenStatus::UPDATING)
                 );
                 $this->entityManager->flush();
                 shell_exec("php ../bin/console wb:data:processing $key " . $user->getId() . " > /dev/null &");
@@ -455,6 +454,86 @@ class CabinetWbService extends AbstractService
             $date->modify("-1 day");
         }
         return $data;
+    }
+
+    public function connected($tokens, $query)
+    {
+        $context = [];
+        if (key_exists("error", $query))
+            $context['error'] = $query["error"];
+
+        $tokens = array_map(function (ApiToken $token) {
+
+            $wb = $token->getWbData()?->getId();
+            $token = [
+                'id' => $token->getId(),
+                'name' => $token->getName(),
+                'token' => substr($token->getToken(), 0, 15) . "...",
+                'statusName' => $token->getStatusName(),
+                'status' => $token->getStatus()
+            ];
+            if (!$wb) return $token;
+            if ($token['status'] != ApiTokenStatus::ACTIVE) return $token;
+
+            $repos = $this->entityManager->getRepository(WbDataProperty::class);
+            $arrayPropNames = ["wbDataSale", "wbDataOrder", "wbDataIncome", "wbDataReport"];
+            $arrayNames = ["sales", "orders", "incomes", "reports"];
+            $data = [];
+
+            for ($i = 0; $i < count($arrayPropNames); $i++) {
+                $data[$arrayNames[$i]] = $repos->getProperty($arrayPropNames[$i], $wb);
+            }
+            $func = function ($data, $prop) {
+                $data = array_map(function ($item) use ($prop) {
+                    return ['date' => new \DateTime(json_decode($item['property'], true)[$prop])];
+                }, $data);
+
+                return (new ArrayCollection($data))
+                    ->matching(Criteria::create()->orderBy(['date' => Criteria::DESC]))
+                    ->first();
+            };
+            $token['turnovers'] = 0;
+            $token['turnovers'] = array_sum(
+                array_map(function ($item) use ($token) {
+                    $item = json_decode($item['property'], true);
+                    if ($item['quantity'] > 0) {
+                        return $item['priceWithDisc'] * $item['quantity'];
+                    }
+                    return 0;
+                }, $data['sales'])
+            );
+            $data['sales'] = $func($data['sales'], 'date');
+            $data['orders'] = $func($data['orders'], 'lastChangeDate');
+            $data['incomes'] = $func($data['incomes'], 'lastChangeDate');
+            $data['reports'] = $func($data['reports'], 'rr_dt');
+
+
+            $key = $data['sales'];
+            $token['sales'] = [
+                'date' => $key ? ($key['date'])->format('m.d H:i') : '00.00 00:00',
+                'sale' => $key ? $key['date']->format('m.d') : '00.00'
+            ];
+            $key = $data['orders'];
+            $token['orders'] = [
+                'date' => $key ? ($key['date'])->format('m.d H:i') : '00.00 00:00',
+                'order' => $key ? $key['date']->format('m.d') : '00.00'
+            ];
+            $key = $data['incomes'];
+            $token['incomes'] = [
+                'date' => $key ? ($key['date'])->format('m.d H:i') : '00.00 00:00',
+                'income' => $key ? $key['date']->format('m.d') : '00.00'
+            ];
+            $key = $data['reports'];
+            $token['reports'] = [
+                'date' => $key ? ($key['date'])->format('m.d H:i') : '00.00 00:00',
+                'report' => $key ? $key['date']->format('m.d') : '00.00'
+            ];
+
+            return $token;
+        }, $tokens->toArray());
+
+        $context['tokens'] = $tokens;
+        return $context;
     }
 
     private function sales($sales)
