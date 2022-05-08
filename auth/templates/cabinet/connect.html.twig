@@ -58,7 +58,7 @@
                                                 <div class="card-subtitle mt-2">
                                                     {% if token.status == 1 %}
                                                     Оборот:
-                                                    <span class="font-weight-normal">{{token.turnovers}} ₽</span> <i
+                                                    <span class="font-weight-normal">{{token.turnovers ?? '0' }} ₽</span> <i
                                                             class="fas fa-info-circle ml-2"></i>
                                                     {%endif%}
                                                 </div>
@@ -84,35 +84,35 @@
                                                     <tr>
                                                         <td>Заказы</td>
                                                         <td class="text-right"><span
-                                                                    id="ls_tooltip_order">{{token.orders.date}}</span>
+                                                                    id="ls_tooltip_order">{{token.orders.date ?? '0'}}</span>
                                                         </td>
                                                         <td class="text-right">
-                                                            <span id="last_tooltip_order">{{token.orders.order}}</span>
+                                                            <span id="last_tooltip_order">{{token.orders.order ?? '0'}}</span>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>Продажи</td>
-                                                        <td class="text-right"><span id="ls_tooltip_sale">{{token.sales.date}}</span>
+                                                        <td class="text-right"><span id="ls_tooltip_sale">{{token.sales.date ?? '0'}}</span>
                                                             <!----></td>
-                                                        <td class="text-right"><span id="last_tooltip_sale">{{token.sales.sale}}</span>
+                                                        <td class="text-right"><span id="last_tooltip_sale">{{token.sales.sale ?? '0'}}</span>
                                                             <!---->
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>Склад</td>
                                                         <td class="text-right"><span
-                                                                    id="ls_tooltip_stock">{{token.incomes.date}}</span>
+                                                                    id="ls_tooltip_stock">{{token.incomes.date ?? '0'}}</span>
                                                             <!----></td>
-                                                        <td class="text-right"><span id="last_tooltip_stock">{{token.incomes.income}}</span>
+                                                        <td class="text-right"><span id="last_tooltip_stock">{{token.incomes.income ?? '0'}}</span>
                                                             <!----></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Еженедельный отчет</td>
                                                         <td class="text-right">
-                                                            <span id="ls_tooltip_ls_sbs">{{token.reports.date}}</span>
+                                                            <span id="ls_tooltip_ls_sbs">{{token.reports.date ?? '0'}}</span>
                                                         </td>
                                                         <td class="text-right">
-                                                            <span id="last_tooltip_ls_sbs">{{token.reports.report}}</span>
+                                                            <span id="last_tooltip_ls_sbs">{{token.reports.report ?? '0'}}</span>
                                                         </td>
                                                     </tr>
                                                     </tbody>

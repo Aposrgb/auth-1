@@ -38,10 +38,10 @@ class WbApiService
         }
 
         return json_decode(
-                $request
-                ->getBody()
-                ->getContents(),
-            true);
+        $request
+            ->getBody()
+            ->getContents(),
+        true);
 
     }
 

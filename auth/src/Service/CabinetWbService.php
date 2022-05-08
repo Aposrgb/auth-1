@@ -10,19 +10,6 @@ use Doctrine\Common\Collections\Criteria;
 
 class CabinetWbService extends AbstractService
 {
-    private function checkStatusToken($id, $query)
-    {
-        $tokens = $this
-            ->entityManager
-            ->getRepository(ApiToken::class)
-            ->getTokenWithUser($id, true);
-
-        $token = !key_exists('index', $query) ? ($tokens[0] ?? null) : $tokens[$query['index']];
-        return $token ?
-            ['wbData' => $token->getWbData(), 'token' => $token, 'tokens' => $tokens] :
-            ['wbData' => null, 'token' => null];
-    }
-
     public function getWeeklyReports($id, $query)
     {
         $dataWb = $this->checkStatusToken($id, $query);
