@@ -26,7 +26,7 @@ class WbService extends AbstractService
                     if (!in_array($array[0], array_column($categorys, 'name'))) {
                         $categorys[] = [
                             'name' => $array[0],
-                            'subjects' => []
+                            'subjects' => [[]]
                         ];
                     }
                     break;
