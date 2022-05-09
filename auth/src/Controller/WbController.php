@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Service\WbService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -17,10 +18,11 @@ class WbController extends AbstractController
     }
 
     #[Route(path: '/category', name: 'wb_category')]
-    public function category(): Response
+    public function category(Request $request): Response
     {
-        return $this->render('wb/category.html.twig',
-            $this->service->getCategory()
+        $url = $request->query->all();
+        return $this->render('wb/category'.(($url['url']??null) != '' ? 'Sale': '').'.html.twig',
+            $this->service->getCategory($url['url'] != ''?$url['url']:null)
         );
     }
     #[Route(path: '/bysearch', name: 'wb_by_search')]
