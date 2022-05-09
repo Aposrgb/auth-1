@@ -6,15 +6,8 @@ use App\Entity\WbCategory\WbDataCategory;
 
 class WbService extends AbstractService
 {
-    public function getCategory($id)
+    public function getCategory()
     {
-        $dataWb = $this->checkStatusToken($id);
-        $context['token'] = $dataWb['token'];
-
-        if (!$dataWb['wbData']) {
-            $context["processing"] = true;
-            return $context;
-        }
         $categorys = [];
         $categories = $this->entityManager->getRepository(WbDataCategory::class)->findAll();
         foreach ($categories as $category) {

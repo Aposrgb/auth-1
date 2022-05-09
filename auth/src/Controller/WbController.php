@@ -20,7 +20,7 @@ class WbController extends AbstractController
     public function category(): Response
     {
         return $this->render('wb/category.html.twig',
-            $this->service->getCategory($this->getUser()->getId())
+            $this->service->getCategory()
         );
     }
     #[Route(path: '/bysearch', name: 'wb_by_search')]
