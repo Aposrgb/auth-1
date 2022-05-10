@@ -7,6 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use function Doctrine\ORM\QueryBuilder;
 
 /**
  * @method WbCategorySales|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,6 +20,17 @@ class WbCategorySalesRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, WbCategorySales::class);
+    }
+
+    public function findCategories($url)
+    {
+        $qb = $this
+            ->createQueryBuilder('s');
+        return $qb
+            ->where($qb->expr()->like('s.category', ':url'))
+            ->setParameter('url', "%".$url."%")
+            ->getQuery()
+            ->getResult();
     }
 
     /**

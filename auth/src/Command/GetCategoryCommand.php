@@ -53,7 +53,6 @@ class GetCategoryCommand extends Command
 
         $wbCategory = new WbCategory();
         $url = $this->mpStatsApi."category?path=";
-
         foreach ($data as $category){
             if($category['path'] == 'Авиабилеты') continue;
             $wbDataCategory = new WbDataCategory();
@@ -64,6 +63,7 @@ class GetCategoryCommand extends Command
                     ->setUrl($category['url'])
                     ->setWbCategory($wbCategory)
             );
+            if( count(explode('/', $category['path'])) != 1 ) continue;
             $response = $client->request("GET", $url.$category['path'], $headers);
             $sales = json_decode($response->getBody()->getContents(), true)['data'];
             foreach ($sales as $sale){

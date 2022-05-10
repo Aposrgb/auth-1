@@ -10,16 +10,10 @@ class WbService extends AbstractService
     public function getCategory($url = null)
     {
         if($url){
-            $wbId = $this
-                ->entityManager
-                ->getRepository(WbDataCategory::class)
-                ->findOneBy(['path' => $url])
-                ->getId()
-            ;
             $sales = $this
                     ->entityManager
                     ->getRepository(WbCategorySales::class)
-                    ->findBy(['wbDataCategory' => $wbId])??[];
+                    ->findCategories($url);
 
             $sales = array_map(function (WbCategorySales $item){
                 $item->setColor(explode(', ', $item->getColor())[0]);
@@ -39,28 +33,6 @@ class WbService extends AbstractService
             /** @var WbDataCategory $category */
             $array = explode('/', $category->getPath());
             switch (count($array)) {
-                case 2:{
-                    if (!in_array($array[0], array_column($categorys, 'name'))) {
-                        $categorys[] = [
-                            'name' => $array[0],
-                            'subjects' => [
-                                [
-                                    'name' => $array[1],
-                                    'path' => "$array[0]/$array[1]",
-                                    'subjects' => []
-                                ]
-                            ]
-                        ];
-                    } else {
-                        $index = array_search($array[0], array_column($categorys, 'name'));
-                        $categorys[$index]['subjects'][] = [
-                            'name' => $array[1],
-                            'path' => "$array[0]/$array[1]",
-                            'subjects' => []
-                        ];
-                    }
-                    break;
-                }
                 case 3:{
                     if (!in_array($array[0], array_column($categorys, 'name'))) {
                         $categorys[] = [
@@ -70,8 +42,10 @@ class WbService extends AbstractService
                                     'name' => $array[1],
                                     'path' => "$array[0]/$array[1]",
                                     'subjects' => [
-                                        'name' => $array[2],
-                                        'path' => "$array[0]/$array[1]/$array[2]",
+                                        [
+                                            'name' => $array[2],
+                                            'path' => "$array[0]/$array[1]/$array[2]",
+                                        ]
                                     ]
                                 ]
                             ]
@@ -89,6 +63,7 @@ class WbService extends AbstractService
                 }
             }
         }
+//        var_export($categorys);
 //        $stocks = $this
 //            ->entityManager
 //            ->getRepository(WbDataProperty::class)
