@@ -13,28 +13,28 @@ class WbCategorySales
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'text')]
     private $thumb;
 
     #[ORM\Column(type: 'integer')]
     private $nmId;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'text')]
     private $name;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'text')]
     private $color;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'text')]
     private $category;
 
     #[ORM\Column(type: 'integer')]
     private $position;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'text')]
     private $brand;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'text')]
     private $seller;
 
     #[ORM\Column(type: 'integer')]
@@ -61,7 +61,7 @@ class WbCategorySales
     #[ORM\Column(type: 'integer')]
     private $revenue;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'text')]
     private $graph;
 
     #[ORM\ManyToOne(targetEntity: WbDataCategory::class, inversedBy: 'sales')]

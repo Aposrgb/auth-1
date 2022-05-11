@@ -33,6 +33,28 @@ class WbService extends AbstractService
             /** @var WbDataCategory $category */
             $array = explode('/', $category->getPath());
             switch (count($array)) {
+                case 2:{
+                    if (!in_array($array[0], array_column($categorys, 'name'))) {
+                        $categorys[] = [
+                            'name' => $array[0],
+                            'subjects' => [
+                                [
+                                    'name' => $array[1],
+                                    'path' => "$array[0]/$array[1]",
+                                    'subjects' => []
+                                ]
+                            ]
+                        ];
+                    } else {
+                        $index = array_search($array[0], array_column($categorys, 'name'));
+                        $categorys[$index]['subjects'][] = [
+                            'name' => $array[1],
+                            'path' => "$array[0]/$array[1]",
+                            'subjects' => []
+                        ];
+                    }
+                    break;
+                }
                 case 3:{
                     if (!in_array($array[0], array_column($categorys, 'name'))) {
                         $categorys[] = [

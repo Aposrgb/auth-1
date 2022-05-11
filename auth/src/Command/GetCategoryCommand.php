@@ -52,7 +52,7 @@ class GetCategoryCommand extends Command
                 ->getContents(),true);
 
         $wbCategory = new WbCategory();
-        $url = $this->mpStatsApi."category?path=";
+        $url = $this->mpStatsApi."category?";
         foreach ($data as $category){
             if($category['path'] == 'Авиабилеты') continue;
             $wbDataCategory = new WbDataCategory();
@@ -64,7 +64,10 @@ class GetCategoryCommand extends Command
                     ->setWbCategory($wbCategory)
             );
             if( count(explode('/', $category['path'])) != 1 ) continue;
-            $response = $client->request("GET", $url.$category['path'], $headers);
+            $query = [
+                'path' => $category['path']
+            ];
+            $response = $client->request("GET", $url.http_build_query($query), $headers);
             $sales = json_decode($response->getBody()->getContents(), true)['data'];
             foreach ($sales as $sale){
                 $wbDataCategory->addSale(
