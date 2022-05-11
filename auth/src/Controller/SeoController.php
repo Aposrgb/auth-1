@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Service\SeoService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -8,14 +9,24 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route("/seo")]
 class SeoController extends AbstractController
 {
+    public function __construct(
+        protected SeoService $service
+    )
+    {
+    }
+
+
     #[Route(path: '/keyword', name: 'keyword')]
     public function keyword(): Response
     {
         return $this->render('seo/keyword.html.twig');
     }
     #[Route(path: '/keyword/{name}', name: 'keyword_name')]
-    public function keywordName($name): Response
+    public function keywordName(string $name): Response
     {
+        if(strlen($name) == 0 ) return $this->redirectToRoute('keyword');
+
+        $this->service->getKeywordName($name);
         return $this->render('seo/keywordName.html.twig');
     }
     #[Route(path: '/keywords/expanding', name: 'keywords_exp')]
