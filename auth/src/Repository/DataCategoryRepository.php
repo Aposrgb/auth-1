@@ -2,42 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\WbCategory\WbCategorySales;
+use App\Entity\DataCategory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
-use function Doctrine\ORM\QueryBuilder;
 
 /**
- * @method WbCategorySales|null find($id, $lockMode = null, $lockVersion = null)
- * @method WbCategorySales|null findOneBy(array $criteria, array $orderBy = null)
- * @method WbCategorySales[]    findAll()
- * @method WbCategorySales[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method DataCategory|null find($id, $lockMode = null, $lockVersion = null)
+ * @method DataCategory|null findOneBy(array $criteria, array $orderBy = null)
+ * @method DataCategory[]    findAll()
+ * @method DataCategory[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class WbCategorySalesRepository extends ServiceEntityRepository
+class DataCategoryRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, WbCategorySales::class);
-    }
-
-    public function findCategories($url)
-    {
-        $qb = $this
-            ->createQueryBuilder('s');
-        return $qb
-            ->where($qb->expr()->like('s.category', ':url'))
-            ->setParameter('url', "%".$url."%")
-            ->getQuery()
-            ->getResult();
+        parent::__construct($registry, DataCategory::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(WbCategorySales $entity, bool $flush = true): void
+    public function add(DataCategory $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -49,7 +37,7 @@ class WbCategorySalesRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(WbCategorySales $entity, bool $flush = true): void
+    public function remove(DataCategory $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -58,7 +46,7 @@ class WbCategorySalesRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return WbCategorySales[] Returns an array of WbCategorySales objects
+    //  * @return DataCategory[] Returns an array of DataCategory objects
     //  */
     /*
     public function findByExampleField($value)
@@ -75,7 +63,7 @@ class WbCategorySalesRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?WbCategorySales
+    public function findOneBySomeField($value): ?DataCategory
     {
         return $this->createQueryBuilder('w')
             ->andWhere('w.exampleField = :val')

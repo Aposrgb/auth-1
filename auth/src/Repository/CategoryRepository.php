@@ -2,30 +2,38 @@
 
 namespace App\Repository;
 
-use App\Entity\WbCategory\WbDataCategory;
+use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method WbDataCategory|null find($id, $lockMode = null, $lockVersion = null)
- * @method WbDataCategory|null findOneBy(array $criteria, array $orderBy = null)
- * @method WbDataCategory[]    findAll()
- * @method WbDataCategory[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Category|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Category|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Category[]    findAll()
+ * @method Category[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class WbDataCategoryRepository extends ServiceEntityRepository
+class CategoryRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, WbDataCategory::class);
+        parent::__construct($registry, Category::class);
+    }
+
+    public function deleteAll()
+    {
+        foreach ($this->findAll() as $category){
+            $this->remove($category);
+        }
+        $this->getEntityManager()->flush();
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(WbDataCategory $entity, bool $flush = true): void
+    public function add(Category $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -37,7 +45,7 @@ class WbDataCategoryRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(WbDataCategory $entity, bool $flush = true): void
+    public function remove(Category $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -46,7 +54,7 @@ class WbDataCategoryRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return WbDataCategory[] Returns an array of WbDataCategory objects
+    //  * @return Category[] Returns an array of Category objects
     //  */
     /*
     public function findByExampleField($value)
@@ -63,7 +71,7 @@ class WbDataCategoryRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?WbDataCategory
+    public function findOneBySomeField($value): ?Category
     {
         return $this->createQueryBuilder('w')
             ->andWhere('w.exampleField = :val')

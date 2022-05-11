@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Entity\WbCategory;
+namespace App\Entity;
 
-use App\Repository\WbCategoryRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: WbCategoryRepository::class)]
-class WbCategory
+#[ORM\Entity(repositoryClass: CategoryRepository::class)]
+class Category
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,7 +18,7 @@ class WbCategory
     #[ORM\Column(type: 'datetime')]
     private $lastChangeDate;
 
-    #[ORM\OneToMany(mappedBy: 'wbCategory', targetEntity: WbDataCategory::class, cascade: ["persist", "remove"])]
+    #[ORM\OneToMany(mappedBy: 'wbCategory', targetEntity: DataCategory::class, cascade: ["persist", "remove"])]
     private $wbCategories;
 
     public function __construct()
@@ -45,14 +45,14 @@ class WbCategory
     }
 
     /**
-     * @return Collection<int, WbDataCategory>
+     * @return Collection<int, DataCategory>
      */
     public function getWbCategories(): Collection
     {
         return $this->wbCategories;
     }
 
-    public function addWbCategory(WbDataCategory $wbCategory): self
+    public function addWbCategory(DataCategory $wbCategory): self
     {
         if (!$this->wbCategories->contains($wbCategory)) {
             $this->wbCategories[] = $wbCategory;
@@ -62,7 +62,7 @@ class WbCategory
         return $this;
     }
 
-    public function removeWbCategory(WbDataCategory $wbCategory): self
+    public function removeWbCategory(DataCategory $wbCategory): self
     {
         if ($this->wbCategories->removeElement($wbCategory)) {
             // set the owning side to null (unless already changed)

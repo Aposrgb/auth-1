@@ -20,9 +20,9 @@ class WbController extends AbstractController
     #[Route(path: '/category', name: 'wb_category')]
     public function category(Request $request): Response
     {
-        $url = $request->query->all();
-        return $this->render('wb/category'.(($url['url']??null) != '' ? 'Sale': '').'.html.twig',
-            $this->service->getCategory($url['url'] != ''?$url['url']:null)
+        $url = $request->query->all()['url']??null;
+        return $this->render('wb/category'.($url != '' ? 'Sale': '').'.html.twig',
+            $this->service->getCategory($url != ''?$url:null)
         );
     }
     #[Route(path: '/bysearch', name: 'wb_by_search')]

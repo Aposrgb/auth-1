@@ -2,17 +2,29 @@
 
 namespace App\Controller;
 
+use App\Service\OzonService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route("/ozon")]
 class OzonController extends AbstractController
 {
-    #[Route(path: '/category', name: 'ozon_category')]
-    public function keyword(): Response
+    public function __construct(
+        protected OzonService $ozonService
+    )
     {
-        return $this->render('ozon/category.html.twig');
+    }
+
+
+    #[Route(path: '/category', name: 'ozon_category')]
+    public function category(Request $request): Response
+    {
+        $url = $request->query->all()['url']??null;
+        return $this->render('ozon/category'.($url != '' ? 'Sale':'').'.html.twig',
+            $this->ozonService->getCategory($url != ''?$url:null)
+        );
     }
     #[Route(path: '/seller', name: 'ozon_seller')]
     public function seller(): Response

@@ -6,7 +6,7 @@ use App\Entity\CategorySales;
 use App\Entity\DataCategory;
 use App\Helper\Enum\CategoryEnum;
 
-class WbService extends AbstractService
+class OzonService extends AbstractService
 {
     public function getCategory($url = null)
     {
@@ -14,7 +14,7 @@ class WbService extends AbstractService
             $sales = $this
                     ->entityManager
                     ->getRepository(CategorySales::class)
-                    ->findCategories($url, CategoryEnum::WB);
+                    ->findCategories($url, CategoryEnum::OZON);
 
             $sales = array_map(function (CategorySales $item){
                 $item->setColor(explode(', ', $item->getColor())[0]);
@@ -32,7 +32,7 @@ class WbService extends AbstractService
         $categories = $this
             ->entityManager
             ->getRepository(DataCategory::class)
-            ->findBy(['entity' => CategoryEnum::WB])
+            ->findBy(['entity' => CategoryEnum::OZON])
         ;
         foreach ($categories as $category) {
             /** @var DataCategory $category */
@@ -90,7 +90,7 @@ class WbService extends AbstractService
                 }
             }
         }
-//        var_export($categorys);
+
 //        $stocks = $this
 //            ->entityManager
 //            ->getRepository(WbDataProperty::class)

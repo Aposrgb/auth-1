@@ -1,34 +1,34 @@
 <?php
 
-namespace App\Entity\WbCategory;
+namespace App\Entity;
 
-use App\Repository\WbCategorySalesRepository;
+use App\Repository\CategorySalesRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: WbCategorySalesRepository::class)]
-class WbCategorySales
+#[ORM\Entity(repositoryClass: CategorySalesRepository::class)]
+class CategorySales
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'text')]
     private $id;
 
     #[ORM\Column(type: 'text')]
     private $thumb;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'text')]
     private $nmId;
 
     #[ORM\Column(type: 'text')]
     private $name;
 
-    #[ORM\Column(type: 'text')]
+    #[ORM\Column(type: 'text', nullable: true)]
     private $color;
 
     #[ORM\Column(type: 'text')]
     private $category;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'text', nullable: true)]
     private $position;
 
     #[ORM\Column(type: 'text')]
@@ -37,35 +37,38 @@ class WbCategorySales
     #[ORM\Column(type: 'text')]
     private $seller;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'text')]
     private $balance;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'text')]
     private $comments;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'text', nullable: true)]
     private $rating;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'text')]
     private $finalPrice;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'text', nullable: true)]
     private $clientPrice;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'text')]
     private $dayStock;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'text')]
     private $sales;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'text')]
     private $revenue;
 
     #[ORM\Column(type: 'text')]
     private $graph;
 
-    #[ORM\ManyToOne(targetEntity: WbDataCategory::class, inversedBy: 'sales')]
+    #[ORM\ManyToOne(targetEntity: DataCategory::class, inversedBy: 'sales')]
     private $wbDataCategory;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $entity;
 
     public function getId(): ?int
     {
@@ -82,7 +85,7 @@ class WbCategorySales
 
     /**
      * @param mixed $thumb
-     * @return WbCategorySales
+     * @return CategorySales
      */
     public function setThumb($thumb)
     {
@@ -100,7 +103,7 @@ class WbCategorySales
 
     /**
      * @param mixed $nmId
-     * @return WbCategorySales
+     * @return CategorySales
      */
     public function setNmId($nmId)
     {
@@ -118,7 +121,7 @@ class WbCategorySales
 
     /**
      * @param mixed $name
-     * @return WbCategorySales
+     * @return CategorySales
      */
     public function setName($name)
     {
@@ -136,7 +139,7 @@ class WbCategorySales
 
     /**
      * @param mixed $color
-     * @return WbCategorySales
+     * @return CategorySales
      */
     public function setColor($color)
     {
@@ -154,7 +157,7 @@ class WbCategorySales
 
     /**
      * @param mixed $category
-     * @return WbCategorySales
+     * @return CategorySales
      */
     public function setCategory($category)
     {
@@ -172,7 +175,7 @@ class WbCategorySales
 
     /**
      * @param mixed $position
-     * @return WbCategorySales
+     * @return CategorySales
      */
     public function setPosition($position)
     {
@@ -190,7 +193,7 @@ class WbCategorySales
 
     /**
      * @param mixed $brand
-     * @return WbCategorySales
+     * @return CategorySales
      */
     public function setBrand($brand)
     {
@@ -208,7 +211,7 @@ class WbCategorySales
 
     /**
      * @param mixed $seller
-     * @return WbCategorySales
+     * @return CategorySales
      */
     public function setSeller($seller)
     {
@@ -226,7 +229,7 @@ class WbCategorySales
 
     /**
      * @param mixed $balance
-     * @return WbCategorySales
+     * @return CategorySales
      */
     public function setBalance($balance)
     {
@@ -244,7 +247,7 @@ class WbCategorySales
 
     /**
      * @param mixed $comments
-     * @return WbCategorySales
+     * @return CategorySales
      */
     public function setComments($comments)
     {
@@ -262,7 +265,7 @@ class WbCategorySales
 
     /**
      * @param mixed $rating
-     * @return WbCategorySales
+     * @return CategorySales
      */
     public function setRating($rating)
     {
@@ -280,7 +283,7 @@ class WbCategorySales
 
     /**
      * @param mixed $finalPrice
-     * @return WbCategorySales
+     * @return CategorySales
      */
     public function setFinalPrice($finalPrice)
     {
@@ -298,7 +301,7 @@ class WbCategorySales
 
     /**
      * @param mixed $clientPrice
-     * @return WbCategorySales
+     * @return CategorySales
      */
     public function setClientPrice($clientPrice)
     {
@@ -316,7 +319,7 @@ class WbCategorySales
 
     /**
      * @param mixed $dayStock
-     * @return WbCategorySales
+     * @return CategorySales
      */
     public function setDayStock($dayStock)
     {
@@ -334,7 +337,7 @@ class WbCategorySales
 
     /**
      * @param mixed $sales
-     * @return WbCategorySales
+     * @return CategorySales
      */
     public function setSales($sales)
     {
@@ -352,7 +355,7 @@ class WbCategorySales
 
     /**
      * @param mixed $revenue
-     * @return WbCategorySales
+     * @return CategorySales
      */
     public function setRevenue($revenue)
     {
@@ -370,7 +373,7 @@ class WbCategorySales
 
     /**
      * @param mixed $graph
-     * @return WbCategorySales
+     * @return CategorySales
      */
     public function setGraph($graph)
     {
@@ -378,15 +381,34 @@ class WbCategorySales
         return $this;
     }
 
-    public function getWbDataCategory(): ?WbDataCategory
+    public function getWbDataCategory(): ?DataCategory
     {
         return $this->wbDataCategory;
     }
 
-    public function setWbDataCategory(?WbDataCategory $wbDataCategory): self
+    public function setWbDataCategory(?DataCategory $wbDataCategory): self
     {
         $this->wbDataCategory = $wbDataCategory;
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+    /**
+     * @param mixed $entity
+     */
+    public function setEntity($entity)
+    {
+        $this->entity = $entity;
+
+        return $this;
+    }
+
 }

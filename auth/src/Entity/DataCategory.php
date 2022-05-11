@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Entity\WbCategory;
+namespace App\Entity;
 
-use App\Repository\WbDataCategoryRepository;
+use App\Repository\DataCategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: WbDataCategoryRepository::class)]
-class WbDataCategory
+#[ORM\Entity(repositoryClass: DataCategoryRepository::class)]
+class DataCategory
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -24,11 +24,14 @@ class WbDataCategory
     #[ORM\Column(type: 'string', length: 255)]
     private $url;
 
-    #[ORM\ManyToOne(targetEntity: WbCategory::class, cascade: ["persist"],  inversedBy: 'wbCategories')]
+    #[ORM\ManyToOne(targetEntity: Category::class, cascade: ["persist"],  inversedBy: 'wbCategories')]
     private $wbCategory;
 
-    #[ORM\OneToMany(mappedBy: 'wbDataCategory', targetEntity: WbCategorySales::class, cascade: ["persist", "remove"])]
+    #[ORM\OneToMany(mappedBy: 'wbDataCategory', targetEntity: CategorySales::class, cascade: ["persist", "remove"])]
     private $sales;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $entity;
 
     public function __construct()
     {
@@ -76,12 +79,12 @@ class WbDataCategory
         return $this;
     }
 
-    public function getWbCategory(): ?WbCategory
+    public function getWbCategory(): ?Category
     {
         return $this->wbCategory;
     }
 
-    public function setWbCategory(?WbCategory $wbCategory): self
+    public function setWbCategory(?Category $wbCategory): self
     {
         $this->wbCategory = $wbCategory;
 
@@ -89,14 +92,14 @@ class WbDataCategory
     }
 
     /**
-     * @return Collection<int, WbCategorySales>
+     * @return Collection<int, CategorySales>
      */
     public function getSales(): Collection
     {
         return $this->sales;
     }
 
-    public function addSale(WbCategorySales $sale): self
+    public function addSale(CategorySales $sale): self
     {
         if (!$this->sales->contains($sale)) {
             $this->sales[] = $sale;
@@ -106,7 +109,7 @@ class WbDataCategory
         return $this;
     }
 
-    public function removeSale(WbCategorySales $sale): self
+    public function removeSale(CategorySales $sale): self
     {
         if ($this->sales->removeElement($sale)) {
             // set the owning side to null (unless already changed)
@@ -117,4 +120,24 @@ class WbDataCategory
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+    /**
+     * @param mixed $entity
+     */
+    public function setEntity($entity)
+    {
+        $this->entity = $entity;
+
+        return $this;
+    }
+
+
 }
