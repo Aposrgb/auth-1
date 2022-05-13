@@ -17,6 +17,14 @@ class WbController extends AbstractController
     {
     }
 
+    #[Route(path: '/item/{sku}', name: 'wb_item')]
+    public function item($sku, Request $request): Response
+    {
+
+        return $this->render('wb/categoryItem.html.twig',
+            $this->service->getItem($sku, $request->query->all()['name']??'')
+        );
+    }
     #[Route(path: '/category', name: 'wb_category')]
     public function category(Request $request): Response
     {

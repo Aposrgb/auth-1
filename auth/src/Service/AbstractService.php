@@ -12,7 +12,9 @@ abstract class AbstractService
     public function __construct(
         protected EntityManagerInterface $entityManager,
         protected SerializerInterface $serializer,
-        protected UserPasswordHasherInterface $hasher
+        protected UserPasswordHasherInterface $hasher,
+        protected $mpStatsApi,
+        protected $mpStatsApiWb
     )
     {
     }

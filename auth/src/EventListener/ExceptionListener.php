@@ -5,6 +5,8 @@ namespace App\EventListener;
 
 use App\Helper\Exception\ApiException;
 use App\Helper\Exception\ResponseCode;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -34,8 +36,10 @@ class ExceptionListener extends AbstractController
        $exception = $event->getThrowable();
        $this->logger->error($exception->getMessage(), $exception->getTrace());
        if (!str_contains($path, "/api")){
+           $msg = $exception instanceof ClientException?$exception->getResponse()->getBody():null;
            $event->setResponse($this->render("error/error.html.twig", [
-               "ex" => $exception
+               "ex" => $exception,
+               "msg" => $msg
            ]));
            return;
        }

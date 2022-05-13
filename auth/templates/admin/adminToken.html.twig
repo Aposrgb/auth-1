@@ -8,60 +8,28 @@
 
 {% endblock %}
 {% block body %}
-    <h3 style="text-align: center;"><a href="{{path('admin_token')}}">Перейти к добавлению токена</a></h3>
     <form id="create_user" method="post">
-        <h1>Создание пользователя</h1>
-        {% if error ?? false %}
-            {#            <div class="error">{{error}}</div> #}
-            <div class="error">Неверные данные</div>
-        {% endif %}
+        <h1>Добавление токена</h1>
         <div>
-            <label>Имя<input name="name" type="text"/></label>
+            <label><textarea minlength="30" name="token" type="text">{{token??''}}</textarea></label>
         </div>
         <div>
-            <label>Пароль<input name="password" type="password"/></label>
+            <label><p style="color: red">{{error??''}}</p></label>
         </div>
-        <div>
-            <label>
-                Дата истечения срока жизни аккаунта
-                <select name="dateExpired">
-                    <option value="always">Навсегда</option>
-                    <option value="60">60 дней</option>
-                    <option value="30">30 дней</option>
-                    <option value="14">14 дней</option>
-                    <option value="7">7 дней</option>
-                </select>
-            </label>
-        </div>
-        <div><input class="submit" type="submit" value="Создать"/></div>
+        <div><input class="submit" type="submit" value="Добавить"/></div>
     </form>
-    <div style="display: flex;align-items: center;flex-direction: column;margin: 0 auto;">
-        <table class="styled-table">
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Date expires</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for user in users%}
-                <tr>
-                    <td>{{user.id}}</td>
-                    <td>{{user.username}}</td>
-                    <td>
-                        {% if user.dateExpired %}
-                            {{user.dateExpired|date("m/d/Y") }}
-                        {% else %}
-                            Date empty
-                        {%endif%}
-                    </td>
-                </tr>
-            {% endfor%}
-            </tbody>
-        </table>
-    </div>
     <style>
+        form textarea {
+            background: #c4c4c4;
+            text-align: center;
+            border: none;
+            width: 15vw;
+            min-height: 12vh;
+            padding: 1vh;
+            border-radius: 2vh;
+            font-size: 2vh;
+        }
+
         .styled-table tbody tr {
             border-bottom: 1px solid #dddddd;
         }
