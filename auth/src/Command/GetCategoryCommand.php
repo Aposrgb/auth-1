@@ -26,7 +26,7 @@ class GetCategoryCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('wb:category')
+            ->setName('category:load')
             ->addArgument('token')
         ;
     }
@@ -63,33 +63,35 @@ class GetCategoryCommand extends Command
                     ->setUrl($category['url'])
                     ->setWbCategory($wbCategory)
             );
-            if( count(explode('/', $category['path'])) != 1 ) continue;
-            $query = [
-                'path' => $category['path']
-            ];
-            $response = $client->request("GET", $url.http_build_query($query), $headers);
+            if(count(explode('/', $category['path']))>3) continue;
+            $date = new \DateTime();
+            $response = $client->request("GET",
+                $url."path=".$category['path']."&d2=".$date->format('Y-m-d')."&d1=".$date->modify('-1 month')->format('Y-m-d'),
+                $headers)
+            ;
             $sales = json_decode($response->getBody()->getContents(), true)['data'];
             foreach ($sales as $sale){
                 $wbDataCategory->addSale(
-                    (new WbCategorySales())
+                    (new CategorySales())
                         ->setWbDataCategory($wbDataCategory)
                         ->setThumb($sale['thumb'])
                         ->setNmId($sale['id'])
                         ->setName($sale['name'])
-                        ->setColor($sale['color'])
+                        ->setColor($sale['color']??null)
                         ->setCategory($sale['category'])
-                        ->setPosition($sale['category_position'])
+                        ->setPosition($sale['category_position']??null)
                         ->setBrand($sale['brand'])
                         ->setSeller($sale['seller'])
                         ->setBalance($sale['balance'])
                         ->setComments($sale['comments'])
-                        ->setRating($sale['rating'])
+                        ->setRating($sale['rating']??null)
                         ->setFinalPrice($sale['final_price'])
-                        ->setClientPrice($sale['client_price'])
+                        ->setClientPrice($sale['client_price']??null)
                         ->setDayStock($sale['days_in_stock'])
                         ->setRevenue($sale['revenue'])
                         ->setSales($sale['sales'])
                         ->setGraph(implode(',',$sale['graph']))
+                        ->setEntity($categoryEntity)
                 );
             }
         }
