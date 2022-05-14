@@ -12,11 +12,9 @@
 <div class="be-wrapper be-nosidebar-left">
     {% block header %}
         <nav id="mp-stats-header" class="top-menu navbar navbar-expand-xl be-top-header fixed-top shadow-sm">
-            <div class="logo d-none d-xl-flex"><a href="/" class="d-flex align-items-center"><img
-                            src="https://mpstats.io/i/logo.svg"
-                            alt="mpstats.io"
-                            class="mr-0 mr-xxl-2"> <span
-                            class="d-none d-xxl-inline">mpstats.io</span></a></div>
+            <div class="logo d-none d-xl-flex"><a href="/" class="d-flex align-items-center">
+                    <span
+                            class="d-none d-xxl-inline">$name</span></a></div>
             <button type="button" data-toggle="collapse" data-target="#be-navbar-collapse"
                     aria-controls="be-navbar-collapse"
                     aria-expanded="false" class="navbar-toggler text-left py-3 px-2"><i class="fas fa-bars"></i> Меню
@@ -187,76 +185,12 @@
     {% endblock %}
     {% block body %}
     <div class="be-content" >
-
-        <div id="mp-stats-app" class="main-content container-fluid">
-            <div id="global-loader-block" aria-hidden="true" class="mp-loader-overlay ag-overlay hidden">
-                <div class="ag-overlay-panel">
-                    <div class="ag-overlay-wrapper ag-layout-normal ag-overlay-loading-wrapper">
-                        <div class="mp-loader-static"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 col-lg-6 col-xl-3">
-                    <div class="widget widget-tile">
-                        <div id="spark1" class="chart sparkline" style="visibility: visible;">
-                            <canvas width="85" height="35"
-                                    style="display: inline-block; width: 85px; height: 35px; vertical-align: top;"></canvas>
-                        </div>
-                        <div class="data-info">
-                            <div class="desc">Товаров</div>
-                            <div class="value"><span></span>
-                                <span data-toggle="counter" data-end="42436831" class="number">42 436 831</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-6 col-xl-3">
-                    <div class="widget widget-tile">
-                        <div id="spark2" class="chart sparkline" style="visibility: visible;">
-                            <canvas width="85" height="35"
-                                    style="display: inline-block; width: 85px; height: 35px; vertical-align: top;"></canvas>
-                        </div>
-                        <div class="data-info">
-                            <div class="desc">Брендов</div>
-                            <div class="value"><span></span>
-                                <span data-toggle="counter" data-end="673101" data-suffix=""
-                                      class="number">673 101</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-6 col-xl-3">
-                    <div class="widget widget-tile">
-                        <div id="spark3" class="chart sparkline" style="visibility: visible;">
-                            <canvas width="85" height="35"
-                                    style="display: inline-block; width: 85px; height: 35px; vertical-align: top;"></canvas>
-                        </div>
-                        <div class="data-info">
-                            <div class="desc">Продаж</div>
-                            <div class="value"><span></span>
-                                <span data-toggle="counter" data-end="3707094" class="number">3 707 094</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-6 col-xl-3">
-                    <div class="widget widget-tile">
-                        <div id="spark4" class="chart sparkline" style="visibility: visible;">
-                            <canvas width="85" height="35"
-                                    style="display: inline-block; width: 85px; height: 35px; vertical-align: top;"></canvas>
-                        </div>
-                        <div class="data-info">
-                            <div class="desc">Продавцов</div>
-                            <div class="value"><span></span>
-                                <span data-toggle="counter" data-end="243065" class="number">243 065</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="row">
                 <div class="col-md-12 ">
                     <div class="card">
-                        <div class="card-header card-header-divider">MPStats.io<span class="card-subtitle">Моментальный анализ продаж миллионов товаров на Российских маркетплейсах</span>
+                        <div class="card-header card-header-divider">$name<span class="card-subtitle">Моментальный анализ продаж миллионов товаров на Российских маркетплейсах</span>
                         </div>
-                        <div class="card-body"><p>MarketPlace Statistics, или mpstats, это комплекс из нескольких узлов:
+                        <div class="card-body"><p>$name - это комплекс из нескольких узлов:
                                 система сбора данных,
                                 система хранения и системы анализа. Ежедневно мы обрабатываем сотни гигабайтов данных,
                                 чтобы
@@ -266,10 +200,6 @@
                                 данные нормируются и укладываются в удобные интерфейсы, чтобы наши пользователи смогли
                                 быстро
                                 сориентироваться и принять верные решения.</p>
-                            <iframe width="760" height="415" src="https://www.youtube.com/embed/AGB8LObNNMY"
-                                    frameborder="0"
-                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen="allowfullscreen"></iframe>
                         </div>
                     </div>
                 </div>
@@ -294,18 +224,12 @@
                         <div class="col-md-4">
                             <div class="logo d-flex">
                                 <a href="/" class="d-flex align-items-center">
-                                    <img src="https://mpstats.io/i/logo.svg" alt="mpstats.io" class="mr-2"> mpstats.io
+                                    <alt="mpstats.io" class="mr-2"> $name
                                 </a>
                             </div>
-                            <p class="mb-3">Система мониторинга цен, продавцов и товаров на Российских маркетплейсах.
-                                Всегда
-                                свежие и полные данные на расстоянии одного клика.</p>
-                            <p>© 2022 ООО "МПСТАТС", с ♥ из Санкт-Петербурга.
-                                <a href="mailto:info@mpstats.io">info@mpstats.io</a></p>
-                            <p style="font-size: 80%">195257, г. Санкт-Петербург, Гражданский пр-кт, д. 100 стр. 1,
-                                помещ.
-                                8</p>
-                            <p style="font-size: 80%">Контактный телефон: +7 (969) 999-17-28</p>
+                            <p class="mb-3">Сервис статистики и мониторинга маркетплейсов.</p>
+                            <p>Powered by
+                                <a href="mailto:iod766@gmail.com">Podovinnikov</a></p>
                             <div class="d-flex align-items-center payment-system mt-3">
                                 <div><img src="https://mpstats.io/i/payment-system/MainVisaWhite.png" width="70"
                                           class="mr-2"></div>
@@ -323,71 +247,8 @@
                             <div class="d-flex align-items-center">
                                 <div>Безналичный расчет для юридических лиц и ИП</div>
                             </div>
-
-                            <div class="socially">
-                                <a class="d-inline-block mr-4 mt-4" href="https://www.youtube.com/c/mpstats"
-                                   target="_blank">
-                                    <svg class="icon">
-                                        <use xlink:href="#youtube"></use>
-                                    </svg>
-                                </a>
-                                <a class="d-inline-block mr-4 mt-4" href="https://telegram.me/analyticsmpstats"
-                                   target="_blank">
-                                    <svg class="icon">
-                                        <use xlink:href="#telegram-icon"></use>
-                                    </svg>
-                                </a>
-                                <a class="d-inline-block mr-4 mt-4" href="https://vk.com/mpstatsio" target="_blank">
-                                    <svg class="icon">
-                                        <use xlink:href="#vk"></use>
-                                    </svg>
-                                </a>
                             </div>
-                            <svg width="0" height="0" style="display:none">
-                                <symbol viewBox="0 0 28 28" id="instagram">
-                                    <path d="M16.137 13.938a2.58 2.58 0 11-5.16 0 2.58 2.58 0 015.16 0z"></path>
-                                    <path d="M19.596 9.373a2.397 2.397 0 00-.58-.89 2.396 2.396 0 00-.89-.58c-.272-.105-.682-.232-1.437-.266-.816-.037-1.06-.045-3.128-.045-2.067 0-2.312.008-3.128.045-.755.034-1.165.16-1.437.266-.336.124-.64.322-.89.58a2.4 2.4 0 00-.58.89c-.105.272-.232.682-.266 1.437-.037.816-.045 1.061-.045 3.128s.008 2.312.045 3.128c.034.755.16 1.165.266 1.438a2.4 2.4 0 00.58.89c.25.257.553.455.89.579.272.106.682.232 1.437.266.816.038 1.06.045 3.128.045 2.067 0 2.312-.007 3.128-.045.755-.034 1.165-.16 1.438-.266a2.563 2.563 0 001.469-1.47c.106-.272.232-.682.266-1.437.038-.816.045-1.06.045-3.128 0-2.067-.007-2.312-.045-3.128-.034-.755-.16-1.165-.266-1.437zm-6.035 8.54a3.975 3.975 0 110-7.95 3.975 3.975 0 010 7.95zm4.132-7.178a.929.929 0 110-1.858.929.929 0 010 1.858z"></path>
-                                    <path d="M13.56.457C6.114.457.077 6.494.077 13.938S6.115 27.42 13.56 27.42s13.48-6.038 13.48-13.48C27.04 6.493 21.003.456 13.56.456zm7.694 16.673c-.038.824-.169 1.386-.36 1.879a3.959 3.959 0 01-2.264 2.264c-.492.191-1.055.322-1.88.36-.825.037-1.088.046-3.19.046-2.103 0-2.367-.009-3.192-.046-.824-.038-1.387-.169-1.88-.36a3.792 3.792 0 01-1.37-.893 3.794 3.794 0 01-.893-1.371c-.192-.492-.323-1.055-.36-1.88-.038-.825-.047-1.089-.047-3.19 0-2.103.009-2.367.047-3.192.037-.824.168-1.387.36-1.88.194-.516.499-.984.893-1.37a3.792 3.792 0 011.37-.894c.493-.19 1.056-.322 1.88-.36.825-.037 1.089-.046 3.191-.046 2.103 0 2.366.01 3.192.047.824.037 1.386.168 1.879.36.516.194.984.499 1.371.892.394.387.699.855.893 1.371.191.493.322 1.056.36 1.88.037.825.046 1.089.046 3.191s-.009 2.366-.046 3.192z"></path>
-                                </symbol>
-                                <symbol viewBox="0 0 28 28" id="fb">
-                                    <path d="M27.001 13.972c0-7.46-6.04-13.515-13.48-13.515C6.078.457.038 6.512.038 13.972c0 6.541 4.638 11.987 10.785 13.244v-9.19H8.128v-4.054h2.696v-3.379c0-2.608 2.116-4.73 4.718-4.73h3.37v4.054h-2.696c-.741 0-1.348.609-1.348 1.352v2.703h4.045v4.054h-4.045v9.393c6.808-.676 12.133-6.433 12.133-13.447z"></path>
-                                </symbol>
-                                <symbol viewBox="0 0 27 28" id="youtube">
-                                    <path d="M15.732 13.704l-3.154-1.472c-.275-.128-.501.015-.501.32v2.772c0 .305.226.448.501.32l3.153-1.471c.276-.13.276-.34.001-.47zM13.482.457C6.035.457 0 6.493 0 13.938 0 21.384 6.036 27.42 13.481 27.42c7.446 0 13.481-6.035 13.481-13.48 0-7.446-6.035-13.482-13.48-13.482zm0 18.958c-6.902 0-7.022-.622-7.022-5.477 0-4.854.12-5.477 7.021-5.477 6.9 0 7.021.623 7.021 5.477 0 4.855-.12 5.477-7.02 5.477z"></path>
-                                </symbol>
-                                <symbol viewBox="0 0 28 28" id="telegram-icon">
-                                    <path d="M14.403 27.568c7.447 0 13.481-6.034 13.481-13.482 0-7.447-6.034-13.48-13.481-13.48S.922 6.638.922 14.085c0 7.448 6.034 13.482 13.48 13.482zM7.09 13.794l12.998-5.011c.603-.218 1.13.147.934 1.06l.001-.002-2.213 10.427c-.164.739-.603.918-1.218.57l-3.37-2.484-1.625 1.567c-.18.18-.332.33-.68.33l.24-3.429 6.245-5.643c.272-.24-.06-.374-.419-.136l-7.719 4.86-3.327-1.038c-.723-.23-.738-.722.153-1.07z"></path>
-                                </symbol>
-                                <symbol viewBox="0 0 28 28" id="vk">
-                                    <path d="M14.442.607C6.997.607.961 6.643.961 14.09c0 7.445 6.036 13.48 13.481 13.48s13.481-6.035 13.481-13.48c0-7.446-6.035-13.482-13.481-13.482zm5.185 15.21s1.192 1.177 1.485 1.723c.009.011.013.023.016.028.12.201.147.357.088.473-.098.194-.435.29-.55.298h-2.107c-.146 0-.452-.038-.823-.293-.285-.2-.566-.527-.84-.846-.408-.474-.762-.884-1.119-.884a.428.428 0 00-.133.02c-.27.088-.615.473-.615 1.498 0 .32-.253.504-.431.504h-.965c-.328 0-2.04-.115-3.557-1.715C8.22 14.664 6.55 10.735 6.535 10.7c-.106-.255.112-.39.35-.39h2.127c.283 0 .376.172.44.325.076.178.354.887.81 1.685.74 1.3 1.194 1.829 1.558 1.829a.421.421 0 00.195-.051c.475-.264.387-1.956.365-2.307 0-.066 0-.757-.244-1.089-.174-.24-.47-.331-.65-.365a.773.773 0 01.28-.237c.325-.163.912-.187 1.495-.187h.324c.632.009.795.05 1.024.107.463.11.473.41.433 1.434-.013.29-.026.619-.026 1.007 0 .084-.004.174-.004.27-.014.52-.03 1.111.337 1.354.048.03.104.046.16.047.128 0 .513 0 1.555-1.788.321-.575.6-1.173.835-1.79.021-.036.083-.148.156-.192a.375.375 0 01.174-.04h2.501c.273 0 .46.04.495.146.061.167-.012.677-1.153 2.223l-.51.673c-1.035 1.356-1.035 1.425.065 2.454z"></path>
-                                </symbol>
-                            </svg>
                         </div>
-                        <div class="col-md-4 offset-md-1 mt-4">
-                            <div class="row">
-                                <div class="col-5 offset-md-1">
-                                    <ul class="list-unstyled be-footer-links">
-                                        <li class="mb-1"><strong>Информация</strong></li>
-                                        <li><a class="text-reset" href="/legal">Пользовательское соглашение</a></li>
-                                        <li><a class="text-reset" href="/policy">Политика оплаты и возврата</a></li>
-                                        <li><a class="text-reset" href="/privacy">Политика конфиденциальности</a></li>
-                                        <li><a class="text-reset" href="/partner">Партнерская программа</a></li>
-                                        <li><a class="text-reset" href="/tarif">Тарифы</a></li>
-                                        <li><a class="text-reset" href="/bots">Роботы MPSTATS</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-4">
-                                    <ul class="list-unstyled be-footer-links">
-                                        <li class="mb-1">&nbsp;</li>
-                                        <li><a class="text-reset text-bold" href="/wb/top-sellers">Рейтинг
-                                                поставщиков</a>
-                                        </li>
-                                        <li><a class="text-reset" href="/wb/top-brands">Рейтинг брендов</a></li>
-                                        <li><a class="text-reset" href="/integrations">API документация</a></li>
-                                        </li>
-                                        <li>
-                                            <a class="text-reset" href="https://telegram.me/mpstatsio" target="_blank">
-                                                Наша группа в Telegram
                                             </a>
                                         </li>
                                     </ul>
