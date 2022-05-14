@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Token;
 use App\Entity\User;
+use App\Helper\Status\ApiTokenStatus;
 use App\Helper\Status\UserStatus;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
@@ -66,9 +67,21 @@ class AdminController extends AbstractController
     public function token(Request $request)
     {
         $token = $this->entityManager->getRepository(Token::class)->find(1)??null;
-        return $this->render('admin/adminToken.html.twig', [
-            'token' => $token?->getToken()
-        ]);
+        $context = ['token'  => $token?$token->getToken():null];
+        try {
+            (new Client())->request("GET", $this->mpStatsApiWb.'categories', [
+                'headers' => ['X-Mpstats-TOKEN' => $token->getToken() ]
+            ]);
+        }catch (\Exception $exception){
+            if($exception->getCode() == Response::HTTP_TOO_MANY_REQUESTS){
+                $context['error'] = "Что-то произошло не так, попробуйте позже (Слишком много запросов)";
+            }else if($exception->getCode() == Response::HTTP_UNAUTHORIZED){
+                $context['error'] = "Не валидный токен";
+            }else{
+                $context['error'] = "Неизвестная ошибка, попробуйте позже";
+            }
+        }
+        return $this->render('admin/adminToken.html.twig', $context);
     }
     #[Route("/admin/token", name: 'admin_token_post', methods: ["POST"])]
     public function setToken(Request $request)
@@ -90,11 +103,7 @@ class AdminController extends AbstractController
                 $this->entityManager->flush();
                 shell_exec("../bin/console category:load > /dev/null &");
             }catch (ClientException $exception){
-                if($exception->getCode() == Response::HTTP_TOO_MANY_REQUESTS){
-                    $context['error'] = "Что-то произошло не так, попробуйте позже (Слишком много запросов)";
-                }else{
-                    $context['error'] = "Не валидный токен";
-                }
+
             }
         }
         return $this->render('admin/adminToken.html.twig', $context);
