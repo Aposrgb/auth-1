@@ -67,10 +67,10 @@ class AdminController extends AbstractController
     public function token(Request $request)
     {
         $token = $this->entityManager->getRepository(Token::class)->find(1)??null;
-        $context = ['token'  => $token?$token->getToken():null];
+        $context = ['token'  => $token?->getToken()];
         try {
             (new Client())->request("GET", $this->mpStatsApiWb.'categories', [
-                'headers' => ['X-Mpstats-TOKEN' => $token->getToken() ]
+                'headers' => ['X-Mpstats-TOKEN' => $token?->getToken() ]
             ]);
         }catch (\Exception $exception){
             if($exception->getCode() == Response::HTTP_TOO_MANY_REQUESTS){
