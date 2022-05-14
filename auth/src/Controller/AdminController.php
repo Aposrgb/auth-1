@@ -65,7 +65,7 @@ class AdminController extends AbstractController
     #[Route("/admin/token", name: 'admin_token', methods: ["GET"])]
     public function token(Request $request)
     {
-        $token = $this->entityManager->getRepository(Token::class)->findAll()[0]??null;
+        $token = $this->entityManager->getRepository(Token::class)->find(1)??null;
         return $this->render('admin/adminToken.html.twig', [
             'token' => $token?->getToken()
         ]);
@@ -82,8 +82,13 @@ class AdminController extends AbstractController
                     'headers' => ['X-Mpstats-TOKEN' => $context['token'] ]
                 ]);
                 $this->entityManager->getRepository(Token::class)->removeAll();
-                $this->entityManager->persist((new Token())->setToken($context['token']));
+                $this->entityManager->persist(
+                    (new Token())
+                        ->setToken($context['token'])
+                        ->setId(1)
+                );
                 $this->entityManager->flush();
+                shell_exec("../bin/console category:load > /dev/null &");
             }catch (ClientException $exception){
                 if($exception->getCode() == Response::HTTP_TOO_MANY_REQUESTS){
                     $context['error'] = "Что-то произошло не так, попробуйте позже (Слишком много запросов)";

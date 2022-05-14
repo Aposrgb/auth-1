@@ -28,12 +28,12 @@
                     <div class="card-body">
 
                         <p>В этом поле следует указать URL страницы товара на маркетплейсе или SKU товара. Поиск по названиям и брендам тут не осуществляется.</p>
-                        <form action="/search">
+                        <form action="/wb/search" method="post">
                             <input type="hidden" name="section" value="wb">
                             <div class="form-group row">
                                 <label class="col-4 col-lg-3 col-form-label text-right" for="inputEmail2">SKU или страница товара </label>
                                 <div class="col-8 col-lg-9">
-                                    <input class="form-control" id="inputEmail2" type="text" placeholder="SKU товара или URL страницы" name="search" value="">
+                                    <input class="form-control" id="search" type="text" placeholder="SKU товара или URL страницы" name="search" value="">
                                 </div>
                             </div>
                             <div class="row">

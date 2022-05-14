@@ -11,12 +11,82 @@
 
 {% endblock %}
 {% block body %}
-    <div id="mp-stats-app" class="main-content container-fluid"><div id="global-loader-block" aria-hidden="true" class="mp-loader-overlay ag-overlay hidden"><div class="ag-overlay-panel"><div class="ag-overlay-wrapper ag-layout-normal ag-overlay-loading-wrapper"><div class="mp-loader-static"></div></div></div></div> <div class="row"><div class="col-12 col-xl-6"><div class="card card-border-color card-border-color-primary self-align-center"><div class="card-header card-header-divider d-flex justify-content-between align-items-start"><div>
-                            Поиск по бренду<span class="card-subtitle">Поиск товаров и аналитики по бренду</span></div> <div class="dropdown b-dropdown favorite-dropdown-component btn-group" id="__BVID__7"><!----><button aria-haspopup="true" aria-expanded="false" type="button" class="btn dropdown-toggle btn-secondary btn-sm" id="__BVID__7__BV_toggle_"><span style="line-height: 22px;">
+    <div id="mp-stats-app" class="main-content container-fluid">
+        <div id="global-loader-block" aria-hidden="true" class="mp-loader-overlay ag-overlay hidden">
+            <div class="ag-overlay-panel">
+                <div class="ag-overlay-wrapper ag-layout-normal ag-overlay-loading-wrapper">
+                    <div class="mp-loader-static"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-xl-6">
+                <div class="card card-border-color card-border-color-primary self-align-center">
+                    <div class="card-header card-header-divider d-flex justify-content-between align-items-start">
+                        <div>
+                            Поиск по бренду<span class="card-subtitle">Поиск товаров и аналитики по бренду</span></div>
+                        <div class="dropdown b-dropdown favorite-dropdown-component btn-group" id="__BVID__7"><!---->
+                            <button aria-haspopup="true" aria-expanded="false" type="button"
+                                    class="btn dropdown-toggle btn-secondary btn-sm" id="__BVID__7__BV_toggle_"><span
+                                        style="line-height: 22px;">
                             Избранное
-                            <i class="fas fa-caret-down ml-1"></i></span> <span aria-hidden="true" class="ml-1 spinner-border spinner-border-sm text-success" style="display: none;"><!----></span></button><ul role="menu" tabindex="-1" class="dropdown-menu" aria-labelledby="__BVID__7__BV_toggle_"> <li role="presentation"><a role="menuitem" href="#" target="_self" tabindex="-1" aria-disabled="true" class="dropdown-item disabled">В избранном</a></li> <li role="presentation"><hr role="separator" aria-orientation="horizontal" class="dropdown-divider"></li>  <li role="presentation"><a role="menuitem" href="#" target="_self" tabindex="-1" aria-disabled="true" class="dropdown-item disabled"><div class="w-100 text-center"><em>нет записей</em></div></a></li></ul></div></div> <div class="card-body"><form action="/wb/brand" method="GET"><div class="form-group row"><label for="inputEmail2" class="col-4 col-lg-3 col-form-label text-right">
-                                    Название бренда
-                                </label> <div class="col-8 col-lg-9"><input id="inputEmail2" type="text" placeholder="Название бренда" name="brand" class="form-control"></div></div> <div class="row"><div class="col-3 col-lg-2"></div> <div class="col-9 col-lg-10"><button type="submit" class="btn btn-xl float-right btn-space btn-primary">
-                                        Искать
-                                    </button></div></div></form></div></div></div></div> <div><!----> <div class="snotify snotify-left_top"></div><div class="snotify snotify-left_center"></div><div class="snotify snotify-left_bottom"></div><div class="snotify snotify-right_top"></div><div class="snotify snotify-right_center"></div><div class="snotify snotify-right_bottom"></div><div class="snotify snotify-center_top"></div><div class="snotify snotify-center_center"></div><div class="snotify snotify-center_bottom"></div></div></div>
-{%endblock%}
+                            <i class="fas fa-caret-down ml-1"></i></span> <span aria-hidden="true"
+                                                                                class="ml-1 spinner-border spinner-border-sm text-success"
+                                                                                style="display: none;"><!----></span>
+                            </button>
+                            <ul role="menu" tabindex="-1" class="dropdown-menu" aria-labelledby="__BVID__7__BV_toggle_">
+                                <li role="presentation"><a role="menuitem" href="#" target="_self" tabindex="-1"
+                                                           aria-disabled="true" class="dropdown-item disabled">В
+                                        избранном</a></li>
+                                <li role="presentation">
+                                    <hr role="separator" aria-orientation="horizontal" class="dropdown-divider">
+                                </li>
+                                <li role="presentation"><a role="menuitem" href="#" target="_self" tabindex="-1"
+                                                           aria-disabled="true" class="dropdown-item disabled">
+                                        <div class="w-100 text-center"><em>нет записей</em></div>
+                                    </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group row"><label for="inputEmail2"
+                                                           class="col-4 col-lg-3 col-form-label text-right">
+                                Название бренда
+                            </label>
+                            <div class="col-8 col-lg-9"><input id="brand" type="text"
+                                                               placeholder="Название бренда" name="brand"
+                                                               class="form-control"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 col-lg-2"></div>
+                            <div class="col-9 col-lg-10">
+                                <button onclick="searchBrand()" type="submit" class="btn btn-xl float-right btn-space btn-primary">
+                                    Искать
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div><!---->
+            <div class="snotify snotify-left_top"></div>
+            <div class="snotify snotify-left_center"></div>
+            <div class="snotify snotify-left_bottom"></div>
+            <div class="snotify snotify-right_top"></div>
+            <div class="snotify snotify-right_center"></div>
+            <div class="snotify snotify-right_bottom"></div>
+            <div class="snotify snotify-center_top"></div>
+            <div class="snotify snotify-center_center"></div>
+            <div class="snotify snotify-center_bottom"></div>
+        </div>
+    </div>
+    <script>
+        function searchBrand(){
+            let value = document.getElementById('brand').value
+            if(value.length > 0 ){
+                window.location.href = `/wb/brand/${value}`
+            }
+        }
+    </script>
+{% endblock %}

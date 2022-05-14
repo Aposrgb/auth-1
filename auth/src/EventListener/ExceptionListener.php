@@ -32,7 +32,7 @@ class ExceptionListener extends AbstractController
     public function onKernelException(ExceptionEvent $event): void
     {
        $path = $event->getRequest()->getPathInfo();
-
+       return;
        $exception = $event->getThrowable();
        $this->logger->error($exception->getMessage(), $exception->getTrace());
        if (!str_contains($path, "/api")){

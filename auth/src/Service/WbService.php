@@ -7,15 +7,121 @@ use App\Entity\Token;
 use App\Helper\Enum\CategoryEnum;
 use Exception;
 use GuzzleHttp\Client;
+use Symfony\Component\HttpFoundation\Response;
 
 class WbService extends AbstractService
 {
+    public function search($word)
+    {
+        $client = new Client();
+        $token = $this->entityManager->getRepository(Token::class)->find(1) ?? null;
+        $headers = [
+            'headers' => ['X-Mpstats-TOKEN' => $token ? $token->getToken() : $token]
+        ];
+        if(is_numeric($word)){
+            if($client->get($this->mpStatsApiWb."item/$word", $headers)->getStatusCode() == Response::HTTP_OK){
+                return $word;
+            }
+        }else{
+            $word = explode('/', $word)[4]??null;
+            if($word && is_numeric($word)){
+                if($client->get($this->mpStatsApiWb."item/$word", $headers)->getStatusCode() == Response::HTTP_OK){
+                    return $word;
+                }
+            }
+        }
+        return false;
+    }
+
+    public function inSimilar($sku)
+    {
+        $token = $this->entityManager->getRepository(Token::class)->find(1) ?? null;
+        $headers = [
+            'headers' => ['X-Mpstats-TOKEN' => $token ? $token->getToken() : $token]
+        ];
+        $date = new \DateTime();
+        $category = $this->mpStatsApiWb . "in_similar?path=$sku&" . "d2=" . $date->modify('-1 day')->format('Y-m-d') . "&d1=" . $date->modify('-60 day')->format('Y-m-d');
+        $client = new Client();
+        $sales = json_decode($client->request("GET", $category, $headers)->getBody()->getContents(), true)['data'];
+        $sales = array_map(function ($item) {
+            $item['color'] = (explode(', ', $item['color'])[0]);
+            $item['nmId'] = $item['id'];
+            $item['position'] = $item['category_position'];
+            $item['finalPrice'] = $item['final_price'];
+            $item['clientPrice'] = $item['client_price'];
+            $item['dayStock'] = $item['days_in_stock'];
+            return $item;
+        }, $sales);
+        $path = json_decode($client->request('GET', $this->mpStatsApiWb . "item/$sku", $headers)->getBody()->getContents(), true)['item'];
+        $context = [
+            'sales' => $sales,
+            'sku' => $sku,
+            'path' => $path['name']
+        ];
+        return $context;
+    }
+
+    public function similar($sku)
+    {
+        $token = $this->entityManager->getRepository(Token::class)->find(1) ?? null;
+        $headers = [
+            'headers' => ['X-Mpstats-TOKEN' => $token ? $token->getToken() : $token]
+        ];
+        $date = new \DateTime();
+        $category = $this->mpStatsApiWb . "similar?path=$sku&" . "d2=" . $date->modify('-1 day')->format('Y-m-d') . "&d1=" . $date->modify('-60 day')->format('Y-m-d');
+        $client = new Client();
+        $sales = json_decode($client->request("GET", $category, $headers)->getBody()->getContents(), true)['data'];
+        $sales = array_map(function ($item) {
+            $item['color'] = (explode(', ', $item['color'])[0]);
+            $item['nmId'] = $item['id'];
+            $item['position'] = $item['category_position'];
+            $item['finalPrice'] = $item['final_price'];
+            $item['clientPrice'] = $item['client_price'];
+            $item['dayStock'] = $item['days_in_stock'];
+            return $item;
+        }, $sales);
+        $path = json_decode($client->request('GET', $this->mpStatsApiWb . "item/$sku", $headers)->getBody()->getContents(), true)['item'];
+        $context = [
+            'sales' => $sales,
+            'sku' => $sku,
+            'path' => $path['name']
+        ];
+        return $context;
+
+    }
+
+    public function searchBrand($brand)
+    {
+        $token = $this->entityManager->getRepository(Token::class)->find(1) ?? null;
+        $headers = [
+            'headers' => ['X-Mpstats-TOKEN' => $token ? $token->getToken() : $token]
+        ];
+        $date = new \DateTime();
+        $category = $this->mpStatsApiWb . "brand?path=$brand&" . "d2=" . $date->modify('-1 day')->format('Y-m-d') . "&d1=" . $date->modify('-60 day')->format('Y-m-d');
+        $sales = json_decode((new Client())->request("GET", $category, $headers)->getBody()->getContents(), true)['data'];
+        $sales = array_map(function ($item) {
+            $item['color'] = (explode(', ', $item['color'])[0]);
+            $item['nmId'] = $item['id'];
+            $item['position'] = $item['category_position'];
+            $item['finalPrice'] = $item['final_price'];
+            $item['clientPrice'] = $item['client_price'];
+            $item['dayStock'] = $item['days_in_stock'];
+            return $item;
+        }, $sales);
+
+        $context = [
+            'sales' => $sales,
+            'path' => $brand
+        ];
+        return $context;
+    }
+
     public function getItem($sku, $category)
     {
         $context = ['sku' => $sku];
-        $token = $this->entityManager->getRepository(Token::class)->findAll()[0]??null;
+        $token = $this->entityManager->getRepository(Token::class)->find(1) ?? null;
         $headers = [
-            'headers' => ['X-Mpstats-TOKEN' => $token?$token->getToken():$token]
+            'headers' => ['X-Mpstats-TOKEN' => $token ? $token->getToken() : $token]
         ];
         $client = new Client();
         try {
@@ -49,11 +155,11 @@ class WbService extends AbstractService
             $context['count'] = 0;
             $byKeywords = $requestToArray('/by_keywords');
             $context['keywords'] = [];
-            $context['days'] = array_splice($byKeywords['days'], count($byKeywords['days'])/2);
-            foreach(array_keys($byKeywords['words']) as $word){
+            $context['days'] = array_splice($byKeywords['days'], count($byKeywords['days']) / 2);
+            foreach (array_keys($byKeywords['words']) as $word) {
                 $context['keywords'][] = [
-                    'name'=>$word,
-                    'pos' => array_splice($byKeywords['words'][$word]['pos'], count($byKeywords['words'][$word]['pos'])/2+1),
+                    'name' => $word,
+                    'pos' => array_splice($byKeywords['words'][$word]['pos'], count($byKeywords['words'][$word]['pos']) / 2 + 1),
                     'count' => $byKeywords['words'][$word]['count'],
                     'total' => $byKeywords['words'][$word]['total'],
                     'avgPos' => $byKeywords['words'][$word]['avgPos']
@@ -70,10 +176,10 @@ class WbService extends AbstractService
                 ];
                 $context['result'] += $byKeywords['sales'][$i];
                 $context['summa'] += $byKeywords['sales'][$i] * $byKeywords['final_price'][$i];
-                if($byKeywords['sales'][$i]!=0) $context['count']++;
+                if ($byKeywords['sales'][$i] != 0) $context['count']++;
             }
-            $context['average'] = (int)($context['result']/count($byKeywords['sales']));
-            $context['summa_average'] = (int)($context['summa']/count($byKeywords['sales']));
+            $context['average'] = (int)($context['result'] / count($byKeywords['sales']));
+            $context['summa_average'] = (int)($context['summa'] / count($byKeywords['sales']));
             $context['by_keywords'] = array_reverse($context['by_keywords']);
 
         } catch (Exception $exception) {
@@ -84,9 +190,9 @@ class WbService extends AbstractService
     public function getCategory($url = null)
     {
         if ($url) {
-            $token = $this->entityManager->getRepository(Token::class)->findAll()[0]??null;
+            $token = $this->entityManager->getRepository(Token::class)->find(1) ?? null;
             $headers = [
-                'headers' => ['X-Mpstats-TOKEN' => $token?$token->getToken():$token]
+                'headers' => ['X-Mpstats-TOKEN' => $token ? $token->getToken() : $token]
             ];
             $date = new \DateTime();
             $category = $this->mpStatsApiWb . "category?path=$url&" . "d2=" . $date->modify('-1 day')->format('Y-m-d') . "&d1=" . $date->modify('-60 day')->format('Y-m-d');

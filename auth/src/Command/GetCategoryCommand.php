@@ -5,6 +5,7 @@ namespace App\Command;
 use App\Entity\Category;
 use App\Entity\CategorySales;
 use App\Entity\DataCategory;
+use App\Entity\Token;
 use App\Helper\Enum\CategoryEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
@@ -30,15 +31,15 @@ class GetCategoryCommand extends Command
     {
         $this
             ->setName('category:load')
-            ->addArgument('token')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
-        $this->InsertCategory(CategoryEnum::WB, $input->getArgument("token"));
-        $this->InsertCategory(CategoryEnum::OZON, $input->getArgument("token"));
+        $token = $this->entityManager->getRepository(Token::class)->find(1)??null;
+        if(!$token) return Command::FAILURE;
+        $this->InsertCategory(CategoryEnum::WB, $token->getToken() );
+        $this->InsertCategory(CategoryEnum::OZON, $token->getToken() );
         $this->entityManager->getRepository(Category::class)->deleteAll();
         $this->entityManager->flush();
         return Command::SUCCESS;

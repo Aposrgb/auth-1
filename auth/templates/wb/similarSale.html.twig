@@ -9,15 +9,9 @@
     <link href="../../styles/seo/slider.css" rel="stylesheet">
     <link href="../../styles/seo/table.css" rel="stylesheet">
 
-    <script>
-        function collapse(element) {
-            let display = element.parentNode.parentNode.children[1].style.display
-            element.parentNode.parentNode.children[1].style.display = display === "block" ? "none" : "block"
-        }
-    </script>
 {% endblock %}
 {% block body %}
-    {% include 'wb/HTML/categorySale.html.twig' %}
+    {% include 'wb/HTML/similarSale.html.twig' %}
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             let el = document.getElementById("scrollbar")
@@ -30,7 +24,7 @@
                 }, false)
         })
         function redirect(element){
-            window.location.href = "/wb/item/"+element.id+"?name="+"{{path}}"
+            window.location.href = "/wb/item/"+element.id+"?name="+element.children[4].innerText
         }
     </script>
     <style>

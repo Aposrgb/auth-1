@@ -14,7 +14,8 @@ abstract class AbstractService
         protected SerializerInterface $serializer,
         protected UserPasswordHasherInterface $hasher,
         protected $mpStatsApi,
-        protected $mpStatsApiWb
+        protected $mpStatsApiWb,
+        protected $mpStatsApiOz
     )
     {
     }

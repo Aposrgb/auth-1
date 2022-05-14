@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\WbService;
+use GuzzleHttp\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,7 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class WbController extends AbstractController
 {
     public function __construct(
-        protected WbService $service
+        protected WbService $service,
+        protected $mpStatsApiWb
     )
     {
     }
@@ -44,19 +46,51 @@ class WbController extends AbstractController
         return $this->render('wb/seller.html.twig');
     }
     #[Route(path: '/similar', name: 'wb_similar')]
-    public function similar(): Response
+    public function similar(Request $request): Response
     {
+        $sku = $request->query->all()['sku']??null;
+        if($sku && is_numeric($sku)){
+            return $this->render('wb/similarSale.html.twig',
+                $this->service->similar($sku)
+            );
+        }
         return $this->render('wb/similar.html.twig');
+    }
+    #[Route(path: '/in_similar', name: 'wb_in_similar')]
+    public function inSimilar(Request $request): Response
+    {
+        $sku = $request->query->all()['sku']??null;
+        if($sku && is_numeric($sku)){
+            return $this->render('wb/inSimilarSale.html.twig',
+                $this->service->similar($sku)
+            );
+        }
+        return $this->redirectToRoute('wb_similar');
     }
     #[Route(path: '/brand', name: 'wb_brand')]
     public function brand(): Response
     {
         return $this->render('wb/brand.html.twig');
     }
-    #[Route(path: '/search', name: 'wb_search')]
+    #[Route(path: '/brand/{path}', name: 'wb_brand_sale')]
+    public function brandSale(string $path): Response
+    {
+        return $this->render('wb/brandSale.html.twig',
+            $this->service->searchBrand($path)
+        );
+    }
+    #[Route(path: '/search', name: 'wb_search', methods: ["GET"])]
     public function search(): Response
     {
         return $this->render('wb/search.html.twig');
+    }
+    #[Route(path: '/search', name: 'wb_search_post', methods: ["POST"])]
+    public function searchPost(Request $request): Response
+    {
+        $word = $request->request->all()['search'];
+        $word = $this->service->search($word);
+        if(!$word) return $this->redirectToRoute('wb_search');
+        return $this->redirect('item/'.$word);
     }
     #[Route(path: '/top-brands', name: 'wb_top_brands')]
     public function topBrands(): Response

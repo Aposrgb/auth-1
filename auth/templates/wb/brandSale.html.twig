@@ -17,7 +17,7 @@
     </script>
 {% endblock %}
 {% block body %}
-    {% include 'wb/HTML/categorySale.html.twig' %}
+    {% include 'wb/HTML/brandSale.html.twig' %}
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             let el = document.getElementById("scrollbar")
@@ -30,7 +30,7 @@
                 }, false)
         })
         function redirect(element){
-            window.location.href = "/wb/item/"+element.id+"?name="+"{{path}}"
+            window.location.href = "/wb/item/"+element.id+"?name="+element.children[4].innerText
         }
     </script>
     <style>

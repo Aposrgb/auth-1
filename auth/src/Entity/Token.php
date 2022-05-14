@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Token
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
@@ -19,6 +18,13 @@ class Token
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId($id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getToken(): ?string
