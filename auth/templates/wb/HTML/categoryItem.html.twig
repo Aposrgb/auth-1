@@ -9773,7 +9773,13 @@
                                                                             <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell rub-top-12 ag-cell-value"
                                                                                  aria-selected="false"
                                                                                  style="width: 80px; left: {{ (loop.index-1) * 80 }}px;  ">
-                                                                                <span>{{ pos??'' }}</span>
+                                                                                <span>
+                                                                                    {% if pos == "NaN" %}
+                                                                                        -
+                                                                                    {% else %}
+                                                                                        {{ pos }}
+                                                                                    {% endif %}
+                                                                                </span>
                                                                             </div>
                                                                         {% endfor %}
                                                                     </div>
