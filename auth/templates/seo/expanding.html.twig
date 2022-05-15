@@ -8,18 +8,244 @@
 
 {% endblock %}
 {% block body %}
-    <div id="mp-stats-app" class="main-content container-fluid"><div id="global-loader-block" aria-hidden="true" class="mp-loader-overlay ag-overlay hidden"><div class="ag-overlay-panel"><div class="ag-overlay-wrapper ag-layout-normal ag-overlay-loading-wrapper"><div class="mp-loader-static"></div></div></div></div> <div data-v-0ead128c="" id="app-layout"><section data-v-39feaa4f="" data-v-0ead128c="" class="px-3 py-3 pt-md-5 pb-md-4"><div data-v-39feaa4f="" class="row"><div data-v-39feaa4f="" class="col-md-12 col-lg-6 offset-lg-3"><div data-v-39feaa4f="" class="mx-auto text-center"><h1 data-v-39feaa4f="" class="display-4">Расширение запросов</h1> <p data-v-39feaa4f="" class="lead">Поиск слов и фраз, которые стоит добавить на карточку своего товара, чтобы покрыть большее число запросов.</p></div></div></div> <div data-v-39feaa4f="" class="row mt-7"><div data-v-39feaa4f="" class="col-md-12 col-lg-6 offset-lg-3"><div data-v-39feaa4f="" class="row g-3"><div data-v-39feaa4f="" class="col"><div data-v-39feaa4f="" class="tabs" id="__BVID__9"><!----><div class=""><ul role="tablist" class="nav nav-tabs" id="__BVID__9__BV_tab_controls_"><!----><li role="presentation" class="nav-item"><a role="tab" aria-selected="true" aria-setsize="3" aria-posinset="1" href="#" target="_self" class="nav-link active" id="__BVID__10___BV_tab_button__" aria-controls="__BVID__10">По товарным позициям WB</a></li><li role="presentation" class="nav-item"><a role="tab" tabindex="-1" aria-selected="false" aria-setsize="3" aria-posinset="2" href="#" target="_self" class="nav-link" id="__BVID__13___BV_tab_button__" aria-controls="__BVID__13">По запросам</a></li><li role="presentation" class="nav-item"><a role="tab" tabindex="-1" aria-selected="false" aria-setsize="3" aria-posinset="3" href="#" target="_self" class="nav-link" id="__BVID__15___BV_tab_button__" aria-controls="__BVID__15">По словам</a></li><!----></ul></div><div class="tab-content mt-3" id="__BVID__9__BV_tab_container_"><div data-v-39feaa4f="" role="tabpanel" aria-hidden="false" class="tab-pane active" id="__BVID__10" aria-labelledby="__BVID__10___BV_tab_button__"><div data-v-39feaa4f="" class="row"><div data-v-39feaa4f="" class="col"><div data-v-39feaa4f="" role="alert" class="alert alert-info alert-simple"><div data-v-39feaa4f="" class="icon"><svg data-v-39feaa4f="" viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img" aria-label="info circle" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi-info-circle b-icon bi"><g data-v-39feaa4f=""><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path></g></svg></div> <div data-v-39feaa4f="" class="message">
-                                                            Мы найдем все запросы, по которым встретили переданные SKU в поисковой выдачи за последние 30 дней.
-                                                            При включенной опции "добавить похожие товары", мы также добавим ключевые слова всех похожих товаров из числа переданных SKU.
-                                                        </div></div> <textarea data-v-39feaa4f="" rows="5" class="form-control"></textarea> <div data-v-39feaa4f="" class="d-flex justify-content-between"><h5 data-v-39feaa4f="" class="mt-1">Введите <span data-v-39feaa4f="" class="dashed cursor-pointer">ссылки на товарные позиции WB</span> или
-                                                            <span data-v-39feaa4f="" class="dashed cursor-pointer">список SKU</span></h5> <h5 data-v-39feaa4f="" class="text-muted mt-1">Каждое значение вводится с новой строки, не более 100 записей.</h5></div> <div data-v-39feaa4f="" class="d-flex align-items-center"><div data-v-39feaa4f="" class="custom-control custom-checkbox"><input data-v-39feaa4f="" type="checkbox" id="addSimilar" class="custom-control-input"> <label data-v-39feaa4f="" for="addSimilar" class="custom-control-label custom-control-color">добавить похожие товары <span data-v-39feaa4f="" title="Мы найдем ключевые слова не только переданных SKU но и их похожих товаров"><svg data-v-39feaa4f="" viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img" aria-label="question circle" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi-question-circle b-icon bi"><g data-v-39feaa4f=""><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span></label></div></div></div></div></div> <div data-v-39feaa4f="" role="tabpanel" aria-hidden="true" class="tab-pane" id="__BVID__13" aria-labelledby="__BVID__13___BV_tab_button__" style="display: none;"><div data-v-39feaa4f="" class="row"><div data-v-39feaa4f="" class="col"><div data-v-39feaa4f="" role="alert" class="alert alert-info alert-simple"><div data-v-39feaa4f="" class="icon"><svg data-v-39feaa4f="" viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img" aria-label="info circle" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi-info-circle b-icon bi"><g data-v-39feaa4f=""><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path></g></svg></div> <div data-v-39feaa4f="" class="message">
-                                                            Мы найдем все SKU, которые ранжировались по переданным запросам за последние 7 дней с позицией в выдаче не ниже 30,
-                                                            затем мы найдем запросы, по которым встретили найденные SKU в поисковой выдаче за последние 30 дней.
-                                                        </div></div> <textarea data-v-39feaa4f="" rows="5" class="form-control"></textarea> <div data-v-39feaa4f="" class="d-flex justify-content-between"><h5 data-v-39feaa4f="" class="mt-1">Введите <span data-v-39feaa4f="" class="dashed cursor-pointer">поисковые запросы</span></h5> <h5 data-v-39feaa4f="" class="text-muted mt-1">Каждое значение вводится с новой строки, не более 100 записей.</h5></div></div></div></div> <div data-v-39feaa4f="" role="tabpanel" aria-hidden="true" class="tab-pane" id="__BVID__15" aria-labelledby="__BVID__15___BV_tab_button__" style="display: none;"><div data-v-39feaa4f="" class="row"><div data-v-39feaa4f="" class="col"><div data-v-39feaa4f="" role="alert" class="alert alert-info alert-simple"><div data-v-39feaa4f="" class="icon"><svg data-v-39feaa4f="" viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img" aria-label="info circle" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi-info-circle b-icon bi"><g data-v-39feaa4f=""><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path></g></svg></div> <div data-v-39feaa4f="" class="message">
-                                                            Мы найдем все запросы, в которых присутствуют переданные слова.
-                                                        </div></div> <textarea data-v-39feaa4f="" rows="5" class="form-control"></textarea> <div data-v-39feaa4f="" class="d-flex justify-content-between"><h5 data-v-39feaa4f="" class="mt-1">Введите <span data-v-39feaa4f="" class="dashed cursor-pointer">слова</span></h5> <h5 data-v-39feaa4f="" class="text-muted mt-1">Каждое значение вводится с новой строки, не более 100 записей.</h5></div> <div data-v-39feaa4f="" class="mt-2"><div data-v-39feaa4f="" class="custom-control custom-checkbox"><input data-v-39feaa4f="" id="searchFullWord" type="checkbox" class="custom-control-input"> <label data-v-39feaa4f="" for="searchFullWord" class="custom-control-label">
+    <div id="mp-stats-app" class="main-content container-fluid">
+        <div id="global-loader-block" aria-hidden="true" class="mp-loader-overlay ag-overlay hidden">
+            <div class="ag-overlay-panel">
+                <div class="ag-overlay-wrapper ag-layout-normal ag-overlay-loading-wrapper">
+                    <div class="mp-loader-static"></div>
+                </div>
+            </div>
+        </div>
+        <div data-v-0ead128c="" id="app-layout">
+            <section data-v-39feaa4f="" data-v-0ead128c="" class="px-3 py-3 pt-md-5 pb-md-4">
+                <div data-v-39feaa4f="" class="row">
+                    <div data-v-39feaa4f="" class="col-md-12 col-lg-6 offset-lg-3">
+                        <div data-v-39feaa4f="" class="mx-auto text-center"><h1 data-v-39feaa4f="" class="display-4">
+                                Расширение запросов</h1>
+                            <p data-v-39feaa4f="" class="lead">Поиск слов и фраз, которые стоит добавить на карточку
+                                своего товара, чтобы покрыть большее число запросов.</p></div>
+                    </div>
+                </div>
+                <div data-v-39feaa4f="" class="row mt-7">
+                    <div data-v-39feaa4f="" class="col-md-12 col-lg-6 offset-lg-3">
+                        <div data-v-39feaa4f="" class="row g-3">
+                            <div data-v-39feaa4f="" class="col">
+                                <div data-v-39feaa4f="" class="tabs" id="__BVID__9"><!---->
+                                    <div class="">
+                                        <ul role="tablist" class="nav nav-tabs" id="__BVID__9__BV_tab_controls_"><!---->
+                                            <li onclick="changeSearch(0)" role="presentation" class="nav-item">
+                                                <a class="nav-link" id="__BVID__10___BV_tab_button__">
+                                                    По товарным позициям WB
+                                                </a>
+                                            </li>
+                                            <li onclick="changeSearch(1)" class="nav-item">
+                                                <a class="nav-link" id="__BVID__13___BV_tab_button__">
+                                                    По запросам
+                                                </a>
+                                            </li>
+                                            <li onclick="changeSearch(2)" class="nav-item">
+                                                <a class="nav-link" id="__BVID__15___BV_tab_button__">По словам</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="tab-content mt-3" id="__BVID__9__BV_tab_container_">
+                                        <div id="tab-pane0" class="tab-pane active">
+                                            <div data-v-39feaa4f="" class="row">
+                                                <div data-v-39feaa4f="" class="col">
+                                                    <div data-v-39feaa4f="" role="alert"
+                                                         class="alert alert-info alert-simple">
+                                                        <div data-v-39feaa4f="" class="icon">
+                                                            <svg data-v-39feaa4f="" viewBox="0 0 16 16" width="1em"
+                                                                 height="1em" focusable="false" role="img"
+                                                                 aria-label="info circle"
+                                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                                 class="bi-info-circle b-icon bi">
+                                                                <g data-v-39feaa4f="">
+                                                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                                                    <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                                                </g>
+                                                            </svg>
+                                                        </div>
+                                                        <div data-v-39feaa4f="" class="message">
+                                                            Мы найдем все запросы, по которым встретили переданные SKU в
+                                                            поисковой выдачи за последние 30 дней.
+                                                            При включенной опции "добавить похожие товары", мы также
+                                                            добавим ключевые слова всех похожих товаров из числа
+                                                            переданных SKU.
+                                                        </div>
+                                                    </div>
+                                                    <textarea id="form0" data-v-39feaa4f="" rows="5"
+                                                              class="form-control"></textarea>
+                                                    <div data-v-39feaa4f="" class="d-flex justify-content-between"><h5
+                                                                data-v-39feaa4f="" class="mt-1">Введите <span
+                                                                    data-v-39feaa4f="" class="dashed cursor-pointer">ссылки на товарные позиции WB</span>
+                                                            или
+                                                            <span data-v-39feaa4f="" class="dashed cursor-pointer">список SKU</span>
+                                                        </h5> <h5 data-v-39feaa4f="" class="text-muted mt-1">Каждое
+                                                            значение вводится с новой строки, не более 100 записей.</h5>
+                                                    </div>
+                                                    <div data-v-39feaa4f="" class="d-flex align-items-center">
+                                                        <div data-v-39feaa4f="" class="custom-control custom-checkbox">
+                                                            <input data-v-39feaa4f="" type="checkbox" id="addSimilar"
+                                                                   class="custom-control-input"> <label
+                                                                    data-v-39feaa4f="" for="addSimilar"
+                                                                    class="custom-control-label custom-control-color">добавить
+                                                                похожие товары <span data-v-39feaa4f=""
+                                                                                     title="Мы найдем ключевые слова не только переданных SKU но и их похожих товаров"><svg
+                                                                            data-v-39feaa4f="" viewBox="0 0 16 16"
+                                                                            width="1em" height="1em" focusable="false"
+                                                                            role="img" aria-label="question circle"
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            fill="currentColor"
+                                                                            class="bi-question-circle b-icon bi"><g
+                                                                                data-v-39feaa4f=""><path
+                                                                                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
+                                                                                    d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="tab-pane1" class="tab-pane" aria-labelledby="__BVID__13___BV_tab_button__"
+                                             style="display: none;">
+                                            <div data-v-39feaa4f="" class="row">
+                                                <div data-v-39feaa4f="" class="col">
+                                                    <div data-v-39feaa4f="" role="alert"
+                                                         class="alert alert-info alert-simple">
+                                                        <div data-v-39feaa4f="" class="icon">
+                                                            <svg data-v-39feaa4f="" viewBox="0 0 16 16" width="1em"
+                                                                 height="1em" focusable="false" role="img"
+                                                                 aria-label="info circle"
+                                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                                 class="bi-info-circle b-icon bi">
+                                                                <g data-v-39feaa4f="">
+                                                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                                                    <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                                                </g>
+                                                            </svg>
+                                                        </div>
+                                                        <div data-v-39feaa4f="" class="message">
+                                                            Мы найдем все SKU, которые ранжировались по переданным
+                                                            запросам за последние 7 дней с позицией в выдаче не ниже 30,
+                                                            затем мы найдем запросы, по которым встретили найденные SKU
+                                                            в поисковой выдаче за последние 30 дней.
+                                                        </div>
+                                                    </div>
+                                                    <textarea id="form1" data-v-39feaa4f="" rows="5"
+                                                              class="form-control"></textarea>
+                                                    <div data-v-39feaa4f="" class="d-flex justify-content-between"><h5
+                                                                data-v-39feaa4f="" class="mt-1">Введите <span
+                                                                    data-v-39feaa4f="" class="dashed cursor-pointer">поисковые запросы</span>
+                                                        </h5> <h5 data-v-39feaa4f="" class="text-muted mt-1">Каждое
+                                                            значение вводится с новой строки, не более 100 записей.</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="tab-pane2" class="tab-pane"
+                                             style="display: none;">
+                                            <div data-v-39feaa4f="" class="row">
+                                                <div data-v-39feaa4f="" class="col">
+                                                    <div data-v-39feaa4f="" role="alert"
+                                                         class="alert alert-info alert-simple">
+                                                        <div data-v-39feaa4f="" class="icon">
+                                                            <svg data-v-39feaa4f="" viewBox="0 0 16 16" width="1em"
+                                                                 height="1em" focusable="false" role="img"
+                                                                 aria-label="info circle"
+                                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                                 class="bi-info-circle b-icon bi">
+                                                                <g data-v-39feaa4f="">
+                                                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                                                    <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                                                </g>
+                                                            </svg>
+                                                        </div>
+                                                        <div data-v-39feaa4f="" class="message">
+                                                            Мы найдем все запросы, в которых присутствуют переданные
+                                                            слова.
+                                                        </div>
+                                                    </div>
+                                                    <textarea id="form2" data-v-39feaa4f="" rows="5"
+                                                              class="form-control"></textarea>
+                                                    <div data-v-39feaa4f="" class="d-flex justify-content-between"><h5
+                                                                data-v-39feaa4f="" class="mt-1">Введите <span
+                                                                    data-v-39feaa4f="" class="dashed cursor-pointer">слова</span>
+                                                        </h5> <h5 data-v-39feaa4f="" class="text-muted mt-1">Каждое
+                                                            значение вводится с новой строки, не более 100 записей.</h5>
+                                                    </div>
+                                                    <div data-v-39feaa4f="" class="mt-2">
+                                                        <div data-v-39feaa4f="" class="custom-control custom-checkbox">
+                                                            <input  data-v-39feaa4f=""
+                                                                   type="checkbox" class="custom-control-input"> <label
+                                                                    data-v-39feaa4f="" for="searchFullWord"
+                                                                    class="custom-control-label">
                                                                 искать как целое слово
-                                                            </label></div></div></div></div></div><!----></div></div></div></div></div></div> <div data-v-39feaa4f="" class="row"><div data-v-39feaa4f="" class="col-md-12 col-lg-6 offset-lg-3"><div data-v-39feaa4f="" class="row g-3"><div data-v-39feaa4f="" class="col text-center"><!----> <button data-v-39feaa4f="" class="btn btn-primary btn-xl">
+                                                            </label></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!----></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div data-v-39feaa4f="" class="row">
+                    <div data-v-39feaa4f="" class="col-md-12 col-lg-6 offset-lg-3">
+                        <div data-v-39feaa4f="" class="row g-3">
+                            <div data-v-39feaa4f="" class="col text-center"><!---->
+                                <button onclick="redirect()" class="btn btn-primary btn-xl">
                                     Получить отчет
-                                    <svg data-v-39feaa4f="" viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img" aria-label="play" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi-play b-icon bi"><g data-v-39feaa4f=""><path d="M10.804 8L5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"></path></g></svg></button> <!----></div></div></div></div></section></div> <div><!----> <div class="snotify snotify-leftTop"></div><div class="snotify snotify-leftCenter"></div><div class="snotify snotify-leftBottom"></div><div class="snotify snotify-rightTop"></div><div class="snotify snotify-rightCenter"></div><div class="snotify snotify-rightBottom"></div><div class="snotify snotify-centerTop"></div><div class="snotify snotify-centerCenter"></div><div class="snotify snotify-centerBottom"></div></div></div>
-{%endblock%}
+                                    <svg data-v-39feaa4f="" viewBox="0 0 16 16" width="1em" height="1em"
+                                         focusable="false" role="img" aria-label="play"
+                                         xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                         class="bi-play b-icon bi">
+                                        <g data-v-39feaa4f="">
+                                            <path d="M10.804 8L5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"></path>
+                                        </g>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div><!---->
+            <div class="snotify snotify-leftTop"></div>
+            <div class="snotify snotify-leftCenter"></div>
+            <div class="snotify snotify-leftBottom"></div>
+            <div class="snotify snotify-rightTop"></div>
+            <div class="snotify snotify-rightCenter"></div>
+            <div class="snotify snotify-rightBottom"></div>
+            <div class="snotify snotify-centerTop"></div>
+            <div class="snotify snotify-centerCenter"></div>
+            <div class="snotify snotify-centerBottom"></div>
+        </div>
+    </div>
+    <script>
+        function changeSearch(l){
+            for(i=0;i<3;i++){
+                document.getElementsByClassName('tab-pane')[i].style.display = "none"
+            }
+            document.getElementById("tab-pane"+l).style.display = "block"
+        }
+        function redirect(){
+            for(i=0;i<3;i++){
+                if(document.getElementsByClassName('tab-pane')[i].style.display!=="none"){
+                    let el = document.getElementById('form'+i)
+                    if(el.value.length > 0){
+                        if(i===0){
+                            window.location.href = "/seo/keywords/expanding/"+el.value
+                        }else if(i===1){
+                            window.location.href = "/seo/keywords/expanding/keyword/"+el.value
+                        }else {
+                            window.location.href = "/seo/keywords/expanding/word/"+el.value
+                        }
+                    }
+                    return
+                }
+            }
+        }
+    </script>
+{% endblock %}

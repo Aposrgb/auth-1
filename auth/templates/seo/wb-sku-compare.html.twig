@@ -11,7 +11,77 @@
 
 {% endblock %}
 {% block body %}
-    <div id="mp-stats-app" class="main-content container-fluid"><div id="global-loader-block" aria-hidden="true" class="mp-loader-overlay ag-overlay hidden"><div class="ag-overlay-panel"><div class="ag-overlay-wrapper ag-layout-normal ag-overlay-loading-wrapper"><div class="mp-loader-static"></div></div></div></div> <div data-v-0ead128c="" id="app-layout"><section data-v-dc998f02="" data-v-0ead128c="" class="px-3 py-3 pt-md-5 pb-md-4"><div data-v-dc998f02="" class="row"><div data-v-dc998f02="" class="col-md-12 col-lg-6 offset-lg-3"><div data-v-dc998f02="" class="mx-auto text-center"><h1 data-v-dc998f02="" class="display-4">Проверка карточки SKU</h1> <p data-v-dc998f02="" class="lead">Проверка вхождений слов и фраз в текст карточки товара. Это поможет покрыть большее число запросов и привлечь продажи.</p></div></div></div> <div data-v-dc998f02="" class="row mt-7"><div data-v-dc998f02="" class="col-md-12 col-lg-6 offset-lg-3"><div data-v-dc998f02="" class="row g-3"><div data-v-dc998f02="" class="col"><input data-v-dc998f02="" type="text" placeholder="SKU" autofocus="autofocus" class="form-control"> <div data-v-dc998f02="" class="d-flex justify-content-between"><h5 data-v-dc998f02="" class="mt-1">Введите <span data-v-dc998f02="" class="dashed cursor-pointer">ссылку на товарную позицию WB</span> или <span data-v-dc998f02="" class="dashed cursor-pointer">SKU</span></h5></div></div></div></div></div> <div data-v-dc998f02="" class="row"><div data-v-dc998f02="" class="col-md-12 col-lg-6 offset-lg-3"><div data-v-dc998f02="" class="row g-3"><div data-v-dc998f02="" class="col text-center"><button data-v-dc998f02="" class="btn btn-primary btn-xl">
-                                    Проверить
-                                    <svg data-v-dc998f02="" viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img" aria-label="play" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi-play b-icon bi"><g data-v-dc998f02=""><path d="M10.804 8L5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"></path></g></svg></button></div></div></div></div></section></div> <div><!----> <div class="snotify snotify-left_top"></div><div class="snotify snotify-left_center"></div><div class="snotify snotify-left_bottom"></div><div class="snotify snotify-right_top"></div><div class="snotify snotify-right_center"></div><div class="snotify snotify-right_bottom"></div><div class="snotify snotify-center_top"></div><div class="snotify snotify-center_center"></div><div class="snotify snotify-center_bottom"></div></div></div>
-{%endblock%}
+    <div id="mp-stats-app" class="main-content container-fluid">
+        <div id="global-loader-block" aria-hidden="true" class="mp-loader-overlay ag-overlay hidden">
+            <div class="ag-overlay-panel">
+                <div class="ag-overlay-wrapper ag-layout-normal ag-overlay-loading-wrapper">
+                    <div class="mp-loader-static"></div>
+                </div>
+            </div>
+        </div>
+        <div data-v-0ead128c="" id="app-layout">
+            <section data-v-48ee4b78="" data-v-0ead128c="" class="px-3 py-3 pt-md-5 pb-md-4">
+                <div data-v-48ee4b78="" class="row">
+                    <div data-v-48ee4b78="" class="col-md-12 col-lg-8 offset-lg-2">
+                        <div data-v-48ee4b78="" class="mx-auto text-center"><h1 data-v-48ee4b78="" class="display-4">
+                                Проверка пересечений ключевых фраз между группами SKU</h1>
+                            <p data-v-48ee4b78="" class="lead">Быстрый способ наглядно увидеть сходства и различия между
+                                множеством ключевых фраз в группах SKU</p></div>
+                    </div>
+                </div>
+                <form method="POST">
+                    <div data-v-48ee4b78="" class="row mt-7">
+                        <div data-v-48ee4b78="" class="col-md-12 col-lg-8 offset-lg-2">
+                            <div data-v-48ee4b78="" class="row g-3">
+                                <div data-v-48ee4b78="" class="col"><label data-v-48ee4b78="">Группа A</label> <textarea
+                                            data-v-48ee4b78="" id="groupA" name="groupA" rows="5"
+                                            class="form-control form-control-sm"></textarea></div>
+                                <div data-v-48ee4b78="" class="col"><label data-v-48ee4b78="">Группа B</label> <textarea
+                                            data-v-48ee4b78="" id="groupB" name="groupB" rows="5"
+                                            class="form-control form-control-sm"></textarea></div>
+                            </div>
+                            <div data-v-48ee4b78="" class="row g-3">
+                                <div data-v-48ee4b78="" class="col">
+                                    <div data-v-48ee4b78="" class="d-flex justify-content-between"><h5 data-v-48ee4b78=""
+                                                                                                       class="mt-1">Введите
+                                            <span data-v-48ee4b78="" class="dashed cursor-pointer">ссылки на товарные позиции WB</span>
+                                            или <span data-v-48ee4b78="" class="dashed cursor-pointer">SKU</span></h5></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-v-48ee4b78="" class="row">
+                        <div data-v-48ee4b78="" class="col-md-12 col-lg-6 offset-lg-3">
+                            <div data-v-48ee4b78="" class="row g-3">
+                                <div data-v-48ee4b78="" class="col text-center">
+                                    <button type="submit" data-v-48ee4b78="" class="btn btn-primary btn-xl">
+                                        Проверить
+                                        <svg data-v-48ee4b78="" viewBox="0 0 16 16" width="1em" height="1em"
+                                             focusable="false" role="img" aria-label="play"
+                                             xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                             class="bi-play b-icon bi">
+                                            <g data-v-48ee4b78="">
+                                                <path d="M10.804 8L5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"></path>
+                                            </g>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+        <div><!---->
+            <div class="snotify snotify-left_top"></div>
+            <div class="snotify snotify-left_center"></div>
+            <div class="snotify snotify-left_bottom"></div>
+            <div class="snotify snotify-right_top"></div>
+            <div class="snotify snotify-right_center"></div>
+            <div class="snotify snotify-right_bottom"></div>
+            <div class="snotify snotify-center_top"></div>
+            <div class="snotify snotify-center_center"></div>
+            <div class="snotify snotify-center_bottom"></div>
+        </div>
+    </div>
+{% endblock %}

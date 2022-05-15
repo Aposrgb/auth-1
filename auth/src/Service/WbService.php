@@ -3,7 +3,6 @@
 namespace App\Service;
 
 use App\Entity\DataCategory;
-use App\Entity\Token;
 use App\Helper\Enum\CategoryEnum;
 use Exception;
 use GuzzleHttp\Client;
@@ -14,18 +13,14 @@ class WbService extends AbstractService
     public function search($word)
     {
         $client = new Client();
-        $token = $this->entityManager->getRepository(Token::class)->find(1) ?? null;
-        $headers = [
-            'headers' => ['X-Mpstats-TOKEN' => $token ? $token->getToken() : $token]
-        ];
         if(is_numeric($word)){
-            if($client->get($this->mpStatsApiWb."item/$word", $headers)->getStatusCode() == Response::HTTP_OK){
+            if($client->get($this->mpStatsApiWb."item/$word", $this->getHeaders())->getStatusCode() == Response::HTTP_OK){
                 return $word;
             }
         }else{
             $word = explode('/', $word)[4]??null;
             if($word && is_numeric($word)){
-                if($client->get($this->mpStatsApiWb."item/$word", $headers)->getStatusCode() == Response::HTTP_OK){
+                if($client->get($this->mpStatsApiWb."item/$word", $this->getHeaders())->getStatusCode() == Response::HTTP_OK){
                     return $word;
                 }
             }
@@ -35,14 +30,10 @@ class WbService extends AbstractService
 
     public function inSimilar($sku)
     {
-        $token = $this->entityManager->getRepository(Token::class)->find(1) ?? null;
-        $headers = [
-            'headers' => ['X-Mpstats-TOKEN' => $token ? $token->getToken() : $token]
-        ];
         $date = new \DateTime();
         $category = $this->mpStatsApiWb . "in_similar?path=$sku&" . "d2=" . $date->modify('-1 day')->format('Y-m-d') . "&d1=" . $date->modify('-60 day')->format('Y-m-d');
         $client = new Client();
-        $sales = json_decode($client->request("GET", $category, $headers)->getBody()->getContents(), true)['data'];
+        $sales = json_decode($client->request("GET", $category, $this->getHeaders())->getBody()->getContents(), true)['data'];
         $sales = array_map(function ($item) {
             $item['color'] = (explode(', ', $item['color'])[0]);
             $item['nmId'] = $item['id'];
@@ -52,7 +43,7 @@ class WbService extends AbstractService
             $item['dayStock'] = $item['days_in_stock'];
             return $item;
         }, $sales);
-        $path = json_decode($client->request('GET', $this->mpStatsApiWb . "item/$sku", $headers)->getBody()->getContents(), true)['item'];
+        $path = json_decode($client->request('GET', $this->mpStatsApiWb . "item/$sku", $this->getHeaders())->getBody()->getContents(), true)['item'];
         $context = [
             'sales' => $sales,
             'sku' => $sku,
@@ -63,14 +54,10 @@ class WbService extends AbstractService
 
     public function similar($sku)
     {
-        $token = $this->entityManager->getRepository(Token::class)->find(1) ?? null;
-        $headers = [
-            'headers' => ['X-Mpstats-TOKEN' => $token ? $token->getToken() : $token]
-        ];
         $date = new \DateTime();
         $category = $this->mpStatsApiWb . "similar?path=$sku&" . "d2=" . $date->modify('-1 day')->format('Y-m-d') . "&d1=" . $date->modify('-60 day')->format('Y-m-d');
         $client = new Client();
-        $sales = json_decode($client->request("GET", $category, $headers)->getBody()->getContents(), true)['data'];
+        $sales = json_decode($client->request("GET", $category, $this->getHeaders())->getBody()->getContents(), true)['data'];
         $sales = array_map(function ($item) {
             $item['color'] = (explode(', ', $item['color'])[0]);
             $item['nmId'] = $item['id'];
@@ -80,7 +67,7 @@ class WbService extends AbstractService
             $item['dayStock'] = $item['days_in_stock'];
             return $item;
         }, $sales);
-        $path = json_decode($client->request('GET', $this->mpStatsApiWb . "item/$sku", $headers)->getBody()->getContents(), true)['item'];
+        $path = json_decode($client->request('GET', $this->mpStatsApiWb . "item/$sku", $this->getHeaders())->getBody()->getContents(), true)['item'];
         $context = [
             'sales' => $sales,
             'sku' => $sku,
@@ -92,13 +79,9 @@ class WbService extends AbstractService
 
     public function searchBrand($brand)
     {
-        $token = $this->entityManager->getRepository(Token::class)->find(1) ?? null;
-        $headers = [
-            'headers' => ['X-Mpstats-TOKEN' => $token ? $token->getToken() : $token]
-        ];
         $date = new \DateTime();
         $category = $this->mpStatsApiWb . "brand?path=$brand&" . "d2=" . $date->modify('-1 day')->format('Y-m-d') . "&d1=" . $date->modify('-60 day')->format('Y-m-d');
-        $sales = json_decode((new Client())->request("GET", $category, $headers)->getBody()->getContents(), true)['data'];
+        $sales = json_decode((new Client())->request("GET", $category, $this->getHeaders())->getBody()->getContents(), true)['data'];
         $sales = array_map(function ($item) {
             $item['color'] = (explode(', ', $item['color'])[0]);
             $item['nmId'] = $item['id'];
@@ -119,10 +102,6 @@ class WbService extends AbstractService
     public function getItem($sku, $category)
     {
         $context = ['sku' => $sku];
-        $token = $this->entityManager->getRepository(Token::class)->find(1) ?? null;
-        $headers = [
-            'headers' => ['X-Mpstats-TOKEN' => $token ? $token->getToken() : $token]
-        ];
         $client = new Client();
         try {
             $context['d2'] = (new \DateTime())->modify('-1 day')->format('Y-m-d');
@@ -132,10 +111,10 @@ class WbService extends AbstractService
                         "d2=" . $context['d2'] . "&d1=" . $context['d1'] :
                         "d=" . $context['d2']);
             };
-            $requestToArray = function ($url, $bool = false) use ($client, $getUrl, $headers) {
+            $requestToArray = function ($url, $bool = false) use ($client, $getUrl) {
                 return json_decode(
                     $client
-                        ->get($getUrl($url, $bool), $headers)
+                        ->get($getUrl($url, $bool), $this->getHeaders())
                         ->getBody()
                         ->getContents(),
                     true);
@@ -190,13 +169,9 @@ class WbService extends AbstractService
     public function getCategory($url = null)
     {
         if ($url) {
-            $token = $this->entityManager->getRepository(Token::class)->find(1) ?? null;
-            $headers = [
-                'headers' => ['X-Mpstats-TOKEN' => $token ? $token->getToken() : $token]
-            ];
             $date = new \DateTime();
             $category = $this->mpStatsApiWb . "category?path=$url&" . "d2=" . $date->modify('-1 day')->format('Y-m-d') . "&d1=" . $date->modify('-60 day')->format('Y-m-d');
-            $sales = json_decode((new Client())->request("GET", $category, $headers)->getBody()->getContents(), true)['data'];
+            $sales = json_decode((new Client())->request("GET", $category, $this->getHeaders())->getBody()->getContents(), true)['data'];
             $sales = array_map(function ($item) {
                 $item['color'] = (explode(', ', $item['color'])[0]);
                 $item['nmId'] = $item['id'];

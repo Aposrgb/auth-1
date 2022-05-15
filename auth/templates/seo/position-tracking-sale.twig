@@ -1,0 +1,728 @@
+{% extends 'index/index.html.twig' %}
+{% block linkStyles %}
+    <link href="../../styles/index/styles.css" rel="stylesheet">
+    <link href="../../styles/index/vendor.css" rel="stylesheet">
+    <link href="../../styles/summary/summary.css" rel="stylesheet">
+    <link href="../../styles/summary/table.css" rel="stylesheet">
+    <link href="../../styles/summary/table2.css" rel="stylesheet">
+    <link href="../../styles/seo/selection.css" rel="stylesheet">
+    <link href="../../styles/seo/slider.css" rel="stylesheet">
+    <link href="../../styles/seo/table.css" rel="stylesheet">
+
+{% endblock %}
+{% block body %}
+    <div id="mp-stats-app" class="main-content container-fluid">
+        <div id="global-loader-block" aria-hidden="true" class="mp-loader-overlay ag-overlay hidden">
+            <div class="ag-overlay-panel">
+                <div class="ag-overlay-wrapper ag-layout-normal ag-overlay-loading-wrapper">
+                    <div class="mp-loader-static"></div>
+                </div>
+            </div>
+        </div>
+        <div data-v-0ead128c="" id="app-layout">
+            <div data-v-0e253256="" data-v-0ead128c="">
+                <div data-v-0e253256="" class="card mb-2 card-top">
+                    <div data-v-0e253256=""
+                         class="card-header d-md-flex align-items-start justify-content-between pb-2 pt-3">
+                        <div data-v-0e253256="" class="d-flex justify-content-start"><a data-v-0e253256=""
+                                                                                        href="/seo/position-tracking/projects"
+                                                                                        class="btn btn-outline-primary mr-1"
+                                                                                        title="Список проектов">
+                                <svg data-v-0e253256="" viewBox="0 0 16 16" width="1em" height="1em" focusable="false"
+                                     role="img" aria-label="list" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                     class="bi-list b-icon bi">
+                                    <g data-v-0e253256="">
+                                        <path fill-rule="evenodd"
+                                              d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+                                    </g>
+                                </svg>
+                            </a>
+                            <div data-v-0e253256="" class="btn-group mr-2">
+                                <button data-v-0e253256="" type="button" class="btn btn-secondary">
+                                    <svg data-v-0e253256="" viewBox="0 0 16 16" width="1em" height="1em"
+                                         focusable="false" role="img" aria-label="arrows collapse"
+                                         xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                         class="bi-arrows-collapse b-icon bi">
+                                        <g data-v-0e253256="">
+                                            <path fill-rule="evenodd"
+                                                  d="M1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8zm7-8a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 4.293V.5A.5.5 0 0 1 8 0zm-.5 11.707l-1.146 1.147a.5.5 0 0 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 11.707V15.5a.5.5 0 0 1-1 0v-3.793z"></path>
+                                        </g>
+                                    </svg>
+                                </button>
+                                <button data-v-0e253256="" type="button" class="btn btn-secondary active">
+                                    <svg data-v-0e253256="" viewBox="0 0 16 16" width="1em" height="1em"
+                                         focusable="false" role="img" aria-label="arrows expand"
+                                         xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                         class="bi-arrows-expand b-icon bi">
+                                        <g data-v-0e253256="">
+                                            <path fill-rule="evenodd"
+                                                  d="M1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8zM7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10z"></path>
+                                        </g>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div data-v-6903bc6c="" data-v-0e253256="" class="d-block-inline dropdown-period"><!---->
+                                <!----><!---->
+                                <div data-v-6903bc6c="" class="btn-group d-flex flex-column flex-lg-block flex-lg-row">
+                                    <!---->
+                                    <div data-v-6903bc6c="" class="btn btn-secondary active">
+                                        <div data-v-1ebd09d2="" data-v-6903bc6c="" class="vue-daterange-picker">
+                                            <div data-v-1ebd09d2="" class="font-weight-light"><i data-v-1ebd09d2=""
+                                                                                                 class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                                <span data-v-1ebd09d2="">{{ d1 }} - {{d2}}</span><b
+                                                        data-v-1ebd09d2="" class="caret"></b></div><!----></div>
+                                    </div>
+                                    <div data-v-6903bc6c="" class="dropdown b-dropdown btn-group" id="__BVID__15">
+                                        <!---->
+                                        <button aria-haspopup="true" aria-expanded="false" type="button"
+                                                class="btn dropdown-toggle btn-secondary" id="__BVID__15__BV_toggle_">
+                                            Период
+                                        </button>
+                                        <ul role="menu" tabindex="-1" class="dropdown-menu"
+                                            aria-labelledby="__BVID__15__BV_toggle_">
+                                            <li data-v-6903bc6c="" role="presentation"><a title="За последние 7 дней"
+                                                                                          role="menuitem" href="#"
+                                                                                          target="_self"
+                                                                                          class="dropdown-item"><span
+                                                            data-v-6903bc6c="" class="">7 дней</span></a></li>
+                                            <li data-v-6903bc6c="" role="presentation"><a title="За последнеи 14 дней"
+                                                                                          role="menuitem" href="#"
+                                                                                          target="_self"
+                                                                                          class="dropdown-item"><span
+                                                            data-v-6903bc6c="" class="">14 дней</span></a></li>
+                                            <li data-v-6903bc6c="" role="presentation"><a title="За последние 30 дней"
+                                                                                          role="menuitem" href="#"
+                                                                                          target="_self"
+                                                                                          class="dropdown-item"><span
+                                                            data-v-6903bc6c="" class="">30 дней</span></a></li>
+                                        </ul>
+                                    </div> <!----><!----><!----></div>
+                            </div>
+                        </div>
+                        <div data-v-0e253256=""
+                             class="d-flex flex-column flex-lg-row justify-content-between justify-content-lg-start align-items-lg-center">
+                            <div data-v-0e253256="" class="d-flex flex-column flex-lg-block flex-lg-row">
+                                <div data-v-0e253256="" class="mr-3 search-container"><input data-v-0e253256=""
+                                                                                             type="search"
+                                                                                             placeholder="Строка для поиска"
+                                                                                             class="form-control form-control-sm">
+                                </div>
+                                <button data-v-0e253256="" class="btn btn-success mr-2">
+                                    <svg data-v-0e253256="" viewBox="0 0 16 16" width="1em" height="1em"
+                                         focusable="false" role="img" aria-label="plus square"
+                                         xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                         class="bi-plus-square mr-1 b-icon bi">
+                                        <g data-v-0e253256="">
+                                            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"></path>
+                                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
+                                        </g>
+                                    </svg>
+                                    Добавить SKU
+                                </button>
+                                <button data-v-14e67a64="" data-v-0e253256="" title="Экспорт проекта в Excel"
+                                        class="btn mr-1">
+                                    <svg data-v-14e67a64="" viewBox="0 0 16 16" width="1em" height="1em"
+                                         focusable="false" role="img" aria-label="file earmark excel"
+                                         xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                         class="bi-file-earmark-excel b-icon bi">
+                                        <g data-v-14e67a64="">
+                                            <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"></path>
+                                            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"></path>
+                                        </g>
+                                    </svg>
+                                    <span data-v-14e67a64="" aria-hidden="true"
+                                          class="spinner-border spinner-border-sm text-success" style="display: none;"><!----></span>
+                                </button>
+                                <div data-v-0e253256="" class="dropdown b-dropdown dropleft position-static btn-group"
+                                     id="__BVID__24"><!---->
+                                    <button aria-haspopup="true" aria-expanded="false" type="button"
+                                            class="btn dropdown-toggle btn-link text-decoration-none text-secondary dropdown-toggle-no-caret"
+                                            id="__BVID__24__BV_toggle_">
+                                        <svg data-v-0e253256="" viewBox="0 0 16 16" width="1em" height="1em"
+                                             focusable="false" role="img" aria-label="three dots vertical"
+                                             xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                             class="bi-three-dots-vertical b-icon bi">
+                                            <g data-v-0e253256="">
+                                                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"></path>
+                                            </g>
+                                        </svg>
+                                    </button>
+                                    <ul role="menu" tabindex="-1" class="dropdown-menu"
+                                        aria-labelledby="__BVID__24__BV_toggle_">
+                                        <li data-v-0e253256="" role="presentation"><a role="menuitem" href="#"
+                                                                                      target="_self"
+                                                                                      class="dropdown-item">
+                                                <svg data-v-0e253256="" viewBox="0 0 16 16" width="1em" height="1em"
+                                                     focusable="false" role="img" aria-label="pencil"
+                                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                     class="bi-pencil mr-1 b-icon bi">
+                                                    <g data-v-0e253256="">
+                                                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"></path>
+                                                    </g>
+                                                </svg>
+                                                Редактировать название проекта</a></li>
+                                        <li data-v-0e253256="" role="presentation">
+                                            <hr data-v-0e253256="" role="separator" aria-orientation="horizontal"
+                                                class="dropdown-divider">
+                                        </li>
+                                        <li data-v-0e253256="" role="presentation"><a role="menuitem" href="#"
+                                                                                      target="_self"
+                                                                                      class="dropdown-item">
+                                                <svg data-v-0e253256="" viewBox="0 0 16 16" width="1em" height="1em"
+                                                     focusable="false" role="img" aria-label="trash"
+                                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                     class="bi-trash mr-1 b-icon bi">
+                                                    <g data-v-0e253256="">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+                                                        <path fill-rule="evenodd"
+                                                              d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+                                                    </g>
+                                                </svg>
+                                                Удалить проект</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!----> <!----> <!----><!----><!---->
+                <div data-v-0e253256="" class="vue-recycle-scroller scroller ready page-mode direction-vertical"><!---->
+                    <div class="vue-recycle-scroller__item-wrapper" style="min-height: 696px;">
+                        <div class="vue-recycle-scroller__item-view" style="transform: translateY(0px);">
+                            <div data-v-0e253256="" data-index="0" class="d-flex">
+                                <div data-v-1baa20b6="" data-v-0e253256="" class="card w-100"
+                                     style="position: relative;">
+                                    <div class="card-header d-flex justify-content-between pb-0">
+                                        <a class="">
+                                            <h4 data-v-1baa20b6="" class="mt-0">{{ path[0].name??'' }}</h4>
+                                        </a>
+                                        <div data-v-1baa20b6="" class="flex-fill">&nbsp;</div>
+                                        <div data-v-1baa20b6="">
+                                            <button data-v-1baa20b6="" class="btn">
+                                                <svg data-v-1baa20b6="" viewBox="0 0 16 16" width="1em" height="1em"
+                                                     focusable="false" role="img" aria-label="arrow repeat"
+                                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                     class="bi-arrow-repeat b-icon bi">
+                                                    <g data-v-1baa20b6="">
+                                                        <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"></path>
+                                                        <path fill-rule="evenodd"
+                                                              d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"></path>
+                                                    </g>
+                                                </svg>
+                                            </button>
+                                            <button data-v-14e67a64="" data-v-1baa20b6=""
+                                                    title="Экспорт данных по SKU в Excel" class="btn mr-1">
+                                                <svg data-v-14e67a64="" viewBox="0 0 16 16" width="1em" height="1em"
+                                                     focusable="false" role="img" aria-label="file earmark excel"
+                                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                     class="bi-file-earmark-excel b-icon bi">
+                                                    <g data-v-14e67a64="">
+                                                        <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"></path>
+                                                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"></path>
+                                                    </g>
+                                                </svg>
+                                                <span data-v-14e67a64="" aria-hidden="true"
+                                                      class="spinner-border spinner-border-sm text-success"
+                                                      style="display: none;"><!----></span></button>
+                                            <div data-v-1baa20b6=""
+                                                 class="dropdown b-dropdown dropleft position-static btn-group"
+                                                 id="__BVID__43"><!---->
+                                                <button aria-haspopup="true" aria-expanded="false" type="button"
+                                                        class="btn dropdown-toggle btn-link text-decoration-none text-secondary dropdown-toggle-no-caret"
+                                                        id="__BVID__43__BV_toggle_">
+                                                    <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false"
+                                                         role="img" aria-label="three dots vertical"
+                                                         xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                         class="bi-three-dots-vertical b-icon bi">
+                                                        <g>
+                                                            <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"></path>
+                                                        </g>
+                                                    </svg>
+                                                </button>
+                                                <ul role="menu" tabindex="-1" class="dropdown-menu"
+                                                    aria-labelledby="__BVID__43__BV_toggle_">
+                                                    <li role="presentation"><a role="menuitem" href="#" target="_self"
+                                                                               class="dropdown-item">
+                                                            <svg viewBox="0 0 16 16" width="1em" height="1em"
+                                                                 focusable="false" role="img"
+                                                                 aria-label="layout text sidebar reverse"
+                                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                                 class="bi-layout-text-sidebar-reverse mr-1 b-icon bi">
+                                                                <g>
+                                                                    <path d="M12.5 3a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1h5zm0 3a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1h5zm.5 3.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5zm-.5 2.5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1h5z"></path>
+                                                                    <path d="M16 2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2zM4 1v14H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h2zm1 0h9a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5V1z"></path>
+                                                                </g>
+                                                            </svg>
+                                                            Добавить / удалить ключи</a></li>
+                                                    <li role="presentation"><a role="menuitem" href="#" target="_self"
+                                                                               class="dropdown-item">
+                                                            <svg viewBox="0 0 16 16" width="1em" height="1em"
+                                                                 focusable="false" role="img"
+                                                                 aria-label="box arrow up right"
+                                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                                 class="bi-box-arrow-up-right mr-1 b-icon bi">
+                                                                <g>
+                                                                    <path fill-rule="evenodd"
+                                                                          d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path>
+                                                                    <path fill-rule="evenodd"
+                                                                          d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path>
+                                                                </g>
+                                                            </svg>
+                                                            Перенести SKU в другой проект</a></li>
+                                                    <li role="presentation">
+                                                        <hr role="separator" aria-orientation="horizontal"
+                                                            class="dropdown-divider">
+                                                    </li>
+                                                    <li role="presentation"><a role="menuitem" href="#" target="_self"
+                                                                               class="dropdown-item">
+                                                            <svg viewBox="0 0 16 16" width="1em" height="1em"
+                                                                 focusable="false" role="img" aria-label="trash"
+                                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                                 class="bi-trash mr-1 b-icon bi">
+                                                                <g>
+                                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+                                                                    <path fill-rule="evenodd"
+                                                                          d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+                                                                </g>
+                                                            </svg>
+                                                            Удалить SKU</a></li> <!----> <!----></ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div data-v-1baa20b6="" class="card-body d-flex justify-content-between pt-0 pb-0">
+                                        <div data-v-1baa20b6="" class="media"><img data-v-1baa20b6=""
+                                                                                   referrerpolicy="no-referrer"
+                                                                                   src="https://img1.wbstatic.net/tm/new/58440000/58443449-1.jpg"
+                                                                                   id="thumb_38" class="mr-3"> <!---->
+                                            <div data-v-1baa20b6="" class="media-body">
+                                                <table data-v-1baa20b6="" class="table table-sm">
+                                                    <tbody data-v-1baa20b6="">
+                                                    <tr data-v-1baa20b6="">
+                                                        <td data-v-1baa20b6="">Продавец</td>
+                                                        <td data-v-1baa20b6=""><a>{{ path[0].seller??'' }}</a></td>
+                                                    </tr>
+                                                    <tr data-v-1baa20b6="">
+                                                        <td data-v-1baa20b6="">Бренд</td>
+                                                        <td data-v-1baa20b6=""><a>{{ path[0].brand??'' }}</a></td>
+                                                    </tr>
+                                                    <tr data-v-1baa20b6="">
+                                                        <td data-v-1baa20b6="">SKU</td>
+                                                        <td data-v-1baa20b6="">{{ path[0].sku??'' }}</td>
+                                                    </tr>
+                                                    <tr data-v-1baa20b6="">
+                                                        <td data-v-1baa20b6=""></td>
+                                                        <td data-v-1baa20b6=""><a href="https://www.wildberries.ru/catalog/{{ path[0].sku??'' }}/detail.aspx"
+                                                                                  class="btn btn-sm font-weight-light mr-3">
+                                                                Открыть в WB <i data-v-1baa20b6=""
+                                                                                class="fa fa-external-link-alt"></i></a>
+                                                            <a data-v-1baa20b6="" target="_blank"
+                                                               href="/wb/item/{{ path[0].sku??'' }}"
+                                                               class="btn btn-sm font-weight-light">
+                                                                Открыть в MpStats
+                                                            </a></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div data-v-d52ae28e="" data-v-1baa20b6=""
+                                             class="d-flex align-items-center text-center">
+                                            <div data-v-d52ae28e="" class="pl-7">
+                                                <div data-v-d52ae28e="" class="desc pb-1"><!----> <span
+                                                            data-v-d52ae28e="">0 %</span> <!----></div>
+                                                <div data-v-d52ae28e="" class="mb-1"><span data-v-d52ae28e=""
+                                                                                           class="value d-inline-block">0</span>
+                                                    <!----></div>
+                                                <div data-v-d52ae28e="" title="Количество ключевых слов в топ-1"
+                                                     class="desc pt-1">
+                                                    Топ 1
+                                                </div>
+                                            </div>
+                                            <div data-v-d52ae28e="" class="pl-7">
+                                                <div data-v-d52ae28e="" class="desc pb-1"><!----> <span
+                                                            data-v-d52ae28e="">0 %</span> <!----></div>
+                                                <div data-v-d52ae28e="" class="mb-1"><span data-v-d52ae28e=""
+                                                                                           class="value d-inline-block">0</span>
+                                                    <!----></div>
+                                                <div data-v-d52ae28e="" title="Количество ключевых слов в топ-4"
+                                                     class="desc pt-1">
+                                                    Топ 4
+                                                </div>
+                                            </div>
+                                            <div data-v-d52ae28e="" class="pl-7">
+                                                <div data-v-d52ae28e="" class="desc pb-1"><!----> <span
+                                                            data-v-d52ae28e="">0 %</span> <!----></div>
+                                                <div data-v-d52ae28e="" class="mb-1"><span data-v-d52ae28e=""
+                                                                                           class="value d-inline-block">0</span>
+                                                    <!----></div>
+                                                <div data-v-d52ae28e="" title="Количество ключевых слов в топ-12"
+                                                     class="desc pt-1">
+                                                    Топ 12
+                                                </div>
+                                            </div>
+                                            <div data-v-d52ae28e="" class="pl-7">
+                                                <div data-v-d52ae28e="" class="desc pb-1"><!----> <span
+                                                            data-v-d52ae28e="">0 %</span> <!----></div>
+                                                <div data-v-d52ae28e="" class="mb-1"><span data-v-d52ae28e=""
+                                                                                           class="value d-inline-block">0</span>
+                                                    <!----></div>
+                                                <div data-v-d52ae28e="" title="Количество ключевых слов в топ-100"
+                                                     class="desc pt-1">
+                                                    Топ 100
+                                                </div>
+                                            </div>
+                                            <div data-v-d52ae28e="" class="pl-7">
+                                                <div data-v-d52ae28e="" class="desc pb-1"><span data-v-d52ae28e="">&nbsp;</span>
+                                                    <!----> <!----></div>
+                                                <div data-v-d52ae28e="" class="mb-1"><span data-v-d52ae28e=""
+                                                                                           class="value d-inline-block">0</span>
+                                                    <!----></div>
+                                                <div data-v-d52ae28e=""
+                                                     title="Среднее арифметическое позиций всех ключевых слов"
+                                                     class="desc pt-1">
+                                                    Ср. поз.
+                                                </div>
+                                            </div>
+                                            <div data-v-d52ae28e="" class="pl-7">
+                                                <div data-v-d52ae28e="" class="desc pb-1"><!----> <!----> <span
+                                                            data-v-d52ae28e="">0 %</span></div>
+                                                <div data-v-d52ae28e="" class="mb-1"><span data-v-d52ae28e=""
+                                                                                           class="value d-inline-block">0</span>
+                                                    <!----></div>
+                                                <div data-v-d52ae28e=""
+                                                     title="Суммарное количество ключевых слов с позициями / всего обработанных ключевых слов (позиции были сняты) за выбранный период на текущий момент времени"
+                                                     class="desc pt-1">
+                                                    Всего
+                                                </div>
+                                            </div>
+                                            <div data-v-d52ae28e="" class="pl-7">
+                                                <div data-v-d52ae28e="" class="desc pb-1"><span data-v-d52ae28e="">&nbsp;</span>
+                                                    <!----> <!----></div>
+                                                <div data-v-d52ae28e="" class="mb-1"><span data-v-d52ae28e=""
+                                                                                           class="value d-inline-block">19</span>
+                                                    <!----></div>
+                                                <div data-v-d52ae28e=""
+                                                     title="Количество всех ключевых слов, добавленные в проект"
+                                                     class="desc pt-1">
+                                                    Кл. слов
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> <!---->
+                                    <div data-v-1baa20b6="">
+                                        <div data-v-1baa20b6="" class="tbl-container">
+                                            <div data-v-388ae7ca="" data-v-1baa20b6="" class="table-wrapper">
+                                                <div data-v-388ae7ca="" class="grid">
+                                                    <div data-v-388ae7ca="" class="table-head">
+                                                        <div data-v-388ae7ca="" class="table-row"
+                                                             style="width: 3520px; max-width: 3520px;">
+                                                            <div data-v-388ae7ca=""
+                                                                 class="table-cell cell-head sticky-column c-word">
+                                                                <!----> <span data-v-388ae7ca="" id="word">Ключевое слово</span>
+                                                                <!----></div>
+                                                            <div data-v-388ae7ca=""
+                                                                 class="table-cell cell-head text-right sticky-column c-count">
+                                                                <!----> <span data-v-388ae7ca=""
+                                                                              id="count">Частота</span> <span
+                                                                        data-v-388ae7ca=""><svg data-v-388ae7ca=""
+                                                                                                viewBox="0 0 16 16"
+                                                                                                width="1em" height="1em"
+                                                                                                focusable="false"
+                                                                                                role="img"
+                                                                                                aria-label="arrow down short"
+                                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                                fill="currentColor"
+                                                                                                class="bi-arrow-down-short b-icon bi"><g
+                                                                                data-v-388ae7ca=""><path
+                                                                                    fill-rule="evenodd"
+                                                                                    d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"></path></g></svg>
+                                                                    <!----></span></div>
+                                                            <div data-v-388ae7ca=""
+                                                                 class="table-cell cell-head text-right sticky-column c-result">
+                                                                <!----> <span data-v-388ae7ca="" id="results">Результатов</span>
+                                                                <!----></div>
+                                                            {% for date in dates%}
+                                                                <div data-v-388ae7ca=""
+                                                                     class="table-cell cell-head text-center c-pos"><!---->
+                                                                    <span data-v-388ae7ca="" id="2022-04-16">{{date}}</span>
+                                                                    <!----></div>
+                                                            {% endfor %}
+
+                                                        </div>
+                                                    </div>
+                                                    <div data-v-388ae7ca="" class="table-body">
+                                                        <div data-v-388ae7ca=""
+                                                             class="vue-recycle-scroller scroller ready direction-vertical">
+                                                            <!---->
+                                                            <div class="vue-recycle-scroller__item-wrapper"
+                                                                 style="min-height: 969px;">
+                                                                {% for word in words %}
+                                                                    <div class="vue-recycle-scroller__item-view"
+                                                                         style="transform: translateY({{(loop.index-1)*51}}px);">
+                                                                        <div data-v-388ae7ca="" class="table-row"
+                                                                             style="width: 3520px; max-width: 3520px;">
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main sticky-cell c-word">
+                                                                                <div class="d-flex"><a
+                                                                                            href="https://wildberries.ru/catalog/0/search.aspx?search=куртка для девочки весенняя&amp;xsearch=true"
+                                                                                            target="_blank"
+                                                                                            title="Открыть в поиске на Wildberries"
+                                                                                            class="mr-1">
+                                                                                        <svg viewBox="0 0 16 16" width="1em"
+                                                                                             height="1em" focusable="false"
+                                                                                             role="img" aria-label="search"
+                                                                                             xmlns="http://www.w3.org/2000/svg"
+                                                                                             fill="currentColor"
+                                                                                             class="bi-search b-icon bi">
+                                                                                            <g>
+                                                                                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+                                                                                            </g>
+                                                                                        </svg>
+                                                                                    </a> <span class="text-nowrap text-truncate">{{word.word}}</span>
+                                                                                    <svg viewBox="0 0 16 16" width="1em"
+                                                                                         height="1em" focusable="false"
+                                                                                         role="img" aria-label="trash"
+                                                                                         xmlns="http://www.w3.org/2000/svg"
+                                                                                         fill="currentColor"
+                                                                                         class="bi-trash cursor-pointer delete-keyword text-muted ml-auto b-icon bi">
+                                                                                        <g>
+                                                                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+                                                                                            <path fill-rule="evenodd"
+                                                                                                  d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+                                                                                        </g>
+                                                                                    </svg>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main text-right sticky-cell c-count">
+                                                                                {{word.count}}
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main text-right sticky-cell c-result">
+                                                                                {{word.results ?? '0'}}
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                            <div data-v-388ae7ca=""
+                                                                                 class="table-cell cell-main position-tracking-none c-pos">
+                                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                                    <!----> <!----> <!----></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                {% endfor %}
+                                                            </div>
+                                                            <div data-v-b329ee4c="" tabindex="-1"
+                                                                 class="resize-observer">
+                                                                <object aria-hidden="true" tabindex="-1"
+                                                                        type="text/html" data="about:blank"></object>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> <!----></div>
+                                        <div data-v-1baa20b6="" class="d-flex justify-content-end pr-2 legend">
+                                            <div data-v-1baa20b6="" class="d-flex align-items-center">
+                                                <svg data-v-1baa20b6="" viewBox="0 0 16 16" width="1em" height="1em"
+                                                     focusable="false" role="img" aria-label="dot"
+                                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                     class="bi-dot text-primary b-icon bi" style="font-size: 200%;">
+                                                    <g data-v-1baa20b6="">
+                                                        <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
+                                                    </g>
+                                                </svg>
+                                                <span data-v-1baa20b6="">Ключевое слово попало в топ-12</span></div>
+                                            <div data-v-1baa20b6="" class="d-flex align-items-center">
+                                                <svg data-v-1baa20b6="" viewBox="0 0 16 16" width="1em" height="1em"
+                                                     focusable="false" role="img" aria-label="dot"
+                                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                     class="bi-dot text-danger b-icon bi" style="font-size: 200%;">
+                                                    <g data-v-1baa20b6="">
+                                                        <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
+                                                    </g>
+                                                </svg>
+                                                <span data-v-1baa20b6="">Ключевое слово выпало из топ-12</span></div>
+                                            <div data-v-1baa20b6="" class="d-flex align-items-center">
+                                                <svg data-v-1baa20b6="" viewBox="0 0 16 16" width="1em" height="1em"
+                                                     focusable="false" role="img" aria-label="dot"
+                                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                     class="bi-dot text-success b-icon bi" style="font-size: 200%;">
+                                                    <g data-v-1baa20b6="">
+                                                        <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
+                                                    </g>
+                                                </svg>
+                                                <span data-v-1baa20b6="">Топ-12</span></div>
+                                        </div>
+                                    </div> <!---->
+                                    <div class="mp-loader-overlay ag-overlay hidden" aria-hidden="true">
+                                        <div class="ag-overlay-panel">
+                                            <div class="ag-overlay-wrapper ag-layout-normal ag-overlay-loading-wrapper">
+                                                <div class="mp-loader-static"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!---->
+                    <div data-v-b329ee4c="" tabindex="-1" class="resize-observer">
+                        <object aria-hidden="true" tabindex="-1" type="text/html" data="about:blank"></object>
+                    </div>
+                </div> <!----> <!----></div>
+        </div>
+        <div><!---->
+            <div class="snotify snotify-left_top"></div>
+            <div class="snotify snotify-left_center"></div>
+            <div class="snotify snotify-left_bottom"></div>
+            <div class="snotify snotify-right_top"></div>
+            <div class="snotify snotify-right_center"></div>
+            <div class="snotify snotify-right_bottom"></div>
+            <div class="snotify snotify-center_top"></div>
+            <div class="snotify snotify-center_center"></div>
+            <div class="snotify snotify-center_bottom"></div>
+        </div>
+    </div>
+{% endblock %}

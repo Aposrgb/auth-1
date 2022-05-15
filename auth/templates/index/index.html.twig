@@ -359,6 +359,44 @@
                 .scrollbar:focus::-ms-fill-upper {
                     background: #367ebd;
                 }
+                 meter{
+                     -webkit-transform: rotate(-90deg);
+                     -moz-transform: rotate(-90deg);
+                     -o-transform: rotate(-90deg);
+                     transform: rotate(-90deg);
+                 }
+                .negative {
+                    background: rgba(235,87,87,.05);
+                    color: #eb5757;
+                }
+                .positive {
+                    background: rgb(177 255 188 / 20%);
+                    color: #33ae45!important;
+                }
+                .containerInput{
+                    position: relative;
+                    pointer-events: none;
+                }
+
+                .containerInput input[type="range"]{
+                    height: 2em;
+                    display: block;
+                    margin: 0;
+                }
+
+                .containerInput input[type="range"]:last-child{
+                    margin-top: -2em;
+                }
+
+                input[type="range"]::-webkit-slider-thumb {
+                    pointer-events: all;
+                }
+                input[type="range"]::-moz-range-thumb {
+                    pointer-events: all;
+                }
+                input[type="range"]::-ms-thumb {
+                    pointer-events: all;
+                }
             </style>
         {% endblock %}
     </div>
