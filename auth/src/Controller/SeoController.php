@@ -56,9 +56,11 @@ class SeoController extends AbstractController
         );
     }
     #[Route(path: '/keywords/selection', name: 'selection')]
-    public function selection(): Response
+    public function selection(Request $request): Response
     {
-        return $this->render('seo/selection.html.twig');
+        return $this->render('seo/selection.html.twig',
+            $this->service->selection($request->query->all())
+        );
     }
     #[Route(path: '/position-tracking', name: 'position_tracking')]
     public function positionTracking(): Response

@@ -97,7 +97,7 @@
                         </div>
                     </li>
                     {% if is_granted("ROLE_ADMIN") %}
-                        <li class="nav-item dropdown"><a href="../admin" data-toggle="dropdown" role="button"
+                        <li class="nav-item dropdown"><a href="{{path('admin')}}" data-toggle="dropdown" role="button"
                                                          aria-expanded="false" class="nav-link dropdown-toggle">Админ
                                 панель</a>
                             <div role="menu" style="display:none;" class="dropdown-menu show">
@@ -372,30 +372,6 @@
                 .positive {
                     background: rgb(177 255 188 / 20%);
                     color: #33ae45!important;
-                }
-                .containerInput{
-                    position: relative;
-                    pointer-events: none;
-                }
-
-                .containerInput input[type="range"]{
-                    height: 2em;
-                    display: block;
-                    margin: 0;
-                }
-
-                .containerInput input[type="range"]:last-child{
-                    margin-top: -2em;
-                }
-
-                input[type="range"]::-webkit-slider-thumb {
-                    pointer-events: all;
-                }
-                input[type="range"]::-moz-range-thumb {
-                    pointer-events: all;
-                }
-                input[type="range"]::-ms-thumb {
-                    pointer-events: all;
                 }
             </style>
         {% endblock %}

@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Token;
 use App\Entity\User;
-use App\Helper\Status\ApiTokenStatus;
 use App\Helper\Status\UserStatus;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;

@@ -529,7 +529,7 @@
                                                                                                 <div class="ag-grid-thumb-cell">
                                                                                                     <div>
                                                                                                         <img referrerpolicy="no-referrer"
-                                                                                                             src="{{ items[0].photos[0].t }}"
+                                                                                                             src="{{ items[0].photos[0].t??'' }}"
                                                                                                              id="thumb_18">
                                                                                                         <!----></div>
                                                                                                     <!----></div>
@@ -537,20 +537,20 @@
                                                                                             <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
                                                                                                  aria-selected="false"
                                                                                                  style="width: 675px; left: 80px; background-color: rgba(31, 119, 180, 0.05); line-height: 40px;">
-                                                                                                <a href="/wb/item/{{ items[0].item.id }}"
-                                                                                                   target="_blank">{{ items[0].item.name ??'' }}</a>
+                                                                                                <a href="/wb/item/{{ items[0].item.id??'' }}"
+                                                                                                   target="_blank">{{ items[0].item.name ??'Нет данных' }}</a>
                                                                                             </div>
                                                                                             <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
                                                                                                  style="width: 80px; left: 755px; background-color: rgba(255, 127, 14, 0.05); line-height: 40px;">
                                                                                                 <div class="ag-grid-thumb-cell">
                                                                                                     <div>
-                                                                                                        <img src="{{ items[1].photos[0].t }}">
+                                                                                                        <img src="{{ items[1].photos[0].t??'' }}">
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
                                                                                                  style="width: 675px; left: 835px; background-color: rgba(255, 127, 14, 0.05); line-height: 40px;">
-                                                                                                <a href="/wb/item/{{ items[1].item.id }}">{{ items[1].item.name ??'' }}</a>
+                                                                                                <a href="/wb/item/{{ items[1].item.id??'' }}">{{ items[1].item.name ??'Нет данных' }}</a>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -697,27 +697,32 @@
                                         <div class="card-header d-md-flex align-items-start justify-content-between pb-2 pt-3">
                                             <form>
                                                 <div class="custom-control custom-radio custom-control-inline"><input
-                                                            type="radio" onclick="result(this)" id="resultA" value="resultA" name="tableView"
+                                                            type="radio" onclick="result(this)" id="resultA"
+                                                            value="resultA" name="tableView"
                                                             class="custom-control-input"> <label for="resultA"
                                                                                                  class="custom-control-label">Только
                                                         A</label></div>
                                                 <div class="custom-control custom-radio custom-control-inline"><input
-                                                            type="radio" onclick="result(this)" id="resultB" value="resultB" name="tableView"
+                                                            type="radio" onclick="result(this)" id="resultB"
+                                                            value="resultB" name="tableView"
                                                             class="custom-control-input"> <label for="resultB"
                                                                                                  class="custom-control-label">Только
                                                         B</label></div>
                                                 <div class="custom-control custom-radio custom-control-inline"><input
-                                                            type="radio" id="intersect" value="intersect"
+                                                            type="radio" onclick="result(this)" id="intersect"
+                                                            value="intersect"
                                                             name="tableView" class="custom-control-input"> <label
                                                             for="intersect" class="custom-control-label">Общие A и
                                                         B</label></div>
                                                 <div class="custom-control custom-radio custom-control-inline"><input
-                                                            type="radio" id="diffAB" value="diffAB" name="tableView"
+                                                            type="radio" onclick="result(this)" id="diffAB"
+                                                            value="diffAB" name="tableView"
                                                             class="custom-control-input"> <label for="diffAB"
                                                                                                  class="custom-control-label">Разница
                                                         A минус B</label></div>
                                                 <div class="custom-control custom-radio custom-control-inline"><input
-                                                            type="radio" id="diffBA" value="diffBA" name="tableView"
+                                                            type="radio" onclick="result(this)" id="diffBA"
+                                                            value="diffBA" name="tableView"
                                                             class="custom-control-input"> <label for="diffBA"
                                                                                                  class="custom-control-label">Разница
                                                         B минус A</label></div>
@@ -1048,37 +1053,22 @@
                                                                      ref="eBodyViewport" role="presentation">
                                                                     <!--AG-ROW-CONTAINER-->
                                                                     <div class="ag-pinned-left-cols-container ag-hidden"
-                                                                         ref="leftContainer" role="presentation"
-                                                                         unselectable="on" name="left"
                                                                          style="height: 6674px;">
-                                                                        <div role="row" row-index="0" aria-rowindex="3"
-                                                                             row-id="98" comp-id="221"
-                                                                             class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
+                                                                        <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
                                                                              style="height: 47px; transform: translateY(0px); "
                                                                              aria-label="Press SPACE to select this row."></div>
-                                                                        <div role="row" row-index="1" aria-rowindex="4"
-                                                                             row-id="26" comp-id="222"
-                                                                             class="ag-row ag-row-odd ag-row-level-0 ag-row-position-absolute ag-row-focus"
+                                                                        <div class="ag-row ag-row-odd ag-row-level-0 ag-row-position-absolute ag-row-focus"
                                                                              style="height: 47px; transform: translateY(47px); "
                                                                              aria-label="Press SPACE to select this row."></div>
-                                                                        <div role="row" row-index="2" aria-rowindex="5"
-                                                                             row-id="2" comp-id="223"
-                                                                             class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute"
+                                                                        <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute"
                                                                              style="height: 47px; transform: translateY(94px); "
                                                                              aria-label="Press SPACE to select this row."></div>
-                                                                        <div role="row" row-index="3" aria-rowindex="6"
-                                                                             row-id="54" comp-id="224"
-                                                                             class="ag-row ag-row-no-focus ag-row-odd ag-row-level-0 ag-row-position-absolute"
-                                                                             style="height: 47px; transform: translateY(141px); "
-                                                                             aria-label="Press SPACE to select this row."></div>
-                                                                        <div role="row" row-index="4" aria-rowindex="7"
-                                                                             row-id="9" comp-id="225"
-                                                                             class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute"
+                                                                        <div class="ag-row ag-row-no-focus ag-row-odd ag-row-level-0 ag-row-position-absolute"
+                                                                             style="height: 47px; transform: translateY(141px); "></div>
+                                                                        <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute"
                                                                              style="height: 47px; transform: translateY(188px); "
                                                                              aria-label="Press SPACE to select this row."></div>
-                                                                        <div role="row" row-index="5" aria-rowindex="8"
-                                                                             row-id="140" comp-id="226"
-                                                                             class="ag-row ag-row-no-focus ag-row-odd ag-row-level-0 ag-row-position-absolute"
+                                                                        <div class="ag-row ag-row-no-focus ag-row-odd ag-row-level-0 ag-row-position-absolute"
                                                                              style="height: 47px; transform: translateY(235px); "
                                                                              aria-label="Press SPACE to select this row."></div>
                                                                         <div role="row" row-index="6" aria-rowindex="9"
@@ -1185,21 +1175,30 @@
                                                                          ref="centerContainer" role="presentation"
                                                                          unselectable="on" name="center"
                                                                          style="height: 6674px;">
-                                                                        <div class="ag-center-cols-viewport"
+                                                                        <div id="items" class="ag-center-cols-viewport"
                                                                              ref="eViewport" role="presentation"
                                                                              style="height: 100%;">
+                                                                            {% if resultA|length == 0 %}
+                                                                                <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
+                                                                                     style="height: 47px; transform: translateY(0px); ">
+                                                                                    <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value ag-cell-range-left"
+                                                                                         style="width: 1810px; left: 0px;">
+                                                                                        Нет данных
+                                                                                    </div>
+                                                                                </div>
+                                                                            {% endif %}
                                                                             <div class="ag-center-cols-container"
                                                                                  style="width: 2010px; height: 6674px;">
                                                                                 {% for resA in resultA %}
                                                                                     <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
-                                                                                         style="height: 47px; transform: translateY({{(loop.index-1)*47}}px); ">
+                                                                                         style="height: 47px; transform: translateY({{ (loop.index-1)*47 }}px); ">
                                                                                         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value ag-cell-range-left"
                                                                                              style="width: 1810px; left: 0px;">
-                                                                                            {{resA.word}}
+                                                                                            {{ resA.word }}
                                                                                         </div>
                                                                                         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value ag-cell-range-right"
                                                                                              style="width: 200px; left: 1810px;">
-                                                                                            {{resA.count}}
+                                                                                            {{ resA.count }}
                                                                                         </div>
                                                                                     </div>
                                                                                 {% endfor %}
@@ -1496,15 +1495,150 @@
         </div>
     </div>
     <script>
-        function result(el){
-            switch(el){
+        function result(el) {
+            switch (el.id) {
                 case "resultA":
-
+                    document.getElementById('items').innerHTML = setGroupA()
                     break;
                 case "resultB":
+                    document.getElementById('items').innerHTML = setGroupB()
+                    break;
 
+                case "intersect":
+                    document.getElementById('items').innerHTML = intersect()
+                    break;
+                case "diffAB":
+                    document.getElementById('items').innerHTML = diffAB()
+                    break;
+                case "diffBA":
+                    document.getElementById('items').innerHTML = diffBA()
                     break;
             }
+        }
+        function setGroupA() {
+            return `
+            {% if resultA|length == 0 %}
+            <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first" style="height: 47px; transform: translateY(0px); ">
+                <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value ag-cell-range-left"
+                    style="width: 1810px; left: 0px;">
+                        Нет данных
+                </div>
+            </div>
+            {% endif %}
+            <div class="ag-center-cols-container"
+                style="width: 2010px; height: 6674px;">
+                {% for res in resultA %}
+                <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
+                    style="height: 47px; transform: translateY({{ (loop.index-1)*47 }}px); ">
+                    <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value ag-cell-range-left" style="width: 1810px; left: 0px;">
+                        {{ res.word }}
+                    </div>
+                    <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value ag-cell-range-right" style="width: 200px; left: 1810px;">
+                    {{ res.count }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>`;
+        }
+        function setGroupB() {
+            return `
+            {% if resultB|length == 0 %}
+            <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first" style="height: 47px; transform: translateY(0px); ">
+                <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value ag-cell-range-left"
+                    style="width: 1810px; left: 0px;">
+                        Нет данных
+                </div>
+            </div>
+            {% endif %}
+            <div class="ag-center-cols-container"
+                style="width: 2010px; height: 6674px;">
+                {% for res in resultB %}
+                <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
+                    style="height: 47px; transform: translateY({{ (loop.index-1)*47 }}px); ">
+                    <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value ag-cell-range-left" style="width: 1810px; left: 0px;">
+                        {{ res.word }}
+                    </div>
+                    <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value ag-cell-range-right" style="width: 200px; left: 1810px;">
+                    {{ res.count }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>`;
+        }
+        function intersect(){
+            return `
+            {% if intersect|length == 0 %}
+            <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first" style="height: 47px; transform: translateY(0px); ">
+                <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value ag-cell-range-left"
+                    style="width: 1810px; left: 0px;">
+                        Нет данных
+                </div>
+            </div>
+            {% endif %}
+            <div class="ag-center-cols-container"
+                style="width: 2010px; height: 6674px;">
+                {% for res in intersect %}
+                <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
+                    style="height: 47px; transform: translateY({{ (loop.index-1)*47 }}px); ">
+                    <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value ag-cell-range-left" style="width: 1810px; left: 0px;">
+                        {{ res.word }}
+                    </div>
+                    <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value ag-cell-range-right" style="width: 200px; left: 1810px;">
+                    {{ res.count }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>`;
+        }
+        function diffAB(){
+            return `
+            {% if diffAB|length == 0 %}
+            <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first" style="height: 47px; transform: translateY(0px); ">
+                <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value ag-cell-range-left"
+                    style="width: 1810px; left: 0px;">
+                        Нет данных
+                </div>
+            </div>
+            {% endif %}
+            <div class="ag-center-cols-container"
+                style="width: 2010px; height: 6674px;">
+                {% for res in diffAB %}
+                <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
+                    style="height: 47px; transform: translateY({{ (loop.index-1)*47 }}px); ">
+                    <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value ag-cell-range-left" style="width: 1810px; left: 0px;">
+                        {{ res.word }}
+                    </div>
+                    <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value ag-cell-range-right" style="width: 200px; left: 1810px;">
+                    {{ res.count }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>`;
+        }
+        function diffBA(){
+            return `
+            {% if diffBA|length == 0 %}
+            <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first" style="height: 47px; transform: translateY(0px); ">
+                <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value ag-cell-range-left"
+                    style="width: 1810px; left: 0px;">
+                        Нет данных
+                </div>
+            </div>
+            {% endif %}
+            <div class="ag-center-cols-container"
+                style="width: 2010px; height: 6674px;">
+                {% for res in diffBA %}
+                <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
+                    style="height: 47px; transform: translateY({{ (loop.index-1)*47 }}px); ">
+                    <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value ag-cell-range-left" style="width: 1810px; left: 0px;">
+                        {{ res.word }}
+                    </div>
+                    <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value ag-cell-range-right" style="width: 200px; left: 1810px;">
+                    {{ res.count }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>`;
         }
     </script>
 {% endblock %}
