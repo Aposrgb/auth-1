@@ -19,7 +19,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         api:
-            pattern: ^/api
+            pattern: ^/api/v1
             provider: app_user_provider
             custom_authenticator: App\Security\ApiAuthenticator
         main:
@@ -28,7 +28,7 @@ security:
             custom_authenticator: App\Security\LoginAuthenticator
                 # where to redirect after logout
                 # target: app_any_route
-
+            
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
@@ -39,8 +39,8 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/login, roles: PUBLIC_ACCESS }
-         - { path: ^/api/login, roles: PUBLIC_ACCESS }
-         - { path: ^/api/doc, roles: PUBLIC_ACCESS }
-         - { path: ^/api, roles: ROLE_USER }
+         - { path: ^/api/v1/login, roles: PUBLIC_ACCESS }
+         - { path: ^/api/v1/doc, roles: PUBLIC_ACCESS }
+         - { path: ^/api/v1, roles: ROLE_USER }
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/, roles: ROLE_USER }

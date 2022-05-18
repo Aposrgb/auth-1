@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Controller\Api;
+namespace App\Controller\Api\V1;
 
 use App\Helper\DTO\UserDTO;
 use App\Helper\Exception\ApiException;
 use App\Security\SecurityService;
-use OpenApi\Annotations\RequestBody;
 use OpenApi\Annotations as OA;
+use OpenApi\Annotations\RequestBody;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

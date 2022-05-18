@@ -45,4 +45,15 @@ abstract class AbstractService
     {
         return array_merge($this->getHeaders(), ['json' => $array]);
     }
+
+    public function getDate(\DateTime $d2, \DateTime $d1=null, $format='Y-m-d')
+    {
+        return http_build_query($d1? [
+                'd1' => $d1->format($format),
+                'd2' => $d2->format($format)
+            ] : [
+                'd' => $d2->format($format)
+            ]
+        );
+    }
 }

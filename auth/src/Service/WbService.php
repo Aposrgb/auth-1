@@ -171,7 +171,7 @@ class WbService extends AbstractService
         if ($url) {
             $date = new \DateTime();
             $category = $this->mpStatsApiWb . "category?path=$url&" . "d2=" . $date->modify('-1 day')->format('Y-m-d') . "&d1=" . $date->modify('-60 day')->format('Y-m-d');
-            $sales = json_decode((new Client())->request("GET", $category, $this->getHeaders())->getBody()->getContents(), true)['data'];
+            $sales = json_decode((new Client())->get($category, $this->getHeaders())->getBody()->getContents(), true)['data'];
             $sales = array_map(function ($item) {
                 $item['color'] = (explode(', ', $item['color'])[0]);
                 $item['nmId'] = $item['id'];

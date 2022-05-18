@@ -24,13 +24,305 @@
             el.addEventListener("input",
                 function () {
                     let width = document.getElementById("table_sale").offsetWidth
-                    let value = (el.value * width / 300)/5
+                    let value = (el.value * width / 300) / 5
                     document.getElementById("table_sale").style.transform = "translateX(-" + value + "vh)"
                     document.getElementById("table_sale_header").style.transform = "translateX(-" + value + "vh)"
                 }, false)
+            let sb = document.getElementById("scrollbar_subcategory")
+            sb.addEventListener("input",
+                function () {
+                    let width = document.getElementById("__BVID__75__table").offsetWidth
+                    let value = (sb.value * width / 300) / 5
+                    document.getElementById("__BVID__75__table").style.transform = "translateX(-" + value + "vh)"
+                    document.getElementById("__BVID__75__header").style.transform = "translateX(-" + value + "vh)"
+                }, false)
+            let brands = document.getElementById("scrollbar_brands")
+            brands.addEventListener("input",
+                function () {
+                    let width = document.getElementById("__BVID__77__table").offsetWidth
+                    let value = (brands.value * width / 300) / 5
+                    document.getElementById("__BVID__77__table").style.transform = "translateX(-" + value + "vh)"
+                    document.getElementById("__BVID__77__header").style.transform = "translateX(-" + value + "vh)"
+                }, false)
         })
-        function redirect(element){
-            window.location.href = "/wb/item/"+element.id+"?name="+"{{path}}"
+
+        function redirect(element) {
+            window.location.href = "/wb/item/" + element.id + "?name=" + "{{ path }}"
+        }
+
+        function select(el) {
+            let id = el.id.substring(0, 10)
+            let befPrefix = "__BVID__"
+            let list = ["69", "75", "77", "79", "82", "84", "86", "88", "90", "92", "94"]
+            let afPrefix = "___BV_tab_button__"
+            for (let i = 0; i < list.length; i++) {
+                document.getElementById(befPrefix + list[i] + afPrefix).classList.remove("active")
+                document.getElementById(befPrefix + list[i]).style.display = "none"
+            }
+            document.getElementById(id).style.display = "block"
+            document.getElementById(id + afPrefix).classList.add("active")
+            switch (id) {
+                case befPrefix + "75":
+                    subCategory(id)
+                    break;
+                case befPrefix + "77":
+                    brands(id)
+                    break;
+                case befPrefix + "79":
+
+                    break;
+                case befPrefix + "82":
+
+                    break;
+                case befPrefix + "84":
+
+                    break;
+                case befPrefix + "86":
+
+                    break;
+                case befPrefix + "88":
+
+                    break;
+                case befPrefix + "90":
+
+                    break;
+                case befPrefix + "92":
+
+                    break;
+                case befPrefix + "94":
+
+                    break;
+            }
+        }
+
+        function brands(id){
+            if(document.getElementById(id + "__table").children.length > 1) return;
+            fetch(`/api/brands?url={{ path }}`, {
+                method: "GET"
+            })
+                .then(data => data.json())
+                .then(data => {
+                    let str = ``
+                    console.log(data)
+                    for (let i = 0; i < data.length; i++) {
+                        str += `
+                        <div
+                                                     class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first ag-row-hover"
+                                                     style="height: 35px; transform: translateY(${i*35}px); "
+                                                     aria-label="Press SPACE to select this row.">
+                                                    <div tabindex="-1" unselectable="on" role="gridcell"
+                                                         aria-colindex="1" comp-id="717" col-id="position"
+                                                         class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                         aria-selected="false" style="width: 100px; left: 0px;  ">${data[i]['position']}
+                                                    </div>
+                                                    <div tabindex="-1" unselectable="on" role="gridcell"
+                                                         aria-colindex="2" comp-id="718" col-id="name"
+                                                         class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
+                                                         aria-selected="false" style="width: 200px; left: 100px;  "><a
+                                                                title="United Colors of Benetton" target="_blank">${data[i]['name']}</a></div>
+                                                    <div tabindex="-1" unselectable="on" role="gridcell"
+                                                         aria-colindex="3" comp-id="719" col-id="rating"
+                                                         class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                         aria-selected="false" style="width: 120px; left: 300px;  ">${(data[i]['rating']??0).toFixed(2)}
+                                                    </div>
+                                                    <div tabindex="-1" unselectable="on" role="gridcell"
+                                                         aria-colindex="4" comp-id="720" col-id="comments"
+                                                         class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                         aria-selected="false" style="width: 142px; left: 420px;  ">${(data[i]['comments']??0).toFixed(2)}
+                                                    </div>
+                                                    <div tabindex="-1" unselectable="on" role="gridcell"
+                                                         aria-colindex="5" comp-id="721" col-id="sales"
+                                                         class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                         aria-selected="false" style="width: 120px; left: 562px;  ">${data[i]['sales']} шт
+                                                    </div>
+                                                    <div tabindex="-1" unselectable="on" role="gridcell"
+                                                         aria-colindex="6" comp-id="722" col-id="sales_percent"
+                                                         class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                         aria-selected="false" style="width: 120px; left: 682px;  ">
+                                                        ${data[i]['sales_percent'].toFixed(2)} %
+                                                    </div>
+                                                    <div tabindex="-1" unselectable="on" role="gridcell"
+                                                         aria-colindex="7" comp-id="723" col-id="revenue"
+                                                         class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                         aria-selected="false" style="width: 174px; left: 802px;  ">${data[i]['revenue']} ₽
+                                                    </div>
+                                                    <div tabindex="-1" unselectable="on" role="gridcell"
+                                                         aria-colindex="8" comp-id="724" col-id="revenue_percent"
+                                                         class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                         aria-selected="false" style="width: 120px; left: 976px;  ">
+                                                        ${data[i]['revenue_percent'].toFixed(2)} %
+                                                    </div>
+                                                    <div tabindex="-1" unselectable="on" role="gridcell"
+                                                         aria-colindex="9" comp-id="725" col-id="avg_price"
+                                                         class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                         aria-selected="false" style="width: 150px; left: 1096px;  ">
+                                                        ${data[i]['avg_price'].toFixed(2)} ₽
+                                                    </div>
+                                                    <div tabindex="-1" unselectable="on" role="gridcell"
+                                                         aria-colindex="10" comp-id="726" col-id="items"
+                                                         class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                         aria-selected="false" style="width: 120px; left: 1246px;  ">${data[i]['items']} шт
+                                                    </div>
+                                                    <div tabindex="-1" unselectable="on" role="gridcell"
+                                                         aria-colindex="11" comp-id="727" col-id="items_with_sells"
+                                                         class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                         aria-selected="false" style="width: 150px; left: 1366px;  ">${data[i]['items_with_sells']} шт
+                                                    </div>
+                                                    <div tabindex="-1" unselectable="on" role="gridcell"
+                                                         aria-colindex="12" comp-id="728"
+                                                         col-id="items_with_sells_percent"
+                                                         class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                         aria-selected="false" style="width: 150px; left: 1516px;  ">${data[i]['items_with_sells_percent'].toFixed(2)}
+                                                        %
+                                                    </div>
+                                                    <div tabindex="-1" unselectable="on" role="gridcell"
+                                                         aria-colindex="13" comp-id="729"
+                                                         col-id="sales_per_items_average"
+                                                         class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                         aria-selected="false" style="width: 150px; left: 1666px;  ">${data[i]['sales_per_items_average'].toFixed(2)}
+                                                        шт
+                                                    </div>
+                                                    <div tabindex="-1" unselectable="on" role="gridcell"
+                                                         aria-colindex="14" comp-id="730"
+                                                         col-id="sales_per_items_with_sells_average"
+                                                         class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                         aria-selected="false" style="width: 180px; left: 1816px;  ">${data[i]['sales_per_items_with_sells_average'].toFixed(2)}
+                                                        шт
+                                                    </div>
+                                                    <div tabindex="-1" unselectable="on" role="gridcell"
+                                                         aria-colindex="15" comp-id="731" col-id="sellers"
+                                                         class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                         aria-selected="false" style="width: 150px; left: 1996px;  ">${data[i]['sellers']}
+                                                        шт
+                                                    </div>
+                                                    <div tabindex="-1" unselectable="on" role="gridcell"
+                                                         aria-colindex="16" comp-id="732" col-id="sellers_with_sells"
+                                                         class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                         aria-selected="false" style="width: 150px; left: 2146px;  ">${data[i]['sellers_with_sells']}
+                                                        шт
+                                                    </div>
+                                                    <div tabindex="-1" unselectable="on" role="gridcell"
+                                                         aria-colindex="17" comp-id="1480"
+                                                         col-id="sellers_with_sells_percent"
+                                                         class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                         aria-selected="false" style="width: 150px; left: 2296px;  ">${data[i]['sellers_with_sells_percent'].toFixed(2)}
+                                                        %
+                                                    </div>
+                                                    <div tabindex="-1" unselectable="on" role="gridcell"
+                                                         aria-colindex="18" comp-id="1481"
+                                                         col-id="revenue_per_items_average"
+                                                         class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                         aria-selected="false" style="width: 150px; left: 2446px;  ">${data[i]['revenue_per_items_average'].toFixed(2)} ₽
+                                                    </div>
+                                                    <div tabindex="-1" unselectable="on" role="gridcell"
+                                                         aria-colindex="19" comp-id="1482"
+                                                         col-id="revenue_per_items_with_sells_average"
+                                                         class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value ag-column-hover"
+                                                         aria-selected="false" style="width: 170px; left: 2596px;  ">${data[i]['revenue_per_items_with_sells_average'].toFixed(2)} ₽
+                                                    </div>
+                                                    <div tabindex="-1" unselectable="on" role="gridcell"
+                                                         aria-colindex="20" comp-id="1681" col-id="graph"
+                                                         class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height d-flex justify-content-center align-items-center sparkline p-0 ag-cell-value"
+                                                         aria-selected="false" style="width: 172px; left: 2766px;">
+                                                    </div>
+                                                </div>
+                        `
+                    }
+                    document.getElementById(id + "__table").innerHTML = str
+                })
+        }
+
+        function subCategory(id) {
+            if(document.getElementById(id + "__table").children.length > 1) return;
+            fetch(`/api/subCategory?url={{ path }}`, {
+                method: "GET"
+            })
+                .then(data => data.json())
+                .then(data => {
+                    let str = ``
+                    for (let i = 0; i < data.length; i++) {
+                        str += `
+                        <div role="row"
+         class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
+         style="height: 35px; transform: translateY(${i * 35}px); "
+         aria-label="Press SPACE to select this row.">
+        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
+             aria-selected="false"
+             style="width: 300px; left: 0px;  ">
+            <span>${data[i]['name']}</span></div>
+        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false"
+             style="width: 120px; left: 300px;  ">
+            ${data[i]['rating'].toFixed(2)}
+        </div>
+        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false"
+             style="width: 142px; left: 420px;  ">
+            ${data[i]['comments'].toFixed(2)}
+        </div>
+        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false"
+             style="width: 120px; left: 562px;  ">
+            ${data[i]['sales']} шт
+        </div>
+        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false"
+             style="width: 174px; left: 682px;  ">
+            ${data[i]['revenue']} ₽
+        </div>
+        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false"
+             style="width: 150px; left: 856px;  ">
+            ${data[i]['avg_price'].toFixed(2)} ₽
+        </div>
+        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false"
+             style="width: 120px; left: 1006px;  ">
+            ${data[i]['revenue']} шт
+        </div>
+        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false"
+             style="width: 150px; left: 1126px;  ">
+            ${data[i]['items']} шт
+        </div>
+        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 150px; left: 1276px;  ">${data[i]['items_with_sells_percent'].toFixed(2)} %
+        </div>
+        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 150px; left: 1426px;  ">${data[i]['sales_per_items_average'].toFixed(2)} шт
+        </div>
+        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 180px; left: 1576px;  ">${data[i]['sales_per_items_with_sells_average'].toFixed(2)} шт
+        </div>
+        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 150px; left: 1756px;  ">${data[i]['sellers']} шт
+        </div>
+        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 150px; left: 1906px;  ">${data[i]['sellers_with_sells']} шт
+        </div>
+        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value" style="width: 150px; left: 2056px; ">
+            ${data[i]['sellers_with_sells_percent']} %
+        </div>
+        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 150px; left: 2206px;">${data[i]['brands']} шт
+        </div>
+        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 150px; left: 2356px;">${data[i]['brands_with_sells']} шт
+        </div>
+        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 150px; left: 2506px;">${data[i]['brands_with_sells_percent'].toFixed(2)} %
+        </div>
+        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 150px; left: 2656px;">${data[i]['revenue_per_items_average'].toFixed(2)} ₽
+        </div>
+        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 170px; left: 2806px;">${data[i]['revenue_per_items_with_sells_average'].toFixed(2)} ₽
+        </div>
+    </div>
+                    `
+                    }
+                    document.getElementById(id + "__table").innerHTML = str
+                })
         }
     </script>
 
