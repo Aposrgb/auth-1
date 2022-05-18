@@ -128,7 +128,7 @@
         <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="6" comp-id="1138" col-id="sales_percent"
              class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
              aria-selected="false" style="width: 120px; left: 742px;  ">
-               ${data[i]['sales_percent'].toFixed(2)}
+               ${(data[i]['sales_percent']??0).toFixed(2)}
                 %
         </div>
         <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="7" comp-id="1139" col-id="revenue"
@@ -137,7 +137,7 @@
         </div>
         <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="8" comp-id="1140" col-id="revenue_percent"
              class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-             aria-selected="false" style="width: 120px; left: 1036px;  ">${data[i]['revenue_percent'].toFixed(2)} %
+             aria-selected="false" style="width: 120px; left: 1036px;  ">${(data[i]['revenue_percent']??0).toFixed(2)} %
         </div>
         <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="9" comp-id="1141" col-id="avg_price"
              class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
@@ -234,13 +234,13 @@
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="1" comp-id="717" col-id="position"
                                                          class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                         aria-selected="false" style="width: 100px; left: 0px;  ">${data[i]['position']}
+                                                         aria-selected="false" style="width: 100px; left: 0px;  ">${(data[i]['position']??0)}
                                                     </div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="2" comp-id="718" col-id="name"
                                                          class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
                                                          aria-selected="false" style="width: 200px; left: 100px;  "><a
-                                                                title="United Colors of Benetton" target="_blank">${data[i]['name']}</a></div>
+                                                                title="United Colors of Benetton" target="_blank">${(data[i]['name']??0)}</a></div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="3" comp-id="719" col-id="rating"
                                                          class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
@@ -254,92 +254,92 @@
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="5" comp-id="721" col-id="sales"
                                                          class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                         aria-selected="false" style="width: 120px; left: 562px;  ">${data[i]['sales']} шт
+                                                         aria-selected="false" style="width: 120px; left: 562px;  ">${(data[i]['sales']??0)} шт
                                                     </div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="6" comp-id="722" col-id="sales_percent"
                                                          class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
                                                          aria-selected="false" style="width: 120px; left: 682px;  ">
-                                                        ${data[i]['sales_percent'].toFixed(2)} %
+                                                        ${(data[i]['sales_percent']??0).toFixed(2)} %
                                                     </div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="7" comp-id="723" col-id="revenue"
                                                          class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                         aria-selected="false" style="width: 174px; left: 802px;  ">${data[i]['revenue']} ₽
+                                                         aria-selected="false" style="width: 174px; left: 802px;  ">${(data[i]['revenue']??0)} ₽
                                                     </div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="8" comp-id="724" col-id="revenue_percent"
                                                          class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
                                                          aria-selected="false" style="width: 120px; left: 976px;  ">
-                                                        ${data[i]['revenue_percent'].toFixed(2)} %
+                                                        ${(data[i]['revenue_percent']??0).toFixed(2)} %
                                                     </div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="9" comp-id="725" col-id="avg_price"
                                                          class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
                                                          aria-selected="false" style="width: 150px; left: 1096px;  ">
-                                                        ${data[i]['avg_price'].toFixed(2)} ₽
+                                                        ${(data[i]['avg_price']??0).toFixed(2)} ₽
                                                     </div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="10" comp-id="726" col-id="items"
                                                          class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                         aria-selected="false" style="width: 120px; left: 1246px;  ">${data[i]['items']} шт
+                                                         aria-selected="false" style="width: 120px; left: 1246px;  ">${(data[i]['items']??0)} шт
                                                     </div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="11" comp-id="727" col-id="items_with_sells"
                                                          class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                         aria-selected="false" style="width: 150px; left: 1366px;  ">${data[i]['items_with_sells']} шт
+                                                         aria-selected="false" style="width: 150px; left: 1366px;  ">${(data[i]['items_with_sells']??0)} шт
                                                     </div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="12" comp-id="728"
                                                          col-id="items_with_sells_percent"
                                                          class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                         aria-selected="false" style="width: 150px; left: 1516px;  ">${data[i]['items_with_sells_percent'].toFixed(2)}
+                                                         aria-selected="false" style="width: 150px; left: 1516px;  ">${(data[i]['items_with_sells_percent']??0).toFixed(2)}
                                                         %
                                                     </div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="13" comp-id="729"
                                                          col-id="sales_per_items_average"
                                                          class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                         aria-selected="false" style="width: 150px; left: 1666px;  ">${data[i]['sales_per_items_average'].toFixed(2)}
+                                                         aria-selected="false" style="width: 150px; left: 1666px;  ">${(data[i]['sales_per_items_average']??0).toFixed(2)}
                                                         шт
                                                     </div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="14" comp-id="730"
                                                          col-id="sales_per_items_with_sells_average"
                                                          class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                         aria-selected="false" style="width: 180px; left: 1816px;  ">${data[i]['sales_per_items_with_sells_average'].toFixed(2)}
+                                                         aria-selected="false" style="width: 180px; left: 1816px;  ">${(data[i]['sales_per_items_with_sells_average']??0).toFixed(2)}
                                                         шт
                                                     </div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="15" comp-id="731" col-id="sellers"
                                                          class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                         aria-selected="false" style="width: 150px; left: 1996px;  ">${data[i]['sellers']}
+                                                         aria-selected="false" style="width: 150px; left: 1996px;  ">${(data[i]['sellers']??0)}
                                                         шт
                                                     </div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="16" comp-id="732" col-id="sellers_with_sells"
                                                          class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                         aria-selected="false" style="width: 150px; left: 2146px;  ">${data[i]['sellers_with_sells']}
+                                                         aria-selected="false" style="width: 150px; left: 2146px;  ">${(data[i]['sellers_with_sells']??0)}
                                                         шт
                                                     </div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="17" comp-id="1480"
                                                          col-id="sellers_with_sells_percent"
                                                          class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                         aria-selected="false" style="width: 150px; left: 2296px;  ">${data[i]['sellers_with_sells_percent'].toFixed(2)}
+                                                         aria-selected="false" style="width: 150px; left: 2296px;  ">${(data[i]['sellers_with_sells_percent']??0).toFixed(2)}
                                                         %
                                                     </div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="18" comp-id="1481"
                                                          col-id="revenue_per_items_average"
                                                          class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                         aria-selected="false" style="width: 150px; left: 2446px;  ">${data[i]['revenue_per_items_average'].toFixed(2)} ₽
+                                                         aria-selected="false" style="width: 150px; left: 2446px;  ">${(data[i]['revenue_per_items_average']??0).toFixed(2)} ₽
                                                     </div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="19" comp-id="1482"
                                                          col-id="revenue_per_items_with_sells_average"
                                                          class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value ag-column-hover"
-                                                         aria-selected="false" style="width: 170px; left: 2596px;  ">${data[i]['revenue_per_items_with_sells_average'].toFixed(2)} ₽
+                                                         aria-selected="false" style="width: 170px; left: 2596px;  ">${(data[i]['revenue_per_items_with_sells_average']??0).toFixed(2)} ₽
                                                     </div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="20" comp-id="1681" col-id="graph"
@@ -374,70 +374,71 @@
         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
              aria-selected="false"
              style="width: 120px; left: 300px;  ">
-            ${data[i]['rating'].toFixed(2)}
+            ${(data[i]['rating']??0).toFixed(2)}
         </div>
         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
              aria-selected="false"
              style="width: 142px; left: 420px;  ">
-            ${data[i]['comments'].toFixed(2)}
+            ${(data[i]['comments']??0).toFixed(2)}
         </div>
         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
              aria-selected="false"
              style="width: 120px; left: 562px;  ">
-            ${data[i]['sales']} шт
+            ${(data[i]['sales']??0)} шт
         </div>
         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
              aria-selected="false"
              style="width: 174px; left: 682px;  ">
-            ${data[i]['revenue']} ₽
+            ${(data[i]['revenue']??0)} ₽
         </div>
         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
              aria-selected="false"
              style="width: 150px; left: 856px;  ">
-            ${data[i]['avg_price'].toFixed(2)} ₽
+            ${(data[i]['avg_price']??0).toFixed(2)} ₽
         </div>
         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
              aria-selected="false"
              style="width: 120px; left: 1006px;  ">
-            ${data[i]['revenue']} шт
+
+            ${(data[i]['items']??0)} шт
         </div>
         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
              aria-selected="false"
              style="width: 150px; left: 1126px;  ">
-            ${data[i]['items']} шт
+            ${(data[i]['items_with_sells']??0)} шт
         </div>
         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-             aria-selected="false" style="width: 150px; left: 1276px;  ">${data[i]['items_with_sells_percent'].toFixed(2)} %
+             aria-selected="false" style="width: 150px; left: 1276px;  ">${(data[i]['items_with_sells_percent']??0).toFixed(2)} %
         </div>
         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-             aria-selected="false" style="width: 150px; left: 1426px;  ">${data[i]['sales_per_items_average'].toFixed(2)} шт
+             aria-selected="false" style="width: 150px; left: 1426px;  ">${(data[i]['sales_per_items_average']??0).toFixed(2)} шт
         </div>
         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-             aria-selected="false" style="width: 180px; left: 1576px;  ">${data[i]['sales_per_items_with_sells_average'].toFixed(2)} шт
+             aria-selected="false" style="width: 180px; left: 1576px;  ">${(data[i]['sales_per_items_with_sells_average']??0).toFixed(2)} шт
         </div>
         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-             aria-selected="false" style="width: 150px; left: 1756px;  ">${data[i]['sellers']} шт
+             aria-selected="false" style="width: 150px; left: 1756px;  ">${(data[i]['sellers']??0)} шт
         </div>
         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-             aria-selected="false" style="width: 150px; left: 1906px;  ">${data[i]['sellers_with_sells']} шт
+             aria-selected="false" style="width: 150px; left: 1906px;  ">${(data[i]['sellers_with_sells']??0)} шт
         </div>
         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value" style="width: 150px; left: 2056px; ">
-            ${data[i]['sellers_with_sells_percent']} %
+            ${(data[i]['sellers_with_sells_percent']??0)} %
         </div>
         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-             aria-selected="false" style="width: 150px; left: 2206px;">${data[i]['brands']} шт
+             aria-selected="false" style="width: 150px; left: 2206px;">${data[i]['brands']??0} шт
         </div>
         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-             aria-selected="false" style="width: 150px; left: 2356px;">${data[i]['brands_with_sells']} шт
+             aria-selected="false" style="width: 150px; left: 2356px;">${data[i]['brands_with_sells']??0} шт
         </div>
         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-             aria-selected="false" style="width: 150px; left: 2506px;">${data[i]['brands_with_sells_percent'].toFixed(2)} %
+             aria-selected="false" style="width: 150px; left: 2506px;">${(data[i]['brands_with_sells_percent']??0).toFixed(2)} %
         </div>
         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-             aria-selected="false" style="width: 150px; left: 2656px;">${data[i]['revenue_per_items_average'].toFixed(2)} ₽
+             aria-selected="false" style="width: 150px; left: 2656px;">${(data[i]['revenue_per_items_average']??0).toFixed(2)} ₽
         </div>
         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-             aria-selected="false" style="width: 170px; left: 2806px;">${data[i]['revenue_per_items_with_sells_average'].toFixed(2)} ₽
+             aria-selected="false" style="width: 170px; left: 2806px;">${(data[i]['revenue_per_items_with_sells_average']??0).toFixed(2)} ₽
         </div>
     </div>
                     `
