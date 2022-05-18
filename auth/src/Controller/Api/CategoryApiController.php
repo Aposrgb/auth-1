@@ -59,4 +59,28 @@ class CategoryApiController extends AbstractController
 
         return $this->json($data);
     }
+    #[Route('/sellers', name: 'sellers', methods: ['GET'])]
+    public function sellers(Request $request): JsonResponse
+    {
+        $category = $request->query->all()['url'];
+        $d1 = (new \DateTime())->modify('-1 day');
+        $d2 = (new \DateTime())->modify('-30 day');
+        $data = (new Client())->get(
+            $this->mpStatsApiWb."category/sellers?path=$category&".$this->service->getDate($d1, $d2),
+            $this->service->getHeaders()
+        )->getBody()->getContents();
+        $data = json_decode($data, true);
+        $sales_percent = 0;
+        $revenue_percent = 0;
+        foreach ($data as $item){
+            $sales_percent += $item['sales']??0;
+            $revenue_percent += $item['revenue']??0;
+        }
+        $data = array_map(function ($item) use ($revenue_percent, $sales_percent) {
+            $item['sales_percent'] = $item['sales']*100/$sales_percent;
+            $item['revenue_percent'] = $item['revenue']*100/$revenue_percent;
+            return $item;
+        }, $data);
+        return $this->json($data);
+    }
 }

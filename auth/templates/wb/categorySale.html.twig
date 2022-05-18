@@ -18,6 +18,7 @@
 {% endblock %}
 {% block body %}
     {% include 'wb/HTML/categorySale.html.twig' %}
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             let el = document.getElementById("scrollbar")
@@ -44,6 +45,14 @@
                     document.getElementById("__BVID__77__table").style.transform = "translateX(-" + value + "vh)"
                     document.getElementById("__BVID__77__header").style.transform = "translateX(-" + value + "vh)"
                 }, false)
+            let sellers = document.getElementById("scrollbar_sellers")
+            sellers.addEventListener("input",
+                function () {
+                    let width = document.getElementById("__BVID__79__table").offsetWidth
+                    let value = (sellers.value * width / 300) / 5
+                    document.getElementById("__BVID__79__table").style.transform = "translateX(-" + value + "vh)"
+                    document.getElementById("__BVID__79__header").style.transform = "translateX(-" + value + "vh)"
+                }, false)
         })
 
         function redirect(element) {
@@ -69,7 +78,7 @@
                     brands(id)
                     break;
                 case befPrefix + "79":
-
+                    sellers(id)
                     break;
                 case befPrefix + "82":
 
@@ -95,20 +104,132 @@
             }
         }
 
-        function brands(id){
-            if(document.getElementById(id + "__table").children.length > 1) return;
+        function sellers(id) {
+            if (document.getElementById(id + "__table").children.length > 1) return;
+            fetch(`/api/sellers?url={{ path }}`, {
+                method: "GET"
+            })
+                .then(data => data.json())
+                .then(data => {
+                    let str = ``
+                    for (let i = 0; i < data.length; i++) {
+                        str += `
+                            <div role="row" row-index="0" aria-rowindex="3" row-id="0" comp-id="1132"
+         class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
+         style="height: 35px; transform: translateY(${i*35}px); " aria-label="Press SPACE to select this row.">
+        <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="4" comp-id="1136" col-id="comments"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 142px; left: 480px;  ">${(data[i]['comments']??0).toFixed(2)}
+        </div>
+        <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="5" comp-id="1137" col-id="sales"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 120px; left: 622px;  ">${(data[i]['sales']??0)} шт
+        </div>
+        <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="6" comp-id="1138" col-id="sales_percent"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 120px; left: 742px;  ">
+               ${data[i]['sales_percent'].toFixed(2)}
+                %
+        </div>
+        <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="7" comp-id="1139" col-id="revenue"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 174px; left: 862px;  ">${(data[i]['revenue']??0)} ₽
+        </div>
+        <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="8" comp-id="1140" col-id="revenue_percent"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 120px; left: 1036px;  ">${data[i]['revenue_percent'].toFixed(2)} %
+        </div>
+        <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="9" comp-id="1141" col-id="avg_price"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 150px; left: 1156px;  ">${(data[i]['avg_price']??0).toFixed(2)} ₽
+        </div>
+        <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="10" comp-id="1142" col-id="items"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 120px; left: 1306px;  ">${(data[i]['items']??0)} шт
+        </div>
+        <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="11" comp-id="1143" col-id="items_with_sells"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 150px; left: 1426px;  ">${(data[i]['items_with_sells']??0)} шт
+        </div>
+        <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="12" comp-id="1144"
+             col-id="items_with_sells_percent"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 150px; left: 1576px;  ">${(data[i]['items_with_sells_percent']??0).toFixed(2)} %
+        </div>
+        <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="13" comp-id="1489"
+             col-id="sales_per_items_average"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 150px; left: 1726px;  ">${(data[i]['sales_per_items_average']??0).toFixed(1)} шт
+        </div>
+        <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="14" comp-id="1519"
+             col-id="sales_per_items_with_sells_average"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 180px; left: 1876px;  ">${(data[i]['sales_per_items_with_sells_average']??0).toFixed(1)} шт
+        </div>
+        <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="15" comp-id="1549" col-id="balance"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 120px; left: 2056px;  ">${(data[i]['balance']??0)} шт
+        </div>
+        <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="16" comp-id="1579" col-id="brands"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 150px; left: 2176px;  ">${(data[i]['brands']??0)} шт
+        </div>
+        <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="17" comp-id="1610"
+             col-id="brands_with_sells"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 150px; left: 2326px;  ">${(data[i]['brands_with_sells']??0)} шт
+        </div>
+        <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="18" comp-id="1653"
+             col-id="brands_with_sells_percent"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 150px; left: 2476px;  ">${(data[i]['brands_with_sells_percent']??0)} %
+        </div>
+        <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="19" comp-id="1654"
+             col-id="revenue_per_items_average"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 150px; left: 2626px;  ">${(data[i]['revenue_per_items_average']??0).toFixed(2)} ₽
+        </div>
+        <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="20" comp-id="1748"
+             col-id="revenue_per_items_with_sells_average"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 170px; left: 2776px;  ">${(data[i]['revenue_per_items_with_sells_average']??0).toFixed(2)} ₽
+        </div>
+        <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="1" comp-id="1992" col-id="position"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 100px; left: 0px;  ">${(data[i]['position']??0)}
+        </div>
+        <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="2" comp-id="1993" col-id="name"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value" aria-selected="false"
+             style="width: 260px; left: 100px;  "><a>${(data[i]['name']??0)}</a></div>
+        <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="3" comp-id="1994" col-id="rating"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             aria-selected="false" style="width: 120px; left: 360px;  ">${(data[i]['rating']??0).toFixed(2)}
+        </div>
+        <div tabindex="-1" unselectable="on" role="gridcell" aria-colindex="21" comp-id="1995" col-id="graph"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height d-flex justify-content-center align-items-center sparkline p-0 ag-cell-value"
+             aria-selected="false" style="width: 177px; left: 2946px;">
+
+        </div>
+    </div>
+                        `
+                    }
+                    document.getElementById(id + "__table").innerHTML = str
+                })
+        }
+
+        function brands(id) {
+            if (document.getElementById(id + "__table").children.length > 1) return;
             fetch(`/api/brands?url={{ path }}`, {
                 method: "GET"
             })
                 .then(data => data.json())
                 .then(data => {
                     let str = ``
-                    console.log(data)
                     for (let i = 0; i < data.length; i++) {
                         str += `
                         <div
                                                      class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first ag-row-hover"
-                                                     style="height: 35px; transform: translateY(${i*35}px); "
+                                                     style="height: 35px; transform: translateY(${i * 35}px); "
                                                      aria-label="Press SPACE to select this row.">
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="1" comp-id="717" col-id="position"
@@ -123,12 +244,12 @@
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="3" comp-id="719" col-id="rating"
                                                          class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                         aria-selected="false" style="width: 120px; left: 300px;  ">${(data[i]['rating']??0).toFixed(2)}
+                                                         aria-selected="false" style="width: 120px; left: 300px;  ">${(data[i]['rating'] ?? 0).toFixed(2)}
                                                     </div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="4" comp-id="720" col-id="comments"
                                                          class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                         aria-selected="false" style="width: 142px; left: 420px;  ">${(data[i]['comments']??0).toFixed(2)}
+                                                         aria-selected="false" style="width: 142px; left: 420px;  ">${(data[i]['comments'] ?? 0).toFixed(2)}
                                                     </div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="5" comp-id="721" col-id="sales"
@@ -233,7 +354,7 @@
         }
 
         function subCategory(id) {
-            if(document.getElementById(id + "__table").children.length > 1) return;
+            if (document.getElementById(id + "__table").children.length > 1) return;
             fetch(`/api/subCategory?url={{ path }}`, {
                 method: "GET"
             })
