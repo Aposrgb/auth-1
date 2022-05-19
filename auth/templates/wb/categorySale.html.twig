@@ -344,7 +344,7 @@
 
         function onDay(id) {
             if (document.getElementById(id + "__table").children.length > 1) return;
-            fetch(`/api/priceSegment?url={{ path }}`, {method: "GET"})
+            fetch(`/api/onDay?url={{ path }}`, {method: "GET"})
                 .then(data => data.json())
                 .then(data => {
                     let str = ``
