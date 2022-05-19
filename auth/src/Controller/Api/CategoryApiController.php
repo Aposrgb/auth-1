@@ -83,4 +83,57 @@ class CategoryApiController extends AbstractController
         }, $data);
         return $this->json($data);
     }
+    #[Route('/trends', name: 'trends', methods: ['GET'])]
+    public function trends(Request $request): JsonResponse
+    {
+        $category = $request->query->all()['url'];
+        $d1 = (new \DateTime())->modify('-1 day');
+        $d2 = (new \DateTime())->modify('-30 day');
+        $data = (new Client())->get(
+            $this->mpStatsApiWb."category/trends?path=$category&".$this->service->getDate($d1, $d2),
+            $this->service->getHeaders()
+        )->getBody()->getContents();
+        return $this->json(array_reverse(json_decode($data, true)));
+    }
+    #[Route('/onDay', name: 'onDay', methods: ['GET'])]
+    public function onDay(Request $request): JsonResponse
+    {
+        $category = $request->query->all()['url'];
+        $d1 = (new \DateTime())->modify('-1 day');
+        $d2 = (new \DateTime())->modify('-30 day');
+        $data = (new Client())->get(
+            $this->mpStatsApiWb."category/by_date?groupBy=day&path=$category&".$this->service->getDate($d1, $d2),
+            $this->service->getHeaders()
+        )->getBody()->getContents();
+        return $this->json(json_decode($data, true));
+    }
+    #[Route('/priceSegment', name: 'price_segment', methods: ['GET'])]
+    public function priceSegment(Request $request): JsonResponse
+    {
+        $category = $request->query->all()['url'];
+        $d1 = (new \DateTime())->modify('-1 day');
+        $d2 = (new \DateTime())->modify('-30 day');
+        $data = (new Client())->get(
+            $this->mpStatsApiWb."category/price_segmentation?groupBy=day&path=$category&".$this->service->getDate($d1, $d2),
+            $this->service->getHeaders()
+        )->getBody()->getContents();
+        return $this->json(json_decode($data, true));
+    }
+    #[Route('/compare', name: 'compare', methods: ['GET'])]
+    public function compare(Request $request): JsonResponse
+    {
+        return $this->json([]);
+    }
+    #[Route('/items', name: 'items', methods: ['GET'])]
+    public function items(Request $request): JsonResponse
+    {
+        $category = $request->query->all()['url'];
+        $d1 = (new \DateTime())->modify('-1 day');
+        $d2 = (new \DateTime())->modify('-30 day');
+        $data = (new Client())->get(
+            $this->mpStatsApiWb."category/items?path=$category&".$this->service->getDate($d1, $d2),
+            $this->service->getHeaders()
+        )->getBody()->getContents();
+        return $this->json(json_decode($data, true));
+    }
 }
