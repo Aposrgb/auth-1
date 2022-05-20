@@ -137,7 +137,7 @@
 
         function compare(id) {
             if (document.getElementById(id + "__table").children.length > 1) return;
-            fetch(`{{path('api_compare')}}?url={{ path }}`, {method: "GET"})
+            fetch(`{{ path('api_compare') }}?url={{ path }}`, {method: "GET"})
                 .then(data => data.json())
                 .then(data => {
                     let str = ``
@@ -149,7 +149,7 @@
                     data = data['data']
                     for (let i = 0; i < data.length; i++) {
                         str += `
-                            <div  class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first" style="height: 35px; transform: translateY(${i*35}px); " aria-label="Press SPACE to select this row.">
+                            <div  class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first" style="height: 35px; transform: translateY(${i * 35}px); " aria-label="Press SPACE to select this row.">
 																	<div  class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height d-flex justify-content-center ag-cell-value" style="width: 50px; left: 0px;  ">
 																		<div class="ag-grid-thumb-cell">
 																			<div><img src="https://img1.wbstatic.net/c252x336/new/${data[i]['img']}/${data[i]['sku']}-1.jpg">
@@ -214,7 +214,7 @@
                         str += `
                             <div role="row"
   class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
-  style="height: 35px; transform: translateY(${i*35}px); "
+  style="height: 35px; transform: translateY(${i * 35}px); "
   aria-label="Press SPACE to select this row.">
   <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
    
@@ -545,8 +545,11 @@
             })
                 .then(data => data.json())
                 .then(data => {
+                    let value = [], labels=[]
                     let str = ``
                     for (let i = 0; i < data.length; i++) {
+                        labels[i] = data[i]['brands']
+                        value[i] = data[i]['sales']??0
                         str += `
                                                                         <div
                                                                          class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
@@ -603,6 +606,7 @@
                         `
                     }
                     document.getElementById(id + "__table").innerHTML = str
+                    drawLineGraph('trends_revenue_graph', labels, value)
                 })
         }
 
@@ -613,8 +617,22 @@
             })
                 .then(data => data.json())
                 .then(data => {
-                    let str = ``
+                    let label=[], valueRev=[], valueSale=[], str = ``
                     for (let i = 0; i < data.length; i++) {
+                        if(i === 6){
+                            label[i] = 'Остальные'
+                            valueSale[i] = data[i]['sales']
+                            valueRev[i] = data[i]['revenue']
+                        }
+                        if(i>6){
+                            valueSale[6] += data[i]['sales']
+                            valueRev[6] += data[i]['revenue']
+                        }
+                        if(i<6){
+                            label[i] = data[i]['name']
+                            valueSale[i] = data[i]['sales']
+                            valueRev[i] = data[i]['revenue']
+                        }
                         str += `
                             <div 
          class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
@@ -716,6 +734,8 @@
                         `
                     }
                     document.getElementById(id + "__table").innerHTML = str
+                    drawDonutGraph('sellers_sales_graph', label, valueSale, 'Продажи')
+                    drawDonutGraph('sellers_revenue_graph', label, valueRev, 'Выручка', 'right')
                 })
         }
 
@@ -726,8 +746,22 @@
             })
                 .then(data => data.json())
                 .then(data => {
-                    let str = ``
+                    let label=[], valueRev=[], valueSale=[], str = ``
                     for (let i = 0; i < data.length; i++) {
+                        if(i === 6){
+                            label[i] = 'Остальные'
+                            valueSale[i] = data[i]['sales']
+                            valueRev[i] = data[i]['revenue']
+                        }
+                        if(i>6){
+                            valueSale[6] += data[i]['sales']
+                            valueRev[6] += data[i]['revenue']
+                        }
+                        if(i<6){
+                            label[i] = data[i]['name']
+                            valueSale[i] = data[i]['sales']
+                            valueRev[i] = data[i]['revenue']
+                        }
                         str += `
                         <div
                                                      class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first ag-row-hover"
@@ -852,6 +886,8 @@
                         `
                     }
                     document.getElementById(id + "__table").innerHTML = str
+                    drawDonutGraph('brand_sales_graph', label, valueSale, 'Продажи')
+                    drawDonutGraph('brand_revenue_graph', label, valueRev, 'Выручка', 'right')
                 })
         }
 
@@ -862,8 +898,11 @@
             })
                 .then(data => data.json())
                 .then(data => {
-                    let str = ``
+                    let label = [], valueSale = [], valueRev=[],str = ``
                     for (let i = 0; i < data.length; i++) {
+                        label[i] = data[i]['name']
+                        valueSale[i] = data[i]['sales']
+                        valueRev[i] = data[i]['revenue']
                         str += `
                         <div role="row"
          class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
@@ -946,8 +985,9 @@
                     `
                     }
                     document.getElementById(id + "__table").innerHTML = str
+                    drawDonutGraph('sales_graph', label, valueSale, 'Продажи')
+                    drawDonutGraph('revenue_graph', label, valueRev, 'Выручка', 'right')
                 })
         }
     </script>
-
 {% endblock %}

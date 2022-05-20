@@ -9,6 +9,7 @@
         <link href="styles/index/styles.css" rel="stylesheet">
         <link href="styles/index/vendor.css" rel="stylesheet">
     {% endblock %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 </head>
 <body>
 <div class="be-wrapper be-nosidebar-left">
@@ -354,7 +355,69 @@
                 }
             </style>
         {% endblock %}
+
     </div>
 </div>
 </body>
+<script>
+    function drawDonutGraph(id, labels, data, title, vector = 'left'){
+        new Chart(document.getElementById(id).getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: data,
+                    backgroundColor: [
+                        'rgb(255,0,54)',
+                        'rgb(54, 162, 235)',
+                        'rgb(157,55,34)',
+                        'rgb(255, 205, 86)',
+                        'rgb(86,151,155)',
+                        'rgb(102,0,255)',
+                        'rgb(197,197,197)'
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                legend: {
+                    position: vector,
+                },
+                title: {
+                    display: true,
+                    text: title
+                }
+            },
+        })
+    }
+    function drawLineGraph(id, labels, data){
+        new Chart(document.getElementById(id).getContext('2d'), {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: true,
+                interaction: {
+                    intersect: false,
+                },
+                scales: {
+                    x: {
+                        display: true,
+                        title: {
+                            display: true
+                        }
+                    },
+                    y: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Value'
+                        },
+                        suggestedMin: -10,
+                        suggestedMax: 200
+                    }
+                }
+            },
+        })
+    }
+</script>
 </html>
