@@ -17,7 +17,8 @@ class CategoryApiController extends AbstractController
 {
     public function __construct(
         protected CategoryService $service,
-        protected $mpStatsApiWb
+        protected $mpStatsApiWb,
+        protected $mpStatsApi
     )
     {
     }
@@ -34,6 +35,7 @@ class CategoryApiController extends AbstractController
         )->getBody()->getContents();
         return $this->json(json_decode($data, true));
     }
+
     #[Route('/brands', name: 'brands', methods: ['GET'])]
     public function brands(Request $request): JsonResponse
     {
@@ -59,6 +61,7 @@ class CategoryApiController extends AbstractController
 
         return $this->json($data);
     }
+
     #[Route('/sellers', name: 'sellers', methods: ['GET'])]
     public function sellers(Request $request): JsonResponse
     {
@@ -83,6 +86,7 @@ class CategoryApiController extends AbstractController
         }, $data);
         return $this->json($data);
     }
+
     #[Route('/trends', name: 'trends', methods: ['GET'])]
     public function trends(Request $request): JsonResponse
     {
@@ -95,6 +99,7 @@ class CategoryApiController extends AbstractController
         )->getBody()->getContents();
         return $this->json(array_reverse(json_decode($data, true)));
     }
+
     #[Route('/onDay', name: 'onDay', methods: ['GET'])]
     public function onDay(Request $request): JsonResponse
     {
@@ -107,6 +112,7 @@ class CategoryApiController extends AbstractController
         )->getBody()->getContents();
         return $this->json(json_decode($data, true));
     }
+
     #[Route('/priceSegment', name: 'price_segment', methods: ['GET'])]
     public function priceSegment(Request $request): JsonResponse
     {
@@ -119,11 +125,31 @@ class CategoryApiController extends AbstractController
         )->getBody()->getContents();
         return $this->json(json_decode($data, true));
     }
-    #[Route('/compare', name: 'compare', methods: ['GET'])]
+
+    #[Route('/compare', name: 'api_compare', methods: ['GET'])]
     public function compare(Request $request): JsonResponse
     {
-        return $this->json([]);
+        $category = $request->query->all()['url'];
+        $date = new \DateTime();
+        $body = [
+            'd11' => $date->modify('-1 month')->format('Y-m-d'),
+            'd12' => $date->modify('+2 weeks')->format('Y-m-d'),
+            'd21' => $date->modify('+1 day')->format('Y-m-d'),
+            'd22' => $date->modify('+2 weeks')->format('Y-m-d'),
+        ];;
+        $data = (new Client())->post(
+            $this->mpStatsApi."wb/get/category/compare?path=$category",
+            $this->service->getHeadersWithBody($body)
+        )->getBody()->getContents();
+        $data = json_decode($data, true);
+        $data['data'] = array_map(function ($item){
+            $item['img'] = ((int)($item["sku"] / 10000)) * 10000;
+            return $item;
+        }, $data['data']);
+        $data['date'] = $body;
+        return $this->json($data);
     }
+
     #[Route('/items', name: 'items', methods: ['GET'])]
     public function items(Request $request): JsonResponse
     {
@@ -136,4 +162,5 @@ class CategoryApiController extends AbstractController
         )->getBody()->getContents();
         return $this->json(json_decode($data, true));
     }
+
 }
