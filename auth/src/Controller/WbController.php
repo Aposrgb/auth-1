@@ -24,7 +24,21 @@ class WbController extends AbstractController
     {
 
         return $this->render('wb/categoryItem.html.twig',
-            $this->service->getItem($sku, $request->query->all()['name']??'')
+            $this->service->getItem($sku, $request->query->all())
+        );
+    }
+    #[Route(path: '/ordersbyregionsize/{sku}', name: 'wb_order_by_region')]
+    public function orderByRegion($sku, Request $request): Response
+    {
+        return $this->render('wb/order_by_region.html.twig',
+            $this->service->getOrderByRegion($sku, $request->query->all())
+        );
+    }
+    #[Route(path: '/keywords/{sku}', name: 'wb_keywords')]
+    public function keywords($sku, Request $request): Response
+    {
+        return $this->render('wb/keywords.html.twig',
+            $this->service->getKeywords($sku, $request->query->all())
         );
     }
     #[Route(path: '/category', name: 'wb_category')]

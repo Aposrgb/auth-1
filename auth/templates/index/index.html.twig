@@ -8,6 +8,8 @@
         <link href="styles/index/vendor.css" rel="stylesheet">
     {% endblock %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 <body>
 <div class="be-wrapper be-nosidebar-left">
@@ -185,7 +187,7 @@
         </script>
     {% endblock %}
     {% block body %}
-    <div class="be-content" >
+        <div class="be-content" >
             <div class="row">
                 <div class="col-md-12 ">
                     <div class="card">
@@ -217,167 +219,167 @@
                 <div class="snotify snotify-center_bottom"></div>
             </div>
         </div>
-        {% endblock %}
-        {% block footer %}
-            <footer onclick="" class="be-footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="logo d-flex">
-                                <a href="/" class="d-flex align-items-center">
-                                    <alt="mpstats.io" class="mr-2"> $name
-                                </a>
-                            </div>
-                            <p class="mb-3">Сервис статистики и мониторинга маркетплейсов.</p>
-                            <p>Powered by
-                                <a href="mailto:iod766@gmail.com">Podovinnikov</a></p>
-                            <div class="d-flex align-items-center payment-system mt-3">
-                                <div><img src="https://mpstats.io/i/payment-system/MainVisaWhite.png" width="70"
-                                          class="mr-2"></div>
-                                <div><img src="https://mpstats.io/i/payment-system/securecode.png" width="70"
-                                          class="mr-2"></div>
-                                <div><img src="https://mpstats.io/i/payment-system/logo-mir.png" width="70"
-                                          class="mr-2"></div>
-                                <div><img src="https://mpstats.io/i/payment-system/iomoney.png" width="70" class="mr-2">
-                                </div>
-                                <div><img src="https://mpstats.io/i/payment-system/google-pay-mark.png" width="70"
-                                          class="mr-2"></div>
-                                <div><img src="https://mpstats.io/i/payment-system/Pay_hor_pos_RGB.png" width="110"
-                                          class="mr-2"></div>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <div>Безналичный расчет для юридических лиц и ИП</div>
-                            </div>
-                            </div>
+    {% endblock %}
+    {% block footer %}
+    <footer onclick="" class="be-footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="logo d-flex">
+                        <a href="/" class="d-flex align-items-center">
+                            <alt="mpstats.io" class="mr-2"> $name
+                        </a>
+                    </div>
+                    <p class="mb-3">Сервис статистики и мониторинга маркетплейсов.</p>
+                    <p>Powered by
+                        <a href="mailto:iod766@gmail.com">Podovinnikov</a></p>
+                    <div class="d-flex align-items-center payment-system mt-3">
+                        <div><img src="https://mpstats.io/i/payment-system/MainVisaWhite.png" width="70"
+                                  class="mr-2"></div>
+                        <div><img src="https://mpstats.io/i/payment-system/securecode.png" width="70"
+                                  class="mr-2"></div>
+                        <div><img src="https://mpstats.io/i/payment-system/logo-mir.png" width="70"
+                                  class="mr-2"></div>
+                        <div><img src="https://mpstats.io/i/payment-system/iomoney.png" width="70" class="mr-2">
                         </div>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        <div><img src="https://mpstats.io/i/payment-system/google-pay-mark.png" width="70"
+                                  class="mr-2"></div>
+                        <div><img src="https://mpstats.io/i/payment-system/Pay_hor_pos_RGB.png" width="110"
+                                  class="mr-2"></div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <div>Безналичный расчет для юридических лиц и ИП</div>
                     </div>
                 </div>
-            </footer>
-        {% endblock %}
-        {% block customStyles %}
-            <style>
-                .dropdown_keys {
-                    z-index: 11;
-                    list-style-type: none;
-                    position: absolute;
-                    background: white;
-                    padding: 0;
-                }
-                .dropdown_keys li  {
-                    min-width: 5.5vw;
-                    text-align: center;
-                    padding: 5px 0px;
-                    border: solid 1px;
-                }
-                .dropdown_keys :hover {
-                    background: #badfff82;
-                    box-shadow: 0px 0px 7px 0px #030b3e2b;
-                }
-                .scrollbar{
-                    -webkit-appearance: none;
-                    width: 100%;
-                }
-                .scrollbar :focus{
-                    outline: none;
-                }
-                .scrollbar:focus {
-                    outline: none;
-                }
-                .scrollbar::-webkit-slider-runnable-track {
-                    width: 100%;
-                    height: 8.4px;
-                    cursor: pointer;
-                    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-                    /*background: #87ddfd96;*/
-                    border-radius: 1.3px;
-                }
-                .scrollbar::-webkit-slider-thumb {
-                    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-                    border: 1px solid #000000;
-                    height: 15px;
-                    width: 60px;
-                    border-radius: 5px;
-                    background: snow;
-                    cursor: pointer;
-                    -webkit-appearance: none;
-                    margin-top: -5px;
-                }
-                .scrollbar::-moz-range-track {
-                    width: 100%;
-                    height: 8.4px;
-                    cursor: pointer;
-                    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-                    background: #3071a9;
-                    border-radius: 1.3px;
-                }
-                .scrollbar::-moz-range-thumb {
-                    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-                    height: 36px;
-                    width: 16px;
-                    border-radius: 3px;
-                    background: #ffffff;
-                    cursor: pointer;
-                }
-                .scrollbar::-ms-track {
-                    width: 100%;
-                    height: 8.4px;
-                    cursor: pointer;
-                    background: transparent;
-                    border-color: transparent;
-                    border-width: 16px 0;
-                    color: transparent;
-                }
-                .scrollbar::-ms-fill-lower {
-                    background: #2a6495;
-                    border: 0.2px solid #010101;
-                    border-radius: 2.6px;
-                    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-                }
-                .scrollbar::-ms-fill-upper {
-                    background: #3071a9;
-                    border: 0.2px solid #010101;
-                    border-radius: 2.6px;
-                    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-                }
-                .scrollbar::-ms-thumb {
-                    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-                    border: 1px solid #000000;
-                    height: 36px;
-                    width: 16px;
-                    border-radius: 3px;
-                    background: #ffffff;
-                    cursor: pointer;
-                }
-                .scrollbar:focus::-ms-fill-lower {
-                    background: #3071a9;
-                }
-                .scrollbar:focus::-ms-fill-upper {
-                    background: #367ebd;
-                }
-                 meter{
-                     -webkit-transform: rotate(-90deg);
-                     -moz-transform: rotate(-90deg);
-                     -o-transform: rotate(-90deg);
-                     transform: rotate(-90deg);
-                 }
-                .negative {
-                    background: rgba(235,87,87,.05);
-                    color: #eb5757;
-                }
-                .positive {
-                    background: rgb(177 255 188 / 20%);
-                    color: #33ae45!important;
-                }
-            </style>
-        {% endblock %}
+            </div>
+            </a>
+            </li>
+            </ul>
+        </div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+{% endblock %}
+{% block customStyles %}
+    <style>
+        .dropdown_keys {
+            z-index: 11;
+            list-style-type: none;
+            position: absolute;
+            background: white;
+            padding: 0;
+        }
+        .dropdown_keys li  {
+            min-width: 5.5vw;
+            text-align: center;
+            padding: 5px 0px;
+            border: solid 1px;
+        }
+        .dropdown_keys :hover {
+            background: #badfff82;
+            box-shadow: 0px 0px 7px 0px #030b3e2b;
+        }
+        .scrollbar{
+            -webkit-appearance: none;
+            width: 100%;
+        }
+        .scrollbar :focus{
+            outline: none;
+        }
+        .scrollbar:focus {
+            outline: none;
+        }
+        .scrollbar::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8.4px;
+            cursor: pointer;
+            box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+            /*background: #87ddfd96;*/
+            border-radius: 1.3px;
+        }
+        .scrollbar::-webkit-slider-thumb {
+            box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+            border: 1px solid #000000;
+            height: 15px;
+            width: 60px;
+            border-radius: 5px;
+            background: snow;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -5px;
+        }
+        .scrollbar::-moz-range-track {
+            width: 100%;
+            height: 8.4px;
+            cursor: pointer;
+            box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+            background: #3071a9;
+            border-radius: 1.3px;
+        }
+        .scrollbar::-moz-range-thumb {
+            box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+            height: 36px;
+            width: 16px;
+            border-radius: 3px;
+            background: #ffffff;
+            cursor: pointer;
+        }
+        .scrollbar::-ms-track {
+            width: 100%;
+            height: 8.4px;
+            cursor: pointer;
+            background: transparent;
+            border-color: transparent;
+            border-width: 16px 0;
+            color: transparent;
+        }
+        .scrollbar::-ms-fill-lower {
+            background: #2a6495;
+            border: 0.2px solid #010101;
+            border-radius: 2.6px;
+            box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+        }
+        .scrollbar::-ms-fill-upper {
+            background: #3071a9;
+            border: 0.2px solid #010101;
+            border-radius: 2.6px;
+            box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+        }
+        .scrollbar::-ms-thumb {
+            box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+            border: 1px solid #000000;
+            height: 36px;
+            width: 16px;
+            border-radius: 3px;
+            background: #ffffff;
+            cursor: pointer;
+        }
+        .scrollbar:focus::-ms-fill-lower {
+            background: #3071a9;
+        }
+        .scrollbar:focus::-ms-fill-upper {
+            background: #367ebd;
+        }
+        meter{
+            -webkit-transform: rotate(-90deg);
+            -moz-transform: rotate(-90deg);
+            -o-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+        }
+        .negative {
+            background: rgba(235,87,87,.05);
+            color: #eb5757;
+        }
+        .positive {
+            background: rgb(177 255 188 / 20%);
+            color: #33ae45!important;
+        }
+    </style>
+{% endblock %}
 
-    </div>
+</div>
 </div>
 </body>
 <script>
@@ -437,6 +439,16 @@
                         suggestedMax: 200
                     }
                 }
+            },
+        })
+    }
+    function newDatePicker(id, func){
+        document.getElementById(id).attributes.removeNamedItem('disabled')
+        flatpickr("#"+id, {
+            mode: "range",
+            dateFormat: "Y-m-d",
+            onClose: function(selectedDates, dateStr, instance) {
+                func(dateStr)
             },
         })
     }

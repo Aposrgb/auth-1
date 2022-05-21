@@ -18,7 +18,7 @@
                             <!----></div>
                         <div class="d-flex flex-column">
                             <div class="d-flex justify-content-start align-items-center">
-                                <span>{{ item.name??'' }}</span> <span
+                                <span>{{ item.full_name??'' }}</span> <span
                                         class="ml-1">{{ item.brand??'' }}</span>
                                 <div class="ml-1">
                                     за <span>60</span> дней
@@ -45,44 +45,18 @@
                                 <div class="btn-group d-flex flex-column flex-lg-block flex-lg-row">
                                     <div class="dropdown b-dropdown btn-group" id="__BVID__12"><!---->
                                         <button aria-haspopup="true" aria-expanded="false" type="button"
-                                                class="btn dropdown-toggle btn-secondary"
+                                                class="btn btn-secondary"
                                                 id="__BVID__12__BV_toggle_">Период
                                         </button>
-                                        <ul role="menu" tabindex="-1" class="dropdown-menu"
-                                            aria-labelledby="__BVID__12__BV_toggle_">
-                                            <li role="presentation"><a title="За последние 7 дней" role="menuitem"
-                                                                       href="#" target="_self"
-                                                                       class="dropdown-item"><span>7 дней</span></a>
-                                            </li>
-                                            <li role="presentation"><a title="За последние 14 дней" role="menuitem"
-                                                                       href="#" target="_self"
-                                                                       class="dropdown-item"><span>14 дней</span></a>
-                                            </li>
-                                            <li role="presentation"><a
-                                                        title="Текущий месяц - за период с первого по вчерашний день месяца"
-                                                        role="menuitem" href="#" target="_self"
-                                                        class="dropdown-item"><span>Месяц</span></a></li>
-                                            <li role="presentation"><a title="За последние 30 дней" role="menuitem"
-                                                                       href="#" target="_self"
-                                                                       class="dropdown-item"><span>30 дней</span></a>
-                                            </li>
-                                            <li role="presentation"><a title="За последние 3 месяца" role="menuitem"
-                                                                       href="#" target="_self"
-                                                                       class="dropdown-item"><span>3 месяца</span></a>
-                                            </li>
-                                            <li role="presentation"><p id="6monthstooltip" class="b-dropdown-text">
-                                                    <span>6 месяцев</span></p></li>
-                                            <li role="presentation"><p id="12monthstooltip" class="b-dropdown-text">
-                                                    <span>12 месяцев</span></p></li>
-                                        </ul>
                                     </div> <!---->
                                     <div class="btn btn-secondary active">
                                         <div data-v-1ebd09d2="" class="vue-daterange-picker">
-                                            <div data-v-1ebd09d2="" class=""><i data-v-1ebd09d2=""
-                                                                                class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                                                <span data-v-1ebd09d2="">{{ d1??'' }} - {{ d2??'' }}</span><b
-                                                        data-v-1ebd09d2="" class="caret"></b></div><!----></div>
-                                    </div> <!----></div>
+                                            <div data-v-1ebd09d2="" class="">
+                                                <input disabled value="{{ d1??'' }} to {{ d2??'' }}" type="text" id="period" />
+                                            </div><!---->
+                                        </div>
+                                    </div> <!---->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -230,7 +204,7 @@
                                 <td>
                                     <div class="d-flex">
                                         <div>
-                                            {{ item.rating??'' }} %
+                                            {{ (item.rating??0)*100/5 }} %
                                         </div>
                                     </div>
                                 </td>
@@ -273,7 +247,7 @@
                                     </svg>
                                 </td>
                                 <td class="item">Предмет</td>
-                                <td>{{ sales.category??'' }}</td>
+                                <td>{{ item.full_name??'' }}</td>
                             </tr>
                             <tr>
                                 <td><!----></td>
@@ -1613,7 +1587,7 @@
                                 Продажи по складам и размерам
                                 с <span>{{ d1 ??'0000-00-00' }}</span>
                                 по <span>{{ d2 ??'0000-00-00' }}</span></div>
-                            <a href="/wb/ordersbyregionsize/10645717" target="_blank" class="btn btn-success">
+                            <a href="/wb/ordersbyregionsize/{{ sku }}?name={{  sales.category??''}}&date={{ d1 }} to {{ d2 }}" target="_blank" class="btn btn-success">
                                 История заказов
                             </a></div>
                     </div>
@@ -4027,13 +4001,13 @@
                                                         <!--AG-ROW-CONTAINER-->
                                                         <div class="ag-center-cols-clipper"
                                                              role="presentation" unselectable="on" name="center"
-                                                             style="height: 1647px;">
+                                                             style="height: {{ (by_keywords|length+1) * 27 }}px;">
                                                             <div class="ag-center-cols-viewport"
                                                                  role="presentation"
                                                                  style="height: calc(100% + 14px);">
                                                                 <div class="ag-center-cols-container"
                                                                      id="table_sale"
-                                                                     style="width: 1168.42px; height: 1647px;">
+                                                                     style="width: 1168.42px; height: {{ (by_keywords|length+1) * 27 }}px;">
                                                                     <div role="row" row-index="0" aria-rowindex="3"
                                                                          row-id="0" comp-id="1159"
                                                                          class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
