@@ -208,7 +208,7 @@ class WbService extends AbstractService
             $context['count'] = 0;
             $byKeywords = $requestToArray('/by_keywords');
             $context['keywords'] = [];
-            $context['days'] = array_splice($byKeywords['days'], count($byKeywords['days']) / 2);
+            $context['days'] = $byKeywords['days'];
             foreach (array_keys($byKeywords['words']) as $word) {
                 $context['keywords'][] = [
                     'name' => $word,
@@ -218,6 +218,7 @@ class WbService extends AbstractService
                     'avgPos' => $byKeywords['words'][$word]['avgPos']
                 ];
             }
+            $context['by_keywords'] = [];
             for ($i = 0; $i < count($byKeywords['sales']); $i++) {
                 $context['by_keywords'][] = [
                     'sale' => $byKeywords['sales'][$i],
@@ -233,10 +234,10 @@ class WbService extends AbstractService
             }
             $context['average'] = (int)($context['result'] / count($byKeywords['sales']));
             $context['summa_average'] = (int)($context['summa'] / count($byKeywords['sales']));
-            $context['by_keywords'] = array_reverse($context['by_keywords']);
 
         } catch (Exception $exception) {
         }
+        $context['by_keywords'] = array_reverse($context['by_keywords']);
         return $context;
     }
 

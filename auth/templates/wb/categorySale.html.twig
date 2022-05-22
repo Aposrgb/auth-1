@@ -545,11 +545,19 @@
             })
                 .then(data => data.json())
                 .then(data => {
-                    let value = [], labels=[]
-                    let str = ``
+                    let value = [[], [], [], [], [], [], [], [], [], []], str = ``, names=['Продажи', 'Выручка', 'Товаров', 'Товаров с продажами', 'Брендов', 'Брендов с продажами', 'Продавцов', 'Продавцов с продажами', 'Выручка на товар', 'Средний чек'], labels =[]
                     for (let i = 0; i < data.length; i++) {
-                        labels[i] = data[i]['brands']
-                        value[i] = data[i]['sales']??0
+                        labels[i] = data[i]['week']
+                        value[0][i] = data[i]['sales']??0
+                        value[1][i] = data[i]['revenue']??0
+                        value[2][i] = data[i]['items']??0
+                        value[3][i] = data[i]['items_with_sells']??0
+                        value[4][i] = data[i]['brands']??0
+                        value[5][i] = data[i]['brands_with_sells']??0
+                        value[6][i] = data[i]['sellers']??0
+                        value[7][i] = data[i]['sellers_with_sells']??0
+                        value[8][i] = data[i]['product_revenue']??0
+                        value[9][i] = data[i]['average_order_value']??0
                         str += `
                                                                         <div
                                                                          class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
@@ -606,7 +614,7 @@
                         `
                     }
                     document.getElementById(id + "__table").innerHTML = str
-                    drawLineGraph('trends_revenue_graph', labels, value)
+                    drawLineGraph('trends_revenue_graph', value, names, labels)
                 })
         }
 
