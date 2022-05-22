@@ -1,0 +1,29 @@
+{% extends 'index/index.html.twig' %}
+{% block linkStyles %}
+    <link href="../../styles/index/styles.css" rel="stylesheet">
+    <link href="../../styles/index/vendor.css" rel="stylesheet">
+    <link href="../../styles/summary/summary.css" rel="stylesheet">
+    <link href="../../styles/summary/table.css" rel="stylesheet">
+    <link href="../../styles/summary/table2.css" rel="stylesheet">
+    <link href="../../styles/seo/selection.css" rel="stylesheet">
+    <link href="../../styles/seo/slider.css" rel="stylesheet">
+    <link href="../../styles/seo/table.css" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    {% include 'wb/HTML/keywords.html.twig' %}
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            newDatePicker('period', function (date){
+                window.location.href = "{{ path('wb_keywords', {sku:sku}) }}?date="+date
+            })
+            let el = document.getElementById("scrollbar")
+            el.addEventListener("input",
+                function () {
+                    let width = document.getElementById("table_sale").offsetWidth
+                    let value =(el.value * width/200)/5
+                    document.getElementById("table_sale").style.transform = "translateX(-" + value + "vh)"
+                    document.getElementById("table_sale_header").style.transform = "translateX(-" + value + "vh)"
+                }, false)
+        })
+    </script>
+{% endblock %}
