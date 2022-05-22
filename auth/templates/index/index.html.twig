@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <title>MARKETPLACE</title>
+    {% block linkStyles %}
+        <link href="styles/index/styles.css" rel="stylesheet">
+        <link href="styles/index/vendor.css" rel="stylesheet">
+    {% endblock %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+</head>
+<body>
+<div class="be-wrapper be-nosidebar-left">
+    {% block header %}
+        <nav id="mp-stats-header" class="top-menu navbar navbar-expand-xl be-top-header fixed-top shadow-sm">
+            <div class="logo d-none d-xl-flex"><a href="/" class="d-flex align-items-center">
+            <img src="/img/Logo-NoBackground.svg" alt="marketplace" width="50" height="56" class="mr-0 mr-xxl-2">
+                    <span
+                            class="d-none d-xxl-inline">MARKETPLACE</span></a></div>
+            <button type="button" data-toggle="collapse" data-target="#be-navbar-collapse"
+                    aria-controls="be-navbar-collapse"
+                    aria-expanded="false" class="navbar-toggler text-left py-3 px-2"><i class="fas fa-bars"></i> Меню
+            </button>
+            <div id="be-navbar-collapse" class="navbar-collapse collapse">
+                <ul class="navbar-nav w-100">
+                    <li class="nav-item dropdown" onclick="dropdown(this)"><a data-toggle="dropdown"
+                                                                              role="button"
+                                                                              aria-expanded="false"
+                                                                              class="nav-link dropdown-toggle">
+                            Кабинет WB &#709;</a>
+                        <div role="menu" style="display:none;" class="dropdown-menu show "><a href="/cabinet/summary"
+                                                                                              class="dropdown-item"><span>Сводка</span></a>
+                            <a
+                                    href="/cabinet/sales" class="dropdown-item"><span>Продажи и заказы</span></a> <a
+                                    href="/cabinet/products" class="dropdown-item"><span>Товары</span></a> <a
+                                    href="/cabinet/warehouses"
+                                    class="dropdown-item"><span>Раскладка по складам</span></a>
+                            <a
+                                    href="/cabinet/order-region"
+                                    class="dropdown-item"><span>География заказов</span></a>
+                            <div class="dropdown-divider"></div>
+                            <a href="/cabinet/import/cost-price" class="dropdown-item"><span>Импорт себестоимости и параметров товара</span></a>
+                            <a href="/cabinet/compare" class="dropdown-item"><span>Сравнение периодов</span></a> <a
+                                    href="/cabinet/income-calc"
+                                    class="dropdown-item d-flex justify-content-between"><span>Расчет поставки</span></a>
+                            <div class="dropdown-divider"></div>
+                            <a href="/cabinet/weekly-reports" class="dropdown-item"><span>Еженедельные отчеты</span></a>
+                            <a
+                                    href="/cabinet/connect" class="dropdown-item"><span>Подключения</span></a></div>
+                    </li>
+                    <li class="nav-item dropdown seo-dropdown" onclick="dropdown(this)"><a
+                                data-toggle="dropdown"
+                                role="button"
+                                aria-expanded="false"
+                                class="nav-link dropdown-toggle">
+                            SEO &#709;</a>
+                        <div role="menu" style="display:none;" class="dropdown-menu show"><a href="/seo/keyword"
+                                                                                             class="dropdown-item keyword-dashboard"><span>Результаты поиска (SERP)</span></a>
+                            <a href="/seo/keywords/expanding"
+                               class="dropdown-item keywords-expanding"><span>Расширение запросов</span></a> <a
+                                    href="/seo/keywords/selection" class="dropdown-item keywords-selection"><span>Подбор запросов</span></a>
+                            <div class="dropdown-divider"></div>
+                            <a href="/seo/position-tracking"
+                               class="dropdown-item position-tracking"><span>Мониторинг позиций</span></a> <a
+                                    href="/seo/tools/wb-card-checker" class="dropdown-item wb-card-checker"><span>Проверка карточки товара</span></a>
+                            <a href="/seo/tools/wb-sku-compare"
+                               class="dropdown-item wb-sku-compare"><span>Сравнение групп SKU</span></a></div>
+                    </li>
+                    <li class="nav-item"><a href="/groups" class="nav-link ">Группы</a></li>
+                    <li class="nav-item dropdown" onclick="dropdown(this)"><a data-toggle="dropdown"
+                                                                              role="button"
+                                                                              aria-expanded="false"
+                                                                              class="nav-link dropdown-toggle">
+                            Ozon &#709;</a>
+                        <div role="menu" style="display:none;" class="dropdown-menu show"><a href="/ozon/category?url="
+                                                                                             class="dropdown-item"><span>Категории</span></a>
+                            <a href="/ozon/seller" class="dropdown-item"><span>Продавцы</span></a> <a href="/ozon/brand"
+                                                                                                      class="dropdown-item"><span>Бренды</span></a>
+                            <a href="/ozon/search" class="dropdown-item"><span>Поиск по SKU</span></a></div>
+                    </li>
+                    <li class="nav-item dropdown" onclick="dropdown(this)"><a data-toggle="dropdown"
+                                                                              role="button"
+                                                                              aria-expanded="false"
+                                                                              class="nav-link dropdown-toggle">
+                            Wildberries &#709;</a>
+                        <div role="menu" style="display:none;" class="dropdown-menu show"><a href="/wb/category?url="
+                                                                                             class="dropdown-item"><span>Категории</span></a>
+                            <a
+                                    href="/wb/bysearch" class="dropdown-item"><span>Поиск на площадке</span></a> <a
+                                    href="/wb/seller" class="dropdown-item"><span>Продавцы</span></a> <a
+                                    href="/wb/brand"
+                                    class="dropdown-item"><span>Бренды</span></a>
+                            <a href="/wb/similar" class="dropdown-item"><span>Похожие товары</span></a> <a
+                                    href="/wb/search"
+                                    class="dropdown-item"><span>Поиск по SKU</span></a>
+                            <div class="dropdown-divider"></div>
+                            <a href="/wb/top-brands" class="dropdown-item"><span>Рейтинг брендов</span></a> <a
+                                    href="/wb/top-sellers" class="dropdown-item"><span>Рейтинг поставщиков</span></a>
+                        </div>
+                    </li>
+                    {% if is_granted("ROLE_ADMIN") %}
+                        <li class="nav-item dropdown"><a href="{{path('admin')}}" data-toggle="dropdown" role="button"
+                                                         aria-expanded="false" class="nav-link dropdown-toggle">Админ
+                                панель</a>
+                            <div role="menu" style="display:none;" class="dropdown-menu show">
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="be-right-navbar d-flex align-items-center">
+                <div class="search-container">
+                    <form action="/search" method="get" class="input-group input-group-sm"><input type="text"
+                                                                                                  name="search"
+                                                                                                  placeholder="Поиск по товарам..."
+                                                                                                  value=""
+                                                                                                  class="col-8 form-control search-input">
+                        <input type="hidden" name="section" value="main"> <input type="submit" value="Поиск"
+                                                                                 class="col-3 btn btn-primary"></form>
+                </div>
+                <ul class="nav navbar-nav float-right be-user-nav">
+                    <li class="nav-item dropdown" onclick="dropdown(this)"><a data-toggle="dropdown"
+                                                                              role="button"
+                                                                              aria-expanded="false"
+                                                                              class="nav-link dropdown-toggle"><img
+                                    src="/img/profile_pic.png" alt="" width="32"
+                                    height="32"></a>
+                        <div role="menu" style="display:none;" class="dropdown-menu show profile-menu">
+                           
+                            <a href="/bills" class="dropdown-item "><i class="far fa-check-square mr-2"></i>Подписка и
+                                счета
+                            </a> <a href="/userpanel" class="dropdown-item "><i class="far fa-user mr-2"></i>Аккаунт
+                            </a> <a href="/partner-stat" class="dropdown-item "><i class="fas fa-ruble-sign mr-2"></i>Партнерская
+                                программа
+                            </a> <a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt mr-2"></i>Выход
+                            </a></div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <script>
+            function dropdown(element) {
+                let drop = document.getElementsByClassName("dropdown")
+                let index = -1
+                for (let i = 0; i < drop.length; i++) {
+                    drop[i].classList.remove("show")
+                    if (drop[i] === element) {
+                        index = i
+                    }
+                }
+                let menus = document.getElementsByClassName("dropdown-menu")
+                for (let i = 0; i < menus.length; i++) {
+                    if (index !== i) {
+                        menus[i].style.display = "none";
+                    }
+                }
+                let menu = menus[index]
+                if (menu.style.display === "block") {
+                    element.classList.remove("show")
+                    menu.style.display = "none";
+                } else {
+                    element.classList.add("show")
+                    menu.style.display = "block";
+                }
+            }
+            {% if tokens is defined %}
+            function allKeys() {
+                let buttonAllkey = document.getElementById("__BVID__11");
+                if (buttonAllkey !== undefined) {
+                    let display = buttonAllkey.children[buttonAllkey.children.length - 1].style.display
+                    display = display === "block" ? "none":"block"
+                    buttonAllkey.children[buttonAllkey.children.length - 1].style = `display:${display};margin-block: 32px -65px;`
+                }
+            }
+            function selectKey(id, url){
+                window.location.href = url+"?index="+id;
+            }
+            {% endif %}
+        </script>
+    {% endblock %}
+    {% block body %}
+    <div class="be-content" >
+            <div class="row">
+                <div class="col-md-12 ">
+                    <div class="card">
+                        <div class="card-header card-header-divider">MARKETPLACE<span class="card-subtitle">Моментальный анализ продаж миллионов товаров на Российских маркетплейсах</span>
+                        </div>
+                        <div class="card-body"><p>MARKETPLACE - это комплекс из нескольких узлов:
+                                система сбора данных,
+                                система хранения и системы анализа. Ежедневно мы обрабатываем сотни гигабайтов данных,
+                                чтобы
+                                получить информацию о товарах на основных маркетплейсах: их остатках, продавцах и
+                                брендах.
+                                Эти
+                                данные нормируются и укладываются в удобные интерфейсы, чтобы наши пользователи смогли
+                                быстро
+                                сориентироваться и принять верные решения.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div><!---->
+                <div class="snotify snotify-left_top"></div>
+                <div class="snotify snotify-left_center"></div>
+                <div class="snotify snotify-left_bottom"></div>
+                <div class="snotify snotify-right_top"></div>
+                <div class="snotify snotify-right_center"></div>
+                <div class="snotify snotify-right_bottom"></div>
+                <div class="snotify snotify-center_top"></div>
+                <div class="snotify snotify-center_center"></div>
+                <div class="snotify snotify-center_bottom"></div>
+            </div>
+        </div>
+        {% endblock %}
+        {% block footer %}
+            <footer onclick="" class="be-footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="logo d-flex">
+                                <a href="/" class="d-flex align-items-center">
+                                    <alt="marketplace" class="mr-2"> MARKETPLACE
+                                </a>
+                            </div>
+                            <p class="mb-3">Сервис статистики и мониторинга маркетплейсов.</p>
+                            
+                            
+                            
+                            </div>
+                        </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        {% endblock %}
+        {% block customStyles %}
+            <style>
+                .dropdown_keys {
+                    z-index: 11;
+                    list-style-type: none;
+                    position: absolute;
+                    background: white;
+                    padding: 0;
+                }
+                .dropdown_keys li  {
+                    min-width: 5.5vw;
+                    text-align: center;
+                    padding: 5px 0px;
+                    border: solid 1px;
+                }
+                .dropdown_keys :hover {
+                    background: #badfff82;
+                    box-shadow: 0px 0px 7px 0px #030b3e2b;
+                }
+                .scrollbar{
+                    -webkit-appearance: none;
+                    width: 100%;
+                }
+                .scrollbar :focus{
+                    outline: none;
+                }
+                .scrollbar:focus {
+                    outline: none;
+                }
+                .scrollbar::-webkit-slider-runnable-track {
+                    width: 100%;
+                    height: 8.4px;
+                    cursor: pointer;
+                    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+                    /*background: #87ddfd96;*/
+                    border-radius: 1.3px;
+                }
+                .scrollbar::-webkit-slider-thumb {
+                    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+                    border: 1px solid #000000;
+                    height: 15px;
+                    width: 60px;
+                    border-radius: 5px;
+                    background: snow;
+                    cursor: pointer;
+                    -webkit-appearance: none;
+                    margin-top: -5px;
+                }
+                .scrollbar::-moz-range-track {
+                    width: 100%;
+                    height: 8.4px;
+                    cursor: pointer;
+                    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+                    background: #3071a9;
+                    border-radius: 1.3px;
+                }
+                .scrollbar::-moz-range-thumb {
+                    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+                    height: 36px;
+                    width: 16px;
+                    border-radius: 3px;
+                    background: #ffffff;
+                    cursor: pointer;
+                }
+                .scrollbar::-ms-track {
+                    width: 100%;
+                    height: 8.4px;
+                    cursor: pointer;
+                    background: transparent;
+                    border-color: transparent;
+                    border-width: 16px 0;
+                    color: transparent;
+                }
+                .scrollbar::-ms-fill-lower {
+                    background: #2a6495;
+                    border: 0.2px solid #010101;
+                    border-radius: 2.6px;
+                    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+                }
+                .scrollbar::-ms-fill-upper {
+                    background: #3071a9;
+                    border: 0.2px solid #010101;
+                    border-radius: 2.6px;
+                    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+                }
+                .scrollbar::-ms-thumb {
+                    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+                    border: 1px solid #000000;
+                    height: 36px;
+                    width: 16px;
+                    border-radius: 3px;
+                    background: #ffffff;
+                    cursor: pointer;
+                }
+                .scrollbar:focus::-ms-fill-lower {
+                    background: #3071a9;
+                }
+                .scrollbar:focus::-ms-fill-upper {
+                    background: #367ebd;
+                }
+                 meter{
+                     -webkit-transform: rotate(-90deg);
+                     -moz-transform: rotate(-90deg);
+                     -o-transform: rotate(-90deg);
+                     transform: rotate(-90deg);
+                 }
+                .negative {
+                    background: rgba(235,87,87,.05);
+                    color: #eb5757;
+                }
+                .positive {
+                    background: rgb(177 255 188 / 20%);
+                    color: #33ae45!important;
+                }
+            </style>
+        {% endblock %}
+
+    </div>
+</div>
+</body>
+<script>
+    function drawDonutGraph(id, labels, data, title, vector = 'left'){
+        new Chart(document.getElementById(id).getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: data,
+                    backgroundColor: [
+                        'rgb(255,0,54)',
+                        'rgb(54, 162, 235)',
+                        'rgb(157,55,34)',
+                        'rgb(255, 205, 86)',
+                        'rgb(86,151,155)',
+                        'rgb(102,0,255)',
+                        'rgb(197,197,197)'
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                legend: {
+                    position: vector,
+                },
+                title: {
+                    display: true,
+                    text: title
+                }
+            },
+        })
+    }
+    function drawLineGraph(id, labels, data){
+        new Chart(document.getElementById(id).getContext('2d'), {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: true,
+                interaction: {
+                    intersect: false,
+                },
+                scales: {
+                    x: {
+                        display: true,
+                        title: {
+                            display: true
+                        }
+                    },
+                    y: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Value'
+                        },
+                        suggestedMin: -10,
+                        suggestedMax: 200
+                    }
+                }
+            },
+        })
+    }
+</script>
+</html>
