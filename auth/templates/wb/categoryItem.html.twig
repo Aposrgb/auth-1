@@ -20,6 +20,9 @@
     {% include 'wb/HTML/categoryItem.html.twig' %}
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            newDatePicker('period', function (date){
+                window.location.href = "{{ path('wb_item', {sku:sku}) }}?date="+date
+            })
             let el = document.getElementById("scrollbar")
             el.addEventListener("input",
                 function () {
@@ -82,6 +85,5 @@
                 }
             }
         }
-
     </script>
 {% endblock %}

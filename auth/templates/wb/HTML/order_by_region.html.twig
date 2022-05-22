@@ -1,0 +1,1103 @@
+<div id="mp-stats-app" class="main-content container-fluid">
+    <div id="global-loader-block" aria-hidden="true" class="mp-loader-overlay ag-overlay hidden">
+        <div class="ag-overlay-panel">
+            <div class="ag-overlay-wrapper ag-layout-normal ag-overlay-loading-wrapper">
+                <div class="mp-loader-static"></div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-start">
+                <div class="d-flex flex-column justify-content-between mr-5">
+                    <div><a href="/wb/item/{{ item.id }}">{{ item.full_name }} </a> <span>{{ item.brand }}</span></div>
+                    <div class="card-subtitle"><a href="https://www.wildberries.ru/catalog/{{ item.id }}/detail.aspx"
+                                                  target="_blank" class="mp-green-link">https://www.wildberries.ru/catalog/{{ item.id }}/detail.aspx</a>
+                    </div>
+                </div>
+                <div class="d-block-inline dropdown-period"><!----><!----><!----><!----><!----><!----><!---->
+                    <div class="btn-group d-flex flex-column flex-lg-block flex-lg-row">
+                        <div class="dropdown b-dropdown btn-group" id="__BVID__9"><!---->
+                            <button aria-haspopup="true" aria-expanded="false" type="button"
+                                    class="btn btn-secondary" id="__BVID__9__BV_toggle_">Период
+                            </button>
+                        </div> <!---->
+                        <div class="btn btn-secondary active">
+                            <div data-v-1ebd09d2="" class="vue-daterange-picker">
+                                <div data-v-1ebd09d2="" class=""><input disabled value="{{ d1 }} to {{ d2 }}" type="text" id="period"/></div>
+                                <!----></div>
+                        </div> <!----></div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-xxl-5">
+                        <table class="table table-sm table-borderless">
+                            <tbody class="no-border-x no-border-y">
+                            <tr>
+                                <td class="icon lead"></td>
+                                <td class="item">SKU</td>
+                                <td>{{ item.id }}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
+                                         aria-label="box" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                         class="bi-box b-icon bi">
+                                        <g>
+                                            <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5 8.186 1.113zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"></path>
+                                        </g>
+                                    </svg>
+                                </td>
+                                <td class="item">Предмет</td>
+                                <td>{{ item.name }}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
+                                         aria-label="box" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                         class="bi-box b-icon bi">
+                                        <g>
+                                            <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5 8.186 1.113zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"></path>
+                                        </g>
+                                    </svg>
+                                </td>
+                                <td class="item">Название</td>
+                                <td><a href="/wb/item/{{ item.id }}">{{ item.full_name }}</a></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
+                                         aria-label="globe" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                         class="bi-globe b-icon bi">
+                                        <g>
+                                            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855.173-.324.33-.682.468-1.068H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"></path>
+                                        </g>
+                                    </svg>
+                                </td>
+                                <td class="item">Бренд</td>
+                                <td><a href="/wb/brand?brand={{ item.brand }}" target="_blank">{{ item.brand }}</a></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
+                                         aria-label="cash stack" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                         class="bi-cash-stack b-icon bi">
+                                        <g>
+                                            <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1H1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path>
+                                            <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V5zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2H3z"></path>
+                                        </g>
+                                    </svg>
+                                </td>
+                                <td class="item">Цена</td>
+                                <td><span>{{ item.final_price }}</span> ₽
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
+                                         aria-label="cash stack" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                         class="bi-cash-stack b-icon bi">
+                                        <g>
+                                            <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1H1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path>
+                                            <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V5zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2H3z"></path>
+                                        </g>
+                                    </svg>
+                                </td>
+                                <td class="item">Цена до скидки</td>
+                                <td><span>{{ item.price }}</span> р., скидка
+                                    <span>{{ item.discount }}</span>%
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
+                                         aria-label="shop window" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                         class="bi-shop-window b-icon bi">
+                                        <g>
+                                            <path d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h12V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zm2 .5a.5.5 0 0 1 .5.5V13h8V9.5a.5.5 0 0 1 1 0V13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5a.5.5 0 0 1 .5-.5z"></path>
+                                        </g>
+                                    </svg>
+                                </td>
+                                <td class="item">Поставщик</td>
+                                <td><span class="mr-2"><a>{{ item.seller }}</a></span>
+                                </td>
+                            </tr>
+                            <tr style="display: none;">
+                                <td>
+                                    <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
+                                         aria-label="clock" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                         class="bi-clock b-icon bi">
+                                        <g>
+                                            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"></path>
+                                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"></path>
+                                        </g>
+                                    </svg>
+                                </td>
+                                <td>Обновлено</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
+                                         aria-label="people" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                         class="bi-people b-icon bi">
+                                        <g>
+                                            <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"></path>
+                                        </g>
+                                    </svg>
+                                </td>
+                                <td>Дополнительно</td>
+                                <td><!----> <span title="Рейтинг" class="badge badge-success">
+                                Рейтинг: <span>{{ item.rating }}</span></span> <span title="Количество комментариев"
+                                                                     class="badge badge-warning">
+                                Комментариев: <span>{{ item.comments }}</span></span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">Заказы и остатки</div>
+            <div class="tabs" id="__BVID__22"><!---->
+                <div class="">
+                    <ul role="tablist" class="nav nav-tabs" id="__BVID__22__BV_tab_controls_"><!---->
+                        <li role="presentation" class="nav-item"><a id="__BVID__23___BV_tab_button__" role="tab"
+                                                                    aria-selected="true" aria-setsize="1"
+                                                                    aria-posinset="1" aria-controls="__BVID__23"
+                                                                    href="#" target="_self" class="nav-link active">По
+                                складам</a></li><!----></ul>
+                </div>
+                <div class="tab-content" id="__BVID__22__BV_tab_container_">
+                    <div role="tabpanel" aria-hidden="false" class="tab-pane active" id="__BVID__23"
+                         aria-labelledby="__BVID__23___BV_tab_button__" style="">
+                        <div>
+                            <div class="ag-theme-balham">
+                                <div ref="eRootWrapper"
+                                     class="ag-root-wrapper ag-ltr ag-layout-auto-height ag-keyboard-focus">
+                                    <!--AG-GRID-HEADER-DROP-ZONES-->
+                                    <div class="ag-column-drop-wrapper">
+                                        <div class="ag-unselectable ag-column-drop ag-column-drop-horizontal ag-column-drop-empty ag-hidden">
+                                            <div class="ag-column-drop-title-bar ag-column-drop-horizontal-title-bar">
+                                                <span class="ag-icon ag-icon-group ag-column-drop-icon ag-column-drop-horizontal-icon"
+                                                      unselectable="on" role="presentation"></span></div>
+                                            <div class="ag-column-drop-list ag-column-drop-horizontal-list"><span
+                                                        class="ag-column-drop-empty-message ag-column-drop-horizontal-empty-message">Перетащите сюда для группировки по строкам</span>
+                                            </div>
+                                        </div>
+                                        <div class="ag-unselectable ag-column-drop ag-column-drop-horizontal ag-column-drop-empty ag-hidden">
+                                            <div class="ag-column-drop-title-bar ag-column-drop-horizontal-title-bar">
+                                                <span class="ag-icon ag-icon-pivot ag-column-drop-icon ag-column-drop-horizontal-icon"
+                                                      unselectable="on" role="presentation"></span></div>
+                                            <div class="ag-column-drop-list ag-column-drop-horizontal-list"><span
+                                                        class="ag-column-drop-empty-message ag-column-drop-horizontal-empty-message">Перетащите сюда, чтобы задать заголовки столбам</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ag-root-wrapper-body ag-focus-managed ag-layout-auto-height"
+                                         ref="rootWrapperBody">
+                                        <div class="ag-tab-guard ag-tab-guard-top" role="presentation"
+                                             tabindex="0"></div>
+                                        <!--AG-GRID-BODY-->
+                                        <div class="ag-root ag-unselectable ag-layout-auto-height" role="grid"
+                                             unselectable="on" ref="gridBody" aria-rowcount="11" aria-colcount="121"
+                                             aria-multiselectable="true">
+                                            <!--AG-HEADER-ROOT-->
+                                            <div class="ag-header ag-focus-managed ag-pivot-off" role="presentation"
+                                                 ref="headerRoot" unselectable="on"
+                                                 style="height: 94px; min-height: 94px;">
+                                                <div class="ag-pinned-left-header" ref="ePinnedLeftHeader"
+                                                     role="presentation"
+                                                     style="width: 138px; max-width: 138px; min-width: 138px;">
+                                                    <div class="ag-header-row ag-header-row-column-group" role="row"
+                                                         aria-rowindex="1"
+                                                         style="top: 0px; height: 31px; width: 138px;">
+                                                        <div class="ag-header-group-cell ag-focus-managed ag-header-group-cell-no-group"
+                                                             role="columnheader" tabindex="-1" col-id="60_0"
+                                                             aria-colindex="1" style="width: 138px; left: 0px;">
+                                                            <div ref="agResize" class="ag-header-cell-resize"
+                                                                 role="presentation"></div>
+                                                            <div class="ag-header-group-cell-label" ref="agContainer"
+                                                                 role="presentation">
+                                                                <span ref="agLabel" class="ag-header-group-text"
+                                                                      role="presentation"></span>
+                                                                <span ref="agOpened"
+                                                                      class="ag-header-icon ag-header-expand-icon ag-header-expand-icon-expanded ag-hidden"><span
+                                                                            class="ag-icon ag-icon-expanded"
+                                                                            unselectable="on"
+                                                                            role="presentation"></span></span>
+                                                                <span ref="agClosed"
+                                                                      class="ag-header-icon ag-header-expand-icon ag-header-expand-icon-collapsed ag-hidden"><span
+                                                                            class="ag-icon ag-icon-contracted"
+                                                                            unselectable="on"
+                                                                            role="presentation"></span></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ag-header-row ag-header-row-column" role="row"
+                                                         aria-rowindex="2"
+                                                         style="top: 31px; height: 31px; width: 138px;">
+                                                        <div class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
+                                                             role="columnheader" unselectable="on" tabindex="-1"
+                                                             aria-sort="none" aria-colindex="1" col-id="store"
+                                                             style="width: 138px; left: 0px;">
+                                                            <div ref="eResize" class="ag-header-cell-resize"
+                                                                 role="presentation"></div>
+                                                            <!--AG-CHECKBOX-->
+                                                            <div role="presentation" ref="cbSelectAll"
+                                                                 class="ag-header-select-all ag-labeled ag-label-align-right ag-checkbox ag-input-field ag-hidden">
+                                                                <div ref="eLabel"
+                                                                     class="ag-input-field-label ag-label ag-hidden ag-checkbox-label"
+                                                                     role="presentation"></div>
+                                                                <div ref="eWrapper"
+                                                                     class="ag-wrapper ag-input-wrapper ag-checkbox-input-wrapper"
+                                                                     role="presentation">
+                                                                    <input ref="eInput"
+                                                                           class="ag-input-field-input ag-checkbox-input"
+                                                                           type="checkbox" id="ag-185-input"
+                                                                           tabindex="-1"
+                                                                           aria-label="Press Space to toggle all rows selection (unchecked)">
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-cell-label-container ag-header-cell-sorted-none"
+                                                                 role="presentation">
+                                                                <span ref="eMenu"
+                                                                      class="ag-header-icon ag-header-cell-menu-button"
+                                                                      aria-hidden="true"><span
+                                                                            class="ag-icon ag-icon-menu"
+                                                                            unselectable="on"
+                                                                            role="presentation"></span></span>
+                                                                <div ref="eLabel" class="ag-header-cell-label"
+                                                                     role="presentation" unselectable="on">
+                                                                    <span ref="eText" class="ag-header-cell-text"
+                                                                          unselectable="on">Склад</span>
+                                                                    <span ref="eFilter"
+                                                                          class="ag-header-icon ag-header-label-icon ag-filter-icon ag-hidden"
+                                                                          aria-hidden="true"><span
+                                                                                class="ag-icon ag-icon-filter"
+                                                                                unselectable="on"
+                                                                                role="presentation"></span></span>
+                                                                    <span ref="eSortOrder"
+                                                                          class="ag-header-icon ag-header-label-icon ag-sort-order ag-hidden"
+                                                                          aria-hidden="true"></span>
+                                                                    <span ref="eSortAsc"
+                                                                          class="ag-header-icon ag-header-label-icon ag-sort-ascending-icon ag-hidden"
+                                                                          aria-hidden="true"><span
+                                                                                class="ag-icon ag-icon-asc"
+                                                                                unselectable="on"
+                                                                                role="presentation"></span></span>
+                                                                    <span ref="eSortDesc"
+                                                                          class="ag-header-icon ag-header-label-icon ag-sort-descending-icon ag-hidden"
+                                                                          aria-hidden="true"><span
+                                                                                class="ag-icon ag-icon-desc"
+                                                                                unselectable="on"
+                                                                                role="presentation"></span></span>
+                                                                    <span ref="eSortNone"
+                                                                          class="ag-header-icon ag-header-label-icon ag-sort-none-icon ag-hidden"
+                                                                          aria-hidden="true"><span
+                                                                                class="ag-icon ag-icon-none"
+                                                                                unselectable="on"
+                                                                                role="presentation"></span></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ag-header-row ag-header-row-floating-filter" role="row"
+                                                         aria-rowindex="3"
+                                                         style="top: 62px; height: 31px; width: 138px;">
+                                                        <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                             tabindex="-1" aria-colindex="1"
+                                                             style="width: 138px; left: 0px;">
+                                                            <div class="ag-floating-filter-body"
+                                                                 ref="eFloatingFilterBody" role="presentation">
+                                                                <div class="ag-floating-filter-input"
+                                                                     role="presentation">
+                                                                    <!--AG-INPUT-TEXT-FIELD-->
+                                                                    <div role="presentation" ref="eFloatingFilterInput"
+                                                                         class="ag-labeled ag-label-align-left ag-text-field ag-input-field">
+                                                                        <div ref="eLabel"
+                                                                             class="ag-input-field-label ag-label ag-hidden ag-text-field-label"
+                                                                             role="presentation"></div>
+                                                                        <div ref="eWrapper"
+                                                                             class="ag-wrapper ag-input-wrapper ag-text-field-input-wrapper"
+                                                                             role="presentation">
+                                                                            <input ref="eInput"
+                                                                                   class="ag-input-field-input ag-text-field-input"
+                                                                                   type="text" id="ag-189-input"
+                                                                                   aria-label="Склад Filter Input">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-floating-filter-button" ref="eButtonWrapper"
+                                                                 role="presentation">
+                                                                <button type="button" aria-label="Open Filter Menu"
+                                                                        class="ag-floating-filter-button-button"
+                                                                        ref="eButtonShowMainFilter" tabindex="-1"><span
+                                                                            class="ag-icon ag-icon-filter"
+                                                                            unselectable="on"
+                                                                            role="presentation"></span></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="ag-header-viewport" ref="eHeaderViewport"
+                                                     role="presentation">
+                                                    <div id="table_sale_header" class="ag-header-container" ref="eHeaderContainer"
+                                                         role="rowgroup"
+                                                         style="width: {{ (data|length+1) * 150 }}px; transform: translateX(0px);">
+                                                        <div  class="ag-header-row ag-header-row-column-group" role="row"
+                                                             aria-rowindex="1"
+                                                             style="top: 0px; height: 31px; width: {{ (data|length+1) * 150 }}px;">
+                                                            {% if data|length > 0 %}
+                                                                {% for item in data %}
+                                                                    <div class="ag-header-group-cell ag-focus-managed ag-header-group-cell-with-group"
+                                                                         aria-colspan="2" aria-colindex="2"
+                                                                         style="width: 150px; left: {{ (loop.index-1) * 150 }}px;">
+
+                                                                        <div class="ag-header-group-cell-label"
+                                                                             ref="agContainer" role="presentation">
+                                                                    <span ref="agLabel" class="ag-header-group-text"
+                                                                          role="presentation">{{ item.date }}</span>
+                                                                            <span ref="agOpened"
+                                                                                  class="ag-header-icon ag-header-expand-icon ag-header-expand-icon-expanded ag-hidden"><span
+                                                                                        class="ag-icon ag-icon-expanded"
+                                                                                        unselectable="on"
+                                                                                        role="presentation"></span></span>
+                                                                            <span ref="agClosed"
+                                                                                  class="ag-header-icon ag-header-expand-icon ag-header-expand-icon-collapsed ag-hidden"><span
+                                                                                        class="ag-icon ag-icon-contracted"
+                                                                                        unselectable="on"
+                                                                                        role="presentation"></span></span>
+                                                                        </div>
+                                                                    </div>
+                                                                {%  endfor  %}
+                                                            {%  endif  %}
+                                                        </div>
+                                                        <div class="ag-header-row ag-header-row-column" role="row"
+                                                             aria-rowindex="2"
+                                                             style="top: 31px; height: 31px; width: {{ (data|length+1) * 150 }}px;">
+                                                            {% if data|length > 0 %}
+                                                                {% for item in data %}
+                                                                    <div class="ag-header-cell ag-focus-managed ag-header-cell-sortable ag-right-aligned-header"
+                                                                         role="columnheader" unselectable="on" tabindex="-1"
+                                                                         aria-sort="none" aria-colindex="2"
+                                                                         col-id="2022-03-22_sales"
+                                                                         style="width: 75px; left: {{ ((loop.index-1) * 150) }}px;">
+                                                                        <div ref="eResize"
+                                                                             class="ag-header-cell-resize ag-hidden"
+                                                                             role="presentation"></div>
+                                                                        <!--AG-CHECKBOX-->
+                                                                        <div role="presentation" ref="cbSelectAll"
+                                                                             class="ag-header-select-all ag-labeled ag-label-align-right ag-checkbox ag-input-field ag-hidden">
+                                                                            <div ref="eLabel"
+                                                                                 class="ag-input-field-label ag-label ag-hidden ag-checkbox-label"
+                                                                                 role="presentation"></div>
+                                                                            <div ref="eWrapper"
+                                                                                 class="ag-wrapper ag-input-wrapper ag-checkbox-input-wrapper"
+                                                                                 role="presentation">
+                                                                                <input ref="eInput"
+                                                                                       class="ag-input-field-input ag-checkbox-input"
+                                                                                       type="checkbox" id="ag-87-input"
+                                                                                       tabindex="-1"
+                                                                                       aria-label="Press Space to toggle all rows selection (unchecked)">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="ag-cell-label-container ag-header-cell-sorted-none"
+                                                                             role="presentation">
+                                                                    <span ref="eMenu"
+                                                                          class="ag-header-icon ag-header-cell-menu-button"
+                                                                          aria-hidden="true"><span
+                                                                                class="ag-icon ag-icon-menu"
+                                                                                unselectable="on"
+                                                                                role="presentation"></span></span>
+                                                                            <div ref="eLabel" class="ag-header-cell-label"
+                                                                                 role="presentation" unselectable="on">
+                                                                        <span ref="eText" class="ag-header-cell-text"
+                                                                              unselectable="on">Заказы</span>
+                                                                                <span ref="eFilter"
+                                                                                      class="ag-header-icon ag-header-label-icon ag-filter-icon ag-hidden"
+                                                                                      aria-hidden="true"><span
+                                                                                            class="ag-icon ag-icon-filter"
+                                                                                            unselectable="on"
+                                                                                            role="presentation"></span></span>
+                                                                                <span ref="eSortOrder"
+                                                                                      class="ag-header-icon ag-header-label-icon ag-sort-order ag-hidden"
+                                                                                      aria-hidden="true"></span>
+                                                                                <span ref="eSortAsc"
+                                                                                      class="ag-header-icon ag-header-label-icon ag-sort-ascending-icon ag-hidden"
+                                                                                      aria-hidden="true"><span
+                                                                                            class="ag-icon ag-icon-asc"
+                                                                                            unselectable="on"
+                                                                                            role="presentation"></span></span>
+                                                                                <span ref="eSortDesc"
+                                                                                      class="ag-header-icon ag-header-label-icon ag-sort-descending-icon ag-hidden"
+                                                                                      aria-hidden="true"><span
+                                                                                            class="ag-icon ag-icon-desc"
+                                                                                            unselectable="on"
+                                                                                            role="presentation"></span></span>
+                                                                                <span ref="eSortNone"
+                                                                                      class="ag-header-icon ag-header-label-icon ag-sort-none-icon ag-hidden"
+                                                                                      aria-hidden="true"><span
+                                                                                            class="ag-icon ag-icon-none"
+                                                                                            unselectable="on"
+                                                                                            role="presentation"></span></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="ag-header-cell ag-focus-managed ag-header-cell-sortable ag-right-aligned-header"
+                                                                         role="columnheader" unselectable="on" tabindex="-1"
+                                                                         aria-sort="none" aria-colindex="3"
+                                                                         col-id="2022-03-22_balance"
+                                                                         style="width: 75px; left: {{ ((loop.index-1) * 150)+75 }}px;">
+                                                                        <div ref="eResize"
+                                                                             class="ag-header-cell-resize ag-hidden"
+                                                                             role="presentation"></div>
+                                                                        <!--AG-CHECKBOX-->
+                                                                        <div role="presentation" ref="cbSelectAll"
+                                                                             class="ag-header-select-all ag-labeled ag-label-align-right ag-checkbox ag-input-field ag-hidden">
+                                                                            <div ref="eLabel"
+                                                                                 class="ag-input-field-label ag-label ag-hidden ag-checkbox-label"
+                                                                                 role="presentation"></div>
+                                                                            <div ref="eWrapper"
+                                                                                 class="ag-wrapper ag-input-wrapper ag-checkbox-input-wrapper"
+                                                                                 role="presentation">
+                                                                                <input ref="eInput"
+                                                                                       class="ag-input-field-input ag-checkbox-input"
+                                                                                       type="checkbox" id="ag-90-input"
+                                                                                       tabindex="-1"
+                                                                                       aria-label="Press Space to toggle all rows selection (unchecked)">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="ag-cell-label-container ag-header-cell-sorted-none"
+                                                                             role="presentation">
+                                                                    <span ref="eMenu"
+                                                                          class="ag-header-icon ag-header-cell-menu-button"
+                                                                          aria-hidden="true"><span
+                                                                                class="ag-icon ag-icon-menu"
+                                                                                unselectable="on"
+                                                                                role="presentation"></span></span>
+                                                                            <div ref="eLabel" class="ag-header-cell-label"
+                                                                                 role="presentation" unselectable="on">
+                                                                        <span ref="eText" class="ag-header-cell-text"
+                                                                              unselectable="on">Остаток</span>
+                                                                                <span ref="eFilter"
+                                                                                      class="ag-header-icon ag-header-label-icon ag-filter-icon ag-hidden"
+                                                                                      aria-hidden="true"><span
+                                                                                            class="ag-icon ag-icon-filter"
+                                                                                            unselectable="on"
+                                                                                            role="presentation"></span></span>
+                                                                                <span ref="eSortOrder"
+                                                                                      class="ag-header-icon ag-header-label-icon ag-sort-order ag-hidden"
+                                                                                      aria-hidden="true"></span>
+                                                                                <span ref="eSortAsc"
+                                                                                      class="ag-header-icon ag-header-label-icon ag-sort-ascending-icon ag-hidden"
+                                                                                      aria-hidden="true"><span
+                                                                                            class="ag-icon ag-icon-asc"
+                                                                                            unselectable="on"
+                                                                                            role="presentation"></span></span>
+                                                                                <span ref="eSortDesc"
+                                                                                      class="ag-header-icon ag-header-label-icon ag-sort-descending-icon ag-hidden"
+                                                                                      aria-hidden="true"><span
+                                                                                            class="ag-icon ag-icon-desc"
+                                                                                            unselectable="on"
+                                                                                            role="presentation"></span></span>
+                                                                                <span ref="eSortNone"
+                                                                                      class="ag-header-icon ag-header-label-icon ag-sort-none-icon ag-hidden"
+                                                                                      aria-hidden="true"><span
+                                                                                            class="ag-icon ag-icon-none"
+                                                                                            unselectable="on"
+                                                                                            role="presentation"></span></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="ag-header-row ag-header-row-floating-filter"
+                                                             role="row" aria-rowindex="3"
+                                                             style="top: 62px; height: 31px; width: 9000px;">
+                                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                                 tabindex="-1" aria-colindex="2"
+                                                                 style="width: 75px; left: 0px;">
+                                                                <div class="ag-floating-filter-full-body"
+                                                                     ref="eFloatingFilterBody"
+                                                                     role="presentation"></div>
+                                                                <div class="ag-floating-filter-button ag-hidden"
+                                                                     ref="eButtonWrapper" role="presentation">
+                                                                    <button type="button" aria-label="Open Filter Menu"
+                                                                            class="ag-floating-filter-button-button"
+                                                                            ref="eButtonShowMainFilter"
+                                                                            tabindex="-1"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                                 tabindex="-1" aria-colindex="3"
+                                                                 style="width: 75px; left: 75px;">
+                                                                <div class="ag-floating-filter-full-body"
+                                                                     ref="eFloatingFilterBody"
+                                                                     role="presentation"></div>
+                                                                <div class="ag-floating-filter-button ag-hidden"
+                                                                     ref="eButtonWrapper" role="presentation">
+                                                                    <button type="button" aria-label="Open Filter Menu"
+                                                                            class="ag-floating-filter-button-button"
+                                                                            ref="eButtonShowMainFilter"
+                                                                            tabindex="-1"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                                 tabindex="-1" aria-colindex="4"
+                                                                 style="width: 75px; left: 150px;">
+                                                                <div class="ag-floating-filter-full-body"
+                                                                     ref="eFloatingFilterBody"
+                                                                     role="presentation"></div>
+                                                                <div class="ag-floating-filter-button ag-hidden"
+                                                                     ref="eButtonWrapper" role="presentation">
+                                                                    <button type="button" aria-label="Open Filter Menu"
+                                                                            class="ag-floating-filter-button-button"
+                                                                            ref="eButtonShowMainFilter"
+                                                                            tabindex="-1"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                                 tabindex="-1" aria-colindex="5"
+                                                                 style="width: 75px; left: 225px;">
+                                                                <div class="ag-floating-filter-full-body"
+                                                                     ref="eFloatingFilterBody"
+                                                                     role="presentation"></div>
+                                                                <div class="ag-floating-filter-button ag-hidden"
+                                                                     ref="eButtonWrapper" role="presentation">
+                                                                    <button type="button" aria-label="Open Filter Menu"
+                                                                            class="ag-floating-filter-button-button"
+                                                                            ref="eButtonShowMainFilter"
+                                                                            tabindex="-1"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                                 tabindex="-1" aria-colindex="6"
+                                                                 style="width: 75px; left: 300px;">
+                                                                <div class="ag-floating-filter-full-body"
+                                                                     ref="eFloatingFilterBody"
+                                                                     role="presentation"></div>
+                                                                <div class="ag-floating-filter-button ag-hidden"
+                                                                     ref="eButtonWrapper" role="presentation">
+                                                                    <button type="button" aria-label="Open Filter Menu"
+                                                                            class="ag-floating-filter-button-button"
+                                                                            ref="eButtonShowMainFilter"
+                                                                            tabindex="-1"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                                 tabindex="-1" aria-colindex="7"
+                                                                 style="width: 75px; left: 375px;">
+                                                                <div class="ag-floating-filter-full-body"
+                                                                     ref="eFloatingFilterBody"
+                                                                     role="presentation"></div>
+                                                                <div class="ag-floating-filter-button ag-hidden"
+                                                                     ref="eButtonWrapper" role="presentation">
+                                                                    <button type="button" aria-label="Open Filter Menu"
+                                                                            class="ag-floating-filter-button-button"
+                                                                            ref="eButtonShowMainFilter"
+                                                                            tabindex="-1"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                                 tabindex="-1" aria-colindex="8"
+                                                                 style="width: 75px; left: 450px;">
+                                                                <div class="ag-floating-filter-full-body"
+                                                                     ref="eFloatingFilterBody"
+                                                                     role="presentation"></div>
+                                                                <div class="ag-floating-filter-button ag-hidden"
+                                                                     ref="eButtonWrapper" role="presentation">
+                                                                    <button type="button" aria-label="Open Filter Menu"
+                                                                            class="ag-floating-filter-button-button"
+                                                                            ref="eButtonShowMainFilter"
+                                                                            tabindex="-1"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                                 tabindex="-1" aria-colindex="9"
+                                                                 style="width: 75px; left: 525px;">
+                                                                <div class="ag-floating-filter-full-body"
+                                                                     ref="eFloatingFilterBody"
+                                                                     role="presentation"></div>
+                                                                <div class="ag-floating-filter-button ag-hidden"
+                                                                     ref="eButtonWrapper" role="presentation">
+                                                                    <button type="button" aria-label="Open Filter Menu"
+                                                                            class="ag-floating-filter-button-button"
+                                                                            ref="eButtonShowMainFilter"
+                                                                            tabindex="-1"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                                 tabindex="-1" aria-colindex="10"
+                                                                 style="width: 75px; left: 600px;">
+                                                                <div class="ag-floating-filter-full-body"
+                                                                     ref="eFloatingFilterBody"
+                                                                     role="presentation"></div>
+                                                                <div class="ag-floating-filter-button ag-hidden"
+                                                                     ref="eButtonWrapper" role="presentation">
+                                                                    <button type="button" aria-label="Open Filter Menu"
+                                                                            class="ag-floating-filter-button-button"
+                                                                            ref="eButtonShowMainFilter"
+                                                                            tabindex="-1"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                                 tabindex="-1" aria-colindex="11"
+                                                                 style="width: 75px; left: 675px;">
+                                                                <div class="ag-floating-filter-full-body"
+                                                                     ref="eFloatingFilterBody"
+                                                                     role="presentation"></div>
+                                                                <div class="ag-floating-filter-button ag-hidden"
+                                                                     ref="eButtonWrapper" role="presentation">
+                                                                    <button type="button" aria-label="Open Filter Menu"
+                                                                            class="ag-floating-filter-button-button"
+                                                                            ref="eButtonShowMainFilter"
+                                                                            tabindex="-1"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                                 tabindex="-1" aria-colindex="12"
+                                                                 style="width: 75px; left: 750px;">
+                                                                <div class="ag-floating-filter-full-body"
+                                                                     ref="eFloatingFilterBody"
+                                                                     role="presentation"></div>
+                                                                <div class="ag-floating-filter-button ag-hidden"
+                                                                     ref="eButtonWrapper" role="presentation">
+                                                                    <button type="button" aria-label="Open Filter Menu"
+                                                                            class="ag-floating-filter-button-button"
+                                                                            ref="eButtonShowMainFilter"
+                                                                            tabindex="-1"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                                 tabindex="-1" aria-colindex="13"
+                                                                 style="width: 75px; left: 825px;">
+                                                                <div class="ag-floating-filter-full-body"
+                                                                     ref="eFloatingFilterBody"
+                                                                     role="presentation"></div>
+                                                                <div class="ag-floating-filter-button ag-hidden"
+                                                                     ref="eButtonWrapper" role="presentation">
+                                                                    <button type="button" aria-label="Open Filter Menu"
+                                                                            class="ag-floating-filter-button-button"
+                                                                            ref="eButtonShowMainFilter"
+                                                                            tabindex="-1"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                                 tabindex="-1" aria-colindex="14"
+                                                                 style="width: 75px; left: 900px;">
+                                                                <div class="ag-floating-filter-full-body"
+                                                                     ref="eFloatingFilterBody"
+                                                                     role="presentation"></div>
+                                                                <div class="ag-floating-filter-button ag-hidden"
+                                                                     ref="eButtonWrapper" role="presentation">
+                                                                    <button type="button" aria-label="Open Filter Menu"
+                                                                            class="ag-floating-filter-button-button"
+                                                                            ref="eButtonShowMainFilter"
+                                                                            tabindex="-1"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                                 tabindex="-1" aria-colindex="15"
+                                                                 style="width: 75px; left: 975px;">
+                                                                <div class="ag-floating-filter-full-body"
+                                                                     ref="eFloatingFilterBody"
+                                                                     role="presentation"></div>
+                                                                <div class="ag-floating-filter-button ag-hidden"
+                                                                     ref="eButtonWrapper" role="presentation">
+                                                                    <button type="button" aria-label="Open Filter Menu"
+                                                                            class="ag-floating-filter-button-button"
+                                                                            ref="eButtonShowMainFilter"
+                                                                            tabindex="-1"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                                 tabindex="-1" aria-colindex="16"
+                                                                 style="width: 75px; left: 1050px;">
+                                                                <div class="ag-floating-filter-full-body"
+                                                                     ref="eFloatingFilterBody"
+                                                                     role="presentation"></div>
+                                                                <div class="ag-floating-filter-button ag-hidden"
+                                                                     ref="eButtonWrapper" role="presentation">
+                                                                    <button type="button" aria-label="Open Filter Menu"
+                                                                            class="ag-floating-filter-button-button"
+                                                                            ref="eButtonShowMainFilter"
+                                                                            tabindex="-1"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                                 tabindex="-1" aria-colindex="17"
+                                                                 style="width: 75px; left: 1125px;">
+                                                                <div class="ag-floating-filter-full-body"
+                                                                     ref="eFloatingFilterBody"
+                                                                     role="presentation"></div>
+                                                                <div class="ag-floating-filter-button ag-hidden"
+                                                                     ref="eButtonWrapper" role="presentation">
+                                                                    <button type="button" aria-label="Open Filter Menu"
+                                                                            class="ag-floating-filter-button-button"
+                                                                            ref="eButtonShowMainFilter"
+                                                                            tabindex="-1"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                                 tabindex="-1" aria-colindex="18"
+                                                                 style="width: 75px; left: 1200px;">
+                                                                <div class="ag-floating-filter-full-body"
+                                                                     ref="eFloatingFilterBody"
+                                                                     role="presentation"></div>
+                                                                <div class="ag-floating-filter-button ag-hidden"
+                                                                     ref="eButtonWrapper" role="presentation">
+                                                                    <button type="button" aria-label="Open Filter Menu"
+                                                                            class="ag-floating-filter-button-button"
+                                                                            ref="eButtonShowMainFilter"
+                                                                            tabindex="-1"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                                 tabindex="-1" aria-colindex="19"
+                                                                 style="width: 75px; left: 1275px;">
+                                                                <div class="ag-floating-filter-full-body"
+                                                                     ref="eFloatingFilterBody"
+                                                                     role="presentation"></div>
+                                                                <div class="ag-floating-filter-button ag-hidden"
+                                                                     ref="eButtonWrapper" role="presentation">
+                                                                    <button type="button" aria-label="Open Filter Menu"
+                                                                            class="ag-floating-filter-button-button"
+                                                                            ref="eButtonShowMainFilter"
+                                                                            tabindex="-1"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                                 tabindex="-1" aria-colindex="20"
+                                                                 style="width: 75px; left: 1350px;">
+                                                                <div class="ag-floating-filter-full-body"
+                                                                     ref="eFloatingFilterBody"
+                                                                     role="presentation"></div>
+                                                                <div class="ag-floating-filter-button ag-hidden"
+                                                                     ref="eButtonWrapper" role="presentation">
+                                                                    <button type="button" aria-label="Open Filter Menu"
+                                                                            class="ag-floating-filter-button-button"
+                                                                            ref="eButtonShowMainFilter"
+                                                                            tabindex="-1"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                                 tabindex="-1" aria-colindex="21"
+                                                                 style="width: 75px; left: 1425px;">
+                                                                <div class="ag-floating-filter-full-body"
+                                                                     ref="eFloatingFilterBody"
+                                                                     role="presentation"></div>
+                                                                <div class="ag-floating-filter-button ag-hidden"
+                                                                     ref="eButtonWrapper" role="presentation">
+                                                                    <button type="button" aria-label="Open Filter Menu"
+                                                                            class="ag-floating-filter-button-button"
+                                                                            ref="eButtonShowMainFilter"
+                                                                            tabindex="-1"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                                 tabindex="-1" aria-colindex="22"
+                                                                 style="width: 75px; left: 1500px;">
+                                                                <div class="ag-floating-filter-full-body"
+                                                                     ref="eFloatingFilterBody"
+                                                                     role="presentation"></div>
+                                                                <div class="ag-floating-filter-button ag-hidden"
+                                                                     ref="eButtonWrapper" role="presentation">
+                                                                    <button type="button" aria-label="Open Filter Menu"
+                                                                            class="ag-floating-filter-button-button"
+                                                                            ref="eButtonShowMainFilter"
+                                                                            tabindex="-1"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                                 tabindex="-1" aria-colindex="23"
+                                                                 style="width: 75px; left: 1575px;">
+                                                                <div class="ag-floating-filter-full-body"
+                                                                     ref="eFloatingFilterBody"
+                                                                     role="presentation"></div>
+                                                                <div class="ag-floating-filter-button ag-hidden"
+                                                                     ref="eButtonWrapper" role="presentation">
+                                                                    <button type="button" aria-label="Open Filter Menu"
+                                                                            class="ag-floating-filter-button-button"
+                                                                            ref="eButtonShowMainFilter"
+                                                                            tabindex="-1"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                                 tabindex="-1" aria-colindex="24"
+                                                                 style="width: 75px; left: 1650px;">
+                                                                <div class="ag-floating-filter-full-body"
+                                                                     ref="eFloatingFilterBody"
+                                                                     role="presentation"></div>
+                                                                <div class="ag-floating-filter-button ag-hidden"
+                                                                     ref="eButtonWrapper" role="presentation">
+                                                                    <button type="button" aria-label="Open Filter Menu"
+                                                                            class="ag-floating-filter-button-button"
+                                                                            ref="eButtonShowMainFilter"
+                                                                            tabindex="-1"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ag-header-cell ag-focus-managed" role="gridcell"
+                                                                 tabindex="-1" aria-colindex="25"
+                                                                 style="width: 75px; left: 1725px;">
+                                                                <div class="ag-floating-filter-full-body"
+                                                                     ref="eFloatingFilterBody"
+                                                                     role="presentation"></div>
+                                                                <div class="ag-floating-filter-button ag-hidden"
+                                                                     ref="eButtonWrapper" role="presentation">
+                                                                    <button type="button" aria-label="Open Filter Menu"
+                                                                            class="ag-floating-filter-button-button"
+                                                                            ref="eButtonShowMainFilter"
+                                                                            tabindex="-1"></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="ag-pinned-right-header ag-hidden" ref="ePinnedRightHeader"
+                                                     role="presentation"
+                                                     style="width: 0px; max-width: 0px; min-width: 0px;">
+                                                    <div class="ag-header-row ag-header-row-column-group" role="row"
+                                                         aria-rowindex="1"
+                                                         style="top: 0px; height: 31px; width: 0px;"></div>
+                                                    <div class="ag-header-row ag-header-row-column" role="row"
+                                                         aria-rowindex="2"
+                                                         style="top: 31px; height: 31px; width: 0px;"></div>
+                                                    <div class="ag-header-row ag-header-row-floating-filter" role="row"
+                                                         aria-rowindex="3"
+                                                         style="top: 62px; height: 31px; width: 0px;"></div>
+                                                </div>
+                                            </div>
+                                            <div class="ag-floating-top" ref="eTop" role="presentation"
+                                                 unselectable="on"
+                                                 style="min-height: 0px; height: 0px; display: none; overflow-y: hidden;">
+                                                <!--AG-ROW-CONTAINER-->
+                                                <div class="ag-pinned-left-floating-top" ref="topLeftContainer"
+                                                     role="presentation" unselectable="on" name="topLeft"
+                                                     style="width: 138px; max-width: 138px; min-width: 138px;"></div>
+                                                <!--AG-ROW-CONTAINER-->
+                                                <div class="ag-floating-top-viewport" ref="topCenterContainer"
+                                                     role="presentation" unselectable="on" name="topCenter">
+                                                    <div class="ag-floating-top-container" ref="eContainer"
+                                                         role="presentation" unselectable="on"
+                                                         style="width: 9000px; transform: translateX(0px);"></div>
+                                                </div>
+                                                <!--AG-ROW-CONTAINER-->
+                                                <div class="ag-pinned-right-floating-top ag-hidden"
+                                                     ref="topRightContainer" role="presentation" unselectable="on"
+                                                     name="topRight"></div>
+                                                <!--AG-ROW-CONTAINER-->
+                                                <div class="ag-floating-top-full-width-container"
+                                                     ref="topFullWidthContainer" role="presentation" unselectable="on"
+                                                     name="topFullWidth"></div>
+                                            </div>
+                                            <div class="ag-body-viewport ag-row-no-animation ag-layout-auto-height"
+                                                 ref="eBodyViewport" role="presentation">
+                                                <!--AG-ROW-CONTAINER-->
+                                                <div class="ag-pinned-left-cols-container" ref="leftContainer"
+                                                     role="presentation" unselectable="on" name="left"
+                                                     style="height: 280px; width: 138px; max-width: 138px; min-width: 138px;">
+                                                    {% if data|length > 0 %}
+                                                        {% for key in data[0].keys %}
+                                                            <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
+                                                                 style="height: 35px; transform: translateY({{ (loop.index-1)*35 }}px); "
+                                                                 aria-label="Press SPACE to select this row.">
+                                                                <div lass="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value ag-cell-last-left-pinned"
+                                                                     aria-selected="false" style="padding-right:11px;padding-left:11px;width: 138px; left: 0px;">
+                                                                    {{ key }}
+                                                                </div>
+                                                            </div>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </div>
+                                                <!--AG-ROW-CONTAINER-->
+                                                <div class="ag-center-cols-clipper" ref="centerContainer"
+                                                     role="presentation" unselectable="on" name="center"
+                                                     style="height: 280px;">
+                                                    <div class="ag-center-cols-viewport" ref="eViewport"
+                                                         role="presentation" style="height: calc(100% + 14px);">
+                                                        <div id="table_sale" class="ag-center-cols-container" ref="eContainer"
+                                                             role="rowgroup" unselectable="on"
+                                                             style="width: {{ (data|length+1) * 150 }}px; height: 280px;">
+                                                            {% if data|length>0 %}
+                                                                {% for keys in data %}
+                                                                    <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
+                                                                         style="height: 35px;  left: {{ (loop.index-1)*150 }}px;  "
+                                                                         aria-label="Press SPACE to select this row.">
+                                                                        {%  for key in keys.value %}
+                                                                            <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                                                 aria-selected="false"
+                                                                                 style="width: 75px;transform: translateY({{ (loop.index-1) * 35 }}px); "><span>{{ key.sales=='NaN'?'-':key.sales }}</span>
+                                                                            </div>
+                                                                            <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                                                 aria-selected="false"
+                                                                                 style="width: 75px;transform: translateY({{ (loop.index-1) * 35 }}px); left: 75px;  "><span>{{ key.balance=='NaN'?'-':key.balance }}</span>
+                                                                            </div>
+                                                                        {%  endfor %}
+                                                                    </div>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--AG-ROW-CONTAINER-->
+                                                <div class="ag-pinned-right-cols-container ag-hidden"
+                                                     ref="rightContainer" role="presentation" unselectable="on"
+                                                     name="right" style="height: 280px;">
+                                                    <div role="row" row-index="0" aria-rowindex="2" row-id="0"
+                                                         comp-id="45"
+                                                         class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
+                                                         style="height: 35px; transform: translateY(0px); "
+                                                         aria-label="Press SPACE to select this row."></div>
+                                                    <div role="row" row-index="1" aria-rowindex="3" row-id="1"
+                                                         comp-id="46"
+                                                         class="ag-row ag-row-no-focus ag-row-odd ag-row-level-0 ag-row-position-absolute"
+                                                         style="height: 35px; transform: translateY(35px); "
+                                                         aria-label="Press SPACE to select this row."></div>
+                                                    <div role="row" row-index="2" aria-rowindex="4" row-id="2"
+                                                         comp-id="47"
+                                                         class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute"
+                                                         style="height: 35px; transform: translateY(70px); "
+                                                         aria-label="Press SPACE to select this row."></div>
+                                                    <div role="row" row-index="3" aria-rowindex="5" row-id="3"
+                                                         comp-id="48"
+                                                         class="ag-row ag-row-no-focus ag-row-odd ag-row-level-0 ag-row-position-absolute"
+                                                         style="height: 35px; transform: translateY(105px); "
+                                                         aria-label="Press SPACE to select this row."></div>
+                                                    <div role="row" row-index="4" aria-rowindex="6" row-id="4"
+                                                         comp-id="49"
+                                                         class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute"
+                                                         style="height: 35px; transform: translateY(140px); "
+                                                         aria-label="Press SPACE to select this row."></div>
+                                                    <div role="row" row-index="5" aria-rowindex="7" row-id="5"
+                                                         comp-id="50"
+                                                         class="ag-row ag-row-no-focus ag-row-odd ag-row-level-0 ag-row-position-absolute"
+                                                         style="height: 35px; transform: translateY(175px); "
+                                                         aria-label="Press SPACE to select this row."></div>
+                                                    <div role="row" row-index="6" aria-rowindex="8" row-id="6"
+                                                         comp-id="51"
+                                                         class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute"
+                                                         style="height: 35px; transform: translateY(210px); "
+                                                         aria-label="Press SPACE to select this row."></div>
+                                                    <div role="row" row-index="7" aria-rowindex="9" row-id="7"
+                                                         comp-id="52"
+                                                         class="ag-row ag-row-no-focus ag-row-odd ag-row-level-0 ag-row-position-absolute ag-row-last"
+                                                         style="height: 35px; transform: translateY(245px); "
+                                                         aria-label="Press SPACE to select this row."></div>
+                                                </div>
+                                                <!--AG-ROW-CONTAINER-->
+                                                <div class="ag-full-width-container" ref="fullWidthContainer"
+                                                     role="presentation" unselectable="on" name="fullWidth"
+                                                     style="height: 280px;"></div>
+                                            </div>
+                                            <div class="ag-floating-bottom" ref="eBottom" role="presentation"
+                                                 unselectable="on"
+                                                 style="min-height: 0px; height: 0px; display: none; overflow-y: hidden;">
+                                                <!--AG-ROW-CONTAINER-->
+                                                <div class="ag-pinned-left-floating-bottom" ref="bottomLeftContainer"
+                                                     role="presentation" unselectable="on" name="bottomLeft"
+                                                     style="width: 138px; max-width: 138px; min-width: 138px;"></div>
+                                                <!--AG-ROW-CONTAINER-->
+                                                <div class="ag-floating-bottom-viewport" ref="bottomCenterContainer"
+                                                     role="presentation" unselectable="on" name="bottomCenter">
+                                                    <div class="ag-floating-bottom-container" ref="eContainer"
+                                                         role="presentation" unselectable="on"
+                                                         style="width: 9000px; transform: translateX(0px);"></div>
+                                                </div>
+                                                <!--AG-ROW-CONTAINER-->
+                                                <div class="ag-pinned-right-floating-bottom ag-hidden"
+                                                     ref="bottomRightContainer" role="presentation" unselectable="on"
+                                                     name="bottomRight"></div>
+                                                <!--AG-ROW-CONTAINER-->
+                                                <div class="ag-floating-bottom-full-width-container"
+                                                     ref="bottomFullWidthContainer" role="presentation"
+                                                     unselectable="on" name="bottomFullWidth"></div>
+                                            </div>
+                                            <!--AG-FAKE-HORIZONTAL-SCROLL-->
+                                            <div class="ag-body-horizontal-scroll" aria-hidden="true"
+                                                 style="height: 14px; max-height: 14px; min-height: 14px;">
+                                                <div class="ag-body-horizontal-scroll" aria-hidden="true"
+                                                     style="height: 14px; max-height: 14px; min-height: 14px;">
+                                                    <input value="0" id="scrollbar" class="scrollbar"
+                                                           type="range" min="0" max="100"/>
+                                                </div>
+                                            </div>
+                                            <!--AG-OVERLAY-WRAPPER-->
+                                            <div class="ag-overlay ag-hidden" aria-hidden="true">
+                                                <div class="ag-overlay-panel">
+                                                    <div class="ag-overlay-wrapper ag-overlay-no-rows-wrapper ag-layout-auto-height"
+                                                         ref="eOverlayWrapper"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--AG-SIDE-BAR-->
+                                        <div class="ag-side-bar ag-unselectable ag-hidden" ref="sideBar">
+                                            <!--AG-SIDE-BAR-BUTTONS-->
+                                            <div class="ag-side-buttons" ref="sideBarButtons"></div>
+                                        </div>
+                                        <div class="ag-tab-guard ag-tab-guard-bottom" role="presentation"
+                                             tabindex="0"></div>
+                                    </div>
+                                    <!--AG-STATUS-BAR-->
+                                    <div class="ag-status-bar ag-hidden" ref="statusBar">
+                                        <div ref="eStatusBarLeft" class="ag-status-bar-left"></div>
+                                        <div ref="eStatusBarCenter" class="ag-status-bar-center"></div>
+                                        <div ref="eStatusBarRight" class="ag-status-bar-right"></div>
+                                    </div>
+                                    <!--AG-PAGINATION-->
+                                    <div class="ag-paging-panel ag-unselectable ag-hidden" id="ag-23" aria-live="polite"
+                                         aria-describedby="ag-23-start-page ag-23-start-page-number ag-23-of-page ag-23-of-page-number ag-23-first-row ag-23-to ag-23-last-row ag-23-of ag-23-row-count">
+                <span class="ag-paging-row-summary-panel" aria-hidden="true">
+                    <span id="ag-23-first-row" ref="lbFirstRowOnPage" class="ag-paging-row-summary-panel-number"></span>
+                    <span id="ag-23-to">к</span>
+                    <span id="ag-23-last-row" ref="lbLastRowOnPage" class="ag-paging-row-summary-panel-number"></span>
+                    <span id="ag-23-of">из</span>
+                    <span id="ag-23-row-count" ref="lbRecordCount" class="ag-paging-row-summary-panel-number"></span>
+                </span>
+                                        <span class="ag-paging-page-summary-panel" role="presentation">
+                    <div ref="btFirst" class="ag-paging-button" role="button" aria-label="First Page" tabindex="0"><span
+                                class="ag-icon ag-icon-first" unselectable="on" role="presentation"></span></div>
+                    <div ref="btPrevious" class="ag-paging-button" role="button" aria-label="Previous Page"
+                         tabindex="0"><span class="ag-icon ag-icon-previous" unselectable="on"
+                                            role="presentation"></span></div>
+                    <span class="ag-paging-description" aria-hidden="true">
+                        <span id="ag-23-start-page">Страница</span>
+                        <span id="ag-23-start-page-number" ref="lbCurrent" class="ag-paging-number"></span>
+                        <span id="ag-23-of-page">из</span>
+                        <span id="ag-23-of-page-number" ref="lbTotal" class="ag-paging-number"></span>
+                    </span>
+                    <div ref="btNext" class="ag-paging-button" role="button" aria-label="Next Page" tabindex="0"><span
+                                class="ag-icon ag-icon-next" unselectable="on" role="presentation"></span></div>
+                    <div ref="btLast" class="ag-paging-button" role="button" aria-label="Last Page" tabindex="0"><span
+                                class="ag-icon ag-icon-last" unselectable="on" role="presentation"></span></div>
+                </span>
+                                    </div>
+                                    <!--AG-WATERMARK-->
+                                    <div class="ag-watermark ag-hidden">
+                                        <div ref="eLicenseTextRef" class="ag-watermark-text"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!----><!----></div>
+            </div>
+        </div>
+    </div>
+    <div><!---->
+        <div class="snotify snotify-left_top"></div>
+        <div class="snotify snotify-left_center"></div>
+        <div class="snotify snotify-left_bottom"></div>
+        <div class="snotify snotify-right_top"></div>
+        <div class="snotify snotify-right_center"></div>
+        <div class="snotify snotify-right_bottom"></div>
+        <div class="snotify snotify-center_top"></div>
+        <div class="snotify snotify-center_center"></div>
+        <div class="snotify snotify-center_bottom"></div>
+    </div>
+</div>

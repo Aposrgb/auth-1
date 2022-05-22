@@ -4,6 +4,8 @@ namespace App\Service;
 
 use App\Entity\DataCategory;
 use App\Helper\Enum\CategoryEnum;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
 use Exception;
 use GuzzleHttp\Client;
 use Symfony\Component\HttpFoundation\Response;
@@ -99,13 +101,85 @@ class WbService extends AbstractService
         return $context;
     }
 
-    public function getItem($sku, $category)
+    public function getKeywords($sku, $query)
+    {
+        $context = ['sku' => $sku];
+        $client = new Client();
+        try{
+            $date = $query['date']??null;
+            $date = $date?explode(' to ', $date):null;
+            $context['d2'] = $date?$date[1]:(new \DateTime())->modify('-1 day')->format('Y-m-d');
+            $context['d1'] = $date?$date[0]:(new \DateTime())->modify('-61 day')->format('Y-m-d');
+            $data = $client->get($this->mpStatsApi."wb/get/item/$sku/by_keywords?full=true&d1=".$context['d1']."&d2=".$context['d2'], $this->getHeaders());
+            $data = json_decode($data->getBody()->getContents(), true);
+            $context['date'] = $data['days'];
+            $context['words'] = [];
+            $pos = [];
+            $avg = [];
+            foreach ($data['words'] as $name => $word){
+                $pos[] = $word['pos'];
+                $avg[] = $word['avgPos'];
+                $context['words'][] = [
+                    'word' => $name,
+                    'pos' => $word['pos'],
+                    'count' => $word['count'],
+                    'total' => $word['total'],
+                    'avgPos' => $word['avgPos']
+                ];
+            }
+            $data = $client->get($this->mpStatsApi."wb/get/item/$sku", $this->getHeaders())->getBody()->getContents();
+            $context['item'] = json_decode($data, true)['item'];
+        }catch (Exception $exception){}
+        return $context;
+    }
+
+    public function getOrderByRegion($sku, $query)
+    {
+        $context = ['sku' => $sku];
+        $client = new Client();
+        try{
+            $date = $query['date']??null;
+            $date = $date?explode(' to ', $date):null;
+            $context['d2'] = $date?$date[1]:(new \DateTime())->modify('-1 day')->format('Y-m-d');
+            $context['d1'] = $date?$date[0]:(new \DateTime())->modify('-61 day')->format('Y-m-d');
+            $data = $client->get($this->mpStatsApi."wb/get/item/$sku/orders_by_region?d1=".$context['d1']."&d2=".$context['d2'], $this->getHeaders());
+            $data = json_decode($data->getBody()->getContents(), true);
+            $context['data'] = [];
+            foreach ($data as $key => $value){
+                $keys = [];
+                $arrKeys = array_keys($value);
+                $arrValues = array_values($value);
+                for ($i=0;$i<count($arrKeys);$i++){
+                    $keys[] = [
+                        "name" => $arrKeys[$i],
+                        "value" => $arrValues[$i]
+                    ];
+                }
+                $keys = (new ArrayCollection($keys))
+                    ->matching(Criteria::create()->orderBy(['name' => Criteria::ASC]))
+                    ->getValues()
+                ;
+                $context['data'][] = [
+                    'date' => date_create($key)->format('d.m'),
+                    'keys' => array_map(function ($item){return $item['name'];}, $keys),
+                    'value' => array_map(function ($item){return $item['value'];}, $keys)
+                ];
+            }
+            $data = $client->get($this->mpStatsApi."wb/get/item/$sku", $this->getHeaders())->getBody()->getContents();
+            $context['item'] = json_decode($data, true)['item'];
+        }catch (Exception $exception){}
+        return $context;
+    }
+
+    public function getItem($sku, $query)
     {
         $context = ['sku' => $sku];
         $client = new Client();
         try {
-            $context['d2'] = (new \DateTime())->modify('-1 day')->format('Y-m-d');
-            $context['d1'] = (new \DateTime())->modify('-61 day')->format('Y-m-d');
+            $date = $query['date']??null;
+            $date = $date?explode(' to ', $date):null;
+            $context['d2'] = $date?$date[1]:(new \DateTime())->modify('-1 day')->format('Y-m-d');
+            $context['d1'] = $date?$date[0]:(new \DateTime())->modify('-61 day')->format('Y-m-d');
             $getUrl = function ($url, $isOneDate) use ($sku, $context) {
                 return ($this->mpStatsApiWb . "item/" . $sku . "$url?") . (!$isOneDate ?
                         "d2=" . $context['d2'] . "&d1=" . $context['d1'] :
@@ -120,7 +194,7 @@ class WbService extends AbstractService
                     true);
             };
             $context['sales'] = $requestToArray('/sales')[0];
-            $context['sales']['category'] = $category;
+            $context['sales']['category'] = $query['name']??'';
             $context['item'] = $requestToArray('');
             $context['photos'] = $context['item']['photos'];
             $context['item'] = $context['item']['item'];
