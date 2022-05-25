@@ -35,7 +35,11 @@
                             <tr><td>Запросов за сегодня</td><td class="item">0 из 2500 доступных в сутки</td></tr>
                             <tr><td>Запросов от расширения за сегодня</td><td class="item">0 из 2500 доступных в сутки</td></tr>
 
-                            <tr><td>Дата окончания подписки</td><td class="item">15.04.2022 в 14:05:18 <a href="/prolong-subscribe" class="btn btn-xs btn-success ml-1">Продлить подписку</a></td></tr>
+                            <tr><td>Дата окончания подписки</td><td class="item">{% if user.dateExpired %}
+                            {{user.dateExpired|date("m/d/Y") }}
+                        {% else %}
+                            Date empty
+                        {%endif%} <a href="/prolong-subscribe" class="btn btn-xs btn-success ml-1">Продлить подписку</a></td></tr>
                             </tbody>
                         </table>
 
