@@ -32,11 +32,23 @@
                     <div class="card-body">
                         <form action="/userpanel" method="POST"><input type="hidden" name="act" value="do">
                          <div class="form-group row">
-                         <label class="col-4 col-lg-3 col-form-label text-left" for="inputPassword2">Login</label>
-                        <div class="col-8 col-lg-9">
+                         <label class="col-4 col-lg-3 col-form-label text-left" for="inputPassword2">Тариф</label>
+                         <div class="col-8 col-lg-9">
+                                    <input class="form-control" value="Профессиональный" disabled >
+                                </div>
+                          </div>
+                         <div class="form-group row">
+                         <label class="col-4 col-lg-3 col-form-label text-left" for="inputPassword2">Дата окончания подписки</label>
+                         <div class="col-8 col-lg-9">
+                                    <input class="form-control" value="{{user.dateExpired|date("m/d/Y")}}" disabled >
+                                </div>
+                          </div>
+                         <div class="form-group row">
+                         <label class="col-4 col-lg-3 col-form-label text-left" for="inputPassword2">Логин</label>
+                         <div class="col-8 col-lg-9">
                                     <input class="form-control" value="{{user.username}}" disabled >
                                 </div>
-                            </div>
+                          </div>
                               
 
                             <div class="form-group row">
