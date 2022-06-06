@@ -46,7 +46,7 @@ class WbController extends AbstractController
     {
         $url = $request->query->all()['url']??null;
         return $this->render('wb/category'.($url != '' ? 'Sale': '').'.html.twig',
-            $this->service->getCategory($url != ''?$url:null)
+            $this->service->getCategory($url != ''?$url:null, $request->query->all())
         );
     }
     #[Route(path: '/bysearch', name: 'wb_by_search')]

@@ -33,9 +33,6 @@ class WbApiService
         $data['key'] = $this->token;
         $request = (new Client())
             ->request($method, $this->apiUrl . $path . "?" . http_build_query( $data ));
-        if($path == "incomes"){
-            var_export($this->apiUrl . $path . "?" . http_build_query( $data ));
-        }
 
         return json_decode(
         $request

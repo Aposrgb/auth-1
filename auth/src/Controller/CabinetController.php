@@ -65,9 +65,11 @@ class CabinetController extends AbstractController
         return $this->render('cabinet/cost-price.html.twig');
     }
     #[Route(path: '/compare', name: 'compare')]
-    public function compare(): Response
+    public function compare(Request $request): Response
     {
-        return $this->render('cabinet/compare.html.twig');
+        return $this->render('cabinet/compare.html.twig',
+            $this->cabinetWbService->compare($request->query->all())
+        );
     }
     #[Route(path: '/income-calc', name: 'income-calc')]
     public function incomeCalc(): Response

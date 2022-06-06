@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Criteria;
 use Exception;
 use GuzzleHttp\Client;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class WbService extends AbstractService
 {
@@ -241,11 +242,19 @@ class WbService extends AbstractService
         return $context;
     }
 
-    public function getCategory($url = null)
+    public function getCategory($url, $query)
     {
         if ($url) {
-            $date = new \DateTime();
-            $category = $this->mpStatsApiWb . "category?path=$url&" . "d2=" . $date->modify('-1 day')->format('Y-m-d') . "&d1=" . $date->modify('-60 day')->format('Y-m-d');
+            if(!key_exists('date', $query)){
+                $d1= (new \DateTime())->modify('-1 day')->format('Y-m-d');
+                $d2= (new \DateTime())->modify('-60 day')->format('Y-m-d');
+            }else{
+                $date = explode(' to ', $query['date']);
+                $d1= $date[0];
+                $d2= $date[1];
+            }
+            $fbs = $query['fbs']??0;
+            $category = $this->mpStatsApiWb . "category?path=$url&" . "d2=" . $d2 . "&d1=" . $d1 . "&fbs=".$fbs;
             $sales = json_decode((new Client())->get($category, $this->getHeaders())->getBody()->getContents(), true)['data'];
             $sales = array_map(function ($item) {
                 $item['color'] = (explode(', ', $item['color'])[0]);
@@ -259,7 +268,10 @@ class WbService extends AbstractService
 
             $context = [
                 'sales' => $sales,
-                'path' => $url
+                'path' => $url,
+                'd1' => $d1,
+                'd2' => $d2,
+                'fbs' => $fbs
             ];
             return $context;
         }
