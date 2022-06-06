@@ -10,6 +10,30 @@ use Doctrine\Common\Collections\Criteria;
 
 class CabinetWbService extends AbstractService
 {
+    public function compare($query)
+    {
+        if (key_exists("d1", $query) && key_exists("d2", $query)){
+            $d1 = explode(' to ', $query['d1']);
+            $d2 = explode(' to ', $query['d2']);
+            $context = [
+                'd11' => $d1[0],
+                'd12' => $d1[1],
+                'd21' => $d2[0],
+                'd22' => $d2[1],
+                'date' => true
+            ];
+        }else{
+            $date = (new \DateTime())->modify("-3 day");
+            $context = [
+                'd11' => $date->format("d.m.Y"),
+                'd12' => $date->modify("+1 day")->format("d.m.Y"),
+                'd21' => $date->modify("+1 day")->format("d.m.Y"),
+                'd22' => $date->modify("+1 day")->format("d.m.Y")
+            ];
+        }
+        return $context;
+    }
+
     public function getWeeklyReports($id, $query)
     {
         $dataWb = $this->checkStatusToken($id, $query);

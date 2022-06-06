@@ -8,7 +8,8 @@
     <link href="../../styles/seo/selection.css" rel="stylesheet">
     <link href="../../styles/seo/slider.css" rel="stylesheet">
     <link href="../../styles/seo/table.css" rel="stylesheet">
-
+    <link href="../../styles/jquery-spinner.min.css" rel="stylesheet">
+    <script src="../../script/jquery-spinner.min.js" />
     <script>
         function collapse(element) {
             let display = element.parentNode.parentNode.children[1].style.display
@@ -19,7 +20,18 @@
 {% block body %}
     {% include 'wb/HTML/categorySale.html.twig' %}
     <script>
+        let fbs = {{fbs}}, date = "{{d1}} to {{d2}}"
         document.addEventListener("DOMContentLoaded", () => {
+            newDatePicker('datePicker', function (date){
+                window.location.href="{{path("wb_category")}}?url={{ path }}&date="+date+"&fbs="+fbs
+            })
+            document.getElementById('switcher-element-72191').checked = fbs === 0 ?false:true
+            document.getElementById('switcher-element-72191').addEventListener("input",
+                function (){
+                    fbs = fbs === 0 ?1:0
+                    window.location.href="{{path("wb_category")}}?url={{ path }}&date="+date+"&fbs="+fbs
+                }
+            )
             let el = document.getElementById("scrollbar")
             el.addEventListener("input",
                 function () {
