@@ -178,11 +178,12 @@ class WbService extends AbstractService
         $client = new Client();
         try {
             $date = $query['date']??null;
+            $fbs = $query['fbs']??0;
             $date = $date?explode(' to ', $date):null;
             $context['d2'] = $date?$date[1]:(new \DateTime())->modify('-1 day')->format('Y-m-d');
             $context['d1'] = $date?$date[0]:(new \DateTime())->modify('-61 day')->format('Y-m-d');
-            $getUrl = function ($url, $isOneDate) use ($sku, $context) {
-                return ($this->mpStatsApiWb . "item/" . $sku . "$url?") . (!$isOneDate ?
+            $getUrl = function ($url, $isOneDate) use ($sku, $context, $fbs) {
+                return ($this->mpStatsApiWb . "item/" . $sku . "$url?fbs=$fbs&") . (!$isOneDate ?
                         "d2=" . $context['d2'] . "&d1=" . $context['d1'] :
                         "d=" . $context['d2']);
             };
@@ -194,7 +195,8 @@ class WbService extends AbstractService
                         ->getContents(),
                     true);
             };
-            $context['sales'] = $requestToArray('/sales')[0];
+            $sales = $requestToArray('/sales');
+            $context['sales'] = $sales[0];
             $context['sales']['category'] = $query['name']??'';
             $context['item'] = $requestToArray('');
             $context['photos'] = $context['item']['photos'];
@@ -235,10 +237,42 @@ class WbService extends AbstractService
             }
             $context['average'] = (int)($context['result'] / count($byKeywords['sales']));
             $context['summa_average'] = (int)($context['summa'] / count($byKeywords['sales']));
-
+            $context['by_keywords'] = array_reverse($context['by_keywords']);
+            $context['fbs'] = $fbs;
+            $context['salesG'] = [];
+            $context['balanceG'] = [];
+            $context['priceG'] = [];
+            $context['summaG'] = [];
+            $context['keyG'] = [];
+            $context['posG'] = [];
+            $context['catG'] = [];
+            $context['dayG'] = [];
+            foreach (array_reverse($context['by_keywords']) as $sale){
+                $context['salesG'][] = $sale['sale'];
+                $context['balanceG'][] = $sale['balance'];
+                $context['priceG'][] = $sale['final_price'];
+                $context['summaG'][] = $sale['summa'];
+                $context['dayG'][] = $sale['day'];
+            }
+            foreach (array_reverse($sales) as $item){
+                $context['keyG'][] = $item['visibility'];
+                $context['posG'][] = $item['position'];
+                $context['catG'][] = (int)($item['categories_cnt']??0);
+            }
+            $context['graphic1'][0] = [];
+            $context['graphic1'][1] = [];
+            $context['graphic2'][0] = [];
+            $context['graphic2'][1] = [];
+            foreach ($context['balance_by_region'] as $item){
+                $context['graphic1'][0][] = $item["store"];
+                $context['graphic1'][1][] = $item["balance"];
+            }
+            foreach ($context['sales_by_region'] as $item){
+                $context['graphic2'][0][] = $item["store"];
+                $context['graphic2'][1][] = $item["sales"];
+            }
         } catch (Exception $exception) {
         }
-        $context['by_keywords'] = array_reverse($context['by_keywords']);
         return $context;
     }
 

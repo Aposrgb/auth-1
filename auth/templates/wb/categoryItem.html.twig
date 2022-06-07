@@ -19,9 +19,22 @@
 {% block body %}
     {% include 'wb/HTML/categoryItem.html.twig' %}
     <script>
+        let fbs = {{fbs??0}};
         document.addEventListener("DOMContentLoaded", () => {
+            drawDonutGraph('graphic1', [{% for day in graphic1[0] %}"{{day}}",{% endfor %}], [{{graphic1[1] |join(",")}}], "Склады")
+            drawDonutGraph('graphic2', [{% for day in graphic2[0] %}"{{day}}",{% endfor %}], [{{graphic2[1] |join(",")}}], "Склады")
+            drawLineGraph('graph', [[{{salesG |join(",")}}],[{{balanceG |join(",")}}],[{{priceG |join(",")}}], [{{summaG |join(",")}}], [{{keyG |join(",")}}], [{{posG |join(",")}}], [{{catG|join(",") }}]], ["Продажи","Остаток","Цена","Выручка", "Видимость ключей", "Ср. позиция по ключам", "Кол-во категорий"],
+                [{% for day in dayG %}"{{day}}",{% endfor %}]
+            )
+            document.getElementById("switcher-element-64157").checked = fbs === 0 ?false:true
+            document.getElementById("switcher-element-64157").addEventListener("input",
+                function (){
+                    fbs = fbs === 0 ?1:0
+                    window.location.href="{{ path('wb_item', {sku:sku}) }}?date={{d1}} to {{d2}}"+"&fbs="+fbs
+                }
+            )
             newDatePicker('period', function (date){
-                window.location.href = "{{ path('wb_item', {sku:sku}) }}?date="+date
+                window.location.href = "{{ path('wb_item', {sku:sku}) }}?date="+date+"&fbs="+fbs
             })
             let el = document.getElementById("scrollbar")
             el.addEventListener("input",
@@ -50,22 +63,40 @@
                     document.getElementById("table_sale_header3_add2").style.transform = "translateX(-" + value + "vh)"
                 }, false)
         })
+        function setGraph(i, classes){
+            let graph = document.getElementById(classes).children
+            document.getElementById('graph'+i).classList.add("active")
+            document.getElementById('size'+i).classList.remove("active")
+            document.getElementById('income'+i).classList.remove("active")
+            graph[0].style = ""
+            graph[0].classList.add("active")
+            graph[1].style = "display:none"
+            graph[1].classList.remove("active")
+            graph[2].style = "display:none"
+            graph[2].classList.remove("active")
+        }
         function setIncomes(i, classes){
             let income = document.getElementById(classes).children
             document.getElementById('income'+i).classList.add("active")
             document.getElementById('size'+i).classList.remove("active")
-            income[0].style = ""
-            income[0].classList.add("active")
-            income[1].style = "display:none"
-            income[1].classList.remove("active")
-        }
-        function setSize(i, classes){
-            let income = document.getElementById(classes).children
+            document.getElementById('graph'+i).classList.remove("active")
             income[1].style = ""
             income[1].classList.add("active")
             income[0].style = "display:none"
             income[0].classList.remove("active")
+            income[2].style = "display:none"
+            income[2].classList.remove("active")
+        }
+        function setSize(i, classes){
+            let income = document.getElementById(classes).children
+            income[1].style = "display:none"
+            income[1].classList.remove("active")
+            income[2].style = ""
+            income[2].classList.add("active")
+            income[0].style = "display:none"
+            income[0].classList.remove("active")
             document.getElementById('income'+i).classList.remove("active")
+            document.getElementById('graph'+i).classList.remove("active")
             document.getElementById('size'+i).classList.add("active")
         }
         formatter("number")
