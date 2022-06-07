@@ -377,6 +377,10 @@
             background: rgb(177 255 188 / 20%);
             color: #33ae45!important;
         }
+        .ag-row:hover{
+            background: 0 0;
+            color: #4285f4;
+        }
     </style>
 {% endblock %}
 
@@ -414,93 +418,48 @@
             },
         })
     }
-    function drawLineGraph(id, data, names, labels){
+    function drawLineGraph(id, data, names, labels, groups=['A', 'B', 'A', 'A', 'C', 'C','C', 'C','A', 'A']){
+
+        let dataset = [],
+            BGcolor = [
+                'rgba(109,99,255,0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(66,26,34,0.2)',
+                'rgba(195,104,255,0.2)',
+                'rgba(255,224,99,0.68)',
+                'rgba(62,143,178,0.2)',
+                'rgba(54,54,54,0.5)',
+                'rgba(167,255,220,0.51)',
+                'rgba(191,3,255,0.56)',
+                'rgba(255,220,0,0.78)'
+            ],
+            BRcolor = [
+                'rgb(99,143,255)',
+                'rgba(255,99,132,1)',
+                'rgb(121,99,102)',
+                'rgb(169,99,255)',
+                'rgb(255,200,99)',
+                'rgb(94,200,224)',
+                'rgb(0,0,0)',
+                'rgb(149,255,235)',
+                'rgb(198,99,255)',
+                'rgb(255,253,31)'
+            ]
+        for(let i=0;i<data.length;i++){
+            dataset[i] = {
+                label: names[i],
+                backgroundColor: BGcolor[i],
+                borderColor: BRcolor[i],
+                borderWidth: 1,
+                yAxisID: groups[i],
+                data: data[i]
+            }
+        }
         new Chart(document.getElementById(id).getContext('2d'), {
             type: 'line',
             data: {
                 labels: labels,
-                datasets: [
-                    {
-                        label: names[0],
-                        backgroundColor: 'rgba(109,99,255,0.2)',
-                        borderColor: 'rgb(99,143,255)',
-                        borderWidth: 1,
-                        yAxisID: 'A',
-                        data: data[0]
-                    },
-                    {
-                        label: names[1],
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderColor: 'rgba(255,99,132,1)',
-                        borderWidth: 1,
-                        yAxisID: 'B',
-                        data: data[1]
-                    },
-                    {
-                        label: names[2],
-                        backgroundColor: 'rgba(66,26,34,0.2)',
-                        borderColor: 'rgb(121,99,102)',
-                        borderWidth: 1,
-                        yAxisID: 'A',
-                        data: data[2]
-                    },
-                    {
-                        label: names[3],
-                        backgroundColor: 'rgba(195,104,255,0.2)',
-                        borderColor: 'rgb(169,99,255)',
-                        borderWidth: 1,
-                        yAxisID: 'A',
-                        data: data[3]
-                    },
-                    {
-                        label: names[4],
-                        backgroundColor: 'rgba(255,224,99,0.68)',
-                        borderColor: 'rgb(255,200,99)',
-                        borderWidth: 1,
-                        yAxisID: 'C',
-                        data: data[4]
-                    },
-                    {
-                        label: names[5],
-                        backgroundColor: 'rgba(62,143,178,0.2)',
-                        borderColor: 'rgb(94,200,224)',
-                        borderWidth: 1,
-                        yAxisID: 'C',
-                        data: data[5]
-                    },
-                    {
-                        label: names[6],
-                        backgroundColor: 'rgba(54,54,54,0.5)',
-                        borderColor: 'rgb(0,0,0)',
-                        borderWidth: 1,
-                        yAxisID: 'C',
-                        data: data[6]
-                    },
-                    {
-                        label: names[7],
-                        backgroundColor: 'rgba(167,255,220,0.51)',
-                        borderColor: 'rgb(149,255,235)',
-                        borderWidth: 1,
-                        yAxisID: 'C',
-                        data: data[7]
-                    },
-                    {
-                        label: names[8],
-                        backgroundColor: 'rgba(191,3,255,0.56)',
-                        borderColor: 'rgb(198,99,255)',
-                        borderWidth: 1,
-                        yAxisID: 'A',
-                        data: data[8]
-                    },
-                    {
-                        label: names[9],
-                        backgroundColor: 'rgba(255,220,0,0.78)',
-                        borderColor: 'rgb(255,253,31)',
-                        borderWidth: 1,
-                        yAxisID: 'A',
-                        data: data[9]
-                    }
-                ]
+                datasets: dataset
             },
             options: {
                 responsive: true,
