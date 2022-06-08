@@ -4087,19 +4087,19 @@
                                                                             </div>
                                                                         </div>
                                                                         {% if by_keywords is defined %}
-                                                                            {% for item in by_keywords %}
+                                                                            {% for item in salesArr %}
                                                                                 <div class="ag-row ag-row-no-focus ag-row-odd ag-row-level-0 ag-row-position-absolute"
                                                                                      style="height: 27px; transform: translateY({{ loop.index * 27 }}px);">
                                                                                     <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
                                                                                          style="width: 184.42000000000007px; left: 0px;  ">
                                                                                 <span><a class="icon day-data-button mr-1"><i
                                                                                                 class="fas fa-clock"></i></a>
-                                                                                    <span>{{ item.day }}</span>
+                                                                                    <span>{{ item.data }}</span>
                                                                                 </span>
                                                                                     </div>
                                                                                     <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height text-right ag-cell-value"
                                                                                          style="width: 123px; left: 184.42000000000007px;  ">
-                                                                                        <span class="number">{{ item.sale }} шт</span>
+                                                                                        <span class="number">{{ item.sales }} шт</span>
                                                                                     </div>
                                                                                     <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
                                                                                          style="width: 123px; left: 307.4200000000001px;  ">
@@ -4107,7 +4107,7 @@
                                                                                     </div>
                                                                                     <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
                                                                                          style="width: 123px; left: 430.4200000000001px;  ">
-                                                                                        <span class="number">{{ item.client_price }} ₽</span>
+                                                                                        <span class="number">{{ item.price }} ₽</span>
                                                                                     </div>
                                                                                     <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
                                                                                          style="width: 123px; left: 553.4200000000001px;  ">
@@ -4115,17 +4115,17 @@
                                                                                     </div>
                                                                                     <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
                                                                                          style="width: 123px; left: 676.4200000000001px;  ">
-                                                                                        <span>0 %</span></div>
+                                                                                        <span>{{ item.client_sale }} %</span></div>
                                                                                     <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
                                                                                          style="width: 123px; left: 799.4200000000001px;  ">
-                                                                                        <span class="number">{{ item.summa }} ₽</span>
+                                                                                        <span class="number">{{ item.final_price * item.sales }} ₽</span>
                                                                                     </div>
                                                                                     <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
                                                                                          style="width: 123px; left: 922.4200000000001px;  ">
-                                                                                        <span>0</span></div>
+                                                                                        <span>{{ item.comments }}</span></div>
                                                                                     <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height text-right ag-cell-value"
                                                                                          style="width: 123px; left: 1045.42px;  ">
-                                                                                        <span>0</span></div>
+                                                                                        <span>{{ item.rating }}</span></div>
                                                                                 </div>
                                                                             {% endfor %}
                                                                         {% endif %}
@@ -5785,7 +5785,7 @@
                                                             <span
                                                                     class="ag-status-name-value-value">0</span>
                                                         </div>
-                                                        <div class="dropdown b-dropdown d-flex align-items-center position-static btn-group"
+                                                        <div onclick="exportSales()" class="dropdown b-dropdown d-flex align-items-center position-static btn-group"
                                                              id="__BVID__135"><!---->
                                                             <button aria-haspopup="true" aria-expanded="false"
                                                                     type="button"
