@@ -9,7 +9,6 @@ use Doctrine\Common\Collections\Criteria;
 use Exception;
 use GuzzleHttp\Client;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 class WbService extends AbstractService
 {
@@ -196,6 +195,7 @@ class WbService extends AbstractService
                     true);
             };
             $sales = $requestToArray('/sales');
+            $context['salesArr'] = $sales;
             $context['sales'] = $sales[0];
             $context['sales']['category'] = $query['name']??'';
             $context['item'] = $requestToArray('');

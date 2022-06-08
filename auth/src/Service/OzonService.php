@@ -5,9 +5,50 @@ namespace App\Service;
 use App\Entity\CategorySales;
 use App\Entity\DataCategory;
 use App\Helper\Enum\CategoryEnum;
+use GuzzleHttp\Client;
 
 class OzonService extends AbstractService
 {
+    public function getApiCategory($query)
+    {
+        $date = explode(' to ', $query['date']);
+        $path = $query['path'];
+        $response = (new Client())->get($this->mpStatsApi."oz/get/seller/categories?d1=$date[0]&d2=$date[1]&path=$path", $this->getHeaders());
+        $response = json_decode($response->getBody()->getContents(), true);
+        $data = [];
+        foreach ($response as $index => $item){
+            $data[] = array_merge(['name' => $index], $item);
+        }
+        return $data;
+    }
+
+    public function findSeller($seller, $query)
+    {
+        $context = [];
+        try{
+            $date = key_exists("date", $query)?explode(' to ', $query['date']):null;
+            $d1 = $date?$date[0]:(new \DateTime())->modify("- 31 day")->format("Y-m-d");
+            $d2 = $date?$date[1]:(new \DateTime())->modify("- 1 day")->format("Y-m-d");
+            $body = [
+                "startRow" => 0,
+                "endRow" => 100,
+                "sortModel" => [
+                    [
+                        "sort" => "desc",
+                        "colId" => "revenue"
+                    ]
+                ]
+            ];
+            $context['data'] = (new Client())->post($this->mpStatsApi."oz/get/seller?path=$seller&d1=$d1&d2=$d2", $this->getHeadersWithBody($body));
+            $context['data'] = json_decode($context['data']->getBody()->getContents(), true)['data'];
+            $context['seller'] = $seller;
+            $context['d1'] = $d1;
+            $context['d2'] = $d2;
+        }catch (\Exception $exception){}
+
+        return $context;
+    }
+
     public function getCategory($url = null)
     {
         if($url){

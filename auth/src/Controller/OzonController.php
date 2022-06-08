@@ -29,7 +29,14 @@ class OzonController extends AbstractController
     #[Route(path: '/seller', name: 'ozon_seller')]
     public function seller(): Response
     {
-        return $this->render('ozon/seller.html.twig');
+        return $this->render('ozon/searchSeller.html.twig');
+    }
+    #[Route(path: '/seller/{seller}', name: 'ozon_find_seller')]
+    public function findSeller($seller, Request $request): Response
+    {
+        return $this->render('ozon/seller.html.twig',
+            $this->ozonService->findSeller($seller, $request->query->all())
+        );
     }
     #[Route(path: '/brand', name: 'ozon_brand')]
     public function brand(): Response

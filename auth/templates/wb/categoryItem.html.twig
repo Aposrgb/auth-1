@@ -116,5 +116,12 @@
                 }
             }
         }
+        function exportSales(){
+            let text = `Date;Sale;Balance;Price;Final Price;Client Sale;Sale summa;Comments;Rating
+            {% for sale in salesArr%}
+            {{ sale.data }};{{ sale.sales }};{{ sale.balance }};{{ sale.price }};{{ sale.final_price }};{{ sale.client_sale }};{{ sale.final_price * sale.sales }};{{ sale.comments }};{{ sale.rating }}
+            {% endfor %}`
+            download("export.csv", text)
+        }
     </script>
 {% endblock %}
