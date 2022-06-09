@@ -9,6 +9,49 @@ use GuzzleHttp\Client;
 
 class OzonService extends AbstractService
 {
+    public function getApiPrcSegm($query)
+    {
+        $date = explode(' to ', $query['date']);
+        $path = $query['path'];
+        $max = "maxPrice=".($query['max']??'');
+        $min = "minPrice=".($query['min']??'');
+        $segm = "segmentsCnt=".($query['prcSegm']??25);
+        $response = (new Client())->get($this->mpStatsApi."oz/get/seller/price_segmentation?d1=$date[0]&d2=$date[1]&path=$path&$max&$min&$segm", $this->getHeaders());
+        $response = json_decode($response->getBody()->getContents(), true);
+        return [
+            'data' => $response,
+            'min' => min(array_map(function ($item){return $item['min_range_price'];}, $response)),
+            'max' => max(array_map(function ($item){return $item['max_range_price'];}, $response)),
+            'prcSegm' => $query['prcSegm']??25
+        ];
+    }
+
+    public function getApiOnDay($query)
+    {
+        $date = explode(' to ', $query['date']);
+        $path = $query['path'];
+        $response = (new Client())->get($this->mpStatsApi."oz/get/seller/by_date?d1=$date[0]&d2=$date[1]&path=$path", $this->getHeaders());
+        $response = json_decode($response->getBody()->getContents(), true);
+        $data = [];
+        foreach ($response as $index => $item){
+            $data[] = array_merge(['name' => $index], $item);
+        }
+        return $data;
+    }
+
+    public function getApiBrands($query)
+    {
+        $date = explode(' to ', $query['date']);
+        $path = $query['path'];
+        $response = (new Client())->get($this->mpStatsApi."oz/get/seller/brands?d1=$date[0]&d2=$date[1]&path=$path", $this->getHeaders());
+        $response = json_decode($response->getBody()->getContents(), true);
+        $data = [];
+        foreach ($response as $index => $item){
+            $data[] = array_merge(['name' => $index], $item);
+        }
+        return $data;
+    }
+
     public function getApiCategory($query)
     {
         $date = explode(' to ', $query['date']);
