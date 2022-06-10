@@ -39,4 +39,9 @@ class OzonApiController extends AbstractController
     {
         return $this->json($this->service->getApiPrcSegm($request->query->all()));
     }
+    #[Route(path: '/compare', name: 'api_ozon_compare')]
+    public function compare(Request $request): Response
+    {
+        return $this->json($this->service->getApiCompare($request->query->all()));
+    }
 }

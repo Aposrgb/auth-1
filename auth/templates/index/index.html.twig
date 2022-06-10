@@ -500,5 +500,66 @@
 
         document.body.removeChild(element);
     }
+    function mixChart(id, labels, names, data, lineData){
+        let dataset = [],
+            groups = ['A', 'B',  'C', 'D', 'E', 'F', 'G', 'U'],
+            BGcolor = [
+                'rgba(109,99,255,0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(66,26,34,0.2)',
+                'rgba(195,104,255,0.2)',
+                'rgba(255,224,99,0.68)',
+                'rgba(62,143,178,0.2)',
+                'rgba(54,54,54,0.5)',
+                'rgba(167,255,220,0.51)',
+                'rgba(191,3,255,0.56)',
+                'rgba(255,220,0,0.78)'
+            ],
+            BRcolor = [
+                'rgb(99,143,255)',
+                'rgba(255,99,132,1)',
+                'rgb(121,99,102)',
+                'rgb(169,99,255)',
+                'rgb(255,200,99)',
+                'rgb(94,200,224)',
+                'rgb(0,0,0)',
+                'rgb(149,255,235)',
+                'rgb(198,99,255)',
+                'rgb(255,253,31)'
+            ];
+        for(let i=0;i<data.length;i++){
+            dataset[i] = {
+                label: names[i],
+                data: data[i],
+                backgroundColor: BGcolor[i],
+                borderColor: BRcolor[i],
+                yAxisID: groups[i],
+            }
+        }
+        for(let i=0,j=data.length;i<lineData.length;i++,j++){
+            dataset[j] = {
+                label: names[j],
+                data: lineData[i],
+                backgroundColor: BGcolor[j],
+                borderColor: BRcolor[j],
+                type: 'line',
+                yAxisID: groups[j],
+                tension: 0.1
+            }
+        }
+        new Chart(document.getElementById(id).getContext('2d'), {
+            type: 'bar',
+            data: {
+                datasets: dataset,
+                labels: labels
+            },
+            options: {
+                scales: {
+                    yAxes: [{ id: 'A',}, { id: 'B',}, {id: 'C',}, {id: 'D',}, {id: 'E',}, {id: 'F',}, {id: 'G',}, {id: 'U',}]
+                }
+            },
+        });
+
+    }
 </script>
 </html>

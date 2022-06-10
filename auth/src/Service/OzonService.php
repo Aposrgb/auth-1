@@ -9,6 +9,29 @@ use GuzzleHttp\Client;
 
 class OzonService extends AbstractService
 {
+    public function getApiCompare($query)
+    {
+        $path = $query['path'];
+        $date = (new \DateTime())->modify("-28 day");
+        $body = [
+            "startRow" => 0,
+            "endRow" => 100,
+            "d11" => $date->format('Y-m-d'),
+            "d12" => $date->modify('+13 day')->format('Y-m-d'),
+            "d21" => $date->modify("+1 day")->format('Y-m-d'),
+            "d22" => $date->modify('+13 day')->format('Y-m-d')
+        ];
+        $response = (new Client())->post($this->mpStatsApi."oz/get/seller/compare?path=$path&delivery_scheme=0,1,2,3", $this->getHeadersWithBody($body));
+        $response = json_decode($response->getBody()->getContents(), true)['data'];
+        return [
+            'data' => $response,
+            'd11' => $body['d11'],
+            'd12' => $body['d12'],
+            'd21' => $body['d21'],
+            'd22' => $body['d22'],
+        ];
+    }
+
     public function getApiPrcSegm($query)
     {
         $date = explode(' to ', $query['date']);
@@ -20,8 +43,8 @@ class OzonService extends AbstractService
         $response = json_decode($response->getBody()->getContents(), true);
         return [
             'data' => $response,
-            'min' => min(array_map(function ($item){return $item['min_range_price'];}, $response)),
-            'max' => max(array_map(function ($item){return $item['max_range_price'];}, $response)),
+            'min' => count($response) > 0 ? min(array_map(function ($item){return $item['min_range_price'];}, $response)):0,
+            'max' => count($response) > 0 ? max(array_map(function ($item){return $item['max_range_price'];}, $response)):($query['max']??100),
             'prcSegm' => $query['prcSegm']??25
         ];
     }
