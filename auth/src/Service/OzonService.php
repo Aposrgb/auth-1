@@ -9,19 +9,52 @@ use GuzzleHttp\Client;
 
 class OzonService extends AbstractService
 {
-    public function getApiCompare($query)
+    public function findBrand($brand, $query)
+    {
+        $context = [];
+        try{
+            $date = key_exists("date", $query)?explode(' to ', $query['date']):null;
+            $d1 = $date?$date[0]:(new \DateTime())->modify("- 31 day")->format("Y-m-d");
+            $d2 = $date?$date[1]:(new \DateTime())->modify("- 1 day")->format("Y-m-d");
+            $body = [
+                "startRow" => 0,
+                "endRow" => 100,
+                "sortModel" => [
+                    [
+                        "sort" => "desc",
+                        "colId" => "revenue"
+                    ]
+                ]
+            ];
+            $context['data'] = (new Client())->post($this->mpStatsApi."oz/get/brand?path=$brand&d1=$d1&d2=$d2", $this->getHeadersWithBody($body));
+            $context['data'] = json_decode($context['data']->getBody()->getContents(), true)['data'];
+            $context['seller'] = $brand;
+            $context['d1'] = $d1;
+            $context['d2'] = $d2;
+        }catch (\Exception $exception){}
+
+        return $context;
+    }
+
+    public function getApiCompare($query, $url = 'seller')
     {
         $path = $query['path'];
-        $date = (new \DateTime())->modify("-28 day");
+        $date = (new \DateTime())->modify("-30 day");
         $body = [
             "startRow" => 0,
             "endRow" => 100,
+            "sortModel"=> [
+                [
+                    "sort"=> "desc",
+                    "colId"=> "revenue_diff"
+                ]
+            ],
             "d11" => $date->format('Y-m-d'),
-            "d12" => $date->modify('+13 day')->format('Y-m-d'),
+            "d12" => $date->modify('+14 day')->format('Y-m-d'),
             "d21" => $date->modify("+1 day")->format('Y-m-d'),
-            "d22" => $date->modify('+13 day')->format('Y-m-d')
+            "d22" => $date->modify('+14 day')->format('Y-m-d')
         ];
-        $response = (new Client())->post($this->mpStatsApi."oz/get/seller/compare?path=$path&delivery_scheme=0,1,2,3", $this->getHeadersWithBody($body));
+        $response = (new Client())->post($this->mpStatsApi."oz/get/$url/compare?path=$path&delivery_scheme=0,1,2,3", $this->getHeadersWithBody($body));
         $response = json_decode($response->getBody()->getContents(), true)['data'];
         return [
             'data' => $response,
@@ -32,14 +65,14 @@ class OzonService extends AbstractService
         ];
     }
 
-    public function getApiPrcSegm($query)
+    public function getApiPrcSegm($query, $url = 'seller')
     {
         $date = explode(' to ', $query['date']);
         $path = $query['path'];
         $max = "maxPrice=".($query['max']??'');
         $min = "minPrice=".($query['min']??'');
         $segm = "segmentsCnt=".($query['prcSegm']??25);
-        $response = (new Client())->get($this->mpStatsApi."oz/get/seller/price_segmentation?d1=$date[0]&d2=$date[1]&path=$path&$max&$min&$segm", $this->getHeaders());
+        $response = (new Client())->get($this->mpStatsApi."oz/get/$url/price_segmentation?d1=$date[0]&d2=$date[1]&path=$path&$max&$min&$segm&deliveryScheme=0,1,2,3", $this->getHeaders());
         $response = json_decode($response->getBody()->getContents(), true);
         return [
             'data' => $response,
@@ -49,11 +82,11 @@ class OzonService extends AbstractService
         ];
     }
 
-    public function getApiOnDay($query)
+    public function getApiOnDay($query, $url = 'seller')
     {
         $date = explode(' to ', $query['date']);
         $path = $query['path'];
-        $response = (new Client())->get($this->mpStatsApi."oz/get/seller/by_date?d1=$date[0]&d2=$date[1]&path=$path", $this->getHeaders());
+        $response = (new Client())->get($this->mpStatsApi."oz/get/$url/by_date?d1=$date[0]&d2=$date[1]&path=$path", $this->getHeaders());
         $response = json_decode($response->getBody()->getContents(), true);
         $data = [];
         foreach ($response as $index => $item){
@@ -62,11 +95,11 @@ class OzonService extends AbstractService
         return $data;
     }
 
-    public function getApiBrands($query)
+    public function getApiBrands($query, $url = 'seller')
     {
         $date = explode(' to ', $query['date']);
         $path = $query['path'];
-        $response = (new Client())->get($this->mpStatsApi."oz/get/seller/brands?d1=$date[0]&d2=$date[1]&path=$path", $this->getHeaders());
+        $response = (new Client())->get($this->mpStatsApi."oz/get/$url/". ($url == 'seller'?'brands':'sellers') ."?d1=$date[0]&d2=$date[1]&path=$path", $this->getHeaders());
         $response = json_decode($response->getBody()->getContents(), true);
         $data = [];
         foreach ($response as $index => $item){
@@ -75,11 +108,11 @@ class OzonService extends AbstractService
         return $data;
     }
 
-    public function getApiCategory($query)
+    public function getApiCategory($query, $url = 'seller')
     {
         $date = explode(' to ', $query['date']);
         $path = $query['path'];
-        $response = (new Client())->get($this->mpStatsApi."oz/get/seller/categories?d1=$date[0]&d2=$date[1]&path=$path", $this->getHeaders());
+        $response = (new Client())->get($this->mpStatsApi."oz/get/$url/categories?d1=$date[0]&d2=$date[1]&path=$path", $this->getHeaders());
         $response = json_decode($response->getBody()->getContents(), true);
         $data = [];
         foreach ($response as $index => $item){

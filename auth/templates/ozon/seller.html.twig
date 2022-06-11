@@ -31,18 +31,9 @@
                         <div class="d-flex flex-column">
                             <div class="d-flex justify-content-start">
                                 Сводка по продавцу <b class="ml-1">{{ seller }}</b>
-                                <div class="ml-2">
-                                    за <span>30</span> дней
-                                </div>
                             </div>
                         </div>
                         <div class="d-flex justify-content-between">
-                            <div class="dropdown b-dropdown mr-2 btn-group" id="__BVID__6"><!---->
-                                <button aria-haspopup="menu" aria-expanded="false" type="button"
-                                        class="btn btn-warning" id="__BVID__6__BV_toggle_">
-                                    Новинки:
-                                    <span>не важно</span> <!----> <i class="fas fa-caret-down"></i></button>
-                            </div>
                             <div class="d-block-inline dropdown-period"><!----><!----><!----><!----><!----><!---->
                                 <!---->
                                 <div class="btn-group d-flex flex-column flex-lg-block flex-lg-row">
@@ -4463,7 +4454,7 @@
                                                                                  ref="agContainer" role="presentation">
                                                                                 <span ref="agLabel"
                                                                                       class="ag-header-group-text"
-                                                                                      role="presentation">Суммарно (30 дней)</span>
+                                                                                      role="presentation">Суммарно</span>
                                                                                 <span ref="agOpened"
                                                                                       class="ag-header-icon ag-header-expand-icon ag-header-expand-icon-expanded ag-hidden"><span
                                                                                             class="ag-icon ag-icon-expanded"
@@ -7884,7 +7875,7 @@
                                                                                             unselectable="on"
                                                                                             role="presentation"></span></span>
                                                                                 <span ref="eTitle"
-                                                                                      class="ag-group-title ag-filter-toolpanel-group-title">Суммарно (30 дней)</span>
+                                                                                      class="ag-group-title ag-filter-toolpanel-group-title">Суммарно</span>
                                                                             </div>
                                                                             <div ref="eToolbar"
                                                                                  class="ag-group-toolbar ag-filter-toolpanel-group-toolbar ag-hidden">
@@ -8769,7 +8760,7 @@
                                                                                  ref="agContainer" role="presentation">
                                                                                 <span ref="agLabel"
                                                                                       class="ag-header-group-text"
-                                                                                      role="presentation">Суммарно (30 дней)</span>
+                                                                                      role="presentation">Суммарно</span>
                                                                                 <span ref="agOpened"
                                                                                       class="ag-header-icon ag-header-expand-icon ag-header-expand-icon-expanded ag-hidden"><span
                                                                                             class="ag-icon ag-icon-expanded"
@@ -12190,7 +12181,7 @@
                                                                                             unselectable="on"
                                                                                             role="presentation"></span></span>
                                                                                 <span ref="eTitle"
-                                                                                      class="ag-group-title ag-filter-toolpanel-group-title">Суммарно (30 дней)</span>
+                                                                                      class="ag-group-title ag-filter-toolpanel-group-title">Суммарно</span>
                                                                             </div>
                                                                             <div ref="eToolbar"
                                                                                  class="ag-group-toolbar ag-filter-toolpanel-group-toolbar ag-hidden">
@@ -13029,7 +13020,7 @@
                                                                                  ref="agContainer" role="presentation">
                                                                                 <span ref="agLabel"
                                                                                       class="ag-header-group-text"
-                                                                                      role="presentation">Суммарно (30 дней)</span>
+                                                                                      role="presentation">Суммарно</span>
                                                                                 <span ref="agOpened"
                                                                                       class="ag-header-icon ag-header-expand-icon ag-header-expand-icon-expanded ag-hidden"><span
                                                                                             class="ag-icon ag-icon-expanded"
@@ -16450,7 +16441,7 @@
                                                                                             unselectable="on"
                                                                                             role="presentation"></span></span>
                                                                                 <span ref="eTitle"
-                                                                                      class="ag-group-title ag-filter-toolpanel-group-title">Суммарно (30 дней)</span>
+                                                                                      class="ag-group-title ag-filter-toolpanel-group-title">Суммарно</span>
                                                                             </div>
                                                                             <div ref="eToolbar"
                                                                                  class="ag-group-toolbar ag-filter-toolpanel-group-toolbar ag-hidden">
@@ -23216,12 +23207,12 @@
                     for (let i = 0; i < data.length; i++) {
                         if (i === 6) {
                             label[i] = 'Остальные'
-                            valueSale[i] = data[i]['fbs']['sales']
-                            valueRev[i] = data[i]['fbs']['revenue']
+                            valueSale[6] = data[i]['fbs']['sales']
+                            valueRev[6] = data[i]['fbs']['revenue']
                         }
                         if (i > 6) {
-                            valueSale[i] = data[i]['fbs']['sales']
-                            valueRev[i] = data[i]['fbs']['revenue']
+                            valueSale[6] += data[i]['fbs']['sales']
+                            valueRev[6] += data[i]['fbs']['revenue']
                         }
                         if (i < 6) {
                             label[i] = data[i]['name']
@@ -23321,12 +23312,12 @@
                     for (let i = 0; i < data.length; i++) {
                         if (i === 6) {
                             label[i] = 'Остальные'
-                            valueSale[i] = data[i]['fbs']['sales']
-                            valueRev[i] = data[i]['fbs']['revenue']
+                            valueSale[6] = data[i]['fbs']['sales']
+                            valueRev[6] = data[i]['fbs']['revenue']
                         }
                         if (i > 6) {
-                            valueSale[i] = data[i]['fbs']['sales']
-                            valueRev[i] = data[i]['fbs']['revenue']
+                            valueSale[6] += data[i]['fbs']['sales']
+                            valueRev[6] += data[i]['fbs']['revenue']
                         }
                         if (i < 6) {
                             label[i] = data[i]['name']
