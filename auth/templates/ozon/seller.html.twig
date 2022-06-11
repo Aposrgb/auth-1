@@ -23216,12 +23216,12 @@
                     for (let i = 0; i < data.length; i++) {
                         if (i === 6) {
                             label[i] = 'Остальные'
-                            valueSale[i] = data[i]['fbs']['sales']
-                            valueRev[i] = data[i]['fbs']['revenue']
+                            valueSale[6] = data[i]['fbs']['sales']
+                            valueRev[6] = data[i]['fbs']['revenue']
                         }
                         if (i > 6) {
-                            valueSale[i] = data[i]['fbs']['sales']
-                            valueRev[i] = data[i]['fbs']['revenue']
+                            valueSale[6] += data[i]['fbs']['sales']
+                            valueRev[6] += data[i]['fbs']['revenue']
                         }
                         if (i < 6) {
                             label[i] = data[i]['name']
@@ -23321,12 +23321,12 @@
                     for (let i = 0; i < data.length; i++) {
                         if (i === 6) {
                             label[i] = 'Остальные'
-                            valueSale[i] = data[i]['fbs']['sales']
-                            valueRev[i] = data[i]['fbs']['revenue']
+                            valueSale[6] = data[i]['fbs']['sales']
+                            valueRev[6] = data[i]['fbs']['revenue']
                         }
                         if (i > 6) {
-                            valueSale[i] = data[i]['fbs']['sales']
-                            valueRev[i] = data[i]['fbs']['revenue']
+                            valueSale[6] += data[i]['fbs']['sales']
+                            valueRev[6] += data[i]['fbs']['revenue']
                         }
                         if (i < 6) {
                             label[i] = data[i]['name']
