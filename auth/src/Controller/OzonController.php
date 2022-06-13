@@ -55,4 +55,11 @@ class OzonController extends AbstractController
     {
         return $this->render('ozon/search.html.twig');
     }
+    #[Route(path: '/search/{sku}', name: 'ozon_get_item')]
+    public function getItem($sku, Request $request): Response
+    {
+        return $this->render('ozon/item.html.twig',
+            $this->ozonService->getItem($sku, $request->query->all())
+        );
+    }
 }

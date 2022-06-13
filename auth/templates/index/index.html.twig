@@ -12,7 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
+    <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.js"></script>
 </head>
 <body>
 <div class="be-wrapper be-nosidebar-left">
@@ -359,179 +359,242 @@
 </div>
 </div>
 </body>
-<script>
-    function drawDonutGraph(id, labels, data, title, vector = 'left'){
-        new Chart(document.getElementById(id).getContext('2d'), {
-            type: 'doughnut',
-            data: {
-                labels: labels,
-                datasets: [{
-                    data: data,
-                    backgroundColor: [
-                        'rgb(255,0,54)',
-                        'rgb(54, 162, 235)',
-                        'rgb(157,55,34)',
-                        'rgb(255, 205, 86)',
-                        'rgb(86,151,155)',
-                        'rgb(102,0,255)',
-                        'rgb(197,197,197)'
-                    ],
-                    hoverOffset: 4
-                }]
-            },
-            options: {
-                legend: {
-                    position: vector,
+{% block scripts %}
+    <script>
+        function drawDonutGraph(id, labels, data, title, vector = 'left'){
+            new Chart(document.getElementById(id).getContext('2d'), {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: [
+                            'rgb(255,0,54)',
+                            'rgb(54, 162, 235)',
+                            'rgb(157,55,34)',
+                            'rgb(255, 205, 86)',
+                            'rgb(86,151,155)',
+                            'rgb(102,0,255)',
+                            'rgb(197,197,197)'
+                        ],
+                        hoverOffset: 4
+                    }]
                 },
-                title: {
-                    display: true,
-                    text: title
-                }
-            },
-        })
-    }
-    function drawLineGraph(id, data, names, labels, groups=['A', 'B', 'A', 'A', 'C', 'C','C', 'C','A', 'A']){
-
-        let dataset = [],
-            BGcolor = [
-                'rgba(109,99,255,0.2)',
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(66,26,34,0.2)',
-                'rgba(195,104,255,0.2)',
-                'rgba(255,224,99,0.68)',
-                'rgba(62,143,178,0.2)',
-                'rgba(54,54,54,0.5)',
-                'rgba(167,255,220,0.51)',
-                'rgba(191,3,255,0.56)',
-                'rgba(255,220,0,0.78)'
-            ],
-            BRcolor = [
-                'rgb(99,143,255)',
-                'rgba(255,99,132,1)',
-                'rgb(121,99,102)',
-                'rgb(169,99,255)',
-                'rgb(255,200,99)',
-                'rgb(94,200,224)',
-                'rgb(0,0,0)',
-                'rgb(149,255,235)',
-                'rgb(198,99,255)',
-                'rgb(255,253,31)'
-            ]
-        for(let i=0;i<data.length;i++){
-            dataset[i] = {
-                label: names[i],
-                backgroundColor: BGcolor[i],
-                borderColor: BRcolor[i],
-                borderWidth: 1,
-                yAxisID: groups[i],
-                data: data[i]
-            }
-        }
-        new Chart(document.getElementById(id).getContext('2d'), {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: dataset
-            },
-            options: {
-                responsive: true,
-                interaction: {
-                    intersect: false,
+                options: {
+                    legend: {
+                        position: vector,
+                    },
+                    title: {
+                        display: true,
+                        text: title
+                    }
                 },
-                scales: {
-                    yAxes: [{ id: 'A',}, { id: 'B',}, {id: 'C',}]
-                }
-            },
-        })
-    }
-    function newDatePicker(id, func, format = "Y-m-d"){
-        document.getElementById(id).attributes.removeNamedItem('disabled')
-        flatpickr("#"+id, {
-            mode: "range",
-            dateFormat: format,
-            onClose: function(selectedDates, dateStr, instance) {
-                func(dateStr)
-            },
-        })
-    }
-    function newLoader(id, dur=300){
-        return new jQuerySpinner({
-            parentId: id,
-            duration: dur
-        });
-    }
-    function download(filename, text) {
-        var element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=Windows-1251,' + encodeURIComponent(text));
-        element.setAttribute('download', filename);
-
-        element.style.display = 'none';
-        document.body.appendChild(element);
-
-        element.click();
-
-        document.body.removeChild(element);
-    }
-    function mixChart(id, labels, names, data, lineData){
-        let dataset = [],
-            groups = ['A', 'B',  'C', 'D', 'E', 'F', 'G', 'U'],
-            BGcolor = [
-                'rgba(109,99,255,0.2)',
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(66,26,34,0.2)',
-                'rgba(195,104,255,0.2)',
-                'rgba(255,224,99,0.68)',
-                'rgba(62,143,178,0.2)',
-                'rgba(54,54,54,0.5)',
-                'rgba(167,255,220,0.51)',
-                'rgba(191,3,255,0.56)',
-                'rgba(255,220,0,0.78)'
-            ],
-            BRcolor = [
-                'rgb(99,143,255)',
-                'rgba(255,99,132,1)',
-                'rgb(121,99,102)',
-                'rgb(169,99,255)',
-                'rgb(255,200,99)',
-                'rgb(94,200,224)',
-                'rgb(0,0,0)',
-                'rgb(149,255,235)',
-                'rgb(198,99,255)',
-                'rgb(255,253,31)'
-            ];
-        for(let i=0;i<data.length;i++){
-            dataset[i] = {
-                label: names[i],
-                data: data[i],
-                backgroundColor: BGcolor[i],
-                borderColor: BRcolor[i],
-                yAxisID: groups[i],
-            }
+            })
         }
-        for(let i=0,j=data.length;i<lineData.length;i++,j++){
-            dataset[j] = {
-                label: names[j],
-                data: lineData[i],
-                backgroundColor: BGcolor[j],
-                borderColor: BRcolor[j],
+        function drawLineGraph(id, data, names, labels, groups=['A', 'B', 'A', 'A', 'C', 'C','C', 'C','A', 'A']){
+
+            let dataset = [],
+                BGcolor = [
+                    'rgba(109,99,255,0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(66,26,34,0.2)',
+                    'rgba(195,104,255,0.2)',
+                    'rgba(255,224,99,0.68)',
+                    'rgba(62,143,178,0.2)',
+                    'rgba(54,54,54,0.5)',
+                    'rgba(167,255,220,0.51)',
+                    'rgba(191,3,255,0.56)',
+                    'rgba(255,220,0,0.78)'
+                ],
+                BRcolor = [
+                    'rgb(99,143,255)',
+                    'rgba(255,99,132,1)',
+                    'rgb(121,99,102)',
+                    'rgb(169,99,255)',
+                    'rgb(255,200,99)',
+                    'rgb(94,200,224)',
+                    'rgb(0,0,0)',
+                    'rgb(149,255,235)',
+                    'rgb(198,99,255)',
+                    'rgb(255,253,31)'
+                ]
+            for(let i=0;i<data.length;i++){
+                dataset[i] = {
+                    label: names[i],
+                    backgroundColor: BGcolor[i],
+                    borderColor: BRcolor[i],
+                    borderWidth: 1,
+                    yAxisID: groups[i],
+                    data: data[i]
+                }
+            }
+            new Chart(document.getElementById(id).getContext('2d'), {
                 type: 'line',
-                yAxisID: groups[j],
-                tension: 0.1
-            }
+                data: {
+                    labels: labels,
+                    datasets: dataset
+                },
+                options: {
+                    responsive: true,
+                    interaction: {
+                        intersect: false,
+                    },
+                    scales: {
+                        yAxes: [{ id: 'A',}, { id: 'B',}, {id: 'C',}]
+                    }
+                },
+            })
         }
-        new Chart(document.getElementById(id).getContext('2d'), {
-            type: 'bar',
-            data: {
-                datasets: dataset,
-                labels: labels
-            },
-            options: {
-                scales: {
-                    yAxes: [{ id: 'A',}, { id: 'B',}, {id: 'C',}, {id: 'D',}, {id: 'E',}, {id: 'F',}, {id: 'G',}, {id: 'U',}]
-                }
-            },
-        });
+        function newDatePicker(id, func, format = "Y-m-d"){
+            document.getElementById(id).attributes.removeNamedItem('disabled')
+            flatpickr("#"+id, {
+                mode: "range",
+                dateFormat: format,
+                onClose: function(selectedDates, dateStr, instance) {
+                    func(dateStr)
+                },
+            })
+        }
+        function newLoader(id, dur=300){
+            return new jQuerySpinner({
+                parentId: id,
+                duration: dur
+            });
+        }
+        function download(filename, text) {
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=Windows-1251,' + encodeURIComponent(text));
+            element.setAttribute('download', filename);
 
-    }
-</script>
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
+        }
+        function mixChart(id, labels, names, data, lineData){
+            let dataset = [],
+                groups = ['A', 'B',  'C', 'D', 'E', 'F', 'G', 'U'],
+                BGcolor = [
+                    'rgba(109,99,255,0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(66,26,34,0.2)',
+                    'rgba(195,104,255,0.2)',
+                    'rgba(255,224,99,0.68)',
+                    'rgba(62,143,178,0.2)',
+                    'rgba(54,54,54,0.5)',
+                    'rgba(167,255,220,0.51)',
+                    'rgba(191,3,255,0.56)',
+                    'rgba(255,220,0,0.78)'
+                ],
+                BRcolor = [
+                    'rgb(99,143,255)',
+                    'rgba(255,99,132,1)',
+                    'rgb(121,99,102)',
+                    'rgb(169,99,255)',
+                    'rgb(255,200,99)',
+                    'rgb(94,200,224)',
+                    'rgb(0,0,0)',
+                    'rgb(149,255,235)',
+                    'rgb(198,99,255)',
+                    'rgb(255,253,31)'
+                ];
+            for(let i=0;i<data.length;i++){
+                dataset[i] = {
+                    label: names[i],
+                    data: data[i],
+                    backgroundColor: BGcolor[i],
+                    borderColor: BRcolor[i],
+                    yAxisID: groups[i],
+                }
+            }
+            for(let i=0,j=data.length;i<lineData.length;i++,j++){
+                dataset[j] = {
+                    label: names[j],
+                    data: lineData[i],
+                    backgroundColor: BGcolor[j],
+                    borderColor: BRcolor[j],
+                    type: 'line',
+                    yAxisID: groups[j],
+                    tension: 0.1
+                }
+            }
+            new Chart(document.getElementById(id).getContext('2d'), {
+                type: 'bar',
+                data: {
+                    datasets: dataset,
+                    labels: labels
+                },
+                options: {
+                    scales: {
+                        yAxes: [{ id: 'A',}, { id: 'B',}, {id: 'C',}, {id: 'D',}, {id: 'E',}, {id: 'F',}, {id: 'G',}, {id: 'U',}]
+                    }
+                },
+            });
+
+        }
+        function newDataGrid(el, col, value, onclick = e => 0){
+            let locale = {
+                filterOoo: 'Фильтровать...',
+                equals: 'Равно',
+                notEqual: 'Не равно',
+                blank: 'Пусто',
+                notBlank: 'Не пусто',
+                empty: 'Choose One',
+                inRange: 'В диапазоне',
+                inRangeStart: 'от',
+                inRangeEnd: 'до',
+                contains: 'Содержит',
+                notContains: 'Не содержит',
+                startsWith: 'Начинается с',
+                endsWith: 'Заканчивается',
+                dateFormatOoo: 'yyyy-mm-dd',
+                andCondition: 'И',
+                orCondition: 'ИЛИ',
+                applyFilter: 'Применить',
+                resetFilter: 'Сброс',
+                clearFilter: 'Очистить',
+                cancelFilter: 'Отмена',
+                textFilter: 'Текстовый фильтр',
+                numberFilter: 'Числовый фильтр',
+                dateFilter: 'Фильтр по дате',
+                setFilter: 'Задать фильтр',
+                columns: 'Столбцы',
+                filters: 'Фильтры'
+            };
+            let option = {
+                columnDefs: col,
+                rowHeight: 35,
+                rowData: value,
+                pagination: true,
+                defaultColDef: {
+                    enableRowGroup: true,
+                    enablePivot: true,
+                    enableValue: true,
+                    sortable: true,
+                    filter: 'agTextColumnFilter',
+                    floatingFilter: true,
+                    resizable: true,
+                    filterParams: {
+                        buttons: ['reset', 'apply'],
+                        debounceMs: 200
+                    },
+                },
+                onRowClicked: onclick,
+                sideBar: {
+                    toolPanels: ['columns'],
+                },
+                animateRows: true,
+                rowStyle: { background: 'white' },
+                suppressRowHoverHighlight: true,
+                columnHoverHighlight: true,
+                suppressExcelExport: true,
+                popupParent: document.body,
+                localeText: locale,
+            };
+            new agGrid.Grid(el, option);
+        }
+    </script>
+{% endblock %}
 </html>

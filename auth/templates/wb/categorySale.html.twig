@@ -22,6 +22,49 @@
     <script>
         let fbs = {{fbs}}, date = "{{d1}} to {{d2}}"
         document.addEventListener("DOMContentLoaded", () => {
+            newDataGrid(document.getElementsByClassName("ag-theme-balham")[0], [
+                {headerName:'Фото', field: 'photo', maxWidth: 80, sortable:false , filter: false, cellRenderer: params => `<img style="height: 32px; width: 32px" src="${params.value}" />`},
+                {headerName:'SKU', field: 'sku'},
+                {headerName:'Название', field: 'name'},
+                {headerName:'Цвет', field: 'color'},
+                {headerName:'Категория', field: 'category'},
+                {headerName:'Позиция', field: 'position'},
+                {headerName:'Бренд', field: 'brand'},
+                {headerName:'Продавец', field: 'seller'},
+                {headerName:'Наличие', field: 'balance'},
+                {headerName:'Комментарии', field: 'comments'},
+                {headerName:'Рейтинг', field: 'rating'},
+                {headerName:'Цена', field: 'finalPrice'},
+                {headerName:'Цена СПП', field: 'clientPrice'},
+                {headerName:'Дней в наличии', field: 'dayStock'},
+                {headerName:'Продаж', field: 'sales'},
+                {headerName:'Выручка', field: 'revenue'},
+            ], [
+                {% for sale in sales %}
+                {
+                    photo: '{{ sale.thumb }}',
+                    sku: {{ sale.nmId }} ,
+                    name: '{{ sale.name }}',
+                    color: '{{ sale.color }}' ,
+                    category: '{{ sale.category }} ',
+                    position: '{{ sale.position }}' ,
+                    brand: '{{ sale.brand }}' ,
+                    seller: '{{ sale.seller }}' ,
+                    balance: '{{ sale.balance }} ',
+                    comments: '{{ sale.comments }}' ,
+                    rating: '{{ sale.rating }}' ,
+                    finalPrice: '{{ sale.finalPrice }}' ,
+                    clientPrice: '{{ sale.clientPrice }}' ,
+                    dayStock:'{{ sale.dayStock }} ',
+                    sales: '{{ sale.sales }}' ,
+                    revenue: '{{ sale.revenue }}'
+                },
+                {% endfor %}
+            ],
+                event => {
+                window.location.href = 'item/'+event.data.sku
+            }
+            )
             newDatePicker('datePicker', function (date){
                 window.location.href="{{path("wb_category")}}?url={{ path }}&date="+date+"&fbs="+fbs
             })
@@ -32,14 +75,6 @@
                     window.location.href="{{path("wb_category")}}?url={{ path }}&date="+date+"&fbs="+fbs
                 }
             )
-            let el = document.getElementById("scrollbar")
-            el.addEventListener("input",
-                function () {
-                    let width = document.getElementById("table_sale").offsetWidth
-                    let value = (el.value * width / 300) / 5
-                    document.getElementById("table_sale").style.transform = "translateX(-" + value + "vh)"
-                    document.getElementById("table_sale_header").style.transform = "translateX(-" + value + "vh)"
-                }, false)
             let sb = document.getElementById("scrollbar_subcategory")
             sb.addEventListener("input",
                 function () {
