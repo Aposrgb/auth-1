@@ -1,0 +1,110 @@
+{% extends 'index/index.html.twig' %}
+{% block linkStyles %}
+    <link href="../../styles/index/styles.css" rel="stylesheet">
+    <link href="../../styles/index/vendor.css" rel="stylesheet">
+    <link href="../../styles/summary/summary.css" rel="stylesheet">
+    <link href="../../styles/summary/table.css" rel="stylesheet">
+    <link href="../../styles/summary/table2.css" rel="stylesheet">
+    <link href="../../styles/seo/selection.css" rel="stylesheet">
+    <link href="../../styles/seo/slider.css" rel="stylesheet">
+    <link href="../../styles/seo/table.css" rel="stylesheet">
+
+    <script>
+        function collapse(element) {
+            let display = element.parentNode.parentNode.children[1].style.display
+            element.parentNode.parentNode.children[1].style.display = display === "block" ? "none" : "block"
+        }
+    </script>
+{% endblock %}
+{% block body %}
+    {% include 'ozon/HTML/item.html.twig' %}
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            drawLineGraph('graph', [[{{salesG |join(",")}}],[{{balanceG |join(",")}}],[{{priceG |join(",")}}], [{{summaG |join(",")}}]], ["Продажи","Остаток","Цена","Выручка"],
+                [{% for day in dayG %}"{{day}}",{% endfor %}]
+            )
+            newDatePicker('period', function (date){
+                window.location.href = "{{ path('wb_item', {sku:sku}) }}?date="+date
+            })
+            let el = document.getElementById("scrollbar")
+            el.addEventListener("input",
+                function () {
+                    let width = document.getElementById("table_sale").offsetWidth
+                    let value =(el.value * width/2000*width/2000)/5
+                    document.getElementById("table_sale").style.transform = "translateX(-" + value + "vh)"
+                    document.getElementById("table_sale_header").style.transform = "translateX(-" + value + "vh)"
+                }, false)
+            let el2 = document.getElementById("scrollbar2")
+            el2.addEventListener("input",
+                function () {
+                    let width = document.getElementById("table_sale2").offsetWidth
+                    let value =(el2.value * width/2000*width/2000)/5
+                    document.getElementById("table_sale2").style.transform = "translateX(-" + value + "vh)"
+                    document.getElementById("table_sale_header2").style.transform = "translateX(-" + value + "vh)"
+                }, false)
+            let el3 = document.getElementById("scrollbar3")
+            el3.addEventListener("input",
+                function () {
+                    let width = document.getElementById("table_sale3").offsetWidth
+                    let value =(el3.value * width/1000*width/1000)/5
+                    document.getElementById("table_sale3").style.transform = "translateX(-" + value + "vh)"
+                    document.getElementById("table_sale_header3").style.transform = "translateX(-" + value + "vh)"
+                    document.getElementById("table_sale_header3_add1").style.transform = "translateX(-" + value + "vh)"
+                    document.getElementById("table_sale_header3_add2").style.transform = "translateX(-" + value + "vh)"
+                }, false)
+        })
+        function setGraph(i, classes){
+            let graph = document.getElementById(classes).children
+            document.getElementById('graph'+i).classList.add("active")
+            document.getElementById('size'+i).classList.remove("active")
+            document.getElementById('income'+i).classList.remove("active")
+            graph[0].style = ""
+            graph[0].classList.add("active")
+            graph[1].style = "display:none"
+            graph[1].classList.remove("active")
+            graph[2].style = "display:none"
+            graph[2].classList.remove("active")
+        }
+        function setIncomes(i, classes){
+            let income = document.getElementById(classes).children
+            document.getElementById('income'+i).classList.add("active")
+            document.getElementById('size'+i).classList.remove("active")
+            document.getElementById('graph'+i).classList.remove("active")
+            income[1].style = ""
+            income[1].classList.add("active")
+            income[0].style = "display:none"
+            income[0].classList.remove("active")
+            income[2].style = "display:none"
+            income[2].classList.remove("active")
+        }
+        function setSize(i, classes){
+            let income = document.getElementById(classes).children
+            income[1].style = "display:none"
+            income[1].classList.remove("active")
+            income[2].style = ""
+            income[2].classList.add("active")
+            income[0].style = "display:none"
+            income[0].classList.remove("active")
+            document.getElementById('income'+i).classList.remove("active")
+            document.getElementById('graph'+i).classList.remove("active")
+            document.getElementById('size'+i).classList.add("active")
+        }
+        formatter("number")
+
+        function formatter(id) {
+            let intFormatter = new Intl.NumberFormat()
+            for (let i=0;i<document.getElementsByClassName(id).length;i++){
+                let prop = document.getElementsByClassName(id)[i]
+                if(prop.innerText.indexOf(' ') !== -1){
+                    if(prop.innerText.indexOf(',') === -1) {
+                        let str = prop.innerText.substring(prop.innerText.indexOf(' '))
+                        prop.innerText = prop.innerText.substring(0, prop.innerText.indexOf(' '))
+                        prop.innerText = intFormatter.format(prop.innerText) + str
+                    }
+                }else{
+                    prop.innerText = intFormatter.format(prop.innerText)
+                }
+            }
+        }
+    </script>
+{% endblock %}
