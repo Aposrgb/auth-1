@@ -24,7 +24,7 @@
                 [{% for day in dayG %}"{{day}}",{% endfor %}]
             )
             newDatePicker('period', function (date){
-                window.location.href = "{{ path('wb_item', {sku:sku}) }}?date="+date
+                window.location.href = "{{ path('ozon_get_item', {sku:sku}) }}?date="+date
             })
             let el = document.getElementById("scrollbar")
             el.addEventListener("input",
@@ -33,14 +33,6 @@
                     let value =(el.value * width/2000*width/2000)/5
                     document.getElementById("table_sale").style.transform = "translateX(-" + value + "vh)"
                     document.getElementById("table_sale_header").style.transform = "translateX(-" + value + "vh)"
-                }, false)
-            let el2 = document.getElementById("scrollbar2")
-            el2.addEventListener("input",
-                function () {
-                    let width = document.getElementById("table_sale2").offsetWidth
-                    let value =(el2.value * width/2000*width/2000)/5
-                    document.getElementById("table_sale2").style.transform = "translateX(-" + value + "vh)"
-                    document.getElementById("table_sale_header2").style.transform = "translateX(-" + value + "vh)"
                 }, false)
             let el3 = document.getElementById("scrollbar3")
             el3.addEventListener("input",

@@ -13,7 +13,7 @@ class OzonService extends AbstractService
     {
         $context = ['sku' => $sku];
         $client = new Client();
-        try {
+//        try {
             $date = $query['date']??null;
             $date = $date?explode(' to ', $date):null;
             $context['d2'] = $date?$date[1]:(new \DateTime())->modify('-1 day')->format('Y-m-d');
@@ -40,7 +40,20 @@ class OzonService extends AbstractService
             $context['item'] = $context['item']['item'];
             $context['result'] = 0;
             $context['summa'] = 0;
+            $context['balance'] = 0;
+            $context['potensial'] = 0;
+            $context['price'] = 0;
             $context['count'] = 0;
+            $countSale = 0;
+            foreach ($sales as $sale){
+                if($sale['balance'] > 0){
+                    $context["result"] += $sale['sales'];
+                    $context["summa"] += $sale['sales'] * $sale['final_price'];
+                    $context['balance'] += $sale['balance'];
+                    $context['price'] += $sale['final_price'];
+                    $countSale++;
+                }
+            }
             $byKeywords = $requestToArray('/by_keywords');
             $context['keywords'] = [];
             $context['days'] = $byKeywords['days'];
@@ -62,13 +75,13 @@ class OzonService extends AbstractService
                     'final_price' => $byKeywords['final_price'][$i],
                     'summa' => $byKeywords['sales'][$i] * $byKeywords['final_price'][$i]
                 ];
-                $context['result'] += $byKeywords['sales'][$i];
-                $context['summa'] += $byKeywords['sales'][$i] * $byKeywords['final_price'][$i];
-                if ($byKeywords['sales'][$i] != 0) $context['count']++;
             }
-            $context['average'] = (int)($context['result'] / count($byKeywords['sales']));
-            $context['summa_average'] = (int)($context['summa'] / count($byKeywords['sales']));
+            $context['average'] = (int)($context['result'] / count($sales));
+            $context['summa_average'] = (int)($context['summa'] / count($sales));
+            $context['balance_price'] = (int)($context['price'] / $countSale) * $context['balance']/$countSale;
+            $context['balance'] = (int)($context['balance'] / $countSale);
             $context['by_keywords'] = array_reverse($context['by_keywords']);
+            $context['count']  = $countSale;
             $context['salesG'] = [];
             $context['balanceG'] = [];
             $context['priceG'] = [];
@@ -80,8 +93,8 @@ class OzonService extends AbstractService
                 $context['summaG'][] = $sale['summa'];
                 $context['dayG'][] = $sale['day'];
             }
-        } catch (\Exception $exception) {
-        }
+//        } catch (\Exception $exception) {
+//        }
         return $context;
     }
 
