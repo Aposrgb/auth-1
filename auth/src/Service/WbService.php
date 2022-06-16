@@ -175,7 +175,7 @@ class WbService extends AbstractService
     {
         $context = ['sku' => $sku];
         $client = new Client();
-        try {
+//        try {
             $date = $query['date']??null;
             $fbs = $query['fbs']??0;
             $date = $date?explode(' to ', $date):null;
@@ -255,8 +255,8 @@ class WbService extends AbstractService
                 $context['dayG'][] = $sale['day'];
             }
             foreach (array_reverse($sales) as $item){
-                $context['keyG'][] = $item['visibility'];
-                $context['posG'][] = $item['position'];
+                $context['keyG'][] = $item['visibility']??0;
+                $context['posG'][] = $item['position']??0;
                 $context['catG'][] = (int)($item['categories_cnt']??0);
             }
             $context['graphic1'][0] = [];
@@ -271,8 +271,8 @@ class WbService extends AbstractService
                 $context['graphic2'][0][] = $item["store"];
                 $context['graphic2'][1][] = $item["sales"];
             }
-        } catch (Exception $exception) {
-        }
+//        } catch (Exception $exception) {
+//        }
         return $context;
     }
 

@@ -8,73 +8,77 @@ class SeoService extends AbstractService
 {
     public function selection($array)
     {
-        $data = json_decode((new Client())->get($this->mpStatsApi . "seo/keywords/selection/ranges?", $this->getHeaders())->getBody()->getContents(), true);
-        $data['word'] = $array['word'] ?? '';
-        $setFilter = function ($filter, $filterTo) {
-            return [
-                "filterType" => "number",
-                "type" => "inRange",
-                "filter" => $filter,
-                "filterTo" => $filterTo
+        $data = [];
+        try{
+            $data = json_decode((new Client())->get($this->mpStatsApi . "seo/keywords/selection/ranges?", $this->getHeaders())->getBody()->getContents(), true);
+            $data['word'] = $array['word'] ?? '';
+            $setFilter = function ($filter, $filterTo) {
+                return [
+                    "filterType" => "number",
+                    "type" => "inRange",
+                    "filter" => $filter,
+                    "filterTo" => $filterTo
+                ];
+            };
+            $checkFilter = function ($name1) use ($data, $array, $setFilter) {
+                $min = ($array[$name1 . 'Min'] ?? '') == '' ? $data[$name1 . '_min'] : $array[$name1 . 'Min'];
+                $max = ($array[$name1 . 'Max'] ?? '') == '' ? $data[$name1 . '_max'] : $array[$name1 . 'Max'];
+                return $setFilter($min, $max);
+            };
+            $setBody = function ($name1) use ($data, $array) {
+                return [
+                    'min' => ($array[$name1 . 'Min'] ?? '') == '' ? $data[$name1 . '_min'] : $array[$name1 . 'Min'],
+                    'max' => ($array[$name1 . 'Max'] ?? '') == '' ? $data[$name1 . '_max'] : $array[$name1 . 'Max']
+                ];
+            };
+            $filters = [];
+            $filters['word'] = [
+                "filterType" => "text",
+                "type" => "contains",
+                "filter" => $array['word'] ?? ''
             ];
-        };
-        $checkFilter = function ($name1) use ($data, $array, $setFilter) {
-            $min = ($array[$name1 . 'Min'] ?? '') == '' ? $data[$name1 . '_min'] : $array[$name1 . 'Min'];
-            $max = ($array[$name1 . 'Max'] ?? '') == '' ? $data[$name1 . '_max'] : $array[$name1 . 'Max'];
-            return $setFilter($min, $max);
-        };
-        $setBody = function ($name1) use ($data, $array) {
-            return [
-                'min' => ($array[$name1 . 'Min'] ?? '') == '' ? $data[$name1 . '_min'] : $array[$name1 . 'Min'],
-                'max' => ($array[$name1 . 'Max'] ?? '') == '' ? $data[$name1 . '_max'] : $array[$name1 . 'Max']
+            $arrayNames = [
+                "count",
+                "brands",
+                "brands_with_sells",
+                "results",
+                "sales",
+                "sellers",
+                "sellers_with_sells",
+                "items",
+                "final_price_average",
+                "final_price_min",
+                "final_price_max",
+                "price_median",
+                "revenue",
+                "product_revenue",
+                "items_with_sells",
+                "items_with_sells_percent",
+                "sellers_with_sells_percent",
+                "brands_with_sells_percent"
             ];
-        };
-        $filters = [];
-        $filters['word'] = [
-            "filterType" => "text",
-            "type" => "contains",
-            "filter" => $array['word'] ?? ''
-        ];
-        $arrayNames = [
-            "count",
-            "brands",
-            "brands_with_sells",
-            "results",
-            "sales",
-            "sellers",
-            "sellers_with_sells",
-            "items",
-            "final_price_average",
-            "final_price_min",
-            "final_price_max",
-            "price_median",
-            "revenue",
-            "product_revenue",
-            "items_with_sells",
-            "items_with_sells_percent",
-            "sellers_with_sells_percent",
-            "brands_with_sells_percent"
-        ];
-        foreach ($arrayNames as $arrayName) {
-            $filters[$arrayName] = $checkFilter($arrayName);
-            $check = $setBody($arrayName);
-            $data[$arrayName . "_min"] = $check['min'];
-            $data[$arrayName . "_max"] = $check['max'];
-        }
-        $body = [
-            "startRow" => 0,
-            "endRow" => 300,
-            "filterModel" => $filters,
-            "sortModel" => [["sort" => "desc", "colId" => "revenue"]]
-        ];
+            foreach ($arrayNames as $arrayName) {
+                $filters[$arrayName] = $checkFilter($arrayName);
+                $check = $setBody($arrayName);
+                $data[$arrayName . "_min"] = $check['min'];
+                $data[$arrayName . "_max"] = $check['max'];
+            }
+            $body = [
+                "startRow" => 0,
+                "endRow" => 300,
+                "filterModel" => $filters,
+                "sortModel" => [["sort" => "desc", "colId" => "revenue"]]
+            ];
 
-        $data['sales'] = json_decode((new Client())->post($this->mpStatsApi . "seo/keywords/selection?", $this->getHeadersWithBody($body))->getBody()->getContents(), true)['data'];
-        $data['sales'] = array_map(function ($item) {
-            $item["items_with_sells_percent"] = (int)$item["items_with_sells_percent"];
-            $item["brands_with_sells_percent"] = (int)$item["brands_with_sells_percent"];
-            $item["sellers_with_sells_percent"] = (int)$item["sellers_with_sells_percent"];
-            return $item;
-        }, $data['sales']);
+            $data['sales'] = json_decode((new Client())->post($this->mpStatsApi . "seo/keywords/selection?", $this->getHeadersWithBody($body))->getBody()->getContents(), true)['data'];
+            $data['sales'] = array_map(function ($item) {
+                $item["items_with_sells_percent"] = (int)$item["items_with_sells_percent"];
+                $item["brands_with_sells_percent"] = (int)$item["brands_with_sells_percent"];
+                $item["sellers_with_sells_percent"] = (int)$item["sellers_with_sells_percent"];
+                return $item;
+            }, $data['sales']);
+        }
+        catch(\Exception $e){}
         return $data;
     }
 

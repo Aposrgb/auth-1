@@ -13,7 +13,7 @@ class OzonService extends AbstractService
     {
         $context = ['sku' => $sku];
         $client = new Client();
-//        try {
+        try {
             $date = $query['date']??null;
             $date = $date?explode(' to ', $date):null;
             $context['d2'] = $date?$date[1]:(new \DateTime())->modify('-1 day')->format('Y-m-d');
@@ -93,8 +93,8 @@ class OzonService extends AbstractService
                 $context['summaG'][] = $sale['summa'];
                 $context['dayG'][] = $sale['day'];
             }
-//        } catch (\Exception $exception) {
-//        }
+        } catch (\Exception $exception) {
+        }
         return $context;
     }
 
@@ -237,23 +237,33 @@ class OzonService extends AbstractService
         return $context;
     }
 
-    public function getCategory($url = null)
+    public function getCategory($url = null, $query)
     {
         if($url){
-            $sales = $this
-                    ->entityManager
-                    ->getRepository(CategorySales::class)
-                    ->findCategories($url, CategoryEnum::OZON);
-
-            $sales = array_map(function (CategorySales $item){
-                $item->setColor(explode(', ', $item->getColor())[0]);
-                $item->setGraph(explode(',', $item->getGraph()));
+            if(!key_exists('date', $query)){
+                $d1= (new \DateTime())->modify('-1 day')->format('Y-m-d');
+                $d2= (new \DateTime())->modify('-60 day')->format('Y-m-d');
+            }else{
+                $date = explode(' to ', $query['date']);
+                $d1= $date[0];
+                $d2= $date[1];
+            }
+            $fbs = $query['fbs']??0;
+            $category = $this->mpStatsApiOz . "category?path=$url&" . "d2=" . $d2 . "&d1=" . $d1 . "&fbs=".$fbs;
+            $sales = json_decode((new Client())->get($category, $this->getHeaders())->getBody()->getContents(), true)['data'];
+            $sales = array_map(function ($item) {
+                $item['nmId'] = $item['id'];
+                $item['finalPrice'] = $item['final_price'];
+                $item['dayStock'] = $item['days_in_stock'];
                 return $item;
             }, $sales);
 
             $context = [
                 'sales' => $sales,
-                'path' => $url
+                'path' => $url,
+                'd1' => $d1,
+                'd2' => $d2,
+                'fbs' => $fbs
             ];
             return $context;
         }

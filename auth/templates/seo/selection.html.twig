@@ -43,7 +43,7 @@
                                 <div data-v-2cb18cd6="" data-v-89868bce="" class="mr-5 ml-5 flex-grow-1">
                                     <div data-v-2cb18cd6="" class="d-flex align-items-center"><span data-v-2cb18cd6=""
                                                                                                     class="mr-3">Содержит</span>
-                                        <input value="{{ word }}" name="word" type="text" placeholder="ключевая фраза"
+                                        <input value="{{ word??'' }}" name="word" type="text" placeholder="ключевая фраза"
                                                class="w-100 p-1 form-control form-control-sm"></div>
                                     <div id="adv_search">
                                         <div data-v-2cb18cd6="" class="row">
@@ -62,7 +62,7 @@
                                                                         d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                                                         d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
                                                 </div>
-                                                <input name="countMin" value="{{ count_min }}" data-v-2cb18cd6=""
+                                                <input name="countMin" value="{{ count_min??'' }}" data-v-2cb18cd6=""
                                                        type="number" min="0"
                                                        class="w150 form-control form-control-xs"></div>
                                             <div data-v-2cb18cd6=""
@@ -81,7 +81,7 @@
                                                                         d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                                                         d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
                                                 </div>
-                                                <input name="brandsMax" value="{{ brands_max }}" data-v-2cb18cd6=""
+                                                <input name="brandsMax" value="{{ brands_max??'' }}" data-v-2cb18cd6=""
                                                        type="number" min="0"
                                                        class="w150 form-control form-control-xs"></div>
                                             <div data-v-2cb18cd6=""
@@ -99,7 +99,7 @@
                                                                         d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                                                         d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
                                                 </div>
-                                                <input name="resultsMax" value="{{ results_max }}" data-v-2cb18cd6=""
+                                                <input name="resultsMax" value="{{ results_max??'' }}" data-v-2cb18cd6=""
                                                        type="number" min="0"
                                                        class="w150 form-control form-control-xs"></div>
                                         </div>
@@ -119,7 +119,7 @@
                                                                         d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                                                         d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
                                                 </div>
-                                                <input name="sellersMax" value="{{ sellers_max }}" data-v-2cb18cd6=""
+                                                <input name="sellersMax" value="{{ sellers_max??'' }}" data-v-2cb18cd6=""
                                                        type="number" min="0"
                                                        class="w150 form-control form-control-xs"></div>
                                             <div data-v-2cb18cd6=""
@@ -138,7 +138,7 @@
                                                                         d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                                                         d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
                                                 </div>
-                                                <input name="itemsMax" value="{{ items_max }}" data-v-2cb18cd6=""
+                                                <input name="itemsMax" value="{{ items_max??'' }}" data-v-2cb18cd6=""
                                                        type="number" min="0"
                                                        class="w150 form-control form-control-xs"></div>
                                             <div data-v-2cb18cd6=""
@@ -158,14 +158,14 @@
                                                                         d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
                                                 </div>
                                                 <input name="final_price_averageMin"
-                                                       value="{{ final_price_average_min }}" data-v-2cb18cd6=""
+                                                       value="{{ final_price_average_min??'' }}" data-v-2cb18cd6=""
                                                        type="number"
                                                        min="0"
                                                        class="w150 form-control form-control-xs mr-5"> <span
                                                         data-v-2cb18cd6=""
                                                         class="mr-5">до</span>
                                                 <input name="final_price_averageMax"
-                                                       value="{{ final_price_average_max }}" data-v-2cb18cd6=""
+                                                       value="{{ final_price_average_max??'' }}" data-v-2cb18cd6=""
                                                        type="number"
                                                        min="0"
                                                        class="w150 form-control form-control-xs"></div>
@@ -187,7 +187,7 @@
                                                                         d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                                                         d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
                                                 </div>
-                                                <input name="revenueMin" value="{{ revenue_min }}" data-v-2cb18cd6=""
+                                                <input name="revenueMin" value="{{ revenue_min??'' }}" data-v-2cb18cd6=""
                                                        type="number" min="0"
                                                        class="w150 form-control form-control-xs"></div>
                                         </div> <!---->
@@ -208,13 +208,13 @@
                                                  style="padding: 7px 0px; width: auto; height: 4px;">
                                                 <label>
                                                     От
-                                                    <input value="{{ items_with_sells_percent_min }}"
+                                                    <input value="{{ items_with_sells_percent_min??'' }}"
                                                            name="items_with_sells_percentMin" type="number" min="0"
                                                            max="100">
                                                 </label>
                                                 <label>
                                                     До
-                                                    <input value="{{ items_with_sells_percent_max }}"
+                                                    <input value="{{ items_with_sells_percent_max??'' }}"
                                                            name="items_with_sells_percentMax" type="number" min="0"
                                                            max="100">
                                                 </label>
@@ -236,13 +236,13 @@
                                                 <label>
                                                     От
                                                     <input name="sellers_with_sells_percentMin"
-                                                           value="{{ sellers_with_sells_percent_min }}" type="number"
+                                                           value="{{ sellers_with_sells_percent_min??'' }}" type="number"
                                                            min="0" max="100">
                                                 </label>
                                                 <label>
                                                     До
                                                     <input name="sellers_with_sells_percentMax"
-                                                           value="{{ sellers_with_sells_percent_max }}" type="number"
+                                                           value="{{ sellers_with_sells_percent_max??'' }}" type="number"
                                                            min="0" max="100">
                                                 </label>
                                             </div>
@@ -263,13 +263,13 @@
                                                 <label>
                                                     От
                                                     <input name="brands_with_sells_percentMin"
-                                                           value="{{ brands_with_sells_percent_min }}" type="number"
+                                                           value="{{ brands_with_sells_percent_min??'' }}" type="number"
                                                            min="0" max="100">
                                                 </label>
                                                 <label>
                                                     До
                                                     <input name="brands_with_sells_percentMax"
-                                                           value="{{ brands_with_sells_percent_max }}" type="number"
+                                                           value="{{ brands_with_sells_percent_max??'' }}" type="number"
                                                            min="0" max="100">
                                                 </label>
                                             </div>
@@ -2157,33 +2157,35 @@
                                             <div class="ag-pinned-left-cols-container" ref="leftContainer"
                                                  role="presentation" unselectable="on" name="left"
                                                  style="height: 14100px; width: 330px; max-width: 330px; min-width: 330px;">
-                                                {% for sale in sales %}
-                                                    <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
-                                                         style="height: 47px; transform: translateY({{ (loop.index-1)*47 }}px); ">
-                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-last-left-pinned ag-cell-value"
-                                                             style="width: 330px; left: 0px;  ">
-                                                            <div>
-                                                                <a href="https://wildberries.ru/catalog/0/search.aspx?search={{ sale.word }}&amp;xsearch=true"
-                                                                   target="_blank"
-                                                                   title="Открыть в поиске на Wildberries"
-                                                                   class="mr-1">
-                                                                    <svg viewBox="0 0 16 16" width="1em" height="1em"
-                                                                         focusable="false" role="img"
-                                                                         aria-label="search"
-                                                                         xmlns="http://www.w3.org/2000/svg"
-                                                                         fill="currentColor"
-                                                                         class="bi-search b-icon bi">
-                                                                        <g>
-                                                                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
-                                                                        </g>
-                                                                    </svg>
-                                                                </a><a href="/seo/keyword/{{ sale.word }}"
+                                                {% if sales is defined %}
+                                                    {% for sale in sales %}
+                                                        <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
+                                                             style="height: 47px; transform: translateY({{ (loop.index-1)*47??'' }}px); ">
+                                                            <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-last-left-pinned ag-cell-value"
+                                                                 style="width: 330px; left: 0px;  ">
+                                                                <div>
+                                                                    <a href="https://wildberries.ru/catalog/0/search.aspx?search={{ sale.word??'' }}&amp;xsearch=true"
                                                                        target="_blank"
-                                                                       title="Информация по ключевому слову">{{ sale.word }}</a>
+                                                                       title="Открыть в поиске на Wildberries"
+                                                                       class="mr-1">
+                                                                        <svg viewBox="0 0 16 16" width="1em" height="1em"
+                                                                             focusable="false" role="img"
+                                                                             aria-label="search"
+                                                                             xmlns="http://www.w3.org/2000/svg"
+                                                                             fill="currentColor"
+                                                                             class="bi-search b-icon bi">
+                                                                            <g>
+                                                                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </a><a href="/seo/keyword/{{ sale.word??'' }}"
+                                                                           target="_blank"
+                                                                           title="Информация по ключевому слову">{{ sale.word??'' }}</a>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                {% endfor %}
+                                                    {% endfor %}
+                                                {% endif %}
                                             </div>
                                             <!--AG-ROW-CONTAINER-->
                                             <div class="ag-center-cols-clipper"
@@ -2192,75 +2194,77 @@
                                                      style="height: calc(100% + 14px);">
                                                     <div class="ag-center-cols-container" id="table_sale"
                                                          style="width: 2596px; height: 14100px;">
-                                                        {% for sale in sales %}
+                                                        {% if sales is defined %}
+                                                            {% for sale in sales %}
                                                             <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
-                                                                 style="height: 47px; transform: translateY({{ (loop.index-1)*47 }}px); ">
+                                                                 style="height: 47px; transform: translateY({{ (loop.index-1)*47??'' }}px); ">
                                                                 <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                                     style="width: 140px; left: 0px;  ">{{ sale.count }}
+                                                                     style="width: 140px; left: 0px;  ">{{ sale.count??'' }}
                                                                 </div>
                                                                 <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                                     style="width: 142px; left: 140px;  ">{{ sale.results }}
+                                                                     style="width: 142px; left: 140px;  ">{{ sale.results??'' }}
                                                                 </div>
                                                                 <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                                     style="width: 136px; left: 282px;  ">{{ sale.sales }}
+                                                                     style="width: 136px; left: 282px;  ">{{ sale.sales??'' }}
                                                                     шт
                                                                 </div>
                                                                 <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                                     style="width: 130px; left: 418px;  ">{{ sale.items }}
+                                                                     style="width: 130px; left: 418px;  ">{{ sale.items??'' }}
                                                                 </div>
                                                                 <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                                     style="width: 164px; left: 548px;  ">{{ sale.items_with_sells }}
+                                                                     style="width: 164px; left: 548px;  ">{{ sale.items_with_sells??'' }}
                                                                 </div>
                                                                 <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                                     style="width: 166px; left: 712px;  ">{{ sale.items_with_sells_percent }}
+                                                                     style="width: 166px; left: 712px;  ">{{ sale.items_with_sells_percent??'' }}
                                                                     %
                                                                 </div>
                                                                 <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                                     style="width: 112px; left: 878px;  ">{{ sale.sellers }}
+                                                                     style="width: 112px; left: 878px;  ">{{ sale.sellers??'' }}
                                                                 </div>
                                                                 <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                                     style="width: 182px; left: 990px;  ">{{ sale.sellers_with_sells }}
+                                                                     style="width: 182px; left: 990px;  ">{{ sale.sellers_with_sells??'' }}
                                                                 </div>
                                                                 <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                                     style="width: 188px; left: 1172px;  ">{{ sale.sellers_with_sells_percent }}
+                                                                     style="width: 188px; left: 1172px;  ">{{ sale.sellers_with_sells_percent??'' }}
                                                                     %
                                                                 </div>
                                                                 <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                                     style="width: 100px; left: 1360px;  ">{{ sale.brands }}
+                                                                     style="width: 100px; left: 1360px;  ">{{ sale.brands??'' }}
                                                                 </div>
                                                                 <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                                     style="width: 164px; left: 1460px;  ">{{ sale.brands_with_sells }}
+                                                                     style="width: 164px; left: 1460px;  ">{{ sale.brands_with_sells??'' }}
                                                                 </div>
                                                                 <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                                     style="width: 190px; left: 1624px;  ">{{ sale.brands_with_sells_percent }}
+                                                                     style="width: 190px; left: 1624px;  ">{{ sale.brands_with_sells_percent??'' }}
                                                                     %
                                                                 </div>
                                                                 <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                                     style="width: 150px; left: 1814px;  ">{{ sale.final_price_min }}
+                                                                     style="width: 150px; left: 1814px;  ">{{ sale.final_price_min??'' }}
                                                                     ₽
                                                                 </div>
                                                                 <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                                     style="width: 150px; left: 1814px;  ">{{ sale.final_price_min }}
+                                                                     style="width: 150px; left: 1814px;  ">{{ sale.final_price_min??'' }}
                                                                     ₽
                                                                 </div>
                                                                 <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                                     style="width: 150px; left: 1964px;  ">{{ sale.final_price_max }}
+                                                                     style="width: 150px; left: 1964px;  ">{{ sale.final_price_max??'' }}
                                                                     ₽
                                                                 </div>
                                                                 <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value ag-column-hover"
-                                                                     style="width: 174px; left: 2114px;  ">{{ sale.price_median }}
+                                                                     style="width: 174px; left: 2114px;  ">{{ sale.price_median??'' }}
                                                                     ₽
                                                                 </div>
                                                                 <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                                     style="width: 152px; left: 2288px;  ">{{ sale.revenue }}
+                                                                     style="width: 152px; left: 2288px;  ">{{ sale.revenue??'' }}
                                                                     ₽
                                                                 </div>
                                                                 <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                                     style="width: 156px; left: 2440px;  ">{{ sale.product_revenue }}
+                                                                     style="width: 156px; left: 2440px;  ">{{ sale.product_revenue??'' }}
                                                                     ₽/шт
                                                                 </div>
                                                             </div>
                                                         {% endfor %}
+                                                        {% endif %}
                                                     </div>
                                                 </div>
                                             </div>
@@ -4257,9 +4261,9 @@
                 <svg viewBox="0 0 16 16" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi-question-circle b-icon bi"><g data-v-2cb18cd6=""><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                     d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
             </div>
-            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="countMin" value="{{count_min}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="countMin" value="{{count_min??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                    class="w150 mr-3 form-control form-control-xs"> <span
-                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="countMax" value="{{count_max}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="countMax" value="{{count_max??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                      class="w150 form-control form-control-xs"></div>
         <div data-v-2cb18cd6="" class="d-flex align-items-center mt-4 p0-15 my-div-2">
             <div data-v-2cb18cd6="" class="w170 mr-3"><span data-v-2cb18cd6="">Результатов</span> <span
@@ -4275,9 +4279,9 @@
                                     d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                     d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
             </div>
-            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="resultsMin" value="{{results_min}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="resultsMin" value="{{results_min??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                    class="w150 mr-3 form-control form-control-xs"> <span
-                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="resultsMax" value="{{results_max}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="resultsMax" value="{{results_max??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                      class="w150 form-control form-control-xs"></div>
         <div data-v-2cb18cd6="" class="d-flex align-items-center mt-4 p0-15 my-div-3">
             <div data-v-2cb18cd6="" class="w170 mr-3"><span data-v-2cb18cd6="">Продаж</span> <span data-v-2cb18cd6=""
@@ -4288,9 +4292,9 @@
                                     d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                     d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
             </div>
-            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="salesMin" value="{{sales_min}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="salesMin" value="{{sales_min??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                    class="w150 mr-3 form-control form-control-xs"> <span
-                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="salesMax" value="{{sales_max}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="salesMax" value="{{sales_max??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                      class="w150 form-control form-control-xs"></div>
         <div data-v-2cb18cd6="" class="d-flex align-items-center mt-4 p0-15 my-div-1">
             <div data-v-2cb18cd6="" class="w170 mr-3"><span data-v-2cb18cd6="">Товаров</span> <span data-v-2cb18cd6=""
@@ -4301,9 +4305,9 @@
                                     d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                     d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
             </div>
-            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="itemsMin" value="{{items_min}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="itemsMin" value="{{items_min??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                    class="w150 mr-3 form-control form-control-xs"> <span
-                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="itemsMax" value="{{items_max}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="itemsMax" value="{{items_max??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                      class="w150 form-control form-control-xs"></div>
         <div data-v-2cb18cd6="" class="d-flex align-items-center mt-4 p0-15 my-div-2">
             <div data-v-2cb18cd6="" class="w170 mr-3"><span data-v-2cb18cd6="">Товаров с продажами</span> <span
@@ -4319,9 +4323,9 @@
                                     d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                     d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
             </div>
-            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="items_with_sellsMin" value="{{items_with_sells_min}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="items_with_sellsMin" value="{{items_with_sells_min??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                    class="w150 mr-3 form-control form-control-xs"> <span
-                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="items_with_sellsMax" value="{{items_with_sells_max}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="items_with_sellsMax" value="{{items_with_sells_max??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                      class="w150 form-control form-control-xs"></div>
         <div data-v-2cb18cd6="" class="d-flex align-items-center mt-4 p0-15 my-div-1">
             <div data-v-2cb18cd6="" class="w170 mr-3"><span data-v-2cb18cd6="">Продавцов</span> <span data-v-2cb18cd6=""
@@ -4332,9 +4336,9 @@
                                     d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                     d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
             </div>
-            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="sellersMin" value="{{sellers_min}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="sellersMin" value="{{sellers_min??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                    class="w150 mr-3 form-control form-control-xs"> <span
-                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="sellersMax" value="{{sellers_max}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="sellersMax" value="{{sellers_max??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                      class="w150 form-control form-control-xs"></div>
         <div data-v-2cb18cd6="" class="d-flex align-items-center mt-4 p0-15 my-div-2">
             <div data-v-2cb18cd6="" class="w170 mr-3"><span data-v-2cb18cd6="">Продавцов с продажами</span> <span
@@ -4351,9 +4355,9 @@
                                     d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                     d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
             </div>
-            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="sellers_with_sellsMin" value="{{sellers_with_sells_min}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="sellers_with_sellsMin" value="{{sellers_with_sells_min??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                    class="w150 mr-3 form-control form-control-xs"> <span
-                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="sellers_with_sellsMax" value="{{sellers_with_sells_max}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="sellers_with_sellsMax" value="{{sellers_with_sells_max??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                      class="w150 form-control form-control-xs"></div>
         <div data-v-2cb18cd6="" class="d-flex align-items-center mt-4 p0-15 my-div-1">
             <div data-v-2cb18cd6="" class="w170 mr-3"><span data-v-2cb18cd6="">Брендов</span> <span data-v-2cb18cd6=""
@@ -4364,9 +4368,9 @@
                                     d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                     d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
             </div>
-            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="brandsMin" value="{{brands_min}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="brandsMin" value="{{brands_min??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                    class="w150 mr-3 form-control form-control-xs"> <span
-                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="brandsMax" value="{{brands_max}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="brandsMax" value="{{brands_max??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                      class="w150 form-control form-control-xs"></div>
         <div data-v-2cb18cd6="" class="d-flex align-items-center mt-4 p0-15 my-div-2">
             <div data-v-2cb18cd6="" class="w170 mr-3"><span data-v-2cb18cd6="">Брендов с продажами</span> <span
@@ -4382,9 +4386,9 @@
                                     d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                     d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
             </div>
-            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="brands_with_sellsMin" value="{{brands_with_sells_min}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="brands_with_sellsMin" value="{{brands_with_sells_min??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                    class="w150 mr-3 form-control form-control-xs"> <span
-                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="brands_with_sellsMax" value="{{brands_with_sells_max}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="brands_with_sellsMax" value="{{brands_with_sells_max??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                      class="w150 form-control form-control-xs"></div>
         <div data-v-2cb18cd6="" class="d-flex align-items-center mt-4 p0-15 my-div-1">
             <div data-v-2cb18cd6="" class="w170 mr-3"><span data-v-2cb18cd6="">Мин. цена</span> <span data-v-2cb18cd6=""
@@ -4395,9 +4399,9 @@
                                     d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                     d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
             </div>
-            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="final_price_minMin" value="{{final_price_min_min}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="final_price_minMin" value="{{final_price_min_min??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                    class="w150 mr-3 form-control form-control-xs"> <span
-                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="final_price_minMax" value="{{final_price_min_max}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="final_price_minMax" value="{{final_price_min_max??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                      class="w150 form-control form-control-xs"></div>
         <div data-v-2cb18cd6="" class="d-flex align-items-center mt-4 p0-15 my-div-2">
             <div data-v-2cb18cd6="" class="w170 mr-3"><span data-v-2cb18cd6="">Макс. цена</span> <span
@@ -4413,9 +4417,9 @@
                                     d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                     d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
             </div>
-            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="final_price_maxMin" value="{{final_price_max_min}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="final_price_maxMin" value="{{final_price_max_min??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                    class="w150 mr-3 form-control form-control-xs"> <span
-                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="final_price_maxMax" value="{{final_price_max_max}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="final_price_maxMax" value="{{final_price_max_max??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                      class="w150 form-control form-control-xs"></div>
         <div data-v-2cb18cd6="" class="d-flex align-items-center mt-4 p0-15 my-div-1">
             <div data-v-2cb18cd6="" class="w170 mr-3"><span data-v-2cb18cd6="">Ср. цена</span> <span data-v-2cb18cd6=""
@@ -4426,9 +4430,9 @@
                                     d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                     d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
             </div>
-            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="final_price_averageMin" value="{{final_price_average_min}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="final_price_averageMin" value="{{final_price_average_min??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                    class="w150 mr-3 form-control form-control-xs"> <span
-                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="final_price_averageMax" value="{{final_price_average_max}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="final_price_averageMax" value="{{final_price_average_max??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                      class="w150 form-control form-control-xs"></div>
         <div data-v-2cb18cd6="" class="d-flex align-items-center mt-4 p0-15 my-div-2">
             <div data-v-2cb18cd6="" class="w170 mr-3"><span data-v-2cb18cd6="">Медианная цена</span> <span
@@ -4443,9 +4447,9 @@
                                     d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                     d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
             </div>
-            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="price_medianMin" value="{{price_median_min}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="price_medianMin" value="{{price_median_min??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                    class="w150 mr-3 form-control form-control-xs"> <span
-                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="price_medianMax" value="{{price_median_max}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="price_medianMax" value="{{price_median_max??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                      class="w150 form-control form-control-xs"></div>
         <div data-v-2cb18cd6="" class="d-flex align-items-center mt-4 p0-15 my-div-1">
             <div data-v-2cb18cd6="" class="w170 mr-3"><span data-v-2cb18cd6="">Выручка</span> <span data-v-2cb18cd6=""
@@ -4456,9 +4460,9 @@
                                     d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                     d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
             </div>
-            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="revenueMin" value="{{revenue_min}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="revenueMin" value="{{revenue_min??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                    class="w150 mr-3 form-control form-control-xs"> <span
-                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="revenueMax" value="{{revenue_max}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="revenueMax" value="{{revenue_max??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                      class="w150 form-control form-control-xs"></div>
         <div data-v-2cb18cd6="" class="d-flex align-items-center mt-4 p0-15 my-div-2">
             <div data-v-2cb18cd6="" class="w170 mr-3"><span data-v-2cb18cd6="">Выручка на товар</span> <span
@@ -4469,9 +4473,9 @@
                                     d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                     d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
             </div>
-            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="product_revenueMin" value="{{product_revenue_min}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+            <span data-v-2cb18cd6="" class="mr-3">от</span> <input name="product_revenueMin" value="{{product_revenue_min??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                    class="w150 mr-3 form-control form-control-xs"> <span
-                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="product_revenueMax" value="{{product_revenue_max}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
+                    data-v-2cb18cd6="" class="mr-3">до</span> <input name="product_revenueMax" value="{{product_revenue_max??''}}" min="0" data-v-2cb18cd6="" placeholder="" type="tel"
                                                                      class="w150 form-control form-control-xs"></div>
     </div>`
             } else {
@@ -4489,7 +4493,7 @@
                                                                         d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                                                         d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
                                                 </div>
-                                                <input name="countMin" value="{{ count_min }}" data-v-2cb18cd6="" type="number" min="0"
+                                                <input name="countMin" value="{{ count_min??'' }}" data-v-2cb18cd6="" type="number" min="0"
                                                        class="w150 form-control form-control-xs"></div>
                                             <div data-v-2cb18cd6=""
                                                  class="d-flex align-items-center mt-4 col-sm-12 my-float-left">
@@ -4503,7 +4507,7 @@
                                                                         d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                                                         d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
                                                 </div>
-                                                <input name="brandsMax" value="{{ brands_max }}" data-v-2cb18cd6="" type="number" min="0"
+                                                <input name="brandsMax" value="{{ brands_max??'' }}" data-v-2cb18cd6="" type="number" min="0"
                                                        class="w150 form-control form-control-xs"></div>
                                             <div data-v-2cb18cd6=""
                                                  class="d-flex align-items-center mt-4 col-sm-12 my-float-left">
@@ -4516,7 +4520,7 @@
                                                                         d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                                                         d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
                                                 </div>
-                                                <input name="resultsMax" value="{{ results_max }}" data-v-2cb18cd6="" type="number" min="0"
+                                                <input name="resultsMax" value="{{ results_max??'' }}" data-v-2cb18cd6="" type="number" min="0"
                                                        class="w150 form-control form-control-xs"></div>
                                         </div>
                                         <div data-v-2cb18cd6="" class="row">
@@ -4532,7 +4536,7 @@
                                                                         d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                                                         d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
                                                 </div>
-                                                <input name="sellersMax" value="{{ sellers_max }}" data-v-2cb18cd6="" type="number" min="0"
+                                                <input name="sellersMax" value="{{ sellers_max??'' }}" data-v-2cb18cd6="" type="number" min="0"
                                                        class="w150 form-control form-control-xs"></div>
                                             <div data-v-2cb18cd6=""
                                                  class="d-flex align-items-center mt-4 col-sm-12 my-float-left">
@@ -4546,7 +4550,7 @@
                                                                         d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                                                         d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
                                                 </div>
-                                                <input name="itemsMax" value="{{ items_max }}" data-v-2cb18cd6="" type="number" min="0"
+                                                <input name="itemsMax" value="{{ items_max??'' }}" data-v-2cb18cd6="" type="number" min="0"
                                                        class="w150 form-control form-control-xs"></div>
                                             <div data-v-2cb18cd6=""
                                                  class="d-flex align-items-center mt-4 col-sm-12 my-float-left my-float-left-2">
@@ -4560,11 +4564,11 @@
                                                                         d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                                                         d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
                                                 </div>
-                                                <input name="final_price_averageMin" value="{{ final_price_average_min }}" data-v-2cb18cd6="" type="number"
+                                                <input name="final_price_averageMin" value="{{ final_price_average_min??'' }}" data-v-2cb18cd6="" type="number"
                                                        min="0"
                                                        class="w150 form-control form-control-xs mr-5"> <span data-v-2cb18cd6=""
                                                                                                              class="mr-5">до</span>
-                                                <input name="final_price_averageMax" value="{{ final_price_average_max }}" data-v-2cb18cd6="" type="number"
+                                                <input name="final_price_averageMax" value="{{ final_price_average_max??'' }}" data-v-2cb18cd6="" type="number"
                                                        min="0"
                                                        class="w150 form-control form-control-xs"></div>
                                         </div>
@@ -4581,7 +4585,7 @@
                                                                         d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path
                                                                         d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></g></svg></span>
                                                 </div>
-                                                <input name="revenueMin" value="{{ revenue_min }}" data-v-2cb18cd6="" type="number" min="0"
+                                                <input name="revenueMin" value="{{ revenue_min??'' }}" data-v-2cb18cd6="" type="number" min="0"
                                                        class="w150 form-control form-control-xs"></div>
                                         </div>`
             }

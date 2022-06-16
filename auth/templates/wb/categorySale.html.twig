@@ -691,7 +691,7 @@
              style="width: 142px; left: 480px;  ">${(data[i]['comments'] ?? 0).toFixed(2)}
         </div>
         <div 
-             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value number"
              style="width: 120px; left: 622px;  ">${(data[i]['sales'] ?? 0)} шт
         </div>
         <div 
@@ -701,7 +701,7 @@
                 %
         </div>
         <div 
-             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value number"
              style="width: 174px; left: 862px;  ">${(data[i]['revenue'] ?? 0)} ₽
         </div>
         <div 
@@ -713,7 +713,7 @@
              style="width: 150px; left: 1156px;  ">${(data[i]['avg_price'] ?? 0).toFixed(2)} ₽
         </div>
         <div 
-             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value number"
              style="width: 120px; left: 1306px;  ">${(data[i]['items'] ?? 0)} шт
         </div>
         <div 
@@ -783,6 +783,7 @@
                         `
                     }
                     document.getElementById(id + "__table").innerHTML = str
+                    formatter("number")
                     drawDonutGraph('sellers_sales_graph', label, valueSale, 'Продажи')
                     drawDonutGraph('sellers_revenue_graph', label, valueRev, 'Выручка', 'right')
                 })
@@ -824,7 +825,7 @@
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="2" comp-id="718" col-id="name"
                                                          class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
-                                                         style="width: 200px; left: 100px;  "><a
+                                                         style="width: 200px; left: 100px;  "><a href="brand/${data[i]['name'] ?? 0}"
                                                                 title="United Colors of Benetton" target="_blank">${(data[i]['name'] ?? 0)}</a></div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="3" comp-id="719" col-id="rating"
@@ -849,7 +850,7 @@
                                                     </div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="7" comp-id="723" col-id="revenue"
-                                                         class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                         class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value number"
                                                          style="width: 174px; left: 802px;  ">${(data[i]['revenue'] ?? 0)} ₽
                                                     </div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
@@ -935,6 +936,7 @@
                         `
                     }
                     document.getElementById(id + "__table").innerHTML = str
+                    formatter("number")
                     drawDonutGraph('brand_sales_graph', label, valueSale, 'Продажи')
                     drawDonutGraph('brand_revenue_graph', label, valueRev, 'Выручка', 'right')
                 })
@@ -949,9 +951,21 @@
                 .then(data => {
                     let label = [], valueSale = [], valueRev=[],str = ``
                     for (let i = 0; i < data.length; i++) {
-                        label[i] = data[i]['name']
-                        valueSale[i] = data[i]['sales']
-                        valueRev[i] = data[i]['revenue']
+                        if(i === 6){
+                            label[i] = 'Остальные'
+                            valueSale[i] = data[i]['sales']
+                            valueRev[i] = data[i]['revenue']
+                        }
+                        if(i>6){
+                            valueSale[6] += data[i]['sales']
+                            valueRev[6] += data[i]['revenue']
+                        }
+                        if(i<6){
+                            label[i] = data[i]['name']
+                            valueSale[i] = data[i]['sales']
+                            valueRev[i] = data[i]['revenue']
+                        }
+                        let url = data[i]['name'] === 'Текущая категория'?'': `category?url={{ path }}/${data[i]['name']}`
                         str += `
                         <div role="row"
          class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
@@ -960,7 +974,7 @@
         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
             
              style="width: 300px; left: 0px;  ">
-            <span>${data[i]['name']}</span></div>
+            <a href="${url}">${data[i]['name']}</a></div>
         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
             
              style="width: 120px; left: 300px;  ">
@@ -971,12 +985,12 @@
              style="width: 142px; left: 420px;  ">
             ${(data[i]['comments'] ?? 0).toFixed(2)}
         </div>
-        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value number"
             
              style="width: 120px; left: 562px;  ">
             ${(data[i]['sales'] ?? 0)} шт
         </div>
-        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value number"
             
              style="width: 174px; left: 682px;  ">
             ${(data[i]['revenue'] ?? 0)} ₽
@@ -1034,6 +1048,7 @@
                     `
                     }
                     document.getElementById(id + "__table").innerHTML = str
+                    formatter("number")
                     drawDonutGraph('sales_graph', label, valueSale, 'Продажи')
                     drawDonutGraph('revenue_graph', label, valueRev, 'Выручка', 'right')
                 })
