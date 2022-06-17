@@ -111,13 +111,14 @@
             </div>
             <div class="be-right-navbar d-flex align-items-center">
                 <div class="search-container">
-                    <form action="/search" method="get" class="input-group input-group-sm"><input type="text"
+                    <div class="input-group input-group-sm"><input type="text"
                                                                                                   name="search"
                                                                                                   placeholder="Поиск по товарам..."
                                                                                                   value=""
+                                                                                                  id="searchItem"
                                                                                                   class="col-8 form-control search-input">
-                        <input type="hidden" name="section" value="main"> <input type="submit" value="Поиск"
-                                                                                 class="col-3 btn btn-primary"></form>
+                        <input type="hidden" name="section" value="main"> <input onclick="searchItem()" type="button" value="Поиск"
+                                                                                 class="col-3 btn btn-primary"></div>
                 </div>
                 <ul class="nav navbar-nav float-right be-user-nav">
                     <li class="nav-item dropdown" onclick="dropdown(this)"><a data-toggle="dropdown"
@@ -636,6 +637,23 @@
                 }else{
                     prop.innerText = intFormatter.format(prop.innerText)
                 }
+            }
+        }
+        function searchItem(){
+            let value = document.getElementById("searchItem").value;
+            if(value.length > 0){
+                fetch(`{{ path("api_search_item") }}?sku=${value}`)
+                    .then(async data => {
+                        data = await data.json()
+                        let isWb = data['isWb'], values = data['value']
+                        if(isWb){
+                            let path = `{{path('wb_item', {sku:0})}}`
+                            window.location.href = path.substring(0, path.length-1)+""+values
+                        }else if(!isWb && isWb !== undefined) {
+                            let path = `{{path('ozon_get_item', {sku:0})}}`
+                            window.location.href = path.substring(0, path.length-1)+""+values
+                        }
+                    })
             }
         }
     </script>

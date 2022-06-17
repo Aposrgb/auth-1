@@ -196,14 +196,16 @@ class SeoService extends AbstractService
         );
     }
 
-    public function getKeywordIdentity($identity)
+    public function getKeywordIdentity($identity, $query=[])
     {
         $client = new Client();
-        $date = (new \DateTime())->modify("-1 day");
+        $date = $query['date']??null;
+        $date = $date?explode(' to ', $date):null;
+        $date = $date??(new \DateTime())->modify("-1 day");
         $body = [
             "type" => "sku",
-            "d2" => $date->format('Y-m-d'),
-            "d1" => $date->modify('-29 day')->format('Y-m-d'),
+            "d2" => !($date instanceof \DateTime) ?$date[1]:$date->format('Y-m-d'),
+            "d1" => !($date instanceof \DateTime) ?$date[0]:$date->modify('-29 day')->format('Y-m-d'),
         ];
         $data = null;
         if (is_numeric($identity)) {

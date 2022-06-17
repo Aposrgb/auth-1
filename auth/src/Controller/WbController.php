@@ -54,10 +54,17 @@ class WbController extends AbstractController
     {
         return $this->render('wb/bysearch.html.twig');
     }
-    #[Route(path: '/seller', name: 'wb_seller')]
+    #[Route(path: '/seller', name: 'wb_search_seller')]
     public function seller(): Response
     {
-        return $this->render('wb/seller.html.twig');
+        return $this->render('wb/searchSeller.html.twig');
+    }
+    #[Route(path: '/seller/{sku}', name: 'wb_seller')]
+    public function getSeller($sku, Request $request): Response
+    {
+        return $this->render('wb/seller.html.twig',
+            $this->service->searchSeller($sku, $request->query->all())
+        );
     }
     #[Route(path: '/similar', name: 'wb_similar')]
     public function similar(Request $request): Response

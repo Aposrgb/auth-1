@@ -136,7 +136,6 @@
         function redirect(element) {
             window.location.href = "/wb/item/" + element.id + "?name=" + "{{ path }}"
         }
-
         function select(el) {
             let id = el.id.substring(0, 10)
             let befPrefix = "__BVID__"
@@ -193,7 +192,7 @@
                             <div  class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first" style="height: 35px; transform: translateY(${i * 35}px); " aria-label="Press SPACE to select this row.">
 																	<div  class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height d-flex justify-content-center ag-cell-value" style="width: 50px; left: 0px;  ">
 																		<div class="ag-grid-thumb-cell">
-																			<div><img src="https://img1.wbstatic.net/c252x336/new/${data[i]['img']}/${data[i]['sku']}-1.jpg">
+																			<div><img src="${data[i]['img']}">
 																			<!---->
 																			</div>
 																			<!---->
