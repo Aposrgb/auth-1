@@ -99,27 +99,10 @@
             document.getElementById('graph'+i).classList.remove("active")
             document.getElementById('size'+i).classList.add("active")
         }
-        formatter("number")
-
-        function formatter(id) {
-            let intFormatter = new Intl.NumberFormat()
-            for (i=0;i<document.getElementsByClassName(id).length;i++){
-                let prop = document.getElementsByClassName(id)[i]
-                if(prop.innerText.indexOf(' ') !== -1){
-                    if(prop.innerText.indexOf(',') === -1) {
-                        let str = prop.innerText.substring(prop.innerText.indexOf(' '))
-                        prop.innerText = prop.innerText.substring(0, prop.innerText.indexOf(' '))
-                        prop.innerText = intFormatter.format(prop.innerText) + str
-                    }
-                }else{
-                    prop.innerText = intFormatter.format(prop.innerText)
-                }
-            }
-        }
         function exportSales(){
             let text = `Date;Sale;Balance;Price;Final Price;Client Sale;Sale summa;Comments;Rating
             {% for sale in salesArr%}
-            {{ sale.data }};{{ sale.sales }};{{ sale.balance }};{{ sale.price }};{{ sale.final_price }};{{ sale.client_sale }};{{ sale.final_price * sale.sales }};{{ sale.comments }};{{ sale.rating }}
+            {{ sale.data }};{{ sale.sales }};{{ sale.balance }};{{ sale.price }};{{ sale.final_price }};{{ sale.client_sale??0 }};{{ sale.final_price * sale.sales }};{{ sale.comments }};{{ sale.rating }}
             {% endfor %}`
             download("export.csv", text)
         }

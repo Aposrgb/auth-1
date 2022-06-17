@@ -23,7 +23,7 @@ class OzonController extends AbstractController
     {
         $url = $request->query->all()['url']??null;
         return $this->render('ozon/category'.($url != '' ? 'Sale':'').'.html.twig',
-            $this->ozonService->getCategory($url != ''?$url:null)
+            $this->ozonService->getCategory($url != ''?$url:null , $request->query->all())
         );
     }
     #[Route(path: '/seller', name: 'ozon_seller')]
