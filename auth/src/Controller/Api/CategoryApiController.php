@@ -131,19 +131,22 @@ class CategoryApiController extends AbstractController
     {
         $category = $request->query->all()['url'];
         $date = new \DateTime();
+        $client = new Client();
         $body = [
-            'd11' => $date->modify('-1 month')->format('Y-m-d'),
+            'd11' => $date->modify('-29 day')->format('Y-m-d'),
             'd12' => $date->modify('+2 weeks')->format('Y-m-d'),
             'd21' => $date->modify('+1 day')->format('Y-m-d'),
             'd22' => $date->modify('+2 weeks')->format('Y-m-d'),
-        ];;
-        $data = (new Client())->post(
+        ];
+        $data = $client->post(
             $this->mpStatsApi."wb/get/category/compare?path=$category",
             $this->service->getHeadersWithBody($body)
         )->getBody()->getContents();
         $data = json_decode($data, true);
-        $data['data'] = array_map(function ($item){
-            $item['img'] = ((int)($item["sku"] / 10000)) * 10000;
+        $data['data'] = array_map(function ($item) use ($client) {
+            $item['img'] = json_decode(
+                $client->get($this->mpStatsApi."wb/get/item/".$item['sku'], $this->service->getHeaders())->getBody()->getContents(), true
+            )['photos'][0]['t'];
             return $item;
         }, $data['data']);
         $data['date'] = $body;

@@ -68,7 +68,7 @@ class SeoController extends AbstractController
         return $this->render('seo/position-tracking.twig');
     }
     #[Route(path: '/position-tracking/{sku}', name: 'position_tracking-sale')]
-    public function positionTrackingSale($sku): Response
+    public function positionTrackingSale($sku, Request $request): Response
     {
         $sale = $this->service->getPosition($sku);
         if(!$sale){
