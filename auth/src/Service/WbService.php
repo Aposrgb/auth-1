@@ -25,9 +25,12 @@ class WbService extends AbstractService
             $date = $date?explode(' to ', $date):null;
             $context['d2'] = $date?$date[1]:(new \DateTime())->modify('-1 day')->format('Y-m-d');
             $context['d1'] = $date?$date[0]:(new \DateTime())->modify('-61 day')->format('Y-m-d');
+            $context['sku'] = $sku;
+            $context['fbs'] = $query['fbs']??0;
             $context['data'] = json_decode(
-                (new Client())->post($this->mpStatsApi."wb/get/seller?path=$sku&d1=".$context['d1']."&d2=".$context['d2'], $this->getHeadersWithBody($body))->getBody()->getContents(), true
+                (new Client())->post($this->mpStatsApi."wb/get/seller?path=$sku&d1=".$context['d1']."&d2=".$context['d2']."&fbs=".$context['fbs'], $this->getHeadersWithBody($body))->getBody()->getContents(), true
             )['data'];
+
         }
         catch (\Exception $ex){}
         return $context;
