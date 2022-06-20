@@ -22,6 +22,49 @@
     <script>
         let fbs = {{fbs}}, date = "{{d1}} to {{d2}}"
         document.addEventListener("DOMContentLoaded", () => {
+            newDataGrid(document.getElementsByClassName("ag-theme-balham")[0], [
+                {headerName:'Фото', field: 'photo', maxWidth: 80, sortable:false , filter: false, cellRenderer: params => `<img style="height: 32px; width: 32px" src="${params.value}" />`},
+                {headerName:'SKU', field: 'sku'},
+                {headerName:'Название', field: 'name'},
+                {headerName:'Цвет', field: 'color'},
+                {headerName:'Категория', field: 'category'},
+                {headerName:'Позиция', field: 'position'},
+                {headerName:'Бренд', field: 'brand'},
+                {headerName:'Продавец', field: 'seller'},
+                {headerName:'Наличие', field: 'balance'},
+                {headerName:'Комментарии', field: 'comments'},
+                {headerName:'Рейтинг', field: 'rating'},
+                {headerName:'Цена', field: 'finalPrice'},
+                {headerName:'Цена СПП', field: 'clientPrice'},
+                {headerName:'Дней в наличии', field: 'dayStock'},
+                {headerName:'Продаж', field: 'sales'},
+                {headerName:'Выручка', field: 'revenue'},
+            ], [
+                {% for sale in sales %}
+                {
+                    photo: '{{ sale.thumb }}',
+                    sku: {{ sale.nmId }} ,
+                    name: '{{ sale.name }}',
+                    color: '{{ sale.color }}' ,
+                    category: '{{ sale.category }} ',
+                    position: '{{ sale.position }}' ,
+                    brand: '{{ sale.brand }}' ,
+                    seller: '{{ sale.seller }}' ,
+                    balance: '{{ sale.balance }} ',
+                    comments: '{{ sale.comments }}' ,
+                    rating: '{{ sale.rating }}' ,
+                    finalPrice: '{{ sale.finalPrice }}' ,
+                    clientPrice: '{{ sale.clientPrice }}' ,
+                    dayStock:'{{ sale.dayStock }} ',
+                    sales: '{{ sale.sales }}' ,
+                    revenue: '{{ sale.revenue }}'
+                },
+                {% endfor %}
+            ],
+                event => {
+                window.location.href = 'item/'+event.data.sku
+            }
+            )
             newDatePicker('datePicker', function (date){
                 window.location.href="{{path("wb_category")}}?url={{ path }}&date="+date+"&fbs="+fbs
             })
@@ -32,14 +75,6 @@
                     window.location.href="{{path("wb_category")}}?url={{ path }}&date="+date+"&fbs="+fbs
                 }
             )
-            let el = document.getElementById("scrollbar")
-            el.addEventListener("input",
-                function () {
-                    let width = document.getElementById("table_sale").offsetWidth
-                    let value = (el.value * width / 300) / 5
-                    document.getElementById("table_sale").style.transform = "translateX(-" + value + "vh)"
-                    document.getElementById("table_sale_header").style.transform = "translateX(-" + value + "vh)"
-                }, false)
             let sb = document.getElementById("scrollbar_subcategory")
             sb.addEventListener("input",
                 function () {
@@ -101,7 +136,6 @@
         function redirect(element) {
             window.location.href = "/wb/item/" + element.id + "?name=" + "{{ path }}"
         }
-
         function select(el) {
             let id = el.id.substring(0, 10)
             let befPrefix = "__BVID__"
@@ -158,7 +192,7 @@
                             <div  class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first" style="height: 35px; transform: translateY(${i * 35}px); " aria-label="Press SPACE to select this row.">
 																	<div  class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height d-flex justify-content-center ag-cell-value" style="width: 50px; left: 0px;  ">
 																		<div class="ag-grid-thumb-cell">
-																			<div><img src="https://img1.wbstatic.net/c252x336/new/${data[i]['img']}/${data[i]['sku']}-1.jpg">
+																			<div><img src="${data[i]['img']}">
 																			<!---->
 																			</div>
 																			<!---->
@@ -656,7 +690,7 @@
              style="width: 142px; left: 480px;  ">${(data[i]['comments'] ?? 0).toFixed(2)}
         </div>
         <div 
-             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value number"
              style="width: 120px; left: 622px;  ">${(data[i]['sales'] ?? 0)} шт
         </div>
         <div 
@@ -666,7 +700,7 @@
                 %
         </div>
         <div 
-             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value number"
              style="width: 174px; left: 862px;  ">${(data[i]['revenue'] ?? 0)} ₽
         </div>
         <div 
@@ -678,7 +712,7 @@
              style="width: 150px; left: 1156px;  ">${(data[i]['avg_price'] ?? 0).toFixed(2)} ₽
         </div>
         <div 
-             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value number"
              style="width: 120px; left: 1306px;  ">${(data[i]['items'] ?? 0)} шт
         </div>
         <div 
@@ -748,6 +782,7 @@
                         `
                     }
                     document.getElementById(id + "__table").innerHTML = str
+                    formatter("number")
                     drawDonutGraph('sellers_sales_graph', label, valueSale, 'Продажи')
                     drawDonutGraph('sellers_revenue_graph', label, valueRev, 'Выручка', 'right')
                 })
@@ -789,7 +824,7 @@
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="2" comp-id="718" col-id="name"
                                                          class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
-                                                         style="width: 200px; left: 100px;  "><a
+                                                         style="width: 200px; left: 100px;  "><a href="brand/${data[i]['name'] ?? 0}"
                                                                 title="United Colors of Benetton" target="_blank">${(data[i]['name'] ?? 0)}</a></div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="3" comp-id="719" col-id="rating"
@@ -814,7 +849,7 @@
                                                     </div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
                                                          aria-colindex="7" comp-id="723" col-id="revenue"
-                                                         class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+                                                         class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value number"
                                                          style="width: 174px; left: 802px;  ">${(data[i]['revenue'] ?? 0)} ₽
                                                     </div>
                                                     <div tabindex="-1" unselectable="on" role="gridcell"
@@ -900,6 +935,7 @@
                         `
                     }
                     document.getElementById(id + "__table").innerHTML = str
+                    formatter("number")
                     drawDonutGraph('brand_sales_graph', label, valueSale, 'Продажи')
                     drawDonutGraph('brand_revenue_graph', label, valueRev, 'Выручка', 'right')
                 })
@@ -914,9 +950,21 @@
                 .then(data => {
                     let label = [], valueSale = [], valueRev=[],str = ``
                     for (let i = 0; i < data.length; i++) {
-                        label[i] = data[i]['name']
-                        valueSale[i] = data[i]['sales']
-                        valueRev[i] = data[i]['revenue']
+                        if(i === 6){
+                            label[i] = 'Остальные'
+                            valueSale[i] = data[i]['sales']
+                            valueRev[i] = data[i]['revenue']
+                        }
+                        if(i>6){
+                            valueSale[6] += data[i]['sales']
+                            valueRev[6] += data[i]['revenue']
+                        }
+                        if(i<6){
+                            label[i] = data[i]['name']
+                            valueSale[i] = data[i]['sales']
+                            valueRev[i] = data[i]['revenue']
+                        }
+                        let url = data[i]['name'] === 'Текущая категория'?'': `category?url={{ path }}/${data[i]['name']}`
                         str += `
                         <div role="row"
          class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
@@ -925,7 +973,7 @@
         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
             
              style="width: 300px; left: 0px;  ">
-            <span>${data[i]['name']}</span></div>
+            <a href="${url}">${data[i]['name']}</a></div>
         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
             
              style="width: 120px; left: 300px;  ">
@@ -936,12 +984,12 @@
              style="width: 142px; left: 420px;  ">
             ${(data[i]['comments'] ?? 0).toFixed(2)}
         </div>
-        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value number"
             
              style="width: 120px; left: 562px;  ">
             ${(data[i]['sales'] ?? 0)} шт
         </div>
-        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
+        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value number"
             
              style="width: 174px; left: 682px;  ">
             ${(data[i]['revenue'] ?? 0)} ₽
@@ -999,6 +1047,7 @@
                     `
                     }
                     document.getElementById(id + "__table").innerHTML = str
+                    formatter("number")
                     drawDonutGraph('sales_graph', label, valueSale, 'Продажи')
                     drawDonutGraph('revenue_graph', label, valueRev, 'Выручка', 'right')
                 })

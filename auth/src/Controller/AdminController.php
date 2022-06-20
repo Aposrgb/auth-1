@@ -5,28 +5,19 @@ namespace App\Controller;
 use App\Entity\Token;
 use App\Entity\User;
 use App\Helper\Status\UserStatus;
-use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends AbstractController
 {
-    public function __construct(
-        protected UserPasswordHasherInterface $hasher,
-        protected EntityManagerInterface $entityManager,
-        protected $mpStatsApiWb
-    )
-    {
-    }
 
     #[Route("/admin", name: 'admin', methods: ["GET"])]
     public function admin()
     {
+
         return $this->render('admin/admin.html.twig', [
             "users" => $this->entityManager->getRepository(User::class)->findAll()
         ]);
@@ -57,7 +48,7 @@ class AdminController extends AbstractController
         }else{
             $error = true;
         }
-        return $this->render("admin", [
+        return $this->render("admin/admin.html.twig", [
             "error" => $error,
             "users" => $this->entityManager->getRepository(User::class)->findAll()
         ]);

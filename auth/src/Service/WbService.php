@@ -12,6 +12,30 @@ use Symfony\Component\HttpFoundation\Response;
 
 class WbService extends AbstractService
 {
+    public function searchSeller($sku, $query)
+    {
+        $context = [];
+        try{
+            $body = [
+                "startRow" => 0,
+                "endRow" => 100,
+                "sortModel" => [["sort" => "desc", "colId" => "revenue"]]
+            ];
+            $date = $query['date']??null;
+            $date = $date?explode(' to ', $date):null;
+            $context['d2'] = $date?$date[1]:(new \DateTime())->modify('-1 day')->format('Y-m-d');
+            $context['d1'] = $date?$date[0]:(new \DateTime())->modify('-61 day')->format('Y-m-d');
+            $context['sku'] = $sku;
+            $context['fbs'] = $query['fbs']??0;
+            $context['data'] = json_decode(
+                (new Client())->post($this->mpStatsApi."wb/get/seller?path=$sku&d1=".$context['d1']."&d2=".$context['d2']."&fbs=".$context['fbs'], $this->getHeadersWithBody($body))->getBody()->getContents(), true
+            )['data'];
+
+        }
+        catch (\Exception $ex){}
+        return $context;
+    }
+
     public function search($word)
     {
         $client = new Client();
@@ -175,7 +199,7 @@ class WbService extends AbstractService
     {
         $context = ['sku' => $sku];
         $client = new Client();
-        try {
+//        try {
             $date = $query['date']??null;
             $fbs = $query['fbs']??0;
             $date = $date?explode(' to ', $date):null;
@@ -255,8 +279,8 @@ class WbService extends AbstractService
                 $context['dayG'][] = $sale['day'];
             }
             foreach (array_reverse($sales) as $item){
-                $context['keyG'][] = $item['visibility'];
-                $context['posG'][] = $item['position'];
+                $context['keyG'][] = $item['visibility']??0;
+                $context['posG'][] = $item['position']??0;
                 $context['catG'][] = (int)($item['categories_cnt']??0);
             }
             $context['graphic1'][0] = [];
@@ -271,8 +295,8 @@ class WbService extends AbstractService
                 $context['graphic2'][0][] = $item["store"];
                 $context['graphic2'][1][] = $item["sales"];
             }
-        } catch (Exception $exception) {
-        }
+//        } catch (Exception $exception) {
+//        }
         return $context;
     }
 

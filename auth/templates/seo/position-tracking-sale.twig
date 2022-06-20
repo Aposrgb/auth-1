@@ -69,13 +69,13 @@
                                         <div data-v-1ebd09d2="" data-v-6903bc6c="" class="vue-daterange-picker">
                                             <div data-v-1ebd09d2="" class="font-weight-light"><i data-v-1ebd09d2=""
                                                                                                  class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                                                <span data-v-1ebd09d2="">{{ d1 }} - {{d2}}</span><b
+                                                <input disabled type="text" id="datePicker" value="{{ d1 }} to {{d2}}" /><b
                                                         data-v-1ebd09d2="" class="caret"></b></div><!----></div>
                                     </div>
                                     <div data-v-6903bc6c="" class="dropdown b-dropdown btn-group" id="__BVID__15">
                                         <!---->
                                         <button aria-haspopup="true" aria-expanded="false" type="button"
-                                                class="btn dropdown-toggle btn-secondary" id="__BVID__15__BV_toggle_">
+                                                class="btn btn-secondary" id="__BVID__15__BV_toggle_">
                                             Период
                                         </button>
                                     </div> <!----><!----><!----></div>
@@ -438,7 +438,7 @@
                                                             <div class="vue-recycle-scroller__item-wrapper"
                                                                  style="min-height: 969px;">
                                                                 {% for word in words %}
-                                                                    <div class="vue-recycle-scroller__item-view"
+                                                                    <div class="row_word vue-recycle-scroller__item-view"
                                                                          style="transform: translateY({{(loop.index-1)*51}}px);">
                                                                         <div data-v-388ae7ca="" class="table-row"
                                                                              style="width: 3520px; max-width: 3520px;">
@@ -465,7 +465,7 @@
                                                                                          role="img" aria-label="trash"
                                                                                          xmlns="http://www.w3.org/2000/svg"
                                                                                          fill="currentColor"
-                                                                                         class="bi-trash cursor-pointer delete-keyword text-muted ml-auto b-icon bi">
+                                                                                         class="row_delete bi-trash cursor-pointer delete-keyword text-muted ml-auto b-icon bi">
                                                                                         <g>
                                                                                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
                                                                                             <path fill-rule="evenodd"
@@ -707,4 +707,9 @@
             <div class="snotify snotify-center_bottom"></div>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", ()=>{
+            // newDatePicker("datePicker")
+        })
+    </script>
 {% endblock %}

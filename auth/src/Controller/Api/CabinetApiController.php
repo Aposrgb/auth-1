@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  *
  */
-#[Route('/api')]
+#[Route('/api/cabinet')]
 class CabinetApiController extends AbstractController
 {
     public function __construct(

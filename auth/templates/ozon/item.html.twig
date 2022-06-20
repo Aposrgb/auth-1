@@ -17,24 +17,14 @@
     </script>
 {% endblock %}
 {% block body %}
-    {% include 'wb/HTML/categoryItem.html.twig' %}
+    {% include 'ozon/HTML/item.html.twig' %}
     <script>
-        let fbs = {{fbs??0}};
         document.addEventListener("DOMContentLoaded", () => {
-            drawDonutGraph('graphic1', [{% for day in graphic1[0] %}"{{day}}",{% endfor %}], [{{graphic1[1] |join(",")}}], "Склады")
-            drawDonutGraph('graphic2', [{% for day in graphic2[0] %}"{{day}}",{% endfor %}], [{{graphic2[1] |join(",")}}], "Склады")
-            drawLineGraph('graph', [[{{salesG |join(",")}}],[{{balanceG |join(",")}}],[{{priceG |join(",")}}], [{{summaG |join(",")}}], [{{keyG |join(",")}}], [{{posG |join(",")}}], [{{catG|join(",") }}]], ["Продажи","Остаток","Цена","Выручка", "Видимость ключей", "Ср. позиция по ключам", "Кол-во категорий"],
+            drawLineGraph('graph', [[{{salesG |join(",")}}],[{{balanceG |join(",")}}],[{{priceG |join(",")}}], [{{summaG |join(",")}}]], ["Продажи","Остаток","Цена","Выручка"],
                 [{% for day in dayG %}"{{day}}",{% endfor %}]
             )
-            document.getElementById("switcher-element-64157").checked = fbs === 0 ?false:true
-            document.getElementById("switcher-element-64157").addEventListener("input",
-                function (){
-                    fbs = fbs === 0 ?1:0
-                    window.location.href="{{ path('wb_item', {sku:sku}) }}?date={{d1}} to {{d2}}"+"&fbs="+fbs
-                }
-            )
             newDatePicker('period', function (date){
-                window.location.href = "{{ path('wb_item', {sku:sku}) }}?date="+date+"&fbs="+fbs
+                window.location.href = "{{ path('ozon_get_item', {sku:sku}) }}?date="+date
             })
             let el = document.getElementById("scrollbar")
             el.addEventListener("input",
@@ -43,14 +33,6 @@
                     let value =(el.value * width/2000*width/2000)/5
                     document.getElementById("table_sale").style.transform = "translateX(-" + value + "vh)"
                     document.getElementById("table_sale_header").style.transform = "translateX(-" + value + "vh)"
-                }, false)
-            let el2 = document.getElementById("scrollbar2")
-            el2.addEventListener("input",
-                function () {
-                    let width = document.getElementById("table_sale2").offsetWidth
-                    let value =(el2.value * width/2000*width/2000)/5
-                    document.getElementById("table_sale2").style.transform = "translateX(-" + value + "vh)"
-                    document.getElementById("table_sale_header2").style.transform = "translateX(-" + value + "vh)"
                 }, false)
             let el3 = document.getElementById("scrollbar3")
             el3.addEventListener("input",
@@ -99,12 +81,22 @@
             document.getElementById('graph'+i).classList.remove("active")
             document.getElementById('size'+i).classList.add("active")
         }
-        function exportSales(){
-            let text = `Date;Sale;Balance;Price;Final Price;Client Sale;Sale summa;Comments;Rating
-            {% for sale in salesArr%}
-            {{ sale.data }};{{ sale.sales }};{{ sale.balance }};{{ sale.price }};{{ sale.final_price }};{{ sale.client_sale??0 }};{{ sale.final_price * sale.sales }};{{ sale.comments }};{{ sale.rating }}
-            {% endfor %}`
-            download("export.csv", text)
+        formatter("number")
+
+        function formatter(id) {
+            let intFormatter = new Intl.NumberFormat()
+            for (let i=0;i<document.getElementsByClassName(id).length;i++){
+                let prop = document.getElementsByClassName(id)[i]
+                if(prop.innerText.indexOf(' ') !== -1){
+                    if(prop.innerText.indexOf(',') === -1) {
+                        let str = prop.innerText.substring(prop.innerText.indexOf(' '))
+                        prop.innerText = prop.innerText.substring(0, prop.innerText.indexOf(' '))
+                        prop.innerText = intFormatter.format(prop.innerText) + str
+                    }
+                }else{
+                    prop.innerText = intFormatter.format(prop.innerText)
+                }
+            }
         }
     </script>
 {% endblock %}

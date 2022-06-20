@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <title>MARKETPLACE</title>
     {% block linkStyles %}
         <link href="styles/index/styles.css" rel="stylesheet">
         <link href="styles/index/vendor.css" rel="stylesheet">
@@ -10,15 +12,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
+    <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.js"></script>
 </head>
 <body>
 <div class="be-wrapper be-nosidebar-left">
     {% block header %}
         <nav id="mp-stats-header" class="top-menu navbar navbar-expand-xl be-top-header fixed-top shadow-sm">
             <div class="logo d-none d-xl-flex"><a href="/" class="d-flex align-items-center">
-                    <span
-                            class="d-none d-xxl-inline">$name</span></a></div>
+            <img src="/img/Logo-NoBackground.svg" alt="marketplace" width="50" height="56" class="mr-0 mr-xxl-2">
+                    <span class="d-none d-xxl-inline">MARKETPLACE</span></a></div>
             <button type="button" data-toggle="collapse" data-target="#be-navbar-collapse"
                     aria-controls="be-navbar-collapse"
                     aria-expanded="false" class="navbar-toggler text-left py-3 px-2"><i class="fas fa-bars"></i> Меню
@@ -29,7 +31,7 @@
                                                                               role="button"
                                                                               aria-expanded="false"
                                                                               class="nav-link dropdown-toggle">
-                            Кабинет WB &#709;</a>
+                            Кабинет WB &#9660</a>
                         <div role="menu" style="display:none;" class="dropdown-menu show "><a href="/cabinet/summary"
                                                                                               class="dropdown-item"><span>Сводка</span></a>
                             <a
@@ -55,7 +57,7 @@
                                 role="button"
                                 aria-expanded="false"
                                 class="nav-link dropdown-toggle">
-                            SEO &#709;</a>
+                            SEO &#9660;</a>
                         <div role="menu" style="display:none;" class="dropdown-menu show"><a href="/seo/keyword"
                                                                                              class="dropdown-item keyword-dashboard"><span>Результаты поиска (SERP)</span></a>
                             <a href="/seo/keywords/expanding"
@@ -72,7 +74,7 @@
                                                                               role="button"
                                                                               aria-expanded="false"
                                                                               class="nav-link dropdown-toggle">
-                            Ozon &#709;</a>
+                            Ozon &#9660;</a>
                         <div role="menu" style="display:none;" class="dropdown-menu show"><a href="/ozon/category?url="
                                                                                              class="dropdown-item"><span>Категории</span></a>
                             <a href="/ozon/seller" class="dropdown-item"><span>Продавцы</span></a> <a href="/ozon/brand"
@@ -83,7 +85,7 @@
                                                                               role="button"
                                                                               aria-expanded="false"
                                                                               class="nav-link dropdown-toggle">
-                            Wildberries &#709;</a>
+                            Wildberries &#9660;</a>
                         <div role="menu" style="display:none;" class="dropdown-menu show"><a href="/wb/category?url="
                                                                                              class="dropdown-item"><span>Категории</span></a>
                             <a
@@ -109,37 +111,25 @@
             </div>
             <div class="be-right-navbar d-flex align-items-center">
                 <div class="search-container">
-                    <form action="/search" method="get" class="input-group input-group-sm"><input type="text"
+                    <div class="input-group input-group-sm"><input type="text"
                                                                                                   name="search"
                                                                                                   placeholder="Поиск по товарам..."
                                                                                                   value=""
+                                                                                                  id="searchItem"
                                                                                                   class="col-8 form-control search-input">
-                        <input type="hidden" name="section" value="main"> <input type="submit" value="Поиск"
-                                                                                 class="col-3 btn btn-primary"></form>
+                        <input type="hidden" name="section" value="main"> <input onclick="searchItem()" type="button" value="Поиск"
+                                                                                 class="col-3 btn btn-primary"></div>
                 </div>
                 <ul class="nav navbar-nav float-right be-user-nav">
                     <li class="nav-item dropdown" onclick="dropdown(this)"><a data-toggle="dropdown"
                                                                               role="button"
                                                                               aria-expanded="false"
                                                                               class="nav-link dropdown-toggle"><img
-                                    src="https://mpstats.io/i/avatar.png" alt="" width="32"
-                                    height="32"> <span class="user-name">arinabagam3@gmail.com</span></a>
+                                    src="/img/profile_pic.png" alt="" width="32"
+                                    height="32"></a>
                         <div role="menu" style="display:none;" class="dropdown-menu show profile-menu">
-                            <div class="user-info">
-                                <div class="user-name">Ариана</div>
-                                <div class="user-position online">
-                                    Подписка до 07.04.2022
-                                </div>
-                            </div>
-                            <a href="/bills" class="dropdown-item "><i class="far fa-check-square mr-2"></i>Подписка и
-                                счета
-                            </a> <a href="/userpanel" class="dropdown-item "><i class="far fa-user mr-2"></i>Аккаунт
-                            </a> <a href="/partner-stat" class="dropdown-item "><i class="fas fa-ruble-sign mr-2"></i>Партнерская
-                                программа
-                            </a> <a href="/user/report-history" class="dropdown-item "><i
-                                        class="fas fa-history mr-2"></i>История
-                                запросов
-                            </a> <a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt mr-2"></i>Выход
+                            <a href="/userpanel" class="dropdown-item "><i class="far fa-user mr-2"></i>Аккаунт
+                            </a>  <a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt mr-2"></i>Выход
                             </a></div>
                     </li>
                 </ul>
@@ -190,9 +180,9 @@
             <div class="row">
                 <div class="col-md-12 ">
                     <div class="card">
-                        <div class="card-header card-header-divider">$name<span class="card-subtitle">Моментальный анализ продаж миллионов товаров на Российских маркетплейсах</span>
+                       <div class="card-header card-header-divider">MARKETPLACE<span class="card-subtitle">Моментальный анализ продаж миллионов товаров на Российских маркетплейсах</span>
                         </div>
-                        <div class="card-body"><p>$name - это комплекс из нескольких узлов:
+                        <div class="card-body"><p>MARKETPLACE - это комплекс из нескольких узлов:
                                 система сбора данных,
                                 система хранения и системы анализа. Ежедневно мы обрабатываем сотни гигабайтов данных,
                                 чтобы
@@ -226,29 +216,12 @@
                 <div class="col-md-4">
                     <div class="logo d-flex">
                         <a href="/" class="d-flex align-items-center">
-                            <alt="mpstats.io" class="mr-2"> $name
+                            <alt="marketplace" class="mr-2"> MARKETPLACE
                         </a>
                     </div>
                     <p class="mb-3">Сервис статистики и мониторинга маркетплейсов.</p>
-                    <p>Powered by
-                        <a href="mailto:iod766@gmail.com">Podovinnikov</a></p>
-                    <div class="d-flex align-items-center payment-system mt-3">
-                        <div><img src="https://mpstats.io/i/payment-system/MainVisaWhite.png" width="70"
-                                  class="mr-2"></div>
-                        <div><img src="https://mpstats.io/i/payment-system/securecode.png" width="70"
-                                  class="mr-2"></div>
-                        <div><img src="https://mpstats.io/i/payment-system/logo-mir.png" width="70"
-                                  class="mr-2"></div>
-                        <div><img src="https://mpstats.io/i/payment-system/iomoney.png" width="70" class="mr-2">
-                        </div>
-                        <div><img src="https://mpstats.io/i/payment-system/google-pay-mark.png" width="70"
-                                  class="mr-2"></div>
-                        <div><img src="https://mpstats.io/i/payment-system/Pay_hor_pos_RGB.png" width="110"
-                                  class="mr-2"></div>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <div>Безналичный расчет для юридических лиц и ИП</div>
-                    </div>
+                    
+        
                 </div>
             </div>
             </a>
@@ -385,179 +358,274 @@
 </div>
 </div>
 </body>
-<script>
-    function drawDonutGraph(id, labels, data, title, vector = 'left'){
-        new Chart(document.getElementById(id).getContext('2d'), {
-            type: 'doughnut',
-            data: {
-                labels: labels,
-                datasets: [{
-                    data: data,
-                    backgroundColor: [
-                        'rgb(255,0,54)',
-                        'rgb(54, 162, 235)',
-                        'rgb(157,55,34)',
-                        'rgb(255, 205, 86)',
-                        'rgb(86,151,155)',
-                        'rgb(102,0,255)',
-                        'rgb(197,197,197)'
-                    ],
-                    hoverOffset: 4
-                }]
-            },
-            options: {
-                legend: {
-                    position: vector,
+{% block scripts %}
+    <script>
+        function drawDonutGraph(id, labels, data, title, vector = 'left'){
+            new Chart(document.getElementById(id).getContext('2d'), {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: [
+                            'rgb(255,0,54)',
+                            'rgb(54, 162, 235)',
+                            'rgb(157,55,34)',
+                            'rgb(255, 205, 86)',
+                            'rgb(86,151,155)',
+                            'rgb(102,0,255)',
+                            'rgb(197,197,197)'
+                        ],
+                        hoverOffset: 4
+                    }]
                 },
-                title: {
-                    display: true,
-                    text: title
-                }
-            },
-        })
-    }
-    function drawLineGraph(id, data, names, labels, groups=['A', 'B', 'A', 'A', 'C', 'C','C', 'C','A', 'A']){
-
-        let dataset = [],
-            BGcolor = [
-                'rgba(109,99,255,0.2)',
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(66,26,34,0.2)',
-                'rgba(195,104,255,0.2)',
-                'rgba(255,224,99,0.68)',
-                'rgba(62,143,178,0.2)',
-                'rgba(54,54,54,0.5)',
-                'rgba(167,255,220,0.51)',
-                'rgba(191,3,255,0.56)',
-                'rgba(255,220,0,0.78)'
-            ],
-            BRcolor = [
-                'rgb(99,143,255)',
-                'rgba(255,99,132,1)',
-                'rgb(121,99,102)',
-                'rgb(169,99,255)',
-                'rgb(255,200,99)',
-                'rgb(94,200,224)',
-                'rgb(0,0,0)',
-                'rgb(149,255,235)',
-                'rgb(198,99,255)',
-                'rgb(255,253,31)'
-            ]
-        for(let i=0;i<data.length;i++){
-            dataset[i] = {
-                label: names[i],
-                backgroundColor: BGcolor[i],
-                borderColor: BRcolor[i],
-                borderWidth: 1,
-                yAxisID: groups[i],
-                data: data[i]
-            }
-        }
-        new Chart(document.getElementById(id).getContext('2d'), {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: dataset
-            },
-            options: {
-                responsive: true,
-                interaction: {
-                    intersect: false,
+                options: {
+                    legend: {
+                        position: vector,
+                    },
+                    title: {
+                        display: true,
+                        text: title
+                    }
                 },
-                scales: {
-                    yAxes: [{ id: 'A',}, { id: 'B',}, {id: 'C',}]
-                }
-            },
-        })
-    }
-    function newDatePicker(id, func, format = "Y-m-d"){
-        document.getElementById(id).attributes.removeNamedItem('disabled')
-        flatpickr("#"+id, {
-            mode: "range",
-            dateFormat: format,
-            onClose: function(selectedDates, dateStr, instance) {
-                func(dateStr)
-            },
-        })
-    }
-    function newLoader(id, dur=300){
-        return new jQuerySpinner({
-            parentId: id,
-            duration: dur
-        });
-    }
-    function download(filename, text) {
-        var element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=Windows-1251,' + encodeURIComponent(text));
-        element.setAttribute('download', filename);
-
-        element.style.display = 'none';
-        document.body.appendChild(element);
-
-        element.click();
-
-        document.body.removeChild(element);
-    }
-    function mixChart(id, labels, names, data, lineData){
-        let dataset = [],
-            groups = ['A', 'B',  'C', 'D', 'E', 'F', 'G', 'U'],
-            BGcolor = [
-                'rgba(109,99,255,0.2)',
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(66,26,34,0.2)',
-                'rgba(195,104,255,0.2)',
-                'rgba(255,224,99,0.68)',
-                'rgba(62,143,178,0.2)',
-                'rgba(54,54,54,0.5)',
-                'rgba(167,255,220,0.51)',
-                'rgba(191,3,255,0.56)',
-                'rgba(255,220,0,0.78)'
-            ],
-            BRcolor = [
-                'rgb(99,143,255)',
-                'rgba(255,99,132,1)',
-                'rgb(121,99,102)',
-                'rgb(169,99,255)',
-                'rgb(255,200,99)',
-                'rgb(94,200,224)',
-                'rgb(0,0,0)',
-                'rgb(149,255,235)',
-                'rgb(198,99,255)',
-                'rgb(255,253,31)'
-            ];
-        for(let i=0;i<data.length;i++){
-            dataset[i] = {
-                label: names[i],
-                data: data[i],
-                backgroundColor: BGcolor[i],
-                borderColor: BRcolor[i],
-                yAxisID: groups[i],
-            }
+            })
         }
-        for(let i=0,j=data.length;i<lineData.length;i++,j++){
-            dataset[j] = {
-                label: names[j],
-                data: lineData[i],
-                backgroundColor: BGcolor[j],
-                borderColor: BRcolor[j],
+        function drawLineGraph(id, data, names, labels, groups=['A', 'B', 'A', 'A', 'C', 'C','C', 'C','A', 'A']){
+
+            let dataset = [],
+                BGcolor = [
+                    'rgba(109,99,255,0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(66,26,34,0.2)',
+                    'rgba(195,104,255,0.2)',
+                    'rgba(255,224,99,0.68)',
+                    'rgba(62,143,178,0.2)',
+                    'rgba(54,54,54,0.5)',
+                    'rgba(167,255,220,0.51)',
+                    'rgba(191,3,255,0.56)',
+                    'rgba(255,220,0,0.78)'
+                ],
+                BRcolor = [
+                    'rgb(99,143,255)',
+                    'rgba(255,99,132,1)',
+                    'rgb(121,99,102)',
+                    'rgb(169,99,255)',
+                    'rgb(255,200,99)',
+                    'rgb(94,200,224)',
+                    'rgb(0,0,0)',
+                    'rgb(149,255,235)',
+                    'rgb(198,99,255)',
+                    'rgb(255,253,31)'
+                ]
+            for(let i=0;i<data.length;i++){
+                dataset[i] = {
+                    label: names[i],
+                    backgroundColor: BGcolor[i],
+                    borderColor: BRcolor[i],
+                    borderWidth: 1,
+                    yAxisID: groups[i],
+                    data: data[i]
+                }
+            }
+            new Chart(document.getElementById(id).getContext('2d'), {
                 type: 'line',
-                yAxisID: groups[j],
-                tension: 0.1
+                data: {
+                    labels: labels,
+                    datasets: dataset
+                },
+                options: {
+                    responsive: true,
+                    interaction: {
+                        intersect: false,
+                    },
+                    scales: {
+                        yAxes: [{ id: 'A',}, { id: 'B',}, {id: 'C',}]
+                    }
+                },
+            })
+        }
+        function newDatePicker(id, func, format = "Y-m-d"){
+            document.getElementById(id).attributes.removeNamedItem('disabled')
+            flatpickr("#"+id, {
+                mode: "range",
+                dateFormat: format,
+                onClose: function(selectedDates, dateStr, instance) {
+                    func(dateStr)
+                },
+            })
+        }
+        function newLoader(id, dur=300){
+            return new jQuerySpinner({
+                parentId: id,
+                duration: dur
+            });
+        }
+        function download(filename, text) {
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=Windows-1251,' + encodeURIComponent(text));
+            element.setAttribute('download', filename);
+
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
+        }
+        function mixChart(id, labels, names, data, lineData){
+            let dataset = [],
+                groups = ['A', 'B',  'C', 'D', 'E', 'F', 'G', 'U'],
+                BGcolor = [
+                    'rgba(109,99,255,0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(66,26,34,0.2)',
+                    'rgba(195,104,255,0.2)',
+                    'rgba(255,224,99,0.68)',
+                    'rgba(62,143,178,0.2)',
+                    'rgba(54,54,54,0.5)',
+                    'rgba(167,255,220,0.51)',
+                    'rgba(191,3,255,0.56)',
+                    'rgba(255,220,0,0.78)'
+                ],
+                BRcolor = [
+                    'rgb(99,143,255)',
+                    'rgba(255,99,132,1)',
+                    'rgb(121,99,102)',
+                    'rgb(169,99,255)',
+                    'rgb(255,200,99)',
+                    'rgb(94,200,224)',
+                    'rgb(0,0,0)',
+                    'rgb(149,255,235)',
+                    'rgb(198,99,255)',
+                    'rgb(255,253,31)'
+                ];
+            for(let i=0;i<data.length;i++){
+                dataset[i] = {
+                    label: names[i],
+                    data: data[i],
+                    backgroundColor: BGcolor[i],
+                    borderColor: BRcolor[i],
+                    yAxisID: groups[i],
+                }
+            }
+            for(let i=0,j=data.length;i<lineData.length;i++,j++){
+                dataset[j] = {
+                    label: names[j],
+                    data: lineData[i],
+                    backgroundColor: BGcolor[j],
+                    borderColor: BRcolor[j],
+                    type: 'line',
+                    yAxisID: groups[j],
+                    tension: 0.1
+                }
+            }
+            new Chart(document.getElementById(id).getContext('2d'), {
+                type: 'bar',
+                data: {
+                    datasets: dataset,
+                    labels: labels
+                },
+                options: {
+                    scales: {
+                        yAxes: [{ id: 'A',}, { id: 'B',}, {id: 'C',}, {id: 'D',}, {id: 'E',}, {id: 'F',}, {id: 'G',}, {id: 'U',}]
+                    }
+                },
+            });
+
+        }
+        function newDataGrid(el, col, value, onclick = e => 0){
+            let locale = {
+                filterOoo: 'Фильтровать...',
+                equals: 'Равно',
+                notEqual: 'Не равно',
+                blank: 'Пусто',
+                notBlank: 'Не пусто',
+                empty: 'Choose One',
+                inRange: 'В диапазоне',
+                inRangeStart: 'от',
+                inRangeEnd: 'до',
+                contains: 'Содержит',
+                notContains: 'Не содержит',
+                startsWith: 'Начинается с',
+                endsWith: 'Заканчивается',
+                dateFormatOoo: 'yyyy-mm-dd',
+                andCondition: 'И',
+                orCondition: 'ИЛИ',
+                applyFilter: 'Применить',
+                resetFilter: 'Сброс',
+                clearFilter: 'Очистить',
+                cancelFilter: 'Отмена',
+                textFilter: 'Текстовый фильтр',
+                numberFilter: 'Числовый фильтр',
+                dateFilter: 'Фильтр по дате',
+                setFilter: 'Задать фильтр',
+                columns: 'Столбцы',
+                filters: 'Фильтры'
+            };
+            let option = {
+                columnDefs: col,
+                rowHeight: 35,
+                rowData: value,
+                pagination: true,
+                defaultColDef: {
+                    enableRowGroup: true,
+                    enablePivot: true,
+                    enableValue: true,
+                    sortable: true,
+                    filter: 'agTextColumnFilter',
+                    floatingFilter: true,
+                    resizable: true,
+                    filterParams: {
+                        buttons: ['reset', 'apply'],
+                        debounceMs: 200
+                    },
+                },
+                onRowClicked: onclick,
+                sideBar: {
+                    toolPanels: ['columns'],
+                },
+                animateRows: true,
+                rowStyle: { background: 'white' },
+                suppressRowHoverHighlight: true,
+                columnHoverHighlight: true,
+                suppressExcelExport: true,
+                popupParent: document.body,
+                localeText: locale,
+            };
+            new agGrid.Grid(el, option);
+        }
+        function formatter(id) {
+            let intFormatter = new Intl.NumberFormat()
+            for (i=0;i<document.getElementsByClassName(id).length;i++){
+                let prop = document.getElementsByClassName(id)[i]
+                if(prop.innerText.indexOf(' ') !== -1){
+                    if(prop.innerText.indexOf(',') === -1) {
+                        let str = prop.innerText.substring(prop.innerText.indexOf(' '))
+                        prop.innerText = prop.innerText.substring(0, prop.innerText.indexOf(' '))
+                        prop.innerText = intFormatter.format(prop.innerText) + str
+                    }
+                }else{
+                    prop.innerText = intFormatter.format(prop.innerText)
+                }
             }
         }
-        new Chart(document.getElementById(id).getContext('2d'), {
-            type: 'bar',
-            data: {
-                datasets: dataset,
-                labels: labels
-            },
-            options: {
-                scales: {
-                    yAxes: [{ id: 'A',}, { id: 'B',}, {id: 'C',}, {id: 'D',}, {id: 'E',}, {id: 'F',}, {id: 'G',}, {id: 'U',}]
-                }
-            },
-        });
-
-    }
-</script>
+        function searchItem(){
+            let value = document.getElementById("searchItem").value;
+            if(value.length > 0){
+                fetch(`{{ path("api_search_item") }}?sku=${value}`)
+                    .then(async data => {
+                        data = await data.json()
+                        let isWb = data['isWb'], values = data['value']
+                        if(isWb){
+                            let path = `{{path('wb_item', {sku:0})}}`
+                            window.location.href = path.substring(0, path.length-1)+""+values
+                        }else if(!isWb && isWb !== undefined) {
+                            let path = `{{path('ozon_get_item', {sku:0})}}`
+                            window.location.href = path.substring(0, path.length-1)+""+values
+                        }
+                    })
+            }
+        }
+    </script>
+{% endblock %}
 </html>

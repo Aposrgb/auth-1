@@ -7,7 +7,6 @@ form{
     flex-direction: column;
     font-family: monospace;
     font-size: 4vh;
-    margin-top: 25vh;
 }
 form :only-child{
     margin: 2vh;
@@ -24,26 +23,19 @@ form input{
     background: #c4c4c4;
     text-align: center;
     border:none;
-    width: 12vw;
+    width: 250px;
     height: 3vh;
     padding: 1vh;
-    border-radius: 2vh;
+    border-radius: 5px;
     font-size: 2vh;
 }
 .submit{
     margin-top: 5vh;
-    width: auto;
-    background: #81ff86;
+    width: 250px;
+    background: #bcbfab;
     font-size: 3vh;
     height: auto;
     padding: 1vh 3vh;
-    border-radius: 2vh;
+    border-radius: 5px;
     color: black;
-}
-#poweredBy{
-    text-align: end;
-    font-size: 1.5vh;
-    color: gray;
-    padding: 15vh;
-    padding-bottom: 0;
 }

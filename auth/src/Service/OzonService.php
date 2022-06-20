@@ -9,6 +9,95 @@ use GuzzleHttp\Client;
 
 class OzonService extends AbstractService
 {
+    public function getItem($sku, $query)
+    {
+        $context = ['sku' => $sku];
+        $client = new Client();
+        try {
+            $date = $query['date']??null;
+            $date = $date?explode(' to ', $date):null;
+            $context['d2'] = $date?$date[1]:(new \DateTime())->modify('-1 day')->format('Y-m-d');
+            $context['d1'] = $date?$date[0]:(new \DateTime())->modify('-61 day')->format('Y-m-d');
+            $getUrl = function ($url, $isOneDate) use ($sku, $context) {
+                return ($this->mpStatsApiOz . "item/" . $sku . "$url?") . (!$isOneDate ?
+                        "d2=" . $context['d2'] . "&d1=" . $context['d1'] :
+                        "d=" . $context['d2']);
+            };
+            $requestToArray = function ($url, $bool = false) use ($client, $getUrl) {
+                return json_decode(
+                    $client
+                        ->get($getUrl($url, $bool), $this->getHeaders())
+                        ->getBody()
+                        ->getContents(),
+                    true);
+            };
+            $sales = $requestToArray('/sales');
+            $context['salesArr'] = $sales;
+            $context['sales'] = $sales[0];
+            $context['sales']['category'] = $query['name']??'';
+            $context['item'] = $requestToArray('');
+            $context['photos'] = $context['item']['photos'];
+            $context['item'] = $context['item']['item'];
+            $context['result'] = 0;
+            $context['summa'] = 0;
+            $context['balance'] = 0;
+            $context['potensial'] = 0;
+            $context['price'] = 0;
+            $context['count'] = 0;
+            $countSale = 0;
+            foreach ($sales as $sale){
+                if($sale['balance'] > 0){
+                    $context["result"] += $sale['sales'];
+                    $context["summa"] += $sale['sales'] * $sale['final_price'];
+                    $context['balance'] += $sale['balance'];
+                    $context['price'] += $sale['final_price'];
+                    $countSale++;
+                }
+            }
+            $byKeywords = $requestToArray('/by_keywords');
+            $context['keywords'] = [];
+            $context['days'] = $byKeywords['days'];
+            foreach (array_keys($byKeywords['words']) as $word) {
+                $context['keywords'][] = [
+                    'name' => $word,
+                    'pos' => array_splice($byKeywords['words'][$word]['pos'], count($byKeywords['words'][$word]['pos']) / 2 + 1),
+                    'count' => $byKeywords['words'][$word]['count'],
+                    'total' => $byKeywords['words'][$word]['total'],
+                    'avgPos' => $byKeywords['words'][$word]['avgPos']
+                ];
+            }
+            $context['by_keywords'] = [];
+            for ($i = 0; $i < count($byKeywords['days']); $i++) {
+                $context['by_keywords'][] = [
+                    'sale' => $byKeywords['sales'][$i],
+                    'day' => $byKeywords['days'][$i],
+                    'balance' => $byKeywords['balance'][$i],
+                    'final_price' => $byKeywords['final_price'][$i],
+                    'summa' => $byKeywords['sales'][$i] * $byKeywords['final_price'][$i]
+                ];
+            }
+            $context['average'] = (int)($context['result'] / count($sales));
+            $context['summa_average'] = (int)($context['summa'] / count($sales));
+            $context['balance_price'] = (int)($context['price'] / $countSale) * $context['balance']/$countSale;
+            $context['balance'] = (int)($context['balance'] / $countSale);
+            $context['by_keywords'] = array_reverse($context['by_keywords']);
+            $context['count']  = $countSale;
+            $context['salesG'] = [];
+            $context['balanceG'] = [];
+            $context['priceG'] = [];
+            $context['summaG'] = [];
+            foreach (array_reverse($context['by_keywords']) as $sale){
+                $context['salesG'][] = $sale['sale'];
+                $context['balanceG'][] = $sale['balance'];
+                $context['priceG'][] = $sale['final_price'];
+                $context['summaG'][] = $sale['summa'];
+                $context['dayG'][] = $sale['day'];
+            }
+        } catch (\Exception $exception) {
+        }
+        return $context;
+    }
+
     public function findBrand($brand, $query)
     {
         $context = [];
@@ -148,23 +237,33 @@ class OzonService extends AbstractService
         return $context;
     }
 
-    public function getCategory($url = null)
+    public function getCategory($url = null, $query)
     {
         if($url){
-            $sales = $this
-                    ->entityManager
-                    ->getRepository(CategorySales::class)
-                    ->findCategories($url, CategoryEnum::OZON);
-
-            $sales = array_map(function (CategorySales $item){
-                $item->setColor(explode(', ', $item->getColor())[0]);
-                $item->setGraph(explode(',', $item->getGraph()));
+            if(!key_exists('date', $query)){
+                $d1= (new \DateTime())->modify('-1 day')->format('Y-m-d');
+                $d2= (new \DateTime())->modify('-60 day')->format('Y-m-d');
+            }else{
+                $date = explode(' to ', $query['date']);
+                $d1= $date[0];
+                $d2= $date[1];
+            }
+            $fbs = $query['fbs']??0;
+            $category = $this->mpStatsApiOz . "category?path=$url&" . "d2=" . $d2 . "&d1=" . $d1 . "&fbs=".$fbs;
+            $sales = json_decode((new Client())->get($category, $this->getHeaders())->getBody()->getContents(), true)['data'];
+            $sales = array_map(function ($item) {
+                $item['nmId'] = $item['id'];
+                $item['finalPrice'] = $item['final_price'];
+                $item['dayStock'] = $item['days_in_stock'];
                 return $item;
             }, $sales);
 
             $context = [
                 'sales' => $sales,
-                'path' => $url
+                'path' => $url,
+                'd1' => $d1,
+                'd2' => $d2,
+                'fbs' => $fbs
             ];
             return $context;
         }
