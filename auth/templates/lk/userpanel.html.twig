@@ -24,30 +24,32 @@
 
         <div class="row">
             <div class="col-sm-6 col-md-4">
-                <div class="card card-border-color card-border-color-success">
-                    <div class="card-header card-header-divider ">Ваш персональный менеджер</div>
-                    <div class="card-body">
-                        <p></p>
-                        <p><a href="mailto:"></a></p><a href="mailto:">
-                        </a><p><a href="mailto:"></a><a href="tel:"></a></p>
-                    </div>
-                </div>
-
-                <div class="card card-border-color card-border-color-primary self-align-center">
+              <div class="card card-border-color card-border-color-primary self-align-center">
                     <div class="card-header card-header-divider">
                         Панель управления<span class="card-subtitle">Для изменения параметров учетной записи</span>
                     </div>
-
+                   
                     <div class="card-body">
                         <form action="/userpanel" method="POST"><input type="hidden" name="act" value="do">
-
-
-                            <div class="form-group row mt-2">
-                                <label class="col-4 col-lg-3 col-form-label text-left" for="inputEmail2">Email</label>
-                                <div class="col-8 col-lg-9">
-                                    <input class="form-control" id="inputEmail2" type="email" placeholder="Email" name="email" value="vadim7wplku@inbox.ru" disabled="">
+                         <div class="form-group row">
+                         <label class="col-4 col-lg-3 col-form-label text-left" for="inputPassword2">Тариф</label>
+                         <div class="col-8 col-lg-9">
+                                    <input class="form-control" value="Профессиональный" disabled >
                                 </div>
-                            </div>
+                          </div>
+                         <div class="form-group row">
+                         <label class="col-4 col-lg-3 col-form-label text-left" for="inputPassword2">Дата окончания</label>
+                         <div class="col-8 col-lg-9">
+                                    <input class="form-control" value="{{user.dateExpired|date("m/d/Y")}}" disabled >
+                                </div>
+                          </div>
+                         <div class="form-group row">
+                         <label class="col-4 col-lg-3 col-form-label text-left" for="inputPassword2">Логин</label>
+                         <div class="col-8 col-lg-9">
+                                    <input class="form-control" value="{{user.username}}" disabled >
+                                </div>
+                          </div>
+                              
 
                             <div class="form-group row">
                                 <label class="col-4 col-lg-3 col-form-label text-left" for="inputPassword2">Пароль</label>
@@ -62,24 +64,6 @@
                                 </label>
                                 <div class="col-8 col-lg-9">
                                     <input class="form-control" id="inputPassword2" type="password" placeholder="Пароль" name="password2">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-4 col-lg-3 col-form-label text-left" for="inputPassword2">
-                                    Контактный телефон
-                                </label>
-                                <div class="col-8 col-lg-9">
-                                    <input class="form-control" id="inputPassword2" type="phone" placeholder="+79111234567" name="phone" value="+79916802954">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-4 col-lg-3 col-form-label text-left" for="inputPassword2">
-                                    Как к Вам обращаться
-                                </label>
-                                <div class="col-8 col-lg-9">
-                                    <input class="form-control" id="inputPassword2" type="text" placeholder="Сергей" name="name" value="{{user.username}}">
                                 </div>
                             </div>
 
@@ -98,30 +82,8 @@
 
             <div class="col-sm-6 col-md-4">
 
-                <div class="card card-border-color card-border-color-primary self-align-center">
-                    <div class="card-header card-header-divider">Настройки интеграции</div>
-
-                    <div class="card-body">
-                        <form method="POST">
-                            <input type="hidden" name="act" value="createApiToken">
-                            <div class="row pt-3 mt-1">
-                                <div class="col-4 col-lg-3"></div>
-                                <div class="col-8 col-lg-9">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <a href="/chrome-plugin">Наш плагин для Google Chrome</a>
-                                        </div>
-                                        <div class="col-6 text-right">
-                                            <button class="btn btn-space btn-primary" type="submit">
-                                                Получить API токен
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                
+               
 
                 <div class="card card-border-color card-border-color-primary self-align-center">
                     <div class="card-header card-header-divider">Настройки выгрузки</div>
