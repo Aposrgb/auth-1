@@ -3,13 +3,13 @@
 {% block title %}Log in!{% endblock %}
 
 {%block styles%}
-    <link href="styles/header.css" rel="stylesheet">
+    
     <link href="styles/auth.css" rel="stylesheet">
 {%endblock%}
 
 {% block body %}
     <form method="post">
-        <p>Добро пожаловать</p>
+        <p style="text-align:center;"><img src="/img/logo.png" width="250"  alt="Logo"></p>
         {% if ipAddr ?? false%}
             <div class="error">Нельзя зайти больше чем под 1 устройством</div>
         {% endif %}
@@ -42,7 +42,7 @@
 
         <input class="submit" type="submit" value="Вход"/>
     </form>
-    <p id="poweredBy">Powered by<br>Podovinnikov<br>(2022-2022)</p>
+    
     <script>
         if({{ logout ?? "false"}}){
             fetch('/logout')
