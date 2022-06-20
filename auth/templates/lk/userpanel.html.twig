@@ -13,6 +13,8 @@
 
 {% endblock %}
 {%block body%}
+    <div id="response_div" style="margin-left: 10px;display: none;position: fixed; z-index: 100; bottom: 50px; background: red; color: white; padding: 20px; font-size: 20px; width: 350px; height: 100px; border-radius: 5px;">
+    </div>
     <div class="main-content container-fluid" id="mp-stats-app">
         <div id="global-loader-block" class="mp-loader-overlay ag-overlay hidden" aria-hidden="true">
             <div class="ag-overlay-panel">
@@ -30,7 +32,6 @@
                     </div>
                    
                     <div class="card-body">
-                        <form action="/userpanel" method="POST"><input type="hidden" name="act" value="do">
                          <div class="form-group row">
                          <label class="col-4 col-lg-3 col-form-label text-left" for="inputPassword2">Тариф</label>
                          <div class="col-8 col-lg-9">
@@ -40,7 +41,12 @@
                          <div class="form-group row">
                          <label class="col-4 col-lg-3 col-form-label text-left" for="inputPassword2">Дата окончания</label>
                          <div class="col-8 col-lg-9">
-                                    <input class="form-control" value="{{user.dateExpired|date("m/d/Y")}}" disabled >
+                                    <input class="form-control" value="
+                        {% if user.dateExpired %}
+                            {{user.dateExpired|date("m/d/Y") }}
+                        {% else %}
+                            Date empty
+                        {%endif%}" disabled >
                                 </div>
                           </div>
                          <div class="form-group row">
@@ -54,7 +60,7 @@
                             <div class="form-group row">
                                 <label class="col-4 col-lg-3 col-form-label text-left" for="inputPassword2">Пароль</label>
                                 <div class="col-8 col-lg-9">
-                                    <input class="form-control" id="inputPassword2" type="password" placeholder="Пароль" name="password">
+                                    <input value=""  class="form-control" id="inputPassword1" type="password" placeholder="Пароль" name="password">
                                 </div>
                             </div>
 
@@ -63,7 +69,7 @@
                                     Повторите пароль
                                 </label>
                                 <div class="col-8 col-lg-9">
-                                    <input class="form-control" id="inputPassword2" type="password" placeholder="Пароль" name="password2">
+                                    <input value="" class="form-control" id="inputPassword2" type="password" placeholder="Пароль" name="password2">
                                 </div>
                             </div>
 
@@ -71,11 +77,10 @@
                                 <div class="col-4 col-lg-3"></div>
                                 <div class="col-8 col-lg-9">
                                     <p class="text-right">
-                                        <button class="btn btn-space btn-primary" type="submit">Сохранить изменения</button>
+                                        <button onclick="send()" class="btn btn-space btn-primary" type="submit">Сохранить изменения</button>
                                     </p>
                                 </div>
                             </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -145,7 +150,41 @@
             </div>
 
         </div>
-
-        <vue-snotify></vue-snotify>
     </div>
+    <script>
+        let wait = true
+        function send(){
+            let value = document.getElementById("inputPassword1").value, value2 =  document.getElementById("inputPassword2").value
+            try{
+                if(wait){
+                    wait = false
+                    fetch(`{{ path("change_password") }}?pass=${value}&checkPass=${value2}`)
+                        .then(async data => {
+                            let json = await data.json()
+                            if (json['data'] !== undefined){
+                                outputResponse();
+                            }
+                            else if (json['error'] !== undefined){
+                                outputResponse(json['error']['message'], false);
+                            }
+                        })
+                    wait = true
+                }
+
+            }catch (ex){}
+        }
+        function outputResponse(string = "Успешно", success = true){
+            if(success){
+                document.getElementById("response_div").innerText = string
+                document.getElementById("response_div").style.background = "green"
+                document.getElementById("response_div").style.display = "block"
+                setTimeout(e => { document.getElementById("response_div").style.display = "none" }, 5*1000 )
+            }else{
+                document.getElementById("response_div").innerText = string
+                document.getElementById("response_div").style.background = "red"
+                document.getElementById("response_div").style.display = "block"
+                setTimeout(e => { document.getElementById("response_div").style.display = "none" }, 5*1000 )
+            }
+        }
+    </script>
 {%endblock%}
