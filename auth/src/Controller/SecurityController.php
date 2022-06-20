@@ -2,8 +2,7 @@
 
 namespace App\Controller;
 
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Helper\Status\UserStatus;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,11 +11,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    public function __construct(
-        protected EntityManagerInterface $entityManager
-    )
-    {
-    }
+
     #[Route(path: '/', name: 'redirect_login')]
     public function redirectToLogin(Request $request)
     {
@@ -27,6 +22,10 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
     {
         $client = $this->getUser();
+
+        if($client && $client->getStatus() != UserStatus::ACTIVE){
+            return $this->render('security/login.html.twig', ['logout' => true, 'deactivated' => true ]);
+        }
 
         if($client && $client->getAllowIpAddress()){
             if($request->getClientIp() != $client->getAllowIpAddress()){

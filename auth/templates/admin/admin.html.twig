@@ -42,6 +42,7 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Date expires</th>
+                <th>Status</th>
             </tr>
             </thead>
             <tbody>
@@ -54,6 +55,13 @@
                             {{user.dateExpired|date("m/d/Y") }}
                         {% else %}
                             Date empty
+                        {%endif%}
+                    </td>
+                    <td>
+                        {% if user.status == 1 %}
+                            activated
+                        {% else %}
+                            deactivated
                         {%endif%}
                     </td>
                 </tr>

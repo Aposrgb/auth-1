@@ -10,10 +10,13 @@
 {% block body %}
     <form method="post">
         <p>Добро пожаловать</p>
-        {% if ipAddr ?? false%}
+        {% if ipAddr ?? false %}
             <div class="error">Нельзя зайти больше чем под 1 устройством</div>
         {% endif %}
-        {% if error ?? false%}
+        {% if deactivated ?? false %}
+            <div class="error">Пользователь деактивирован, для продления подписки обращайтесь в тех. службу</div>
+        {% endif %}
+        {% if error ?? false %}
             <div class="error">Неверные данные</div>
         {% endif %}
         <label for="inputUsername">
