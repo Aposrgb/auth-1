@@ -19,8 +19,11 @@
         {% if error ?? false %}
             <div class="error">Неверное имя пользователя или пароль</div>
         {% endif %}
+        {% if blocked ?? false %}
+            <div class="error">Ваш демо счет заблокирован</div>
+        {% endif %}
         <label for="inputUsername">
-            <input type="text" value="{{ last_username ?? '' }}" placeholder="Имя пользователя" name="username"
+            <input type="text" value="" placeholder="Имя пользователя" name="username"
                    id="inputUsername" class="form-control" autocomplete="username" required autofocus>
         </label>
         <label for="inputPassword">
@@ -43,7 +46,8 @@
         </div>
         #}
 
-        <input class="submit" type="submit" value="Вход"/>
+        <input {% if blocked ?? false %}disabled{% endif %} class="submit" type="submit" value="Вход"/>
+        <a {% if blocked ?? false %}{% else %}href="{{ path('demo') }}"{% endif %}><input type="button" class="submit" value="Демо-доступ"></a>
     </form>
     <a href="https://t.me/+A-ggu6vreqplMTFi" style="position: fixed; bottom: 15px; width:100%; text-align: center">Техническая поддержка</a></p>
 

@@ -23,11 +23,14 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
         $client = $this->getUser();
         if(!in_array('ROLE_ADMIN', $client->getRoles())) {
             if($client->getDateExpired() < new \DateTime()){
-                $client->setStatus(UserStatus::BLOCK);
+                $client->setStatus($client->getStatus() == UserStatus::DEMO ? UserStatus::ARCHIVE: UserStatus::BLOCK);
                 $this->entityManager->flush();
             }
         }
-        if($client->getStatus() != UserStatus::ACTIVE){
+        if($client->getStatus() > UserStatus::DEMO){
+            return $this->redirectToRoute('app_login');
+        }
+        if($_SERVER['REMOTE_ADDR'] != $client->getAllowIpAddress()){
             return $this->redirectToRoute('app_login');
         }
         return null;
