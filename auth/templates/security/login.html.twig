@@ -11,13 +11,13 @@
     <form method="post">
         <p style="text-align:center;"><img src="/img/logo.png" width="250"  alt="Logo"></p>
         {% if ipAddr ?? false%}
-            <div class="error">Нельзя зайти больше чем под 1 устройством</div>
+            <div class="error">Превышен лимит количества устройств</div>
         {% endif %}
         {% if deactivated ?? false %}
             <div class="error">Пользователь деактивирован, для продления подписки обращайтесь в тех. службу</div>
         {% endif %}
         {% if error ?? false %}
-            <div class="error">Неверные данные</div>
+            <div class="error">Неверное имя пользователя или пароль</div>
         {% endif %}
         <label for="inputUsername">
             <input type="text" value="{{ last_username ?? '' }}" placeholder="Имя пользователя" name="username"
