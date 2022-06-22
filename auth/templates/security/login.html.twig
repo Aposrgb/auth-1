@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Marketplace analytics{% endblock %}
 
 {%block styles%}
 
@@ -14,13 +14,13 @@
             <div class="error">Превышен лимит количества устройств</div>
         {% endif %}
         {% if deactivated ?? false %}
-            <div class="error">Пользователь деактивирован, для продления подписки обращайтесь в тех. службу</div>
+            <div class="error">Пользователь деактивирован, для продления подписки обращайтесь в техподдержку</div>
         {% endif %}
         {% if error ?? false %}
             <div class="error">Неверное имя пользователя или пароль</div>
         {% endif %}
         {% if blocked ?? false %}
-            <div class="error">Ваш демо счет заблокирован</div>
+            <div class="error">Демо-период истек, для оформления подписки обращайтесь в техподдержку</div>
         {% endif %}
         <label for="inputUsername">
             <input type="text" value="" placeholder="Имя пользователя" name="username"
