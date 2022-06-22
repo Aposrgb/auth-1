@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{%block styles%}
+
+    <link href="styles/auth.css" rel="stylesheet">
+{%endblock%}
+
+{% block body %}
+    <script>
+        fetch("{{ path("app_login") }}", {
+            method: "POST",
+            headers:{
+            'Content-Type' : 'application/x-www-form-urlencoded'
+            },
+            body: "username={{ user.username }}&password={{ user.password }}&_csrf_token={{ csrf_token('authenticate') }}"
+        }).then(data => {window.location.href = "{{ path("index")}}"})
+    </script>
+{% endblock %}

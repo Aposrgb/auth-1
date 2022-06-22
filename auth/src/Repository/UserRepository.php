@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use App\Helper\Status\UserStatus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -22,6 +23,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
+    }
+
+    public function findArchive()
+    {
+        return $this->createQueryBuilder("u")
+            ->select('u.allowIpAddress as address')
+            ->where("u.status = :status")
+            ->setParameter("status", UserStatus::ARCHIVE)
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     /**
