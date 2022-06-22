@@ -28,7 +28,7 @@ class SecurityController extends AbstractController
             $user
                 ->setPassword($this->hasher->hashPassword($user, 12345))
                 ->setStatus(UserStatus::DEMO)
-                ->setDateExpired((new \DateTime())->modify("+ 1 min"))
+                ->setDateExpired((new \DateTime())->modify("+ 15 min"))
         );
         $this->entityManager->flush();
         $user->setPassword(12345);
