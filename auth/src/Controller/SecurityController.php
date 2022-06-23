@@ -74,10 +74,12 @@ class SecurityController extends AbstractController
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(TokenStorageInterface $tokenStorage, Request $request): Response
     {
-        if($this->getUser()->getStatus() != UserStatus::DEMO && $this->getUser()->getStatus() != UserStatus::ARCHIVE){
+        if($this->getUser()->getStatus() != UserStatus::DEMO && $this->getUser()->getStatus() != UserStatus::ARCHIVE)
             $this->getUser()->setAllowIpAddress(null);
-            $this->entityManager->flush();
-        }
+        else
+            $this->getUser()->setStatus(UserStatus::ARCHIVE);
+
+        $this->entityManager->flush();
         $request->getSession()->invalidate();
         $tokenStorage->setToken();
         return $this->redirectToRoute("app_login");
