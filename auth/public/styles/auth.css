@@ -30,7 +30,7 @@ form input{
     font-size: 2vh;
 }
 .submit{
-    margin-top: 5vh;
+    margin-block: 5vh;
     width: 250px;
     background: #bcbfab;
     font-size: 3vh;
