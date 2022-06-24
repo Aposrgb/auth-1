@@ -49,7 +49,7 @@
         <input class="submit" type="submit" value="Вход"/>
         <a {% if blocked ?? false %}{% else %}href="{{ path('demo') }}"{% endif %}><input type="button" class="submit" value="Демо-доступ"></a>
     </form>
-    <a href="mailto:support@marketanalytics.pro" style="position: fixed; bottom: 15px; width:100%; text-align: center">Техническая поддержка</a></p>
+    <a href="mailto:support@marketanalytics.pro" style="position: relative; bottom: 15px; width: 100%; display: block; text-align: center;">Техническая поддержка</a></p>
 
     <script>
         if({{ logout ?? "false"}}){
