@@ -41,11 +41,14 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
     {
         $client = $this->getUser();
-        $users = $this->entityManager->getRepository(User::class)->findArchive();
-        $users = array_column($users, "address");
-        foreach ($users as $user){
-            if($request->getClientIp() == $user){
-                return $this->render('security/login.html.twig', ['logout' => true, 'blocked' => true ]);
+        
+        if(!$client){
+            $users = $this->entityManager->getRepository(User::class)->findArchive();
+            $users = array_column($users, "address");
+            foreach ($users as $user){
+                if($request->getClientIp() == $user){
+                    return $this->render('security/login.html.twig', ['logout' => true, 'blocked' => true ]);
+                }
             }
         }
 
