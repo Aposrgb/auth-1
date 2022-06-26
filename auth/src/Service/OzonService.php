@@ -197,6 +197,32 @@ class OzonService extends AbstractService
         return $data;
     }
 
+    public function getApiCategoryBrands($query, $url = "brands")
+    {
+        $date = explode(' to ', $query['date']);
+        $path = $query['path'];
+        $response = (new Client())->get($this->mpStatsApi."oz/get/category/$url" ."?d1=$date[0]&d2=$date[1]&path=$path", $this->getHeaders());
+        $response = json_decode($response->getBody()->getContents(), true);
+        $data = [];
+        foreach ($response as $index => $item){
+            $data[] = array_merge(['name' => $index], $item);
+        }
+        return $data;
+    }
+
+    public function getApiSubCategory($query)
+    {
+        $date = explode(' to ', $query['date']);
+        $path = $query['url'];
+        $response = (new Client())->get($this->mpStatsApi."oz/get/category/subcategories?d1=$date[0]&d2=$date[1]&path=$path", $this->getHeaders());
+        $response = json_decode($response->getBody()->getContents(), true);
+        $data = [];
+        foreach ($response as $index => $item){
+            $data[] = array_merge(['name' => $index], $item);
+        }
+        return $data;
+    }
+
     public function getApiCategory($query, $url = 'seller')
     {
         $date = explode(' to ', $query['date']);
@@ -237,7 +263,7 @@ class OzonService extends AbstractService
         return $context;
     }
 
-    public function getCategory($url = null, $query)
+    public function getCategory($url, $query)
     {
         if($url){
             if(!key_exists('date', $query)){
@@ -248,8 +274,7 @@ class OzonService extends AbstractService
                 $d1= $date[0];
                 $d2= $date[1];
             }
-            $fbs = $query['fbs']??0;
-            $category = $this->mpStatsApiOz . "category?path=$url&" . "d2=" . $d2 . "&d1=" . $d1 . "&fbs=".$fbs;
+            $category = $this->mpStatsApiOz . "category?path=$url&" . "d2=" . $d2 . "&d1=" . $d1;
             $sales = json_decode((new Client())->get($category, $this->getHeaders())->getBody()->getContents(), true)['data'];
             $sales = array_map(function ($item) {
                 $item['nmId'] = $item['id'];
@@ -262,8 +287,7 @@ class OzonService extends AbstractService
                 'sales' => $sales,
                 'path' => $url,
                 'd1' => $d1,
-                'd2' => $d2,
-                'fbs' => $fbs
+                'd2' => $d2
             ];
             return $context;
         }

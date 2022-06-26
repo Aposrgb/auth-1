@@ -599,14 +599,15 @@
         }
         function formatter(id) {
             let intFormatter = new Intl.NumberFormat()
-            for (i=0;i<document.getElementsByClassName(id).length;i++){
+            for (let i=0;i<document.getElementsByClassName(id).length;i++){
                 let prop = document.getElementsByClassName(id)[i]
                 if(prop.innerText.indexOf(' ') !== -1){
                     if(prop.innerText.indexOf(',') === -1) {
-                        let str = prop.innerText.substring(prop.innerText.indexOf(' '))
-                        prop.innerText = prop.innerText.substring(0, prop.innerText.indexOf(' '))
-                        prop.innerText = intFormatter.format(prop.innerText) + str
+                        let str = prop.innerText.substring(prop.innerText.lastIndexOf(' '))
+                        prop.innerText = prop.innerText.substring(0, prop.innerText.lastIndexOf(' '))
+                        prop.innerText = intFormatter.format(parseInt(prop.innerText.replace(/\s+/g, ''))) + str
                     }
+
                 }else{
                     prop.innerText = intFormatter.format(prop.innerText)
                 }

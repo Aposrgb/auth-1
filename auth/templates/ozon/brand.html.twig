@@ -22716,17 +22716,17 @@
                     for (let i = 0; i < data.length; i++) {
                         if (i === 6) {
                             label[i] = 'Остальные'
-                            valueSale[6] = data[i]['fbs']['sales']
-                            valueRev[6] = data[i]['fbs']['revenue']
+                            valueSale[6] = data[i]['fbo'] === undefined?0:data[i]['fbo']['sales']
+                            valueRev[6] = data[i]['fbo'] === undefined?0:data[i]['fbo']['revenue']
                         }
                         if (i > 6) {
-                            valueSale[6] += data[i]['fbs']['sales']
-                            valueRev[6] += data[i]['fbs']['revenue']
+                            valueSale[6] += data[i]['fbo'] === undefined?0:data[i]['fbo']['sales']
+                            valueRev[6] += data[i]['fbs'] === undefined?0:data[i]['fbo']['revenue']
                         }
                         if (i < 6) {
                             label[i] = data[i]['name']
-                            valueSale[i] = data[i]['fbs']['sales']
-                            valueRev[i] = data[i]['fbs']['revenue']
+                            valueSale[i] = data[i]['fbo'] === undefined?0:data[i]['fbo']['sales']
+                            valueRev[i] = data[i]['fbo'] === undefined?0:data[i]['fbo']['revenue']
                         }
                         str += `
                         <div style="transform: translateY(${i * 35}px); height: 35px;"
@@ -22742,15 +22742,15 @@
                                                                             </div>
                                                                             <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height fbs text-right"
                                                                                  style="left: 820px; width: 100px;">
-                                                                                <span><span title="91 шт">${data[i]['fbs']['items']} шт</span></span>
+                                                                                <span><span title="91 шт">${data[i]['fbs'] === undefined?0:data[i]['fbs']['items']} шт</span></span>
                                                                             </div>
                                                                             <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height fbs text-right"
                                                                                  style="left: 920px; width: 100px;">
-                                                                                <span><span title="89 шт">${data[i]['fbs']['sales']} шт</span></span>
+                                                                                <span><span title="89 шт">${data[i]['fbs'] === undefined?0:data[i]['fbs']['sales']} шт</span></span>
                                                                             </div>
                                                                             <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height fbs text-right"
                                                                                  style="left: 1020px; width: 120px;">
-                                                                                <span><span title="80 503 ₽">${data[i]['fbs']['revenue']} ₽</span></span>
+                                                                                <span><span title="80 503 ₽">${data[i]['fbs'] === undefined?0:data[i]['fbs']['revenue']} ₽</span></span>
                                                                             </div>
                                                                             <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height retail text-right"
                                                                                  style="left: 1140px; width: 100px;">
@@ -22778,15 +22778,15 @@
                                                                             </div>
                                                                             <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height tot text-right"
                                                                                  style="left: 1780px; width: 100px;">
-                                                                                <span><span title="171 шт">${data[i]['fbs']['items'] + (data[i]['fbo'] === undefined ? 0 : data[i]['fbo']['items']) + (data[i]['retail'] === undefined ? 0 : data[i]['retail']['items']) + (data[i]['crossborder'] === undefined ? 0 : data[i]['crossborder']['items'])} шт</span></span>
+                                                                                <span><span title="171 шт">${data[i]['fbs'] === undefined?0:data[i]['fbs']['items'] + (data[i]['fbo'] === undefined ? 0 : data[i]['fbo']['items']) + (data[i]['retail'] === undefined ? 0 : data[i]['retail']['items']) + (data[i]['crossborder'] === undefined ? 0 : data[i]['crossborder']['items'])} шт</span></span>
                                                                             </div>
                                                                             <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height tot text-right"
                                                                                  style="left: 1880px; width: 100px;">
-                                                                                <span><span title="90 шт">${data[i]['fbs']['sales'] + (data[i]['fbo'] === undefined ? 0 : data[i]['fbo']['sales']) + (data[i]['retail'] === undefined ? 0 : data[i]['retail']['sales']) + (data[i]['crossborder'] === undefined ? 0 : data[i]['crossborder']['sales'])} шт</span></span>
+                                                                                <span><span title="90 шт">${data[i]['fbs'] === undefined?0:data[i]['fbs']['sales'] + (data[i]['fbo'] === undefined ? 0 : data[i]['fbo']['sales']) + (data[i]['retail'] === undefined ? 0 : data[i]['retail']['sales']) + (data[i]['crossborder'] === undefined ? 0 : data[i]['crossborder']['sales'])} шт</span></span>
                                                                             </div>
                                                                             <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height ag-cell-range-right tot text-right"
                                                                                  style="left: 1980px; width: 120px;">
-                                                                                <span><span title="81 168 ₽">${data[i]['fbs']['revenue'] + (data[i]['fbo'] === undefined ? 0 : data[i]['fbo']['revenue']) + (data[i]['retail'] === undefined ? 0 : data[i]['retail']['revenue']) + (data[i]['crossborder'] === undefined ? 0 : data[i]['crossborder']['revenue'])} ₽</span></span>
+                                                                                <span><span title="81 168 ₽">${data[i]['fbs'] === undefined?0:data[i]['fbs']['revenue'] + (data[i]['fbo'] === undefined ? 0 : data[i]['fbo']['revenue']) + (data[i]['retail'] === undefined ? 0 : data[i]['retail']['revenue']) + (data[i]['crossborder'] === undefined ? 0 : data[i]['crossborder']['revenue'])} ₽</span></span>
                                                                             </div>
                                                                             <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height fbo text-right"
                                                                                  style="left: 500px; width: 100px;">

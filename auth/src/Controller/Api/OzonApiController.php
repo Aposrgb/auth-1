@@ -19,6 +19,18 @@ class OzonApiController extends AbstractController
     {
     }
 
+    #[Route(path: '/category/brands', name: 'api_ozon_category_brands')]
+    public function brandsCategory(Request $request): Response
+    {
+        return $this->json($this->service->getApiCategoryBrands($request->query->all(), $request->query->get('url')));
+    }
+
+    #[Route(path: '/subCategory', name: 'api_ozon_sub_category')]
+    public function subCategory(Request $request): Response
+    {
+        return $this->json($this->service->getApiSubCategory($request->query->all()));
+    }
+
     #[Route(path: '/category', name: 'api_ozon_category')]
     public function category(Request $request): Response
     {
