@@ -128,7 +128,7 @@ class OzonService extends AbstractService
     public function getApiCompare($query, $url = 'seller')
     {
         $path = $query['path'];
-        $date = (new \DateTime())->modify("-30 day");
+        $date = (new \DateTime())->modify("-28 day");
         $body = [
             "startRow" => 0,
             "endRow" => 100,
@@ -201,7 +201,7 @@ class OzonService extends AbstractService
     {
         $date = explode(' to ', $query['date']);
         $path = $query['path'];
-        $response = (new Client())->get($this->mpStatsApi."oz/get/category/$url" ."?d1=$date[0]&d2=$date[1]&path=$path", $this->getHeaders());
+        $response = (new Client())->get($this->mpStatsApi."oz/get/category/$url" ."?d1=$date[1]&d2=$date[0]&path=$path", $this->getHeaders());
         $response = json_decode($response->getBody()->getContents(), true);
         $data = [];
         foreach ($response as $index => $item){

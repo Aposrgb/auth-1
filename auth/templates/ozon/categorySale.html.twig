@@ -32,11 +32,19 @@
                     document.getElementById("table_sale").style.transform = "translateX(-" + value + "vh)"
                     document.getElementById("table_sale_header").style.transform = "translateX(-" + value + "vh)"
                 }, false)
+            let el6 = document.getElementById("scrollbar6")
+            el6.addEventListener("input",
+                function () {
+                    let width = document.getElementById("table_sale6").offsetWidth
+                    let value = (el6.value * width / 1800) / 5
+                    document.getElementById("table_sale6").style.transform = "translateX(-" + value + "vh)"
+                    document.getElementById("table_sale6_header").style.transform = "translateX(-" + value + "vh)"
+                }, false)
         })
         function select(el) {
             let id = el.id.substring(0, 10)
             let befPrefix = "__BVID__"
-            let list = ["69", "75", "77", "79", "82", "84", "86", "88"]
+            let list = ["69", "75", "77", "79", "84", "86", "88"]
             let afPrefix = "___BV_tab_button__"
             for (let i = 0; i < list.length; i++) {
                 document.getElementById(befPrefix + list[i] + afPrefix).classList.remove("active")
@@ -54,344 +62,320 @@
                 case befPrefix + "79":
                     sellers(id)
                     break;
-                case befPrefix + "82":
-                    trends(id)
-                    break;
                 case befPrefix + "84":
                     onDay(id)
                     break;
                 case befPrefix + "86":
-                    priceSegment(id)
+                    priceSegment()
                     break;
                 case befPrefix + "88":
-                    compare(id)
+                    compare()
                     break;
             }
         }
-        function compare(id) {
-            if (document.getElementById(id + "__table").children.length > 1) return;
-            fetch(`/api/oz/compare?url={{ path }}`, {method: "GET"})
+        function compare() {
+            if (document.getElementById("table_sale6").children.length > 1) return;
+            fetch(`/api/ozon/compare?path={{ path }}&url=category`, {
+                method: "GET"
+            })
                 .then(data => data.json())
                 .then(data => {
-                    let str = ``
-                    let date = data['date']
-                    document.getElementById('d1').innerText = `${date['d11']} - ${date['d12']}`
-                    document.getElementById('d1_col').innerText = `${date['d11']} - ${date['d12']}`
-                    document.getElementById('d2').innerText = `${date['d21']} - ${date['d22']}`
-                    document.getElementById('d2_col').innerText = `${date['d21']} - ${date['d22']}`
-                    data = data['data']
-                    for (let i = 0; i < data.length; i++) {
+                    let str = ``;
+                    document.getElementById('d1').innerText = data['d11'] + ' - ' + data['d12'];
+                    document.getElementById('d2').innerText = data['d21'] + ' - ' + data['d22'];
+                    document.getElementById('d12').innerText = data['d11'] + ' - ' + data['d12'];
+                    document.getElementById('d22').innerText = data['d21'] + ' - ' + data['d22'];
+                    for (let i = 0; i < data['data'].length; i++) {
                         str += `
-                            <div  class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first" style="height: 35px; transform: translateY(${i * 35}px); " aria-label="Press SPACE to select this row.">
-																	<div  class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height d-flex justify-content-center ag-cell-value" style="width: 50px; left: 0px;  ">
-																		<div class="ag-grid-thumb-cell">
-																			<div><img src="${data[i]['img']}">
-																			<!---->
-																			</div>
-																			<!---->
-																		</div>
-																	</div>
-																	<div  class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value" style="width: 261.3299999999999px; left: 50px;  ">
-																		<a href="/wb/item/${data[i]['sku']}" target="_blank">${data[i]['name']}</a>
-																	</div>
-																	<div  class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value" style="width: 176px; left: 311.3299999999999px;  ">
-																		<a href="https://www.wildberries.ru/catalog/${data[i]['sku']}/detail.aspx" title="Открыть в Wildberries" target="_blank">${data[i]['sku']}</a>
-																	</div>
-																	<div  class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value" style="width: 176px; left: 487.3299999999999px;  ">
-																		${data[i]['brand']}
-																	</div>
-																	<div  class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value" style="width: 176px; left: 663.3299999999999px;  ">
-																		${data[i]['seller']}
-																	</div>
-																	<div  class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height group-a-bg ag-right-aligned-cell ag-cell-value" style="width: 176px; left: 839.3299999999999px;  ">
-																		${data[i]['sales_count_1']} шт
-																	</div>
-																	<div  class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height group-a-bg ag-right-aligned-cell ag-cell-value" style="width: 176px; left: 1015.3299999999999px;  ">
-																		${data[i]['revenue_1']} ₽
-																	</div>
-																	<div  class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height group-a-bg ag-right-aligned-cell ag-cell-value" style="width: 176px; left: 1191.33px;  ">
-																		${data[i]['pricefinal_1']} ₽
-																	</div>
-																	<div  class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height group-b-bg ag-right-aligned-cell ag-cell-value ag-column-hover" style="width: 176px; left: 1367.33px;  ">
-                                                                        ${data[i]['sales_count_2']} шт
-																	</div>
-																	<div  class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height group-b-bg ag-right-aligned-cell ag-cell-value ag-column-hover" style="width: 176px; left: 1543.33px;  ">
-                                                                        ${data[i]['revenue_2']} ₽
-																	</div>
-																	<div  class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height group-b-bg ag-right-aligned-cell ag-cell-value ag-column-hover" style="width: 176px; left: 1719.33px;  ">
-																		${data[i]['pricefinal_2']} ₽
-																	</div>
-																	<div  class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value" style="width: 176px; left: 1895.33px;  ">
-																		${data[i]['sales_count_diff']} шт
-																	</div>
-																	<div  class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value" style="width: 176px; left: 2071.33px;  ">
-																		${data[i]['revenue_diff']} ₽
-																	</div>
-																	<div  class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value" style="width: 176px; left: 2247.33px;  ">
-																		${data[i]['pricefinal_diff']} ₽
-																	</div>
-																</div>
+                            <div style="transform: translateY(${i * 35}px); height: 35px;"
+                                                                             class="ag-row-even ag-row-no-focus ag-row ag-row-level-0 ag-row-position-absolute ag-row-first">
+                                                                            <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height ag-cell-range-left d-flex justify-content-center"
+                                                                                 style="left: 0px; width: 50px;">
+                                                                                <div class="ag-grid-thumb-cell">
+                                                                                    <div>
+                                                                                        <img src="${data['data'][i]['thumb']}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
+                                                                                 style="left: 50px; width: 235.11px;">
+                                                                                <a>${data['data'][i]['name']}</a>
+                                                                            </div>
+                                                                            <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height ag-right-aligned-cell"
+                                                                                 col-id="sku"
+                                                                                 style="left: 285.11px; width: 156px;">
+                                                                                <a>${data['data'][i]['sku']}</a>
+                                                                            </div>
+                                                                            <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
+                                                                                 col-id="brand"
+                                                                                 style="left: 441.11px; width: 156px;">${data['data'][i]['brand']}
+                                                                            </div>
+                                                                            <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height group-a-bg ag-right-aligned-cell"
+                                                                                 col-id="sales_count_1"
+                                                                                 style="left: 597.11px; width: 156px;">
+                                                                                ${data['data'][i]['sales_count_1']} шт
+                                                                            </div>
+                                                                            <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height group-a-bg ag-right-aligned-cell"
+                                                                                 col-id="revenue_1"
+                                                                                 style="left: 753.11px; width: 156px;">
+                                                                                ${data['data'][i]['revenue_1']} ₽
+                                                                            </div>
+                                                                            <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height group-a-bg ag-right-aligned-cell"
+                                                                                 col-id="pricefinal_1"
+                                                                                 style="left: 909.11px; width: 156px;">
+                                                                                ${data['data'][i]['pricefinal_1']} ₽
+                                                                            </div>
+                                                                            <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height group-b-bg ag-right-aligned-cell"
+                                                                                 col-id="sales_count_2"
+                                                                                 style="left: 1065.11px; width: 156px;">
+                                                                                ${data['data'][i]['sales_count_2']} шт
+                                                                            </div>
+                                                                            <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height group-b-bg ag-right-aligned-cell"
+                                                                                 col-id="revenue_2"
+                                                                                 style="left: 1221.11px; width: 156px;">
+                                                                                ${data['data'][i]['revenue_2']} ₽
+                                                                            </div>
+                                                                            <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height group-b-bg ag-right-aligned-cell"
+                                                                                 col-id="pricefinal_2"
+                                                                                 style="left: 1377.11px; width: 156px;">
+                                                                                ${data['data'][i]['pricefinal_2']} ₽
+                                                                            </div>
+                                                                            <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height ag-right-aligned-cell"
+                                                                                 col-id="sales_count_diff"
+                                                                                 style="left: 1533.11px; width: 156px;">
+                                                                                ${data['data'][i]['sales_count_diff']} шт
+                                                                            </div>
+                                                                            <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height ag-right-aligned-cell"
+                                                                                 col-id="revenue_diff"
+                                                                                 style="left: 1689.11px; width: 156px;">
+                                                                                ${data['data'][i]['revenue_diff']} ₽
+                                                                            </div>
+                                                                            <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height ag-cell-range-right ag-right-aligned-cell"
+                                                                                 col-id="pricefinal_diff"
+                                                                                 style="left: 1845.11px; width: 156px;">
+                                                                                ${data['data'][i]['pricefinal_diff']} ₽
+                                                                            </div>
+                                                                        </div>
                         `
                     }
-                    document.getElementById(id + "__table").innerHTML = str
+                    document.getElementById("table_sale6").innerHTML = str
+                    document.getElementById("table_sale6").style.height = ((data['data'].length * 35) + 15)+"px"
                 })
         }
 
-        function priceSegment(id) {
-            if (document.getElementById(id + "__table").children.length > 1) return;
-            fetch(`/api/oz/priceSegment?url={{ path }}`, {method: "GET"})
+        function apply() {
+            let min = document.getElementById("minPrc");
+            let max = document.getElementById("maxPrc");
+            let prc = document.getElementById("prcSegment");
+            priceSegment(max.value > min.value ? max.value : min.value, min.value > max.value ? max.value : min.value, prc.value)
+        }
+
+        function priceSegment(max = '', min = '', prc = '') {
+            if (document.getElementById("table_sale5").children.length > 1) return;
+            fetch(`/api/ozon/prcSegm?path={{ path }}&date={{ d1 }} to {{ d2 }}&max=${max}&min=${min}&prcSegm=${prc}&url=category`, {
+                method: "GET"
+            })
                 .then(data => data.json())
                 .then(data => {
-                    let str = ``
+                    let str = ``,
+                        labels = [],
+                        barData = [[], []],
+                        lineData = [[], [], [], []],
+                        names = ["Продажи", "Выручка", "Товаров", "Продавцов", "Продавцов с продажами", "Выручка на товар"],
+                        min = document.getElementById("minPrc"),
+                        max = document.getElementById("maxPrc");
+                    document.getElementById("prcSegment").value = data['prcSegm']
+                    min.setAttribute('min', data['min'])
+                    min.value = data['min']
+                    max.value = data['max']
+                    min.setAttribute('max', data['max'])
+                    max.setAttribute('min', data['min'])
+                    max.setAttribute('max', data['max'])
+                    data = data['data']
                     for (let i = 0; i < data.length; i++) {
-                        str += `
-<div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first" style="height: 35px; transform: translateY(${i * 35}px); ">
-                                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value ag-cell-range-left"
-                                                                             style="width: 177px; left: 0px;  ">${data[i]['min_range_price']} ₽
-                                                                        </div>
-                                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                                             style="width: 174px; left: 177px;  ">${data[i]['max_range_price']} ₽</div>
-                                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                                             style="width: 174px; left: 351px;  ">${data[i]['sales']}
-                                                                            шт
-                                                                        </div>
-                                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                                             style="width: 174px; left: 525px;  ">${data[i]['revenue']} ₽
-                                                                        </div>
-                                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                                             style="width: 174px; left: 699px;  ">${data[i]['lost_profit']} ₽
-                                                                        </div>
-                                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                                             style="width: 174px; left: 873px;  ">${(data[i]['lost_profit_percent'] ?? 0).toFixed(2)}
-                                                                            %
-                                                                        </div>
-                                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height tot text-right ag-cell-value"
-                                                                             style="width: 174px; left: 1047px;  ">${data[i]['items']}
-                                                                            шт
-                                                                        </div>
-                                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height tot text-right ag-cell-value"
-                                                                             style="width: 174px; left: 1221px;  ">${data[i]['items_with_sells']}
-                                                                            шт
-                                                                        </div>
-                                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height tot text-right ag-cell-value"
-                                                                             style="width: 174px; left: 1395px;  ">${data[i]['brands']}
-                                                                        </div>
-                                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height tot text-right ag-cell-value"
-                                                                             style="width: 174px; left: 1569px;  ">${data[i]['brands_with_sells']}
-                                                                        </div>
-                                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height tot text-right ag-cell-value"
-                                                                             style="width: 174px; left: 1743px;  ">${data[i]['sellers']}
-                                                                        </div>
-                                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height tot text-right ag-cell-value"
-                                                                             style="width: 174px; left: 1917px;  ">${data[i]['sellers_with_sells']}
-                                                                        </div>
-                                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height tot text-right ag-cell-value ag-cell-range-right"
-                                                                             style="width: 174px; left: 2091px;  ">${data[i]['product_revenue']} ₽/шт
-                                                                        </div>
-                                                                    </div>
+                        labels[i] = data[i]['range']
+                        barData[0][i] = data[i]['sales']
+                        barData[1][i] = data[i]['revenue']
+                        lineData[0][i] = data[i]['items']
+                        lineData[1][i] = data[i]['brands']
+                        lineData[2][i] = data[i]['brands_with_sells']
+                        lineData[3][i] = data[i]['product_revenue']
 
+                        str += `
+                            <div style="transform: translateY(${i * 35}px); height: 35px;"
+                                                                             class="ag-row-even ag-row-no-focus ag-row ag-row-level-0 ag-row-position-absolute ag-row-first">
+                                                                            <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height ag-right-aligned-cell ag-cell-range-left"
+                                                                                 col-id="min_range_price"
+                                                                                 style="left: 0px; width: 99px;"><a>${data[i]['min_range_price']} ₽</a>
+                                                                            </div>
+                                                                            <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height ag-right-aligned-cell"
+                                                                                 col-id="max_range_price"
+                                                                                 style="left: 99px; width: 80px;"><a>${data[i]['max_range_price']} ₽</a>
+                                                                            </div>
+                                                                            <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height ag-right-aligned-cell"
+                                                                                 col-id="sales"
+                                                                                 style="left: 179px; width: 96px;">${data[i]['sales']} шт
+                                                                            </div>
+                                                                            <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height ag-right-aligned-cell"
+                                                                                 col-id="revenue"
+                                                                                 style="left: 275px; width: 96px;">${data[i]['revenue']} ₽
+                                                                            </div>
+                                                                            <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height tot text-right"
+                                                                                 col-id="items"
+                                                                                 style="left: 371px; width: 95px;">${data[i]['items']} шт
+                                                                            </div>
+                                                                            <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height tot text-right"
+                                                                                 col-id="brands"
+                                                                                 style="left: 466px; width: 96px;">${data[i]['brands']}
+                                                                            </div>
+                                                                            <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height tot text-right"
+                                                                                 col-id="brands_with_sells"
+                                                                                 style="left: 562px; width: 87px;">${data[i]['brands_with_sells']}
+                                                                            </div>
+                                                                            <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height tot text-right ag-cell-range-right"
+                                                                                 col-id="product_revenue"
+                                                                                 style="left: 649px; width: 155px;">${data[i]['product_revenue']} ₽/шт
+                                                                            </div>
+                                                                        </div>
                         `
                     }
-                    document.getElementById(id + "__table").innerHTML = str
+                    document.getElementById("table_sale5").innerHTML = str
+                    document.getElementById("table_sale5").style.height = ((data.length * 35) + 15) + "px"
+                    mixChart('chart5', labels, names, barData, lineData)
                 })
         }
 
         function onDay(id) {
             if (document.getElementById(id + "__table").children.length > 1) return;
-            fetch(`/api/oz/onDay?url={{ path }}`, {method: "GET"})
+            fetch(`/api/ozon/category/brands?path={{ path }}&date={{ d1 }} to {{ d2 }}&url=by_date`, {method: "GET"})
                 .then(data => data.json())
                 .then(data => {
                     let str = ``
                     for (let i = 0; i < data.length; i++) {
                         str += `
-                            <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
-                                                                         style="height: 35px; transform: translateY(${i * 35}px); "
-                                                                         aria-label="Press SPACE to select this row.">
-                                                                        <div tabindex="-1" unselectable="on"
-                                                                             role="gridcell" aria-colindex="1"
-                                                                             comp-id="2412" col-id="period"
-                                                                             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
-
-                                                                             style="width: 153.1099999999999px; left: 0px;  ">
-                                                                            ${data[i]['period']}
+                            <div comp-id="1604"
+                                                                         style="transform: translateY(${i*35}px); height: 35px;"
+                                                                         row-index="0"
+                                                                         class="ag-row-even ag-row-no-focus ag-row ag-row-level-0 ag-row-position-absolute ag-row-first"
+                                                                         aria-rowindex="4" role="row" row-id="0">
+                                                                        <div comp-id="1635"
+                                                                             class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height ag-cell-range-left"
+                                                                             aria-colindex="1" tabindex="-1"
+                                                                             col-id="field" role="gridcell"
+                                                                             style="left: 0px; width: 300px;">${data[i]['name']}
                                                                         </div>
-                                                                        <div tabindex="-1" unselectable="on"
-                                                                             role="gridcell" aria-colindex="2"
-                                                                             comp-id="2413" col-id="items"
-                                                                             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-
-                                                                             style="width: 154px; left: 153.1099999999999px;  ">
-                                                                            ${data[i]['items']} шт
+                                                                        <div comp-id="1636"
+                                                                             class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height fbo text-right"
+                                                                             aria-colindex="2" tabindex="-1"
+                                                                             col-id="fbo_items" role="gridcell"
+                                                                             style="left: 300px; width: 100px;">
+                                                                            <span><span class="number" title="18 417 шт">${data[i]['fbo']['items']} шт</span></span>
                                                                         </div>
-                                                                        <div tabindex="-1" unselectable="on"
-                                                                             role="gridcell" aria-colindex="3"
-                                                                             comp-id="2414" col-id="items_with_sells"
-                                                                             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-
-                                                                             style="width: 154px; left: 307.1099999999999px;  ">
-                                                                            ${data[i]['items_with_sells']} шт
+                                                                        <div comp-id="1637"
+                                                                             class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height fbo text-right"
+                                                                             aria-colindex="3" tabindex="-1"
+                                                                             col-id="fbo_sales" role="gridcell"
+                                                                             style="left: 400px; width: 100px;">
+                                                                            <span><span class="number" title="13 074 шт">${data[i]['fbo']['sales']} шт</span></span>
                                                                         </div>
-                                                                        <div tabindex="-1" unselectable="on"
-                                                                             role="gridcell" aria-colindex="4"
-                                                                             comp-id="2415" col-id="sales"
-                                                                             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height text-right ag-cell-value"
-
-                                                                             style="width: 154px; left: 461.1099999999999px;  ">
-                                                                            ${data[i]['sales']} шт
+                                                                        <div comp-id="1638"
+                                                                             class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height fbo text-right"
+                                                                             aria-colindex="4" tabindex="-1"
+                                                                             col-id="fbo_revenue" role="gridcell"
+                                                                             style="left: 500px; width: 120px;">
+                                                                            <span><span class="number" title="6 114 054 ₽">${data[i]['fbo']['revenue']} ₽</span></span>
                                                                         </div>
-                                                                        <div tabindex="-1" unselectable="on"
-                                                                             role="gridcell" aria-colindex="5"
-                                                                             comp-id="2416" col-id="brands"
-                                                                             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-
-                                                                             style="width: 154px; left: 615.1099999999999px;  ">
-                                                                            ${data[i]['brands']}
+                                                                        <div comp-id="1639"
+                                                                             class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height fbs text-right"
+                                                                             aria-colindex="5" tabindex="-1"
+                                                                             col-id="fbs_items" role="gridcell"
+                                                                             style="left: 620px; width: 100px;">
+                                                                            <span><span class="number" title="2 шт">${data[i]['fbs']['items']} шт</span></span>
                                                                         </div>
-                                                                        <div tabindex="-1" unselectable="on"
-                                                                             role="gridcell" aria-colindex="6"
-                                                                             comp-id="2417" col-id="brands_with_sells"
-                                                                             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-
-                                                                             style="width: 154px; left: 769.1099999999999px;  ">
-                                                                            ${data[i]['brands_with_sells']}
+                                                                        <div comp-id="1640"
+                                                                             class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height fbs text-right"
+                                                                             aria-colindex="6" tabindex="-1"
+                                                                             col-id="fbs_sales" role="gridcell"
+                                                                             style="left: 720px; width: 100px;">
+                                                                            <span><span class="number" title="1 шт">${data[i]['fbs']['sales']} шт</span></span>
                                                                         </div>
-                                                                        <div tabindex="-1" unselectable="on"
-                                                                             role="gridcell" aria-colindex="7"
-                                                                             comp-id="2418" col-id="sellers"
-                                                                             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-
-                                                                             style="width: 154px; left: 923.1099999999999px;  ">
-                                                                            ${data[i]['sellers']}
+                                                                        <div comp-id="1641"
+                                                                             class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height fbs text-right"
+                                                                             aria-colindex="7" tabindex="-1"
+                                                                             col-id="fbs_revenue" role="gridcell"
+                                                                             style="left: 820px; width: 120px;">
+                                                                            <span><span class="number" title="299 ₽">${data[i]['fbs']['revenue']} ₽</span></span>
                                                                         </div>
-                                                                        <div tabindex="-1" unselectable="on"
-                                                                             role="gridcell" aria-colindex="8"
-                                                                             comp-id="2419" col-id="sellers_with_sells"
-                                                                             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-
-                                                                             style="width: 154px; left: 1077.11px;  ">
-                                                                            ${data[i]['sellers_with_sells']}
+                                                                        <div comp-id="1642"
+                                                                             class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height retail text-right"
+                                                                             aria-colindex="8" tabindex="-1"
+                                                                             col-id="retail_items" role="gridcell"
+                                                                             style="left: 940px; width: 100px;">
+                                                                            <span><span class="number" title="706 шт">${data[i]['retail']['items']} шт</span></span>
                                                                         </div>
-                                                                        <div tabindex="-1" unselectable="on"
-                                                                             role="gridcell" aria-colindex="9"
-                                                                             comp-id="2420" col-id="revenue"
-                                                                             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height text-right ag-cell-value"
-
-                                                                             style="width: 154px; left: 1231.11px;  ">${data[i]['revenue']} ₽
+                                                                        <div comp-id="1643"
+                                                                             class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height retail text-right"
+                                                                             aria-colindex="9" tabindex="-1"
+                                                                             col-id="retail_sales" role="gridcell"
+                                                                             style="left: 1040px; width: 100px;">
+                                                                            <span><span class="number" title="4 383 шт">${data[i]['retail']['sales']} шт</span></span>
                                                                         </div>
-                                                                        <div tabindex="-1" unselectable="on"
-                                                                             role="gridcell" aria-colindex="10"
-                                                                             comp-id="2421" col-id="avg_price"
-                                                                             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-
-                                                                             style="width: 154px; left: 1385.11px;  ">${(data[i]['avg_price'] ?? 0).toFixed(2)} ₽
+                                                                        <div comp-id="1644"
+                                                                             class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height retail text-right"
+                                                                             aria-colindex="10" tabindex="-1"
+                                                                             col-id="retail_revenue" role="gridcell"
+                                                                             style="left: 1140px; width: 120px;">
+                                                                            <span><span class="number" title="740 339 ₽">${data[i]['retail']['revenue']} ₽</span></span>
                                                                         </div>
-                                                                        <div tabindex="-1" unselectable="on"
-                                                                             role="gridcell" aria-colindex="11"
-                                                                             comp-id="2422" col-id="avg_sale_price"
-                                                                             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-
-                                                                             style="width: 154px; left: 1539.11px;  ">${(data[i]['avg_sale_price'] ?? 0).toFixed(2)} ₽
+                                                                        <div comp-id="1645"
+                                                                             class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height tot text-right"
+                                                                             aria-colindex="14" tabindex="-1"
+                                                                             col-id="tot_items" role="gridcell"
+                                                                             style="left: 1580px; width: 100px;">
+                                                                            <span><span class="number" title="19 125 шт">${data[i]['retail']['items']+data[i]['fbo']['items']+data[i]['fbs']['items']+data[i]['crossborder']['items']} шт</span></span>
                                                                         </div>
-                                                                        <div tabindex="-1" unselectable="on"
-                                                                             role="gridcell" aria-colindex="12"
-                                                                             comp-id="2423" col-id="comments"
-                                                                             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-
-                                                                             style="width: 154px; left: 1693.11px;  ">
-                                                                            ${(data[i]['comments'] ?? 0).toFixed(2)}
+                                                                        <div comp-id="1646"
+                                                                             class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height tot text-right"
+                                                                             aria-colindex="15" tabindex="-1"
+                                                                             col-id="tot_sales" role="gridcell"
+                                                                             style="left: 1680px; width: 100px;">
+                                                                            <span><span class="number" title="17 458 шт">${data[i]['retail']['sales']+data[i]['fbo']['sales']+data[i]['fbs']['sales']+data[i]['crossborder']['sales']} шт</span></span>
                                                                         </div>
-                                                                        <div tabindex="-1" unselectable="on"
-                                                                             role="gridcell" aria-colindex="13"
-                                                                             comp-id="2424" col-id="rating"
-                                                                             class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-
-                                                                             style="width: 154px; left: 1847.11px;  ">
-                                                                            ${(data[i]['rating'] ?? 0).toFixed(2)}
+                                                                        <div comp-id="1647"
+                                                                             class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height ag-cell-range-right tot text-right"
+                                                                             aria-colindex="16" tabindex="-1"
+                                                                             col-id="tot_revenue" role="gridcell"
+                                                                             style="left: 1780px; width: 120px;">
+                                                                            <span><span class="number" title="6 854 692 ₽">${data[i]['retail']['revenue']+data[i]['fbo']['revenue']+data[i]['fbs']['revenue']+data[i]['crossborder']['revenue']} ₽</span></span>
                                                                         </div>
-                                                                    </div>
-                        `
-                    }
-                    document.getElementById(id + "__table").innerHTML = str
-                })
-        }
-
-        function trends(id) {
-            if (document.getElementById(id + "__table").children.length > 1) return;
-            fetch(`/api/oz/trends?url={{ path }}`, {
-                method: "GET"
-            })
-                .then(data => data.json())
-                .then(data => {
-                    let value = [[], [], [], [], [], [], [], [], [], []], str = ``, names=['Продажи', 'Выручка', 'Товаров', 'Товаров с продажами', 'Брендов', 'Брендов с продажами', 'Продавцов', 'Продавцов с продажами', 'Выручка на товар', 'Средний чек'], labels =[]
-                    for (let i = 0; i < data.length; i++) {
-                        labels[i] = data[i]['week']
-                        value[0][i] = data[i]['sales']??0
-                        value[1][i] = data[i]['revenue']??0
-                        value[2][i] = data[i]['items']??0
-                        value[3][i] = data[i]['items_with_sells']??0
-                        value[4][i] = data[i]['brands']??0
-                        value[5][i] = data[i]['brands_with_sells']??0
-                        value[6][i] = data[i]['sellers']??0
-                        value[7][i] = data[i]['sellers_with_sells']??0
-                        value[8][i] = data[i]['product_revenue']??0
-                        value[9][i] = data[i]['average_order_value']??0
-                        str += `
-                                                                        <div
-                                                                         class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
-                                                                         style="height: 35px; transform: translateY(${i * 35}px); "
-                                                                         aria-label="Press SPACE to select this row.">
-                                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
-                                                                             style="width: 160px; left: 0px;"><span>${data[i]['week']} - ${data[i]['end_week']}</span>
+                                                                        <div comp-id="2075"
+                                                                             class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height crossborder text-right"
+                                                                             aria-colindex="11" tabindex="-1"
+                                                                             col-id="crossborder_items" role="gridcell"
+                                                                             style="left: 1260px; width: 100px;">
+                                                                            <span><span class="number" title="0 шт">${data[i]['crossborder']['items']} шт</span></span>
                                                                         </div>
-                                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-                                                                             style="width: 163px; left: 160px;  ">${data[i]['sales']}
-                                                                            шт
+                                                                        <div comp-id="2076"
+                                                                             class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height crossborder text-right"
+                                                                             aria-colindex="12" tabindex="-1"
+                                                                             col-id="crossborder_sales" role="gridcell"
+                                                                             style="left: 1360px; width: 100px;">
+                                                                            <span><span class="number" title="0 шт">${data[i]['crossborder']['sales']} шт</span></span>
                                                                         </div>
-                                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-
-                                                                             style="width: 163px; left: 323px;  ">${data[i]['revenue']} ₽
-                                                                        </div>
-                                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height tot text-right ag-cell-value"
-
-                                                                             style="width: 163px; left: 486px;  ">${data[i]['items']}
-                                                                            шт
-                                                                        </div>
-                                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height tot text-right ag-cell-value"
-
-                                                                             style="width: 163px; left: 649px;  ">${data[i]['items_with_sells']}
-                                                                            шт
-                                                                        </div>
-                                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height tot text-right ag-cell-value"
-
-                                                                             style="width: 163px; left: 812px;  ">${data[i]['brands']}
-                                                                        </div>
-                                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height tot text-right ag-cell-value"
-
-                                                                             style="width: 163px; left: 975px;  ">${data[i]['brands_with_sells']}
-                                                                        </div>
-                                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height tot text-right ag-cell-value"
-
-                                                                             style="width: 163px; left: 1138px;  ">${data[i]['sellers']}
-                                                                        </div>
-                                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height tot text-right ag-cell-value"
-
-                                                                             style="width: 163px; left: 1301px;  ">${data[i]['sellers_with_sells']}
-                                                                        </div>
-                                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height tot text-right ag-cell-value"
-
-                                                                             style="width: 163px; left: 1464px;  ">${data[i]['product_revenue']}
-                                                                            ₽/шт
-                                                                        </div>
-                                                                        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height tot text-right ag-cell-value"
-
-                                                                             style="width: 163px; left: 1627px;  ">${data[i]['average_order_value']}
-                                                                            ₽
+                                                                        <div comp-id="2077"
+                                                                             class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height crossborder text-right"
+                                                                             aria-colindex="13" tabindex="-1"
+                                                                             col-id="crossborder_revenue"
+                                                                             role="gridcell"
+                                                                             style="left: 1460px; width: 120px;">
+                                                                            <span><span class="number" title="0 ₽">${data[i]['crossborder']['revenue']} ₽</span></span>
                                                                         </div>
                                                                     </div>
                         `
                     }
                     document.getElementById(id + "__table").innerHTML = str
-                    drawLineGraph('trends_revenue_graph', value, names, labels)
+                    document.getElementById(id + "__table").style.height = (data.length * 35 + 20)+"px"
+                    formatter('number')
                 })
         }
 
