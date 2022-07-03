@@ -10,7 +10,7 @@
     <link href="../../styles/seo/table.css" rel="stylesheet">
     <link href="../../styles/ozon/category.css" rel="stylesheet">
     <link href="../../styles/ozon/category2.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <script>
         function collapse(element) {
             let display = element.parentNode.children[1].style.display
@@ -46,7 +46,7 @@
                                  aria-controls="category-accordion-8d5e7e72f12067991186cdf3cb7d5d9d"
                                  style="overflow-anchor: none;">
                                 <span>{{ category.name }}</span>
-                                <i  class="fas fa-caret-down">&#9660;</i>
+                                <i  class="fas fa-caret-down"></i>
                             </div>
                             <div id="category-accordion-8d5e7e72f12067991186cdf3cb7d5d9d" class="collapse"
                                  role="tabpanel" style="display: none;">
@@ -62,7 +62,7 @@
                                                     </sup>
                                                 </a>
                                                 <i
-                                                   class="fas fa-caret-down cursor-pointer lead">{{ subject.subjects|length == 0?'':'&#9660;' }}</i>
+                                                   class="fas fa-caret-down cursor-pointer lead">{{ subject.subjects|length == 0?'':'' }}</i>
                                             </div>
                                             <div id="category-accordion-8d5e7e72f12067991186cdf3cb7d5d9d-3c47285de656a84f0aeb9abc3c0f3596"
                                                  class="collapse" role="tabpanel" style="display: none;">
