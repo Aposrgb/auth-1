@@ -21,6 +21,7 @@ p{
     margin: 0;
     background:red;
     border-radius: 5px;
+    text-align: center;
 }
 form input{
     background:white;
