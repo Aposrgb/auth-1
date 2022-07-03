@@ -16,9 +16,10 @@ p{
     margin-bottom: 5vh;
 }
 .error{
-    color:red;
+    color:white;
     font-size: 2vh;
     margin: 0;
+    background:red;
 }
 form input{
     background: #f5f5f5;
