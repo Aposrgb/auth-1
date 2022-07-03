@@ -1,5 +1,6 @@
 body{
     min-height: 90vh;
+    background: #5b4be1;
 }
 form{
     display: flex;
@@ -20,23 +21,22 @@ p{
     margin: 0;
 }
 form input{
-    background: white;
+    background: #f5f5f5;
     text-align: center;
-    border-width:5px;
-    border-color: green;
-    width: 150px;
-    height: 2vh;
+    border:none;
+    width: 250px;
+    height: 3vh;
     padding: 1vh;
-    border-radius: 45px;
+    border-radius: 5px;
     font-size: 2vh;
 }
 .submit{
     margin-block: 5vh;
-    width: 150px;
-    background: green;
-    font-size: 2vh;
+    width: 250px;
+    background: #e8f0fe;
+    font-size: 3vh;
     height: auto;
     padding: 1vh 3vh;
-    border-radius: 45px;
-    color: black;
+    border-radius: 5px;
+    color: #5b4be1;
 }
