@@ -20,6 +20,7 @@ p{
     font-size: 2vh;
     margin: 0;
     background:red;
+    border-radius: 5px;
 }
 form input{
     background:white;
