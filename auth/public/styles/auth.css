@@ -40,4 +40,7 @@ form input{
     padding: 1vh 3vh;
     border-radius: 5px;
     color: #5b4be1;
+    cursor:pointer;
+    text-transform: uppercase;
+    font-weight: 500;
 }
