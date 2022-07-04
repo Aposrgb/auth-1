@@ -5,470 +5,116 @@
     <link href="../../styles/summary/summary.css" rel="stylesheet">
     <link href="../../styles/summary/table.css" rel="stylesheet">
     <link href="../../styles/summary/table2.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
 {% endblock %}
 {% block body %}
-    <div id="mp-stats-app" class="main-content container-fluid">
-        <div id="global-loader-block" aria-hidden="true" class="mp-loader-overlay ag-overlay hidden">
-            <div class="ag-overlay-panel">
-                <div class="ag-overlay-wrapper ag-layout-normal ag-overlay-loading-wrapper">
-                    <div class="mp-loader-static"></div>
-                </div>
-            </div>
-        </div> <!---->
-        <div id="cost-price-import-form" class="card">
-            <div class="card-header d-flex justify-content-between align-items-start">
-                <nav aria-label="breadcrumb" role="navigation">
-                    <ol class="breadcrumb page-head-nav page-header pl-0 mb-0">
-                        <li class="breadcrumb-item"><a href="/cabinet/summary">Сводка</a></li>
-                        <li class="breadcrumb-item">Импорт себестоимости и параметров товаров</li>
-                    </ol>
-                </nav>
-            </div>
-            <div class="card-body"><p class="mb-1">
+    <div id="mp-stats-app" class="main-content container-fluid"><div id="global-loader-block" aria-hidden="true" class="mp-loader-overlay ag-overlay hidden"><div class="ag-overlay-panel"><div class="ag-overlay-wrapper ag-layout-normal ag-overlay-loading-wrapper"><div class="mp-loader-static"></div></div></div></div> <!----> <div id="cost-price-import-form" class="card"><div class="card-header d-flex justify-content-between align-items-start"><nav aria-label="breadcrumb" role="navigation"><ol class="breadcrumb page-head-nav page-header pl-0 mb-0"><li class="breadcrumb-item"><a href="/cabinet/summary">Сводка</a></li> <li class="breadcrumb-item">Импорт себестоимости и параметров товаров</li></ol></nav></div> <div class="card-body"><p class="mb-1">
                     Здесь вы можете загрузить данные по товару:
-                </p>
-                <ul class="export-params-list mb-5">
-                    <li>себестоимость</li>
-                    <li>кратность короба</li>
-                    <li>тип поставки</li>
-                    <li>поставщик товара</li>
-                    <li>количество товара в текущей поставке на склад</li>
-                    <li>количество товара на вашем локальном складе</li>
-                    <li>теги</li>
-                    <li>вывод из номенклатуры</li>
-                </ul>
-                <div class="steps" style="position: relative;">
-                    <ul role="tablist" class="nav nav-tabs steps-tabs">
-                        <li role="presentation" class="nav-item"><a role="tab" class="nav-link active">Выбор ключа</a>
-                        </li>
-                        <li role="presentation" class="nav-item"><a role="tab" class="nav-link">
-                                <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
-                                     aria-label="chevron right" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                     class="bi-chevron-right b-icon bi">
-                                    <g>
-                                        <path fill-rule="evenodd"
-                                              d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
-                                    </g>
-                                </svg>
-                            </a></li>
-                        <li role="presentation" class="nav-item"><a role="tab" class="nav-link">Что загружать</a></li>
-                        <li role="presentation" class="nav-item"><a role="tab" disabled="disabled"
-                                                                    class="nav-link disabled">
-                                <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
-                                     aria-label="chevron right" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                     class="bi-chevron-right b-icon bi">
-                                    <g>
-                                        <path fill-rule="evenodd"
-                                              d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
-                                    </g>
-                                </svg>
-                            </a></li>
-                        <li role="presentation" class="nav-item"><a role="tab" disabled="disabled"
-                                                                    class="nav-link disabled">Что обновлять</a></li>
-                        <li role="presentation" class="nav-item"><a role="tab" disabled="disabled"
-                                                                    class="nav-link disabled">
-                                <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
-                                     aria-label="chevron right" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                     class="bi-chevron-right b-icon bi">
-                                    <g>
-                                        <path fill-rule="evenodd"
-                                              d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
-                                    </g>
-                                </svg>
-                            </a></li>
-                        <li role="presentation" class="nav-item"><a role="tab" disabled="disabled"
-                                                                    class="nav-link disabled">Импорт</a></li>
-                    </ul>
-                    <div>
-                        <div class="step-block">
-                            <div class="d-flex align-items-center"><label
-                                        class="text-reset h4 font-weight-normal my-0 mr-2">
+                </p> <ul class="export-params-list mb-5"><li>себестоимость</li> <li>кратность короба</li> <li>тип поставки</li> <li>поставщик товара</li> <li>количество товара в текущей поставке на склад</li> <li>количество товара на вашем локальном складе</li> <li>теги</li> <li>вывод из номенклатуры</li></ul> <div class="steps" style="position: relative;"><ul role="tablist" class="nav nav-tabs steps-tabs"><li role="presentation" class="nav-item"><a role="tab" class="nav-link active">Выбор ключа</a></li> <li role="presentation" class="nav-item"><a role="tab" class="nav-link"><svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img" aria-label="chevron right" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi-chevron-right b-icon bi"><g><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path></g></svg></a></li> <li role="presentation" class="nav-item"><a role="tab" class="nav-link">Что загружать</a></li> <li role="presentation" class="nav-item"><a role="tab" disabled="disabled" class="nav-link disabled"><svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img" aria-label="chevron right" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi-chevron-right b-icon bi"><g><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path></g></svg></a></li> <li role="presentation" class="nav-item"><a role="tab" disabled="disabled" class="nav-link disabled">Что обновлять</a></li> <li role="presentation" class="nav-item"><a role="tab" disabled="disabled" class="nav-link disabled"><svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img" aria-label="chevron right" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi-chevron-right b-icon bi"><g><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path></g></svg></a></li> <li role="presentation" class="nav-item"><a role="tab" disabled="disabled" class="nav-link disabled">Импорт</a></li></ul> <div><div class="step-block"><div class="d-flex align-items-center"><label class="text-reset h4 font-weight-normal my-0 mr-2">
                                     Выберите ключ API
-                                </label>
-                                <div class="api-key-selector d-flex align-items-start align-items-xxl-center">
-                                    <div class="mr-2" style="display: none;"></div>
-                                    <div class="dropdown b-dropdown btn-group" id="__BVID__11"><!---->
-                                        <button aria-haspopup="true" onclick="allKeys()" aria-expanded="false" type="button" class="btn btn-secondary" id="__BVID__11__BV_toggle_">
-                                            <span>Все ключи API</span>
-                                        </button>
-                                        <div style="display: none;position: absolute; height: 140px; right: -20px; z-index: 22; width: 150px; background: #e5e5e5; border-radius: 2px;">
-                                            <button style="width: inherit;" aria-haspopup="true" onclick="allKeys()" aria-expanded="false" type="button" class="btn btn-secondary">
-                                                <span>Все ключи API</span>
-                                            </button>
-                                            <select style="width: calc(100% - 5px);box-shadow: 0px 0px 4px 0px black;top: 5px;border: none;" multiple="multiple" class="dropdown_keys">
-                                                <option value="all" onclick="allSelectKeys()">Все ключи API</option>
-                                                {% for token in allTokens %}
-                                                    <option value="{{token.id}}">
-                                                        {% if token.name|length > 9 %}
-                                                            {{ token.name|slice(0, 9) }}...
-                                                        {% else %}
-                                                            {{token.name}}
-                                                        {% endif %}
-                                                    </option>
-                                                {% endfor %}
-                                            </select>
-                                            <button style="top: 5px; z-index: 12;left: 0px;width: inherit;" onclick="applyToken('{{path("cost-price")}}')" class="dropdown_keys btn btn-secondary" >
-                                                <span>Применить</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-5 d-flex align-items-center justify-content-center">
-                                <button class="btn btn-success btn-lg">Далее</button>
-                            </div>
-                        </div>
-                        <div class="step-block" style="display: none;">
-                            <div class="tabs row" id="__BVID__10"><!---->
-                                <div class="col-auto">
-                                    <ul role="tablist" class="nav nav-pills flex-column"
-                                        id="__BVID__10__BV_tab_controls_"><!---->
-                                        <li role="presentation" class="nav-item"><a role="tab" aria-selected="true"
-                                                                                    aria-setsize="2" aria-posinset="1"
-                                                                                    href="#" target="_self"
-                                                                                    class="nav-link active"
-                                                                                    id="__BVID__11___BV_tab_button__"
-                                                                                    aria-controls="__BVID__11">Импорт из
-                                                файла</a></li>
-                                        <li role="presentation" class="nav-item"><a role="tab" tabindex="-1"
-                                                                                    aria-selected="false"
-                                                                                    aria-setsize="2" aria-posinset="2"
-                                                                                    href="#" target="_self"
-                                                                                    class="nav-link"
-                                                                                    id="__BVID__17___BV_tab_button__"
-                                                                                    aria-controls="__BVID__17">Импорт из
-                                                текста</a></li><!----></ul>
-                                </div>
-                                <div class="tab-content col my-0 p-0" id="__BVID__10__BV_tab_container_">
-                                    <div role="tabpanel" aria-hidden="false" class="tab-pane active" id="__BVID__11"
-                                         aria-labelledby="__BVID__11___BV_tab_button__">
-                                        <div class="d-flex flex-column px-3">
-                                            <div><!---->
-                                                <div class="mr-0 mr-md-5 mb-2"><label for="importButton"
-                                                                                      class="text-reset h4 font-weight-normal mt-0 mb-2">
+                                </label> <div class="api-key-selector d-flex align-items-start align-items-xxl-center"><div class="mr-2" style="display: none;"></div> <div class="dropdown b-dropdown btn-group" id="__BVID__7"><!----><button aria-haspopup="true" aria-expanded="false" type="button" class="btn dropdown-toggle btn-secondary" id="__BVID__7__BV_toggle_"><span>Все ключи API</span> <i class="fas fa-chevron-down"></i></button><ul role="menu" tabindex="-1" class="dropdown-menu dropdown-menu-right" aria-labelledby="__BVID__7__BV_toggle_"> <li role="presentation" style="display: none;"><a role="menuitem" href="#" target="_self" class="dropdown-item"><span class="font-weight-normal">Все ключи API</span></a></li> <li role="presentation" style="display: none;"><form tabindex="-1" class="b-dropdown-form"><input type="text" placeholder="Поиск" class="form-control form-control-xs"></form></li> <li role="presentation" style="display: none;"><hr role="separator" aria-orientation="horizontal" class="dropdown-divider"></li> <li role="presentation"><p class="b-dropdown-text"><div class="custom-control custom-checkbox"><input id="api-key-all-6" type="checkbox" class="custom-control-input"> <label for="api-key-all-6" class="custom-control-label">
+                                                        Выбрать все ключи
+                                                    </label></div></p></li> <li role="presentation"><hr role="separator" aria-orientation="horizontal" class="dropdown-divider"></li> <li role="presentation"><p class="b-dropdown-text"><div class="d-flex justify-content-between"><div class="custom-control custom-checkbox mr-2"><input type="checkbox" id="api-key-22636-6" class="custom-control-input"> <label for="api-key-22636-6" class="custom-control-label">Потапов</label></div> <i class="fas fa-circle fa-xs ml-3 text-success"></i></div></p></li><li role="presentation"><p class="b-dropdown-text"><div class="d-flex justify-content-between"><div class="custom-control custom-checkbox mr-2"><input type="checkbox" id="api-key-22637-6" class="custom-control-input"> <label for="api-key-22637-6" class="custom-control-label">Атюнины</label></div> <i class="fas fa-circle fa-xs ml-3 text-success"></i></div></p></li> <li role="presentation"><hr role="separator" aria-orientation="horizontal" class="dropdown-divider"></li> <li role="presentation"><p class="b-dropdown-text"><button disabled="disabled" class="btn btn-sm btn-success w-100">
+                                                        Обновить
+                                                    </button></p></li></ul></div></div></div> <div class="mt-5 d-flex align-items-center justify-content-center"><button class="btn btn-success btn-lg">Далее</button></div></div> <div class="step-block" style="display: none;"><div class="tabs row" id="__BVID__10"><!----><div class="col-auto"><ul role="tablist" class="nav nav-pills flex-column" id="__BVID__10__BV_tab_controls_"><!----><li role="presentation" class="nav-item"><a role="tab" aria-selected="true" aria-setsize="2" aria-posinset="1" href="#" target="_self" class="nav-link active" id="__BVID__11___BV_tab_button__" aria-controls="__BVID__11">Импорт из файла</a></li><li role="presentation" class="nav-item"><a role="tab" tabindex="-1" aria-selected="false" aria-setsize="2" aria-posinset="2" href="#" target="_self" class="nav-link" id="__BVID__17___BV_tab_button__" aria-controls="__BVID__17">Импорт из текста</a></li><!----></ul></div><div class="tab-content col my-0 p-0" id="__BVID__10__BV_tab_container_"><div role="tabpanel" aria-hidden="false" class="tab-pane active" id="__BVID__11" aria-labelledby="__BVID__11___BV_tab_button__"><div class="d-flex flex-column px-3"><div><!----> <div class="mr-0 mr-md-5 mb-2"><label for="importButton" class="text-reset h4 font-weight-normal mt-0 mb-2">
                                                         Выберите файл для загрузки. CSV (.csv) или Excel (.xlsx)
-                                                    </label>
-                                                    <div class="d-flex justify-content-start"><input id="importButton"
-                                                                                                     type="file"
-                                                                                                     accept=".csv, .xlsx.CSV, .XLSX"
-                                                                                                     class="form-control form-control-sm border-0 px-0 w-auto">
-                                                    </div>
-                                                </div>
-                                                <div class="mb-2"><label for="fileEncoding"
-                                                                         class="text-reset h4 font-weight-normal mt-0 mb-2">
+                                                    </label> <div class="d-flex justify-content-start"><input id="importButton" type="file" accept=".csv, .xlsx.CSV, .XLSX" class="form-control form-control-sm border-0 px-0 w-auto"></div></div> <div class="mb-2"><label for="fileEncoding" class="text-reset h4 font-weight-normal mt-0 mb-2">
                                                         Кодировка файла:
-                                                    </label> <select name="fileEncoding" id="fileEncoding"
-                                                                     class="form-control form-control-xs w-auto">
-                                                        <option value="utf-8">UTF-8</option>
-                                                        <option value="windows-1251">Windows-1251</option>
-                                                    </select></div>
-                                            </div>
-                                            <div class="mt-4">
-                                                <div class="d-flex">
-                                                    <div role="tab" class="cursor-pointer mr-3 collapsed" tabindex="0"
-                                                         aria-expanded="false" aria-controls="csv_format"
-                                                         style="overflow-anchor: none;">
-                                                        <mark class="p-1"><i class="far fa-question-circle mr-1"></i>
+                                                    </label> <select name="fileEncoding" id="fileEncoding" class="form-control form-control-xs w-auto"><option value="utf-8">UTF-8</option> <option value="windows-1251">Windows-1251</option></select></div></div> <div class="mt-4"><div class="d-flex"><div role="tab" class="cursor-pointer mr-3 collapsed" tabindex="0" aria-expanded="false" aria-controls="csv_format" style="overflow-anchor: none;"><mark class="p-1"><i class="far fa-question-circle mr-1"></i>
                                                             Пример файла импорта CSV
-                                                            <span class="mdi mdi-caret-down"></span></mark>
-                                                    </div>
-                                                    <div role="tab" class="cursor-pointer collapsed" tabindex="0"
-                                                         aria-expanded="false" aria-controls="import_examples"
-                                                         style="overflow-anchor: none;">
-                                                        <mark class="p-1"><i class="far fa-question-circle mr-1"></i>
+                                                            <span class="mdi mdi-caret-down"></span></mark></div> <div role="tab" class="cursor-pointer collapsed" tabindex="0" aria-expanded="false" aria-controls="import_examples" style="overflow-anchor: none;"><mark class="p-1"><i class="far fa-question-circle mr-1"></i>
                                                             Файлы с примерами для импорта
-                                                            <span class="mdi mdi-caret-down"></span></mark>
-                                                    </div>
-                                                </div>
-                                                <div id="csv_format" class="collapse" accorfion="csv_format"
-                                                     role="tabpanel" style="display: none;">
-                                                    <ul class="mt-2">
-                                                        <li>каждый товар на отдельной строке. Без пустых строк</li>
-                                                        <li>
-                                                            поля товара разделяются символом "точка с запятой" <b>;</b>
-                                                            и
+                                                            <span class="mdi mdi-caret-down"></span></mark></div></div> <div id="csv_format" class="collapse" accorfion="csv_format" role="tabpanel" style="display: none;"><ul class="mt-2"><li>каждый товар на отдельной строке. Без пустых строк</li> <li>
+                                                            поля товара разделяются символом "точка с запятой" <b>;</b> и
                                                             оборачиваются в символ
-                                                            "двойная кавычка" <b>"</b></li>
-                                                        <li>при отсутствии размера у товара, поле в файле заменяется
-                                                            цифрой
-                                                            <b>0</b></li>
-                                                        <li>
-                                                            в стоимости разделителем вещественной части желательно
-                                                            использовать
-                                                            символ "точка" <b>.</b></li>
-                                                    </ul>
-                                                    <p>Пример:</p>
-                                                    <pre>"article1";"size1";"100.01"
+                                                            "двойная кавычка" <b>"</b></li> <li>при отсутствии размера у товара, поле в файле заменяется цифрой
+                                                            <b>0</b></li> <li>
+                                                            в стоимости разделителем вещественной части желательно использовать
+                                                            символ "точка" <b>.</b></li></ul> <p>Пример:</p> <pre>"article1";"size1";"100.01"
 "АРТ3452345234";"0";"777"
-"PROD\09834";"35X40";"1234.45"</pre>
-                                                </div>
-                                                <div id="import_examples" class="collapse" accorfion="csv_format"
-                                                     role="tabpanel" style="display: none;"><p class="my-2">
-                                                        В последней строке файла приведены названия столбцов как
-                                                        пояснения к
+"PROD\09834";"35X40";"1234.45"</pre></div> <div id="import_examples" class="collapse" accorfion="csv_format" role="tabpanel" style="display: none;"><p class="my-2">
+                                                        В последней строке файла приведены названия столбцов как пояснения к
                                                         приводимым данным.
                                                         <br>
                                                         В файлах с примерами приведены вымышленные данные.
-                                                    </p>
-                                                    <ul>
-                                                        <li><a href="/public/Пример файла импорта себестоимости.csv">Скачать
-                                                                CSV</a></li>
-                                                        <li><a href="/public/Пример файла импорта себестоимости.xlsx">Скачать
-                                                                Excel</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div role="tabpanel" aria-hidden="true" class="tab-pane" id="__BVID__17"
-                                         aria-labelledby="__BVID__17___BV_tab_button__" style="display: none;">
-                                        <div class="px-3"><label for="cost-price-import-textarea"
-                                                                 class="text-reset h4 font-weight-normal mt-0 mb-2">
+                                                    </p> <ul><li><a href="/public/Пример файла импорта себестоимости.csv">Скачать
+                                                                CSV</a></li> <li><a href="/public/Пример файла импорта себестоимости.xlsx">Скачать
+                                                                Excel</a></li></ul></div></div></div></div> <div role="tabpanel" aria-hidden="true" class="tab-pane" id="__BVID__17" aria-labelledby="__BVID__17___BV_tab_button__" style="display: none;"><div class="px-3"><label for="cost-price-import-textarea" class="text-reset h4 font-weight-normal mt-0 mb-2">
                                                 Вставьте в текстовое поле данные для импорта:
-                                            </label> <textarea id="cost-price-import-textarea" rows="10"
-                                                               class="w-100"></textarea>
-                                            <div class="mt-2">
-                                                <div class="d-flex">
-                                                    <div role="tab" class="cursor-pointer mr-3 collapsed" tabindex="0"
-                                                         aria-expanded="false" aria-controls="text_format"
-                                                         style="overflow-anchor: none;">
-                                                        <mark class="p-1"><i class="far fa-question-circle mr-1"></i>
+                                            </label> <textarea id="cost-price-import-textarea" rows="10" class="w-100"></textarea> <div class="mt-2"><div class="d-flex"><div role="tab" class="cursor-pointer mr-3 collapsed" tabindex="0" aria-expanded="false" aria-controls="text_format" style="overflow-anchor: none;"><mark class="p-1"><i class="far fa-question-circle mr-1"></i>
                                                             Требования по форматированию текста
-                                                            <span class="mdi mdi-caret-down"></span></mark>
-                                                    </div>
-                                                    <div role="tab" class="cursor-pointer collapsed" tabindex="0"
-                                                         aria-expanded="false" aria-controls="import_examples"
-                                                         style="overflow-anchor: none;">
-                                                        <mark class="p-1"><i class="far fa-question-circle mr-1"></i>
+                                                            <span class="mdi mdi-caret-down"></span></mark></div> <div role="tab" class="cursor-pointer collapsed" tabindex="0" aria-expanded="false" aria-controls="import_examples" style="overflow-anchor: none;"><mark class="p-1"><i class="far fa-question-circle mr-1"></i>
                                                             Файлы с примерами для импорта
-                                                            <span class="mdi mdi-caret-down"></span></mark>
-                                                    </div>
-                                                </div>
-                                                <div id="text_format" class="collapse" accorfion="text_format"
-                                                     role="tabpanel" style="display: none;">
-                                                    <ul class="mt-2">
-                                                        <li>каждый товар на отдельной строке. Без пустых строк</li>
-                                                        <li>
+                                                            <span class="mdi mdi-caret-down"></span></mark></div></div> <div id="text_format" class="collapse" accorfion="text_format" role="tabpanel" style="display: none;"><ul class="mt-2"><li>каждый товар на отдельной строке. Без пустых строк</li> <li>
                                                             поля товара разделяются одним из представленных символов:
-                                                            <ul>
-                                                                <li>точка с запятой <b>;</b></li>
-                                                                <li>запятая <b>,</b></li>
-                                                                <li>символ табуляции</li>
-                                                            </ul>
-                                                        </li>
-                                                        <li>при отсутствии размера у товара, поле в файле заменяется
-                                                            цифрой
-                                                            <b>0</b></li>
-                                                        <li>
-                                                            в стоимости разделителем вещественной части желательно
-                                                            использовать
-                                                            символ "точка" <b>.</b></li>
-                                                    </ul>
-                                                    <p>Примеры:</p>
-                                                    <pre>article1;size1;100.01
+                                                            <ul><li>точка с запятой <b>;</b></li> <li>запятая <b>,</b></li> <li>символ табуляции</li></ul></li> <li>при отсутствии размера у товара, поле в файле заменяется цифрой
+                                                            <b>0</b></li> <li>
+                                                            в стоимости разделителем вещественной части желательно использовать
+                                                            символ "точка" <b>.</b></li></ul> <p>Примеры:</p> <pre>article1;size1;100.01
 АРТ3452345234;0;777
-PROD\09834;35X40;1234.45</pre>
-                                                    <pre>article1 size1 100.01
+PROD\09834;35X40;1234.45</pre> <pre>article1 size1 100.01
 АРТ3452345234 0 777
-PROD\09834 35X40 1234.45</pre>
-                                                </div>
-                                                <div id="import_examples" class="collapse" accorfion="csv_format"
-                                                     role="tabpanel" style="display: none;"><p class="my-2">
-                                                        Как наиболее наглядный вариант импорта текстом Вы можете
-                                                        скопировать
+PROD\09834 35X40 1234.45</pre></div> <div id="import_examples" class="collapse" accorfion="csv_format" role="tabpanel" style="display: none;"><p class="my-2">
+                                                        Как наиболее наглядный вариант импорта текстом Вы можете скопировать
                                                         текст
-                                                        из файла с примером в формате CSV. Достаточно открыть его в
-                                                        программе
+                                                        из файла с примером в формате CSV. Достаточно открыть его в программе
                                                         "Блокнот" (или любом другом текстовом редакторе) и скопировать
                                                         содержимое в
                                                         текстовое поле выше.
                                                         <br>
-                                                        В последней строке файла приведены названия столбцов как
-                                                        пояснения к
+                                                        В последней строке файла приведены названия столбцов как пояснения к
                                                         приводимым данным.
                                                         <br>
                                                         В файлах с примерами приведены вымышленные данные.
-                                                    </p>
-                                                    <ul>
-                                                        <li><a href="/public/Пример файла импорта себестоимости.csv">
+                                                    </p> <ul><li><a href="/public/Пример файла импорта себестоимости.csv">
                                                                 Скачать CSV
-                                                            </a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div><!----></div>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-center">
-                                <div class="btn-group btn-group-lg mt-5">
-                                    <button class="btn btn-secondary">Назад</button>
-                                    <button disabled="disabled" class="btn btn-success">
+                                                            </a></li></ul></div></div></div></div><!----></div></div> <div class="d-flex align-items-center justify-content-center"><div class="btn-group btn-group-lg mt-5"><button class="btn btn-secondary">Назад</button> <button disabled="disabled" class="btn btn-success">
                                         Далее
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="step-block" style="display: none;">
-                            <div class="row mb-5">
-                                <div class="col-12 col-lg-6">
-                                    <div class="h4 font-weight-normal mt-0 mb-2">
-                                        Чтобы мы поняли для каких товаров нужно обновить данные необходимо выбрать
-                                        что-то
+                                    </button></div></div></div> <div class="step-block" style="display: none;"><div class="row mb-5"><div class="col-12 col-lg-6"><div class="h4 font-weight-normal mt-0 mb-2">
+                                        Чтобы мы поняли для каких товаров нужно обновить данные необходимо выбрать что-то
                                         что
                                         нам поможет:
-                                    </div>
-                                    <ul class="pl-4 list-unstyled">
-                                        <li><i>Баркод</i> <i class="fa fa-check-circle text-success ml-2"
-                                                             style="display: none;"></i></li>
-                                        <li class="text-muted">или</li>
-                                        <li><i>Артикул</i> <i class="fa fa-check-circle text-success ml-2"
-                                                              style="display: none;"></i></li>
-                                        <li class="text-muted">или</li>
-                                        <li><i>SKU</i> <i class="fa fa-check-circle text-success ml-2"
-                                                          style="display: none;"></i></li>
-                                    </ul>
-                                    <div class="mt-2"><i class="fa fa-exclamation mr-2"></i> <i>Размер</i> не является
-                                        обязательным полем, но без него будут обновлены товары с
+                                    </div> <ul class="pl-4 list-unstyled"><li><i>Баркод</i> <i class="fa fa-check-circle text-success ml-2" style="display: none;"></i></li> <li class="text-muted">или</li> <li><i>Артикул</i> <i class="fa fa-check-circle text-success ml-2" style="display: none;"></i></li> <li class="text-muted">или</li> <li><i>SKU</i> <i class="fa fa-check-circle text-success ml-2" style="display: none;"></i></li></ul> <div class="mt-2"><i class="fa fa-exclamation mr-2"></i> <i>Размер</i> не является обязательным полем, но без него будут обновлены товары с
                                         одинаковым sku, артикулом или баркодом и разного размера
-                                        <i class="fa fa-check-circle text-success ml-2" style="display: none;"></i>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-lg-6">
-                                    <div class="h4 font-weight-normal mt-0 mb-2">
+                                        <i class="fa fa-check-circle text-success ml-2" style="display: none;"></i></div></div> <div class="col-12 col-lg-6"><div class="h4 font-weight-normal mt-0 mb-2">
                                         Подскажите нам столбцы с новыми данными товаров:
-                                    </div>
-                                    <ul class="pl-4 list-unstyled">
-                                        <li><i>Себестоимость</i> <i class="fa fa-check-circle text-success ml-2"
-                                                                    style="display: none;"></i></li>
-                                        <li class="text-muted">
+                                    </div> <ul class="pl-4 list-unstyled"><li><i>Себестоимость</i> <i class="fa fa-check-circle text-success ml-2" style="display: none;"></i></li> <li class="text-muted">
                                             и \ или
-                                        </li>
-                                        <li><i>Кратность короба</i> <i class="fa fa-check-circle text-success ml-2"
-                                                                       style="display: none;"></i> <span
-                                                    class="mx-2">-</span>
+                                        </li> <li><i>Кратность короба</i> <i class="fa fa-check-circle text-success ml-2" style="display: none;"></i> <span class="mx-2">-</span>
                                             Целое число: 1, 2, ..., 100, ...
-                                        </li>
-                                        <li class="text-muted">
+                                        </li> <li class="text-muted">
                                             и \ или
-                                        </li>
-                                        <li><i>Тип поставки</i> <i class="fa fa-check-circle text-success ml-2"
-                                                                   style="display: none;"></i> <span
-                                                    class="mx-2">-</span>
+                                        </li> <li><i>Тип поставки</i> <i class="fa fa-check-circle text-success ml-2" style="display: none;"></i> <span class="mx-2">-</span>
                                             Без коробов, моно, монопалета, микс
-                                        </li>
-                                        <li class="text-muted">
+                                        </li> <li class="text-muted">
                                             и \ или
-                                        </li>
-                                        <li><i>Поставщик</i> <i class="fa fa-check-circle text-success ml-2"
-                                                                style="display: none;"></i></li>
-                                        <li class="text-muted">
+                                        </li> <li><i>Поставщик</i> <i class="fa fa-check-circle text-success ml-2" style="display: none;"></i></li> <li class="text-muted">
                                             и \ или
-                                        </li>
-                                        <li><i>Товар в дороге</i> <i class="fa fa-check-circle text-success ml-2"
-                                                                     style="display: none;"></i> <span
-                                                    class="mx-2">-</span>
+                                        </li> <li><i>Товар в дороге</i> <i class="fa fa-check-circle text-success ml-2" style="display: none;"></i> <span class="mx-2">-</span>
                                             Количество товара "в дороге" на склад маркетплейса
-                                        </li>
-                                        <li class="text-muted">
+                                        </li> <li class="text-muted">
                                             и \ или
-                                        </li>
-                                        <li><i>На складе</i> <i class="fa fa-check-circle text-success ml-2"
-                                                                style="display: none;"></i> <span class="mx-2">-</span>
+                                        </li> <li><i>На складе</i> <i class="fa fa-check-circle text-success ml-2" style="display: none;"></i> <span class="mx-2">-</span>
                                             Количество товара которое есть на вашем локальном складе
-                                        </li>
-                                        <li class="text-muted">
+                                        </li> <li class="text-muted">
                                             и \ или
-                                        </li>
-                                        <li><i>Теги</i> <i class="fa fa-check-circle text-success ml-2"
-                                                           style="display: none;"></i> <span class="mx-2">-</span>
+                                        </li> <li><i>Теги</i> <i class="fa fa-check-circle text-success ml-2" style="display: none;"></i> <span class="mx-2">-</span>
                                             Список тегов, разделенных символом вертикальной черты |
-                                        </li>
-                                        <li class="text-muted">
+                                        </li> <li class="text-muted">
                                             и \ или
-                                        </li>
-                                        <li><i>Вывести из номенклатуры</i> <i
-                                                    class="fa fa-check-circle text-success ml-2"
-                                                    style="display: none;"></i> <span class="mx-2">-</span>
+                                        </li> <li><i>Вывести из номенклатуры</i> <i class="fa fa-check-circle text-success ml-2" style="display: none;"></i> <span class="mx-2">-</span>
                                             Числа 0 или 1. 0 - не выводить из номенклатуры, 1 - вывести из номенклатуры
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="w-100 overflow-auto">
-                                <div class="h4 font-weight-normal mt-0 mb-2">Предпросмотр столбцов:</div>
-                                <table class="table table-sm" style="display: none;">
-                                    <thead>
-                                    <tr></tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td colspan="0">...</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <div role="alert" class="alert alert-warning alert-dismissible">
-                                    <div class="icon"><span class="fa fa-exclamation-triangle"></span></div>
-                                    <div class="message">Нет данных</div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-center">
-                                <div class="btn-group btn-group-lg mt-5">
-                                    <button class="btn btn-secondary">Назад</button>
-                                    <button disabled="disabled" class="btn btn-success">
+                                        </li></ul></div></div> <div class="w-100 overflow-auto"><div class="h4 font-weight-normal mt-0 mb-2">Предпросмотр столбцов:</div> <table class="table table-sm" style="display: none;"><thead><tr></tr></thead> <tbody> <tr><td colspan="0">...</td></tr></tbody></table> <div role="alert" class="alert alert-warning alert-dismissible"><div class="icon"><span class="fa fa-exclamation-triangle"></span></div> <div class="message">Нет данных</div></div></div> <div class="d-flex align-items-center justify-content-center"><div class="btn-group btn-group-lg mt-5"><button class="btn btn-secondary">Назад</button> <button disabled="disabled" class="btn btn-success">
                                         Запустить импорт
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="step-block" style="display: none;">
-                            <div>
-                                <div class="alert alert-success py-1 px-2" style="display: none;">
-                                    Обновлено <span>0</span></div>
-                                <div class="alert alert-danger py-1 px-2" style="display: none;"></div>
-                            </div>
-                            <div class="d-flex justify-content-center mt-3">
-                                <button class="btn btn-lg btn-primary">
+                                    </button></div></div></div> <div class="step-block" style="display: none;"><div><div class="alert alert-success py-1 px-2" style="display: none;">
+                                    Обновлено <span>0</span></div> <div class="alert alert-danger py-1 px-2" style="display: none;"></div></div> <div class="d-flex justify-content-center mt-3"><button class="btn btn-lg btn-primary">
                                     Новый импорт
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mp-loader-overlay ag-overlay hidden" aria-hidden="true">
+                                </button></div></div></div><div class="mp-loader-overlay ag-overlay hidden" aria-hidden="true">
                         <div class="ag-overlay-panel">
                             <div class="ag-overlay-wrapper ag-layout-normal ag-overlay-loading-wrapper">
                                 <div class="mp-loader-static"></div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div><!---->
-            <div class="snotify snotify-left_top"></div>
-            <div class="snotify snotify-left_center"></div>
-            <div class="snotify snotify-left_bottom"></div>
-            <div class="snotify snotify-right_top"></div>
-            <div class="snotify snotify-right_center"></div>
-            <div class="snotify snotify-right_bottom"></div>
-            <div class="snotify snotify-center_top"></div>
-            <div class="snotify snotify-center_center"></div>
-            <div class="snotify snotify-center_bottom"></div>
-        </div>
-    </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            let buttonAllkey = document.getElementById("__BVID__11");
-            let select = buttonAllkey.children[buttonAllkey.children.length - 1]
-            select = select.children[select.children.length - 2]
-            let tokens = [{% for token in tokens ?? [] %} {{token.id}}, {% endfor%}]
-            for(let i=0;i<select.children.length;i++){
-                for(let j=0;j<tokens.length;j++){
-                    if(tokens[j] === tryParseInt(select.children[i].value)){
-                        select.children[i].selected = true
-                    }
-                }
-            }
-        })
-    </script>
-{% endblock %}
+                    </div></div></div></div> <div><!----> <div class="snotify snotify-left_top"></div><div class="snotify snotify-left_center"></div><div class="snotify snotify-left_bottom"></div><div class="snotify snotify-right_top"></div><div class="snotify snotify-right_center"></div><div class="snotify snotify-right_bottom"></div><div class="snotify snotify-center_top"></div><div class="snotify snotify-center_center"></div><div class="snotify snotify-center_bottom"></div></div></div>
+{%endblock%}
