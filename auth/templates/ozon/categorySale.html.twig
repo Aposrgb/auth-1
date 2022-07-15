@@ -21,6 +21,43 @@
     <script>
         let date = "{{d1}} to {{d2}}"
         document.addEventListener("DOMContentLoaded", () => {
+            newDataGrid(document.getElementsByClassName("ag-theme-balham")[0], [
+                    {headerName:'Фото', field: 'photo', maxWidth: 80, sortable:false , filter: false, cellRenderer: params => `<img style="height: 32px; width: 32px" src="${params.value}" />`},
+                    {headerName:'SKU', field: 'sku'},
+                    {headerName:'Название', field: 'name'},
+                    {headerName:'Категория', field: 'category'},
+                    {headerName:'Бренд', field: 'brand'},
+                    {headerName:'Продавец', field: 'seller'},
+                    {headerName:'Схема', field: 'schema'},
+                    {headerName:'Наличие', field: 'balance'},
+                    {headerName:'Комментарии', field: 'comments'},
+                    {headerName:'Цена', field: 'finalPrice'},
+                    {headerName:'Был в наличии', field: 'dayInStock'},
+                    {headerName:'Продаж', field: 'sales'},
+                    {headerName:'Выручка', field: 'revenue'},
+                ], [
+                        {% for sale in sales %}
+                    {
+                        photo: '{{ sale.thumb }}',
+                        sku: {{ sale.nmId }} ,
+                        name: '{{ sale.name }}',
+                        category: '{{ sale.category }} ',
+                        brand: '{{ sale.brand }}' ,
+                        seller: '{{ sale.seller }}' ,
+                        schema: 'Retail',
+                        balance: '{{ sale.balance }} ',
+                        comments: '{{ sale.comments }}' ,
+                        finalPrice: '{{ sale.final_price }} ₽' ,
+                        dayInStock:'{{ sale.days_in_stock }} ',
+                        sales: '{{ sale.sales }}' ,
+                        revenue: '{{ sale.revenue }} ₽'
+                    },
+                        {% endfor %}
+                ],
+                event => {
+                    window.location.href = 'search/'+event.data.sku
+                }
+            )
             newDatePicker('datePicker', function (date){
                 window.location.href="{{path("ozon_category")}}?url={{ path }}&date="+date
             })

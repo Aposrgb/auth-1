@@ -365,8 +365,6 @@ table.dataTable thead .sorting:after,table.dataTable thead .sorting:before,table
 
 .bgthumb {background-color: #fff; background-size: contain !important; background-repeat: no-repeat !important; background-position:center center !important;}
 .itemstable .bgthumb {margin: -20px -10px; width: 40px; height: 40px; background-color: inherit !important;}
-.ag-cell .bgthumb {width: 40px; height: 40px; background-color: inherit !important;}
-.ag-cell.sparkline canvas {display: block!important;}
 
 .fbo {background: rgba(46, 149,70,0.1);}
 .fbs {background: rgba(236, 85, 73, 0.1);}
@@ -477,25 +475,6 @@ body.tldcontainer {background: #fff;}
     margin: 0 0 40px 0;
 
 }
-.ag-theme-balham .ag-filter-toolpanel-header, .ag-theme-balham .ag-filter-toolpanel-search, .ag-theme-balham .ag-header-row {
-    font-weight: 700 !important;
-    color: rgb(39, 128, 62) !important;
-}
-.ag-theme-balham .ag-status-bar {
-    color: rgb(39, 128, 62) !important;
-}
-.ag-theme-balham.w35 .ag-cell {
-    line-height: 35px !important;
-}
-.ag-theme-balham.w35 .ag-cell .ag-group-contracted, .ag-theme-balham.w35 .ag-cell .ag-group-expanded{
-    height: 35px !important;
-}
-
-.ag-full-row{
-    margin-right: -20px;
-    margin-left: -20px;
-}
-
 .mp-loader-static {
     width: 75px;
     height: 75px;
@@ -554,13 +533,6 @@ body.tldcontainer {background: #fff;}
         -ms-transform: rotate(360deg);
         transform: rotate(360deg);
     }
-}
-
-.ag-theme-balham .ag-ltr .ag-cell {
-    /*height: 39px;*/
-}
-.ag-theme-balham .ag-cell-inline-editing:not(.ag-cell) {
-    height: auto !important;
 }
 .custom-date-filter .icon {
     position: absolute;
