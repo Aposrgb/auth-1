@@ -12,14 +12,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.js"></script>
+    <script src="https://unpkg.com/ag-grid-enterprise@28.0.0/dist/ag-grid-enterprise.min.js"></script>
 </head>
 <body>
 <div class="be-wrapper be-nosidebar-left">
     {% block header %}
-        <nav  id="mp-stats-header" class="top-menu navbar navbar-expand-xl be-top-header fixed-top shadow-sm">
+        <nav id="mp-stats-header" class="top-menu navbar navbar-expand-xl be-top-header fixed-top shadow-sm">
             <div class="logo d-none d-xl-flex"><a class="d-flex align-items-center">
-            <img src="/img/Logo-NoBackground.svg" alt="marketplace" width="50" height="56" class="mr-0 mr-xxl-2">
+                    <img src="/img/Logo-NoBackground.svg" alt="marketplace" width="50" height="56"
+                         class="mr-0 mr-xxl-2">
                     <span class="d-none d-xxl-inline">MARKETPLACE</span></a></div>
             <button onclick="showMenu()" type="button" data-toggle="collapse" data-target="#be-navbar-collapse"
                     aria-controls="be-navbar-collapse"
@@ -101,7 +102,7 @@
                         </div>
                     </li>
                     {% if is_granted("ROLE_ADMIN") %}
-                        <li class="nav-item dropdown"><a href="{{path('admin')}}" data-toggle="dropdown" role="button"
+                        <li class="nav-item dropdown"><a href="{{ path('admin') }}" data-toggle="dropdown" role="button"
                                                          aria-expanded="false" class="nav-link dropdown-toggle">Админ
                                 панель</a>
                             <div role="menu" style="display:none;" class="dropdown-menu show">
@@ -112,12 +113,13 @@
             <div class="be-right-navbar d-flex align-items-center">
                 <div class="search-container">
                     <div class="input-group input-group-sm"><input type="text"
-                                                                                                  name="search"
-                                                                                                  placeholder="Поиск по товарам..."
-                                                                                                  value=""
-                                                                                                  id="searchItem"
-                                                                                                  class="col-8 form-control search-input">
-                        <input type="hidden" name="section" value="main"> <input onclick="searchItem()" type="button" value="Поиск"
+                                                                   name="search"
+                                                                   placeholder="Поиск по товарам..."
+                                                                   value=""
+                                                                   id="searchItem"
+                                                                   class="col-8 form-control search-input">
+                        <input type="hidden" name="section" value="main"> <input onclick="searchItem()" type="button"
+                                                                                 value="Поиск"
                                                                                  class="col-3 btn btn-primary"></div>
                 </div>
                 <ul class="nav navbar-nav float-right be-user-nav">
@@ -129,7 +131,7 @@
                                     height="32"></a>
                         <div role="menu" style="display:none;" class="dropdown-menu show profile-menu">
                             <a href="/userpanel" class="dropdown-item "><i class="far fa-user mr-2"></i>Аккаунт
-                            </a>  <a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt mr-2"></i>Выход
+                            </a> <a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt mr-2"></i>Выход
                             </a></div>
                     </li>
                 </ul>
@@ -165,22 +167,23 @@
                 let buttonAllkey = document.getElementById("__BVID__11");
                 if (buttonAllkey !== undefined) {
                     let display = buttonAllkey.children[buttonAllkey.children.length - 1].style.display
-                    display = display === "block" ? "none":"block"
+                    display = display === "block" ? "none" : "block"
                     buttonAllkey.children[buttonAllkey.children.length - 1].style = `display:${display};margin-block: 32px -65px;`
                 }
             }
-            function selectKey(id, url){
-                window.location.href = url+"?index="+id;
+
+            function selectKey(id, url) {
+                window.location.href = url + "?index=" + id;
             }
             {% endif %}
         </script>
     {% endblock %}
     {% block body %}
-        <div class="be-content" >
+        <div class="be-content">
             <div class="row">
                 <div class="col-md-12 ">
                     <div class="card">
-                       <div class="card-header card-header-divider">MARKETPLACE<span class="card-subtitle">Моментальный анализ продаж миллионов товаров на Российских маркетплейсах</span>
+                        <div class="card-header card-header-divider">MARKETPLACE<span class="card-subtitle">Моментальный анализ продаж миллионов товаров на Российских маркетплейсах</span>
                         </div>
                         <div class="card-body"><p>MARKETPLACE - это комплекс из нескольких узлов:
                                 система сбора данных,
@@ -192,8 +195,10 @@
                                 данные нормируются и укладываются в удобные интерфейсы, чтобы наши пользователи смогли
                                 быстро
                                 сориентироваться и принять верные решения. </p>
-                                <p>Проект находится на стадии Бета-тестирования, но мы обещаем стремительно развиваться и вскоре
-                                перерастем в нечто большее, чем просто статитстика 2 маркетплейсов. По всем вопросам и предложениям
+                            <p>Проект находится на стадии Бета-тестирования, но мы обещаем стремительно развиваться и
+                                вскоре
+                                перерастем в нечто большее, чем просто статитстика 2 маркетплейсов. По всем вопросам и
+                                предложениям
                                 писать в наш<a href="https://t.me/marketplaceanalytics"> Телеграм-канал <a></p>
                         </div>
                     </div>
@@ -219,12 +224,13 @@
                 <div class="col-md-4">
                     <div class="logo d-flex">
                         <a href="/" class="d-flex align-items-center">
-                            <alt="marketplace" class="mr-2"> MARKETPLACE
+                            <alt
+                            ="marketplace" class="mr-2"> MARKETPLACE
                         </a>
                     </div>
                     <p class="mb-3">Сервис статистики и мониторинга маркетплейсов.</p>
                     <a href="https://t.me/+A-ggu6vreqplMTFi">Техническая поддержка</a></p>
-        
+
                 </div>
             </div>
             </a>
@@ -246,26 +252,32 @@
             background: white;
             padding: 0;
         }
-        .dropdown_keys li  {
+
+        .dropdown_keys li {
             min-width: 5.5vw;
             text-align: center;
             padding: 5px 0px;
             border: solid 1px;
         }
+
         .dropdown_keys :hover {
             background: #badfff82;
             box-shadow: 0px 0px 7px 0px #030b3e2b;
         }
-        .scrollbar{
+
+        .scrollbar {
             -webkit-appearance: none;
             width: 100%;
         }
-        .scrollbar :focus{
+
+        .scrollbar :focus {
             outline: none;
         }
+
         .scrollbar:focus {
             outline: none;
         }
+
         .scrollbar::-webkit-slider-runnable-track {
             width: 100%;
             height: 8.4px;
@@ -274,6 +286,7 @@
             /*background: #87ddfd96;*/
             border-radius: 1.3px;
         }
+
         .scrollbar::-webkit-slider-thumb {
             box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
             border: 1px solid #000000;
@@ -285,6 +298,7 @@
             -webkit-appearance: none;
             margin-top: -5px;
         }
+
         .scrollbar::-moz-range-track {
             width: 100%;
             height: 8.4px;
@@ -293,6 +307,7 @@
             background: #3071a9;
             border-radius: 1.3px;
         }
+
         .scrollbar::-moz-range-thumb {
             box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
             height: 36px;
@@ -301,6 +316,7 @@
             background: #ffffff;
             cursor: pointer;
         }
+
         .scrollbar::-ms-track {
             width: 100%;
             height: 8.4px;
@@ -310,18 +326,21 @@
             border-width: 16px 0;
             color: transparent;
         }
+
         .scrollbar::-ms-fill-lower {
             background: #2a6495;
             border: 0.2px solid #010101;
             border-radius: 2.6px;
             box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
         }
+
         .scrollbar::-ms-fill-upper {
             background: #3071a9;
             border: 0.2px solid #010101;
             border-radius: 2.6px;
             box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
         }
+
         .scrollbar::-ms-thumb {
             box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
             border: 1px solid #000000;
@@ -331,27 +350,33 @@
             background: #ffffff;
             cursor: pointer;
         }
+
         .scrollbar:focus::-ms-fill-lower {
             background: #3071a9;
         }
+
         .scrollbar:focus::-ms-fill-upper {
             background: #367ebd;
         }
-        meter{
+
+        meter {
             -webkit-transform: rotate(-90deg);
             -moz-transform: rotate(-90deg);
             -o-transform: rotate(-90deg);
             transform: rotate(-90deg);
         }
+
         .negative {
-            background: rgba(235,87,87,.05);
+            background: rgba(235, 87, 87, .05);
             color: #eb5757;
         }
+
         .positive {
             background: rgb(177 255 188 / 20%);
-            color: #33ae45!important;
+            color: #33ae45 !important;
         }
-        .ag-row:hover{
+
+        .ag-row:hover {
             background: 0 0;
             color: #4285f4;
         }
@@ -363,7 +388,7 @@
 </body>
 {% block scripts %}
     <script>
-        function drawDonutGraph(id, labels, data, title, vector = 'left'){
+        function drawDonutGraph(id, labels, data, title, vector = 'left') {
             new Chart(document.getElementById(id).getContext('2d'), {
                 type: 'doughnut',
                 data: {
@@ -393,7 +418,8 @@
                 },
             })
         }
-        function drawLineGraph(id, data, names, labels, groups=['A', 'B', 'A', 'A', 'C', 'C','C', 'C','A', 'A']){
+
+        function drawLineGraph(id, data, names, labels, groups = ['A', 'B', 'A', 'A', 'C', 'C', 'C', 'C', 'A', 'A']) {
 
             let dataset = [],
                 BGcolor = [
@@ -420,7 +446,7 @@
                     'rgb(198,99,255)',
                     'rgb(255,253,31)'
                 ]
-            for(let i=0;i<data.length;i++){
+            for (let i = 0; i < data.length; i++) {
                 dataset[i] = {
                     label: names[i],
                     backgroundColor: BGcolor[i],
@@ -442,27 +468,30 @@
                         intersect: false,
                     },
                     scales: {
-                        yAxes: [{ id: 'A',}, { id: 'B',}, {id: 'C',}]
+                        yAxes: [{id: 'A',}, {id: 'B',}, {id: 'C',}]
                     }
                 },
             })
         }
-        function newDatePicker(id, func, format = "Y-m-d"){
+
+        function newDatePicker(id, func, format = "Y-m-d") {
             document.getElementById(id).attributes.removeNamedItem('disabled')
-            flatpickr("#"+id, {
+            flatpickr("#" + id, {
                 mode: "range",
                 dateFormat: format,
-                onClose: function(selectedDates, dateStr, instance) {
+                onClose: function (selectedDates, dateStr, instance) {
                     func(dateStr)
                 },
             })
         }
-        function newLoader(id, dur=300){
+
+        function newLoader(id, dur = 300) {
             return new jQuerySpinner({
                 parentId: id,
                 duration: dur
             });
         }
+
         function download(filename, text) {
             var element = document.createElement('a');
             element.setAttribute('href', 'data:text/plain;charset=Windows-1251,' + encodeURIComponent(text));
@@ -475,9 +504,10 @@
 
             document.body.removeChild(element);
         }
-        function mixChart(id, labels, names, data, lineData){
+
+        function mixChart(id, labels, names, data, lineData) {
             let dataset = [],
-                groups = ['A', 'B',  'C', 'D', 'E', 'F', 'G', 'U'],
+                groups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'U'],
                 BGcolor = [
                     'rgba(109,99,255,0.2)',
                     'rgba(255, 99, 132, 0.2)',
@@ -502,7 +532,7 @@
                     'rgb(198,99,255)',
                     'rgb(255,253,31)'
                 ];
-            for(let i=0;i<data.length;i++){
+            for (let i = 0; i < data.length; i++) {
                 dataset[i] = {
                     label: names[i],
                     data: data[i],
@@ -511,7 +541,7 @@
                     yAxisID: groups[i],
                 }
             }
-            for(let i=0,j=data.length;i<lineData.length;i++,j++){
+            for (let i = 0, j = data.length; i < lineData.length; i++, j++) {
                 dataset[j] = {
                     label: names[j],
                     data: lineData[i],
@@ -530,104 +560,199 @@
                 },
                 options: {
                     scales: {
-                        yAxes: [{ id: 'A',}, { id: 'B',}, {id: 'C',}, {id: 'D',}, {id: 'E',}, {id: 'F',}, {id: 'G',}, {id: 'U',}]
+                        yAxes: [{id: 'A',}, {id: 'B',}, {id: 'C',}, {id: 'D',}, {id: 'E',}, {id: 'F',}, {id: 'G',}, {id: 'U',}]
                     }
                 },
             });
 
         }
-        function newDataGrid(el, col, value, onclick = e => 0){
+
+        function newDataGrid(el, col, value, onclick = e => 0) {
             let locale = {
-                filterOoo: 'Фильтровать...',
-                equals: 'Равно',
-                notEqual: 'Не равно',
-                blank: 'Пусто',
-                notBlank: 'Не пусто',
-                empty: 'Choose One',
-                inRange: 'В диапазоне',
-                inRangeStart: 'от',
-                inRangeEnd: 'до',
-                contains: 'Содержит',
-                notContains: 'Не содержит',
-                startsWith: 'Начинается с',
-                endsWith: 'Заканчивается',
-                dateFormatOoo: 'yyyy-mm-dd',
-                andCondition: 'И',
-                orCondition: 'ИЛИ',
-                applyFilter: 'Применить',
-                resetFilter: 'Сброс',
-                clearFilter: 'Очистить',
-                cancelFilter: 'Отмена',
-                textFilter: 'Текстовый фильтр',
-                numberFilter: 'Числовый фильтр',
-                dateFilter: 'Фильтр по дате',
-                setFilter: 'Задать фильтр',
-                columns: 'Столбцы',
-                filters: 'Фильтры'
+                // for filter panel
+                page: "Страница",
+                more: "ещё",
+                to: "к",
+                of: "из",
+                next: "Следующая",
+                last: "Последняя",
+                first: "Первая",
+                previous: "Предыдущая",
+                loadingOoo: "Загрузка...",
+
+                // for set filter
+                selectAll: "Выделить всё",
+                searchOoo: "Поиск...",
+                blanks: "Ничего не найдено",
+
+                // for number filter and text filter
+                filterOoo: "Фильтровать...",
+                applyFilter: "Применить фильтр...",
+                equals: "Равно",
+                notEqual: "Не равно",
+
+                // for number filter
+                lessThan: "Меньше чем",
+                greaterThan: "Больше чем",
+                lessThanOrEqual: "Меньше или равно",
+                greaterThanOrEqual: "Больше или равно",
+                inRange: "В промежутке",
+
+                // for text filter
+                contains: "Содержит",
+                notContains: "Не содержит",
+                startsWith: "Начинается с",
+                endsWith: "Заканчивается",
+
+                // filter conditions
+                andCondition: '"И"',
+                orCondition: '"ИЛИ"',
+
+                // the header of the default group column
+                group: "Группа",
+
+                // tool panel
+                columns: "Столбцы",
+                filters: "Фильтры",
+                rowGroupColumns: "Столбцы группировки по строкам",
+                rowGroupColumnsEmptyMessage: "Перетащите сюда для группировки по строкам",
+                valueColumns: "Столбцы со значениями",
+                pivotMode: "Режим сводной таблицы",
+                groups: "Группы",
+                values: "Значения",
+                pivots: "Заголовки столбцов",
+                valueColumnsEmptyMessage: "Перетащите сюда для агрегации",
+                pivotColumnsEmptyMessage: "Перетащите сюда, чтобы задать заголовки столбам",
+                toolPanelButton: "Панель инструментов",
+
+                // other
+                noRowsToShow: "Нет данных",
+
+                // enterprise menu
+                pinColumn: "Закрепить колонку",
+                valueAggregation: "Агрегация по значению",
+                autosizeThiscolumn: "Автоматически задавать размер этой колонки",
+                autosizeAllColumns: "Автоматически задавать размер всем колонкам",
+                groupBy: "Группировать по",
+                ungroupBy: "Разгруппировать по",
+                resetColumns: "Сбросить столбцы",
+                expandAll: "Развернуть всё",
+                collapseAll: "Свернуть всё",
+                toolPanel: "Панель инструментов",
+                export: "Экспорт",
+                csvExport: "Экспорт в CSV",
+                excelExport: "Экспорт в Excel (.xlsx)",
+                excelXmlExport: "Экспорт в XML (.xml)",
+
+                // enterprise menu pinning
+                pinLeft: "Закрепить слева <<",
+                pinRight: "Закрепить справа >>",
+                noPin: "Не закреплять <>",
+
+                // enterprise menu aggregation and status bar
+                sum: "Сумма",
+                min: "Минимум",
+                max: "Максимум",
+                none: "Пусто",
+                count: "Количество",
+                average: "Среднее значение",
+                filteredRows: "Отфильтрованные",
+                selectedRows: "Выделенные",
+                totalRows: "Всего строк",
+                totalAndFilteredRows: "Строк",
+
+                // standard menu
+                copy: "Копировать",
+                copyWithHeaders: "Копировать с заголовком",
+                ctrlC: "Ctrl+C",
+                paste: "Вставить",
+                ctrlV: "Ctrl+V",
             };
             let option = {
                 columnDefs: col,
                 rowHeight: 35,
                 rowData: value,
                 pagination: true,
+                enableRangeSelection:true,
+                sideBar: {
+                    toolPanels: [
+                        {
+                            id: "columns",
+                            labelDefault: "Columns",
+                            labelKey: "columns",
+                            iconKey: "columns",
+                            toolPanel: "agColumnsToolPanel",
+                            minWidth: 225,
+                            maxWidth: 225,
+                            width: 225,
+                        },
+                        {
+                            id: "filters",
+                            labelDefault: "Filters",
+                            labelKey: "filters",
+                            iconKey: "filter",
+                            toolPanel: "agFiltersToolPanel",
+                            minWidth: 180,
+                            maxWidth: 400,
+                            width: 250,
+                        },
+                    ],
+                    position: "right"
+                },
                 defaultColDef: {
-                    enableRowGroup: true,
-                    enablePivot: true,
-                    enableValue: true,
                     sortable: true,
-                    filter: 'agTextColumnFilter',
+                    filter: true,
+                    enableValue: true,
+                    enableRowGroup: true,
                     floatingFilter: true,
-                    resizable: true,
-                    filterParams: {
-                        buttons: ['reset', 'apply'],
-                        debounceMs: 200
-                    },
+                    enablePivot: true,
                 },
                 onRowClicked: onclick,
-                sideBar: {
-                    toolPanels: ['columns'],
-                },
+                suppressContextMenu: true,
                 localeText: locale,
             };
             new agGrid.Grid(el, option);
         }
+
         function formatter(id) {
             let intFormatter = new Intl.NumberFormat()
-            for (let i=0;i<document.getElementsByClassName(id).length;i++){
+            for (let i = 0; i < document.getElementsByClassName(id).length; i++) {
                 let prop = document.getElementsByClassName(id)[i]
-                if(prop.innerText.indexOf(' ') !== -1){
-                    if(prop.innerText.indexOf(',') === -1) {
+                if (prop.innerText.indexOf(' ') !== -1) {
+                    if (prop.innerText.indexOf(',') === -1) {
                         let str = prop.innerText.substring(prop.innerText.lastIndexOf(' '))
                         prop.innerText = prop.innerText.substring(0, prop.innerText.lastIndexOf(' '))
                         prop.innerText = intFormatter.format(parseInt(prop.innerText.replace(/\s+/g, ''))) + str
                     }
 
-                }else{
+                } else {
                     prop.innerText = intFormatter.format(prop.innerText)
                 }
             }
         }
-        function searchItem(){
+
+        function searchItem() {
             let value = document.getElementById("searchItem").value;
-            if(value.length > 0){
+            if (value.length > 0) {
                 fetch(`{{ path("api_search_item") }}?sku=${value}`)
                     .then(async data => {
                         data = await data.json()
                         let isWb = data['isWb'], values = data['value']
-                        if(isWb){
-                            let path = `{{path('wb_item', {sku:0})}}`
-                            window.location.href = path.substring(0, path.length-1)+""+values
-                        }else if(!isWb && isWb !== undefined) {
-                            let path = `{{path('ozon_get_item', {sku:0})}}`
-                            window.location.href = path.substring(0, path.length-1)+""+values
+                        if (isWb) {
+                            let path = `{{ path('wb_item', {sku:0}) }}`
+                            window.location.href = path.substring(0, path.length - 1) + "" + values
+                        } else if (!isWb && isWb !== undefined) {
+                            let path = `{{ path('ozon_get_item', {sku:0}) }}`
+                            window.location.href = path.substring(0, path.length - 1) + "" + values
                         }
                     })
             }
         }
-        function showMenu(){
-            if(document.getElementById("be-navbar-collapse").classList.contains('show')){
+
+        function showMenu() {
+            if (document.getElementById("be-navbar-collapse").classList.contains('show')) {
                 document.getElementById("be-navbar-collapse").classList.remove('show')
-            }else{
+            } else {
                 document.getElementById("be-navbar-collapse").classList.add('show')
             }
         }
