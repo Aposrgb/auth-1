@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Marketplace analytics{% endblock %}
+{% block title %}{% endblock %}
 
 {%block styles%}
 
@@ -9,25 +9,22 @@
 
 {% block body %}
     <form method="post">
-        <p style="text-align:center;"><img src="/img/logo.png" width="250"  alt="Logo"></p>
+        <p style="text-align:center;"></p>
         {% if ipAddr ?? false%}
-            <div class="error">Превышен лимит количества устройств</div>
+            <div class="error">Превышен лимит устройств</div>
         {% endif %}
         {% if deactivated ?? false %}
-            <div class="error">Пользователь деактивирован, для продления подписки обращайтесь в техподдержку</div>
+            <div class="error">User error</div>
         {% endif %}
         {% if error ?? false %}
-            <div class="error">Неверное имя пользователя или пароль</div>
-        {% endif %}
-        {% if blocked ?? false %}
-            <div class="error">Демо-период истек, для оформления подписки обращайтесь в техподдержку</div>
+            <div class="error">username/password error</div>
         {% endif %}
         <label for="inputUsername">
-            <input type="text" value="" placeholder="Имя пользователя" name="username"
+            <input type="text" value="" placeholder="username" name="username"
                    id="inputUsername" class="form-control" autocomplete="username" required autofocus>
         </label>
         <label for="inputPassword">
-            <input type="password" placeholder="Пароль" name="password" id="inputPassword" class="form-control"
+            <input type="password" placeholder="password" name="password" id="inputPassword" class="form-control"
                    autocomplete="current-password" required>
         </label>
 
@@ -35,22 +32,14 @@
                value="{{ csrf_token('authenticate') }}"
         >
 
-        {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
+        
 
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-        #}
+        
+        
 
-        <input class="submit" type="submit" value="Вход"/>
+        <input class="submit" type="submit" value="Login"/>
     </form>
-    <a href="mailto:support@marketanalytics.pro" style="position: relative; bottom: 15px; width: 100%; display: block; text-align: center;">Техническая поддержка</a></p>
-
-    <script>
+        <script>
         if({{ logout ?? "false"}}){
             fetch('/logout')
         }
