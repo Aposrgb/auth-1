@@ -9,7 +9,7 @@
     <link href="../../styles/seo/slider.css" rel="stylesheet">
     <link href="../../styles/seo/table.css" rel="stylesheet">
     <link href="../../styles/jquery-spinner.min.css" rel="stylesheet">
-    <script src="../../script/jquery-spinner.min.js" />
+    <script src="../../script/jquery-spinner.min.js"/>
     <script>
         function collapse(element) {
             let display = element.parentNode.parentNode.children[1].style.display
@@ -20,59 +20,71 @@
 {% block body %}
     {% include 'wb/HTML/categorySale.html.twig' %}
     <script>
-        let fbs = {{fbs}}, date = "{{d1}} to {{d2}}"
+        let fbs = {{ fbs??'-' }}, date = "{{ d1??'-' }} to {{ d2??'-' }}"
         document.addEventListener("DOMContentLoaded", () => {
-            newDataGrid(document.getElementsByClassName("ag-theme-balham")[0], [
-                {headerName:'Фото', field: 'photo', maxWidth: 80, sortable:false , filter: false, cellRenderer: params => `<img style="height: 32px; width: 32px" src="${params.value}" />`},
-                {headerName:'SKU', field: 'sku'},
-                {headerName:'Название', field: 'name'},
-                {headerName:'Цвет', field: 'color'},
-                {headerName:'Категория', field: 'category'},
-                {headerName:'Позиция', field: 'position'},
-                {headerName:'Бренд', field: 'brand'},
-                {headerName:'Продавец', field: 'seller'},
-                {headerName:'Наличие', field: 'balance'},
-                {headerName:'Комментарии', field: 'comments'},
-                {headerName:'Рейтинг', field: 'rating'},
-                {headerName:'Цена', field: 'finalPrice'},
-                {headerName:'Цена СПП', field: 'clientPrice'},
-                {headerName:'Дней в наличии', field: 'dayStock'},
-                {headerName:'Продаж', field: 'sales'},
-                {headerName:'Выручка', field: 'revenue'},
-            ], [
-                {% for sale in sales %}
+            let col = [
+                {
+                    headerName: 'Фото',
+                    field: 'photo',
+                    maxWidth: 80,
+                    sortable: false,
+                    filter: false,
+                    cellRenderer: params => `<img style="height: 32px; width: 32px" src="${params.value}" />`
+                },
+                {headerName: 'SKU', field: 'sku'},
+                {headerName: 'Название', field: 'name'},
+                {headerName: 'Цвет', field: 'color'},
+                {headerName: 'Категория', field: 'category'},
+                {headerName: 'Позиция', field: 'position'},
+                {headerName: 'Бренд', field: 'brand'},
+                {headerName: 'Продавец', field: 'seller'},
+                {headerName: 'Наличие', field: 'balance'},
+                {headerName: 'Комментарии', field: 'comments'},
+                {headerName: 'Рейтинг', field: 'rating'},
+                {headerName: 'Цена', field: 'finalPrice'},
+                {headerName: 'Цена СПП', field: 'clientPrice'},
+                {headerName: 'Дней в наличии', field: 'dayStock'},
+                {headerName: 'Продаж', field: 'sales'},
+                {headerName: 'Выручка', field: 'revenue'},
+            ]
+            let value = [
+                {% for sale in sales??[] %}
                 {
                     photo: '{{ sale.thumb }}',
                     sku: {{ sale.nmId }} ,
                     name: '{{ sale.name }}',
-                    color: '{{ sale.color }}' ,
+                    color: '{{ sale.color }}',
                     category: '{{ sale.category }} ',
-                    position: '{{ sale.position }}' ,
-                    brand: '{{ sale.brand }}' ,
-                    seller: '{{ sale.seller }}' ,
+                    position: '{{ sale.position }}',
+                    brand: '{{ sale.brand }}',
+                    seller: '{{ sale.seller }}',
                     balance: '{{ sale.balance }} ',
-                    comments: '{{ sale.comments }}' ,
-                    rating: '{{ sale.rating }}' ,
-                    finalPrice: '{{ sale.finalPrice }}' ,
-                    clientPrice: '{{ sale.clientPrice }}' ,
-                    dayStock:'{{ sale.dayStock }} ',
-                    sales: '{{ sale.sales }}' ,
+                    comments: '{{ sale.comments }}',
+                    rating: '{{ sale.rating }}',
+                    finalPrice: '{{ sale.finalPrice }}',
+                    clientPrice: '{{ sale.clientPrice }}',
+                    dayStock: '{{ sale.dayStock }} ',
+                    sales: '{{ sale.sales }}',
                     revenue: '{{ sale.revenue }}'
                 },
                 {% endfor %}
-            ],
-                event => {
-                window.location.href = 'item/'+event.data.sku
+            ]
+
+            option['columnDefs'] = col
+            option['rowData'] = value
+            option['onRowClicked'] = event => {
+                window.location.href = 'item/' + event.data.sku
             }
-            )
-            newDatePicker('datePicker', function (date){
-                window.location.href="{{path("wb_category")}}?url={{ path }}&date="+date+"&fbs="+fbs
+            new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[0], option)
+
+            newDatePicker('datePicker', function (date) {
+                window.location.href = "{{ path("wb_category") }}?url={{ path??'-' }}&date=" + date + "&fbs=" + fbs
             })
-            document.getElementById('switcher-element-72191').checked = fbs === 0 ?false:true
+            document.getElementById('switcher-element-72191').checked = fbs === 0 ? false : true
             document.getElementById('switcher-element-72191').addEventListener("input",
-                function (){
-                    fbs = fbs === 0 ?1:0
-                    window.location.href="{{path("wb_category")}}?url={{ path }}&date="+date+"&fbs="+fbs
+                function () {
+                    fbs = fbs === 0 ? 1 : 0
+                    window.location.href = "{{ path("wb_category") }}?url={{ path??'-' }}&date=" + date + "&fbs=" + fbs
                 }
             )
             let sb = document.getElementById("scrollbar_subcategory")
@@ -134,8 +146,9 @@
         })
 
         function redirect(element) {
-            window.location.href = "/wb/item/" + element.id + "?name=" + "{{ path }}"
+            window.location.href = "/wb/item/" + element.id + "?name=" + "{{ path??'-' }}"
         }
+
         function select(el) {
             let id = el.id.substring(0, 10)
             let befPrefix = "__BVID__"
@@ -177,7 +190,7 @@
 
         function compare(id) {
             if (document.getElementById(id + "__table").children.length > 1) return;
-            fetch(`{{ path('api_compare') }}?url={{ path }}`, {method: "GET"})
+            fetch(`{{ path('api_compare') }}?url={{ path??'-' }}`, {method: "GET"})
                 .then(data => data.json())
                 .then(data => {
                     let str = ``
@@ -244,14 +257,14 @@
                 })
         }
 
-        function items(id) {
-            if (document.getElementById(id + "__table").children.length > 1) return;
-            fetch(`/api/items?url={{ path }}`, {method: "GET"})
-                .then(data => data.json())
-                .then(data => {
-                    let str = ``
-                    for (let i = 0; i < data.length; i++) {
-                        str += `
+            function items(id) {
+                if (document.getElementById(id + "__table").children.length > 1) return;
+                fetch(`/api/items?url={{ path??'-' }}`, {method: "GET"})
+                    .then(data => data.json())
+                    .then(data => {
+                        let str = ``
+                        for (let i = 0; i < data.length; i++) {
+                            str += `
                             <div role="row"
   class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
   style="height: 35px; transform: translateY(${i * 35}px); "
@@ -395,19 +408,19 @@
 </div> 
 
                         `
-                    }
-                    document.getElementById(id + "__table").innerHTML = str
-                })
-        }
+                        }
+                        document.getElementById(id + "__table").innerHTML = str
+                    })
+            }
 
-        function priceSegment(id) {
-            if (document.getElementById(id + "__table").children.length > 1) return;
-            fetch(`/api/priceSegment?url={{ path }}`, {method: "GET"})
-                .then(data => data.json())
-                .then(data => {
-                    let str = ``
-                    for (let i = 0; i < data.length; i++) {
-                        str += `
+            function priceSegment(id) {
+                if (document.getElementById(id + "__table").children.length > 1) return;
+                fetch(`/api/priceSegment?url={{ path??'-' }}`, {method: "GET"})
+                    .then(data => data.json())
+                    .then(data => {
+                        let str = ``
+                        for (let i = 0; i < data.length; i++) {
+                            str += `
 <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first" style="height: 35px; transform: translateY(${i * 35}px); ">
                                                                         <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value ag-cell-range-left"
                                                                              style="width: 177px; left: 0px;  ">${data[i]['min_range_price']} ₽
@@ -454,19 +467,19 @@
                                                                     </div>
 
                         `
-                    }
-                    document.getElementById(id + "__table").innerHTML = str
-                })
-        }
+                        }
+                        document.getElementById(id + "__table").innerHTML = str
+                    })
+            }
 
-        function onDay(id) {
-            if (document.getElementById(id + "__table").children.length > 1) return;
-            fetch(`/api/onDay?url={{ path }}`, {method: "GET"})
-                .then(data => data.json())
-                .then(data => {
-                    let str = ``
-                    for (let i = 0; i < data.length; i++) {
-                        str += `
+            function onDay(id) {
+                if (document.getElementById(id + "__table").children.length > 1) return;
+                fetch(`/api/onDay?url={{ path??'-' }}`, {method: "GET"})
+                    .then(data => data.json())
+                    .then(data => {
+                        let str = ``
+                        for (let i = 0; i < data.length; i++) {
+                            str += `
                             <div class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
                                                                          style="height: 35px; transform: translateY(${i * 35}px); "
                                                                          aria-label="Press SPACE to select this row.">
@@ -573,32 +586,34 @@
                                                                         </div>
                                                                     </div>
                         `
-                    }
-                    document.getElementById(id + "__table").innerHTML = str
-                })
-        }
+                        }
+                        document.getElementById(id + "__table").innerHTML = str
+                    })
+            }
 
-        function trends(id) {
-            if (document.getElementById(id + "__table").children.length > 1) return;
-            fetch(`/api/trends?url={{ path }}`, {
-                method: "GET"
-            })
-                .then(data => data.json())
-                .then(data => {
-                    let value = [[], [], [], [], [], [], [], [], [], []], str = ``, names=['Продажи', 'Выручка', 'Товаров', 'Товаров с продажами', 'Брендов', 'Брендов с продажами', 'Продавцов', 'Продавцов с продажами', 'Выручка на товар', 'Средний чек'], labels =[]
-                    for (let i = 0; i < data.length; i++) {
-                        labels[i] = data[i]['week']
-                        value[0][i] = data[i]['sales']??0
-                        value[1][i] = data[i]['revenue']??0
-                        value[2][i] = data[i]['items']??0
-                        value[3][i] = data[i]['items_with_sells']??0
-                        value[4][i] = data[i]['brands']??0
-                        value[5][i] = data[i]['brands_with_sells']??0
-                        value[6][i] = data[i]['sellers']??0
-                        value[7][i] = data[i]['sellers_with_sells']??0
-                        value[8][i] = data[i]['product_revenue']??0
-                        value[9][i] = data[i]['average_order_value']??0
-                        str += `
+            function trends(id) {
+                if (document.getElementById(id + "__table").children.length > 1) return;
+                fetch(`/api/trends?url={{ path??'-' }}`, {
+                    method: "GET"
+                })
+                    .then(data => data.json())
+                    .then(data => {
+                        let value = [[], [], [], [], [], [], [], [], [], []], str = ``,
+                            names = ['Продажи', 'Выручка', 'Товаров', 'Товаров с продажами', 'Брендов', 'Брендов с продажами', 'Продавцов', 'Продавцов с продажами', 'Выручка на товар', 'Средний чек'],
+                            labels = []
+                        for (let i = 0; i < data.length; i++) {
+                            labels[i] = data[i]['week']
+                            value[0][i] = data[i]['sales'] ?? 0
+                            value[1][i] = data[i]['revenue'] ?? 0
+                            value[2][i] = data[i]['items'] ?? 0
+                            value[3][i] = data[i]['items_with_sells'] ?? 0
+                            value[4][i] = data[i]['brands'] ?? 0
+                            value[5][i] = data[i]['brands_with_sells'] ?? 0
+                            value[6][i] = data[i]['sellers'] ?? 0
+                            value[7][i] = data[i]['sellers_with_sells'] ?? 0
+                            value[8][i] = data[i]['product_revenue'] ?? 0
+                            value[9][i] = data[i]['average_order_value'] ?? 0
+                            str += `
                                                                         <div
                                                                          class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
                                                                          style="height: 35px; transform: translateY(${i * 35}px); "
@@ -652,36 +667,36 @@
                                                                         </div>
                                                                     </div>
                         `
-                    }
-                    document.getElementById(id + "__table").innerHTML = str
-                    drawLineGraph('trends_revenue_graph', value, names, labels)
-                })
-        }
+                        }
+                        document.getElementById(id + "__table").innerHTML = str
+                        drawLineGraph('trends_revenue_graph', value, names, labels)
+                    })
+            }
 
-        function sellers(id) {
-            if (document.getElementById(id + "__table").children.length > 1) return;
-            fetch(`/api/sellers?url={{ path }}`, {
-                method: "GET"
-            })
-                .then(data => data.json())
-                .then(data => {
-                    let label=[], valueRev=[], valueSale=[], str = ``
-                    for (let i = 0; i < data.length; i++) {
-                        if(i === 6){
-                            label[i] = 'Остальные'
-                            valueSale[i] = data[i]['sales']
-                            valueRev[i] = data[i]['revenue']
-                        }
-                        if(i>6){
-                            valueSale[6] += data[i]['sales']
-                            valueRev[6] += data[i]['revenue']
-                        }
-                        if(i<6){
-                            label[i] = data[i]['name']
-                            valueSale[i] = data[i]['sales']
-                            valueRev[i] = data[i]['revenue']
-                        }
-                        str += `
+            function sellers(id) {
+                if (document.getElementById(id + "__table").children.length > 1) return;
+                fetch(`/api/sellers?url={{ path??'-' }}`, {
+                    method: "GET"
+                })
+                    .then(data => data.json())
+                    .then(data => {
+                        let label = [], valueRev = [], valueSale = [], str = ``
+                        for (let i = 0; i < data.length; i++) {
+                            if (i === 6) {
+                                label[i] = 'Остальные'
+                                valueSale[i] = data[i]['sales']
+                                valueRev[i] = data[i]['revenue']
+                            }
+                            if (i > 6) {
+                                valueSale[6] += data[i]['sales']
+                                valueRev[6] += data[i]['revenue']
+                            }
+                            if (i < 6) {
+                                label[i] = data[i]['name']
+                                valueSale[i] = data[i]['sales']
+                                valueRev[i] = data[i]['revenue']
+                            }
+                            str += `
                             <div 
          class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
          style="height: 35px; transform: translateY(${i * 35}px); " aria-label="Press SPACE to select this row.">
@@ -780,38 +795,38 @@
         </div>
     </div>
                         `
-                    }
-                    document.getElementById(id + "__table").innerHTML = str
-                    formatter("number")
-                    drawDonutGraph('sellers_sales_graph', label, valueSale, 'Продажи')
-                    drawDonutGraph('sellers_revenue_graph', label, valueRev, 'Выручка', 'right')
-                })
-        }
+                        }
+                        document.getElementById(id + "__table").innerHTML = str
+                        formatter("number")
+                        drawDonutGraph('sellers_sales_graph', label, valueSale, 'Продажи')
+                        drawDonutGraph('sellers_revenue_graph', label, valueRev, 'Выручка', 'right')
+                    })
+            }
 
-        function brands(id) {
-            if (document.getElementById(id + "__table").children.length > 1) return;
-            fetch(`/api/brands?url={{ path }}`, {
-                method: "GET"
-            })
-                .then(data => data.json())
-                .then(data => {
-                    let label=[], valueRev=[], valueSale=[], str = ``
-                    for (let i = 0; i < data.length; i++) {
-                        if(i === 6){
-                            label[i] = 'Остальные'
-                            valueSale[i] = data[i]['sales']
-                            valueRev[i] = data[i]['revenue']
-                        }
-                        if(i>6){
-                            valueSale[6] += data[i]['sales']
-                            valueRev[6] += data[i]['revenue']
-                        }
-                        if(i<6){
-                            label[i] = data[i]['name']
-                            valueSale[i] = data[i]['sales']
-                            valueRev[i] = data[i]['revenue']
-                        }
-                        str += `
+            function brands(id) {
+                if (document.getElementById(id + "__table").children.length > 1) return;
+                fetch(`/api/brands?url={{ path??'-' }}`, {
+                    method: "GET"
+                })
+                    .then(data => data.json())
+                    .then(data => {
+                        let label = [], valueRev = [], valueSale = [], str = ``
+                        for (let i = 0; i < data.length; i++) {
+                            if (i === 6) {
+                                label[i] = 'Остальные'
+                                valueSale[i] = data[i]['sales']
+                                valueRev[i] = data[i]['revenue']
+                            }
+                            if (i > 6) {
+                                valueSale[6] += data[i]['sales']
+                                valueRev[6] += data[i]['revenue']
+                            }
+                            if (i < 6) {
+                                label[i] = data[i]['name']
+                                valueSale[i] = data[i]['sales']
+                                valueRev[i] = data[i]['revenue']
+                            }
+                            str += `
                         <div
                                                      class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first ag-row-hover"
                                                      style="height: 35px; transform: translateY(${i * 35}px); "
@@ -933,124 +948,165 @@
                                                     </div>
                                                 </div>
                         `
-                    }
-                    document.getElementById(id + "__table").innerHTML = str
-                    formatter("number")
-                    drawDonutGraph('brand_sales_graph', label, valueSale, 'Продажи')
-                    drawDonutGraph('brand_revenue_graph', label, valueRev, 'Выручка', 'right')
-                })
-        }
+                        }
+                        document.getElementById(id + "__table").innerHTML = str
+                        formatter("number")
+                        drawDonutGraph('brand_sales_graph', label, valueSale, 'Продажи')
+                        drawDonutGraph('brand_revenue_graph', label, valueRev, 'Выручка', 'right')
+                    })
+            }
 
-        function subCategory(id) {
-            if (document.getElementById(id + "__table").children.length > 1) return;
-            fetch(`/api/subCategory?url={{ path }}`, {
-                method: "GET"
-            })
-                .then(data => data.json())
-                .then(data => {
-                    let label = [], valueSale = [], valueRev=[],str = ``
-                    for (let i = 0; i < data.length; i++) {
-                        if(i === 6){
-                            label[i] = 'Остальные'
-                            valueSale[i] = data[i]['sales']
-                            valueRev[i] = data[i]['revenue']
+            function subCategory(id) {
+                fetch(`/api/subCategory?url={{ path??'-' }}`, {method: "GET"})
+                    .then(data => data.json())
+                    .then(data => {
+                        let label = [], valueSale = [], valueRev = [], value = []
+                        for (let i = 0; i < data.length; i++) {
+                            if (i === 6) {
+                                label[i] = 'Остальные'
+                                valueSale[i] = data[i]['sales']
+                                valueRev[i] = data[i]['revenue']
+                            }
+                            if (i > 6) {
+                                valueSale[6] += data[i]['sales']
+                                valueRev[6] += data[i]['revenue']
+                            }
+                            if (i < 6) {
+                                label[i] = data[i]['name']
+                                valueSale[i] = data[i]['sales']
+                                valueRev[i] = data[i]['revenue']
+                            }
+                            value[i] = {
+                                name: data[i]['name'],
+                                rating: data[i]['rating'].toFixed(0),
+                                comments: data[i]['comments'].toFixed(0),
+                                sales: data[i]['sales'].toFixed(0),
+                                revenue: data[i]['revenue'].toFixed(0),
+                                avg_price: data[i]['avg_price'].toFixed(0),
+                                items: data[i]['items'].toFixed(0),
+                                items_with_sells: data[i]['items_with_sells'].toFixed(0),
+                                items_with_sells_percent: data[i]['items_with_sells_percent'].toFixed(0),
+                                sales_per_items_average: data[i]['sales_per_items_average'].toFixed(0),
+                                sales_per_items_with_sells_average: data[i]['sales_per_items_with_sells_average'].toFixed(0),
+                                sellers: data[i]['sellers'].toFixed(0),
+                                sellers_with_sells: data[i]['sellers_with_sells'].toFixed(0),
+                                sellers_with_sells_percent: data[i]['sellers_with_sells_percent'].toFixed(0),
+                                brands: data[i]['brands'].toFixed(0),
+                                brands_with_sells: data[i]['brands_with_sells'],
+                                brands_with_sells_percent: data[i]['brands_with_sells_percent'].toFixed(0),
+                                revenue_per_items_average: data[i]['revenue_per_items_average'].toFixed(0),
+                                revenue_per_items_with_sells_average: data[i]['revenue_per_items_with_sells_average'].toFixed(0)
+                            }
                         }
-                        if(i>6){
-                            valueSale[6] += data[i]['sales']
-                            valueRev[6] += data[i]['revenue']
-                        }
-                        if(i<6){
-                            label[i] = data[i]['name']
-                            valueSale[i] = data[i]['sales']
-                            valueRev[i] = data[i]['revenue']
-                        }
-                        let url = data[i]['name'] === 'Текущая категория'?'': `category?url={{ path }}/${data[i]['name']}`
-                        str += `
-                        <div role="row"
-         class="ag-row ag-row-no-focus ag-row-even ag-row-level-0 ag-row-position-absolute ag-row-first"
-         style="height: 35px; transform: translateY(${i * 35}px); "
-         aria-label="Press SPACE to select this row.">
-        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value"
-            
-             style="width: 300px; left: 0px;  ">
-            <a href="${url}">${data[i]['name']}</a></div>
-        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-            
-             style="width: 120px; left: 300px;  ">
-            ${(data[i]['rating'] ?? 0).toFixed(2)}
-        </div>
-        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-            
-             style="width: 142px; left: 420px;  ">
-            ${(data[i]['comments'] ?? 0).toFixed(2)}
-        </div>
-        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value number"
-            
-             style="width: 120px; left: 562px;  ">
-            ${(data[i]['sales'] ?? 0)} шт
-        </div>
-        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value number"
-            
-             style="width: 174px; left: 682px;  ">
-            ${(data[i]['revenue'] ?? 0)} ₽
-        </div>
-        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-            
-             style="width: 150px; left: 856px;  ">
-            ${(data[i]['avg_price'] ?? 0).toFixed(2)} ₽
-        </div>
-        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-            
-             style="width: 120px; left: 1006px;  ">
+                        option2 = {...option}
+                        option2['columnDefs'] = [
+                            {
+                                headerName: 'Рубрика', field: 'name', cellRenderer: params => {
+                                    let url = params.value === 'Текущая категория' ? '' : `category?url={{ path??'-' }}/${params.value}`
+                                    return `<a style="height: 32px; width: 32px" href="${url}" >${params.value}</a>`
+                                }
+                            },
+                            {
+                                headerName: 'Рейтинг',
+                                field: 'rating',
+                                cellRenderer: params => `<p class="number">${params.value}</p>`
+                            },
+                            {
+                                headerName: 'Комментарии',
+                                field: 'comments',
+                                cellRenderer: params => `<p class="number">${params.value}</p>`
+                            },
+                            {
+                                headerName: 'Продажи',
+                                field: 'sales',
+                                cellRenderer: params => `<p class="number">${params.value}</p>`
+                            },
+                            {
+                                headerName: 'Выручка',
+                                field: 'revenue',
+                                cellRenderer: params => `<p class="number">${params.value}</p>`
+                            },
+                            {
+                                headerName: 'Средняя цена',
+                                field: 'avg_price',
+                                cellRenderer: params => `<p class="number">${params.value}</p>`
+                            },
+                            {
+                                headerName: 'Товаров',
+                                field: 'items',
+                                cellRenderer: params => `<p class="number">${params.value}</p>`
+                            },
+                            {
+                                headerName: 'Товаров c продажами',
+                                field: 'items_with_sells',
+                                cellRenderer: params => `<p class="number">${params.value}</p>`
+                            },
+                            {
+                                headerName: 'Процент товаров c продажами',
+                                field: 'items_with_sells_percent',
+                                cellRenderer: params => `<p class="number">${params.value}</p>`
+                            },
+                            {
+                                headerName: 'Среднее число продаж на 1 товар',
+                                field: 'sales_per_items_average',
+                                cellRenderer: params => `<p class="number">${params.value}</p>`
+                            },
+                            {
+                                headerName: 'Среднее число продаж на 1 товар с продажами',
+                                field: 'sales_per_items_with_sells_average',
+                                cellRenderer: params => `<p class="number">${params.value}</p>`
+                            },
+                            {
+                                headerName: 'Число продавцов',
+                                field: 'sellers',
+                                cellRenderer: params => `<p class="number">${params.value}</p>`
+                            },
+                            {
+                                headerName: 'Продавцов с продажами',
+                                field: 'sellers_with_sells',
+                                cellRenderer: params => `<p class="number">${params.value}</p>`
+                            },
+                            {
+                                headerName: 'Процент продавцов с продажами',
+                                field: 'sellers_with_sells_percent',
+                                cellRenderer: params => `<p class="number">${params.value}</p>`
+                            },
+                            {
+                                headerName: 'Число брендов',
+                                field: 'brands',
+                                cellRenderer: params => `<p class="number">${params.value}</p>`
+                            },
+                            {
+                                headerName: 'Брендов с продажами',
+                                field: 'brands_with_sells',
+                                cellRenderer: params => `<p class="number">${params.value}</p>`
+                            },
+                            {
+                                headerName: 'Процент брендов с продажами',
+                                field: 'brands_with_sells_percent',
+                                cellRenderer: params => `<p class="number">${params.value}</p>`
+                            },
+                            {
+                                headerName: 'Средняя выручка на 1 товар',
+                                field: 'revenue_per_items_average',
+                                cellRenderer: params => `<p class="number">${params.value}</p>`
+                            },
+                            {
+                                headerName: 'Средняя выручка на 1 товар с продажами',
+                                field: 'revenue_per_items_with_sells_average',
+                                cellRenderer: params => `<p class="number">${params.value}</p>`
+                            },
+                        ]
+                        option2['headerHeight'] = 70
+                        option2['rowData'] = value
+                        option2['onGridReady'] = params => {formatter("number")}
+                        option2['onBodyScroll'] = params => {formatter("number")}
 
-            ${(data[i]['items'] ?? 0)} шт
-        </div>
-        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-            
-             style="width: 150px; left: 1126px;  ">
-            ${(data[i]['items_with_sells'] ?? 0)} шт
-        </div>
-        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-             style="width: 150px; left: 1276px;  ">${(data[i]['items_with_sells_percent'] ?? 0).toFixed(2)} %
-        </div>
-        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-             style="width: 150px; left: 1426px;  ">${(data[i]['sales_per_items_average'] ?? 0).toFixed(2)} шт
-        </div>
-        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-             style="width: 180px; left: 1576px;  ">${(data[i]['sales_per_items_with_sells_average'] ?? 0).toFixed(2)} шт
-        </div>
-        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-             style="width: 150px; left: 1756px;  ">${(data[i]['sellers'] ?? 0)} шт
-        </div>
-        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-             style="width: 150px; left: 1906px;  ">${(data[i]['sellers_with_sells'] ?? 0)} шт
-        </div>
-        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value" style="width: 150px; left: 2056px; ">
-            ${(data[i]['sellers_with_sells_percent'] ?? 0)} %
-        </div>
-        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-             style="width: 150px; left: 2206px;">${data[i]['brands'] ?? 0} шт
-        </div>
-        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-             style="width: 150px; left: 2356px;">${data[i]['brands_with_sells'] ?? 0} шт
-        </div>
-        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-             style="width: 150px; left: 2506px;">${(data[i]['brands_with_sells_percent'] ?? 0).toFixed(2)} %
-        </div>
-        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-             style="width: 150px; left: 2656px;">${(data[i]['revenue_per_items_average'] ?? 0).toFixed(2)} ₽
-        </div>
-        <div class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-right-aligned-cell ag-cell-value"
-             style="width: 170px; left: 2806px;">${(data[i]['revenue_per_items_with_sells_average'] ?? 0).toFixed(2)} ₽
-        </div>
-    </div>
-                    `
-                    }
-                    document.getElementById(id + "__table").innerHTML = str
-                    formatter("number")
-                    drawDonutGraph('sales_graph', label, valueSale, 'Продажи')
-                    drawDonutGraph('revenue_graph', label, valueRev, 'Выручка', 'right')
-                })
+                        let grid = new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[1], option2)
+
+                        drawDonutGraph('sales_graph', label, valueSale, 'Продажи')
+                        drawDonutGraph('revenue_graph', label, valueRev, 'Выручка', 'right')
+                    })
         }
     </script>
 {% endblock %}

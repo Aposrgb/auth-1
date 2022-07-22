@@ -19,53 +19,65 @@
 {% block body %}
     {% include 'ozon/HTML/categorySale.html.twig' %}
     <script>
-        let date = "{{d1}} to {{d2}}"
+        let date = "{{ d1 }} to {{ d2 }}"
         document.addEventListener("DOMContentLoaded", () => {
-            newDataGrid(document.getElementsByClassName("ag-theme-balham")[0], [
-                    {headerName:'Фото', field: 'photo', maxWidth: 80, sortable:false , filter: false, cellRenderer: params => `<img style="height: 32px; width: 32px" src="${params.value}" />`},
-                    {headerName:'SKU', field: 'sku'},
-                    {headerName:'Название', field: 'name'},
-                    {headerName:'Категория', field: 'category'},
-                    {headerName:'Бренд', field: 'brand'},
-                    {headerName:'Продавец', field: 'seller'},
-                    {headerName:'Схема', field: 'schema'},
-                    {headerName:'Наличие', field: 'balance'},
-                    {headerName:'Комментарии', field: 'comments'},
-                    {headerName:'Цена', field: 'finalPrice'},
-                    {headerName:'Был в наличии', field: 'dayInStock'},
-                    {headerName:'Продаж', field: 'sales'},
-                    {headerName:'Выручка', field: 'revenue'},
-                ], [
-                        {% for sale in sales %}
-                    {
-                        photo: '{{ sale.thumb }}',
-                        sku: {{ sale.nmId }} ,
-                        name: '{{ sale.name }}',
-                        category: '{{ sale.category }} ',
-                        brand: '{{ sale.brand }}' ,
-                        seller: '{{ sale.seller }}' ,
-                        schema: 'Retail',
-                        balance: '{{ sale.balance }} ',
-                        comments: '{{ sale.comments }}' ,
-                        finalPrice: '{{ sale.final_price }} ₽' ,
-                        dayInStock:'{{ sale.days_in_stock }} ',
-                        sales: '{{ sale.sales }}' ,
-                        revenue: '{{ sale.revenue }} ₽'
-                    },
-                        {% endfor %}
-                ],
-                event => {
-                    window.location.href = 'search/'+event.data.sku
-                }
-            )
-            newDatePicker('datePicker', function (date){
-                window.location.href="{{path("ozon_category")}}?url={{ path }}&date="+date
+            let col = [
+                {
+                    headerName: 'Фото',
+                    field: 'photo',
+                    maxWidth: 80,
+                    sortable: false,
+                    filter: false,
+                    cellRenderer: params => `<img style="height: 32px; width: 32px" src="${params.value}" />`
+                },
+                {headerName: 'SKU', field: 'sku'},
+                {headerName: 'Название', field: 'name'},
+                {headerName: 'Категория', field: 'category'},
+                {headerName: 'Бренд', field: 'brand'},
+                {headerName: 'Продавец', field: 'seller'},
+                {headerName: 'Схема', field: 'schema'},
+                {headerName: 'Наличие', field: 'balance'},
+                {headerName: 'Комментарии', field: 'comments'},
+                {headerName: 'Цена', field: 'finalPrice'},
+                {headerName: 'Был в наличии', field: 'dayInStock'},
+                {headerName: 'Продаж', field: 'sales'},
+                {headerName: 'Выручка', field: 'revenue'},
+            ]
+            let value = [
+                {% for sale in sales %}
+                {
+                    photo: '{{ sale.thumb }}',
+                    sku: {{ sale.nmId }} ,
+                    name: '{{ sale.name }}',
+                    category: '{{ sale.category }} ',
+                    brand: '{{ sale.brand }}',
+                    seller: '{{ sale.seller }}',
+                    schema: 'Retail',
+                    balance: '{{ sale.balance }} ',
+                    comments: '{{ sale.comments }}',
+                    finalPrice: '{{ sale.final_price }} ₽',
+                    dayInStock: '{{ sale.days_in_stock }} ',
+                    sales: '{{ sale.sales }}',
+                    revenue: '{{ sale.revenue }} ₽'
+                },
+                {% endfor %}
+            ]
+
+            option['columnDefs'] = col
+            option['rowData'] = value
+            option['onRowClicked'] = event => {
+                window.location.href = 'search/' + event.data.sku
+            }
+            new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[0], option)
+
+            newDatePicker('datePicker', function (date) {
+                window.location.href = "{{ path("ozon_category") }}?url={{ path }}&date=" + date
             })
             let el = document.getElementById("scrollbar")
             el.addEventListener("input",
                 function () {
                     let width = document.getElementById("table_sale").offsetWidth
-                    let value = (el.value * width / 600)/5
+                    let value = (el.value * width / 600) / 5
                     document.getElementById("table_sale").style.transform = "translateX(-" + value + "vh)"
                     document.getElementById("table_sale_header").style.transform = "translateX(-" + value + "vh)"
                 }, false)
@@ -78,6 +90,7 @@
                     document.getElementById("table_sale6_header").style.transform = "translateX(-" + value + "vh)"
                 }, false)
         })
+
         function select(el) {
             let id = el.id.substring(0, 10)
             let befPrefix = "__BVID__"
@@ -110,6 +123,7 @@
                     break;
             }
         }
+
         function compare() {
             if (document.getElementById("table_sale6").children.length > 1) return;
             fetch(`/api/ozon/compare?path={{ path }}&url=category`, {
@@ -196,7 +210,7 @@
                         `
                     }
                     document.getElementById("table_sale6").innerHTML = str
-                    document.getElementById("table_sale6").style.height = ((data['data'].length * 35) + 15)+"px"
+                    document.getElementById("table_sale6").style.height = ((data['data'].length * 35) + 15) + "px"
                 })
         }
 
@@ -291,7 +305,7 @@
                     for (let i = 0; i < data.length; i++) {
                         str += `
                             <div comp-id="1604"
-                                                                         style="transform: translateY(${i*35}px); height: 35px;"
+                                                                         style="transform: translateY(${i * 35}px); height: 35px;"
                                                                          row-index="0"
                                                                          class="ag-row-even ag-row-no-focus ag-row ag-row-level-0 ag-row-position-absolute ag-row-first"
                                                                          aria-rowindex="4" role="row" row-id="0">
@@ -369,21 +383,21 @@
                                                                              aria-colindex="14" tabindex="-1"
                                                                              col-id="tot_items" role="gridcell"
                                                                              style="left: 1580px; width: 100px;">
-                                                                            <span><span class="number" title="19 125 шт">${data[i]['retail']['items']+data[i]['fbo']['items']+data[i]['fbs']['items']+data[i]['crossborder']['items']} шт</span></span>
+                                                                            <span><span class="number" title="19 125 шт">${data[i]['retail']['items'] + data[i]['fbo']['items'] + data[i]['fbs']['items'] + data[i]['crossborder']['items']} шт</span></span>
                                                                         </div>
                                                                         <div comp-id="1646"
                                                                              class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height tot text-right"
                                                                              aria-colindex="15" tabindex="-1"
                                                                              col-id="tot_sales" role="gridcell"
                                                                              style="left: 1680px; width: 100px;">
-                                                                            <span><span class="number" title="17 458 шт">${data[i]['retail']['sales']+data[i]['fbo']['sales']+data[i]['fbs']['sales']+data[i]['crossborder']['sales']} шт</span></span>
+                                                                            <span><span class="number" title="17 458 шт">${data[i]['retail']['sales'] + data[i]['fbo']['sales'] + data[i]['fbs']['sales'] + data[i]['crossborder']['sales']} шт</span></span>
                                                                         </div>
                                                                         <div comp-id="1647"
                                                                              class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height ag-cell-range-right tot text-right"
                                                                              aria-colindex="16" tabindex="-1"
                                                                              col-id="tot_revenue" role="gridcell"
                                                                              style="left: 1780px; width: 120px;">
-                                                                            <span><span class="number" title="6 854 692 ₽">${data[i]['retail']['revenue']+data[i]['fbo']['revenue']+data[i]['fbs']['revenue']+data[i]['crossborder']['revenue']} ₽</span></span>
+                                                                            <span><span class="number" title="6 854 692 ₽">${data[i]['retail']['revenue'] + data[i]['fbo']['revenue'] + data[i]['fbs']['revenue'] + data[i]['crossborder']['revenue']} ₽</span></span>
                                                                         </div>
                                                                         <div comp-id="2075"
                                                                              class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height crossborder text-right"
@@ -411,7 +425,7 @@
                         `
                     }
                     document.getElementById(id + "__table").innerHTML = str
-                    document.getElementById(id + "__table").style.height = (data.length * 35 + 20)+"px"
+                    document.getElementById(id + "__table").style.height = (data.length * 35 + 20) + "px"
                     formatter('number')
                 })
         }
@@ -423,25 +437,25 @@
             })
                 .then(data => data.json())
                 .then(data => {
-                    let label=[], valueRev=[], valueSale=[], str = ``
+                    let label = [], valueRev = [], valueSale = [], str = ``
                     for (let i = 0; i < data.length; i++) {
                         if (i === 6) {
                             label[i] = 'Остальные'
-                            valueSale[6] = data[i]['fbo'] === undefined?0:data[i]['fbo']['sales']
-                            valueRev[6] = data[i]['fbo'] === undefined?0:data[i]['fbo']['revenue']
+                            valueSale[6] = data[i]['fbo'] === undefined ? 0 : data[i]['fbo']['sales']
+                            valueRev[6] = data[i]['fbo'] === undefined ? 0 : data[i]['fbo']['revenue']
                         }
                         if (i > 6) {
-                            valueSale[6] += data[i]['fbo'] === undefined?0:data[i]['fbo']['sales']
-                            valueRev[6] += data[i]['fbs'] === undefined?0:data[i]['fbo']['revenue']
+                            valueSale[6] += data[i]['fbo'] === undefined ? 0 : data[i]['fbo']['sales']
+                            valueRev[6] += data[i]['fbs'] === undefined ? 0 : data[i]['fbo']['revenue']
                         }
                         if (i < 6) {
                             label[i] = data[i]['name']
-                            valueSale[i] = data[i]['fbo'] === undefined?0:data[i]['fbo']['sales']
-                            valueRev[i] = data[i]['fbo'] === undefined?0:data[i]['fbo']['revenue']
+                            valueSale[i] = data[i]['fbo'] === undefined ? 0 : data[i]['fbo']['sales']
+                            valueRev[i] = data[i]['fbo'] === undefined ? 0 : data[i]['fbo']['revenue']
                         }
                         str += `
                             <div comp-id="5772"
-                                                                         style="transform: translateY(${i*35}px); height: 35px;"
+                                                                         style="transform: translateY(${i * 35}px); height: 35px;"
                                                                          row-index="0"
                                                                          class="ag-row-even ag-row-no-focus ag-row ag-row-level-0 ag-row-position-absolute ag-row-first"
                                                                          aria-rowindex="4" role="row" row-id="0">
@@ -527,21 +541,21 @@
                                                                              aria-colindex="15" tabindex="-1"
                                                                              col-id="tot_items" role="gridcell"
                                                                              style="left: 1690px; width: 100px;">
-                                                                            <span><span  class="number" title="6 746 шт">${data[i]['retail']['items']+data[i]['fbo']['items']+data[i]['fbs']['items']+data[i]['crossborder']['items']} шт</span></span>
+                                                                            <span><span  class="number" title="6 746 шт">${data[i]['retail']['items'] + data[i]['fbo']['items'] + data[i]['fbs']['items'] + data[i]['crossborder']['items']} шт</span></span>
                                                                         </div>
                                                                         <div comp-id="5816"
                                                                              class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height tot text-right"
                                                                              aria-colindex="16" tabindex="-1"
                                                                              col-id="tot_sales" role="gridcell"
                                                                              style="left: 1790px; width: 100px;">
-                                                                            <span><span class="number" title="101 098 шт">${data[i]['retail']['sales']+data[i]['fbo']['sales']+data[i]['fbs']['sales']+data[i]['crossborder']['sales']} шт</span></span>
+                                                                            <span><span class="number" title="101 098 шт">${data[i]['retail']['sales'] + data[i]['fbo']['sales'] + data[i]['fbs']['sales'] + data[i]['crossborder']['sales']} шт</span></span>
                                                                         </div>
                                                                         <div comp-id="5817"
                                                                              class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height ag-cell-range-right tot text-right"
                                                                              aria-colindex="17" tabindex="-1"
                                                                              col-id="tot_revenue" role="gridcell"
                                                                              style="left: 1890px; width: 120px;">
-                                                                            <span><span class="number" title="243 703 640 ₽">${data[i]['retail']['revenue']+data[i]['fbo']['revenue']+data[i]['fbs']['revenue']+data[i]['crossborder']['revenue']} ₽</span></span>
+                                                                            <span><span class="number" title="243 703 640 ₽">${data[i]['retail']['revenue'] + data[i]['fbo']['revenue'] + data[i]['fbs']['revenue'] + data[i]['crossborder']['revenue']} ₽</span></span>
                                                                         </div>
                                                                         <div comp-id="6289"
                                                                              class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height crossborder text-right"
@@ -582,24 +596,24 @@
             })
                 .then(data => data.json())
                 .then(data => {
-                    let label=[], valueRev=[], valueSale=[], str = ``
+                    let label = [], valueRev = [], valueSale = [], str = ``
                     for (let i = 0; i < data.length; i++) {
                         if (i === 6) {
                             label[i] = 'Остальные'
-                            valueSale[6] = data[i]['fbo'] === undefined?0:data[i]['fbo']['sales']
-                            valueRev[6] = data[i]['fbo'] === undefined?0:data[i]['fbo']['revenue']
+                            valueSale[6] = data[i]['fbo'] === undefined ? 0 : data[i]['fbo']['sales']
+                            valueRev[6] = data[i]['fbo'] === undefined ? 0 : data[i]['fbo']['revenue']
                         }
                         if (i > 6) {
-                            valueSale[6] += data[i]['fbo'] === undefined?0:data[i]['fbo']['sales']
-                            valueRev[6] += data[i]['fbs'] === undefined?0:data[i]['fbo']['revenue']
+                            valueSale[6] += data[i]['fbo'] === undefined ? 0 : data[i]['fbo']['sales']
+                            valueRev[6] += data[i]['fbs'] === undefined ? 0 : data[i]['fbo']['revenue']
                         }
                         if (i < 6) {
                             label[i] = data[i]['name']
-                            valueSale[i] = data[i]['fbo'] === undefined?0:data[i]['fbo']['sales']
-                            valueRev[i] = data[i]['fbo'] === undefined?0:data[i]['fbo']['revenue']
+                            valueSale[i] = data[i]['fbo'] === undefined ? 0 : data[i]['fbo']['sales']
+                            valueRev[i] = data[i]['fbo'] === undefined ? 0 : data[i]['fbo']['revenue']
                         }
                         str += `
-                            <div style="transform: translateY(${i*35}px); height: 35px;"
+                            <div style="transform: translateY(${i * 35}px); height: 35px;"
                                                                          class="ag-row-even ag-row-no-focus ag-row ag-row-level-0 ag-row-position-absolute ag-row-first">
                                                                         <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height ag-cell-range-left"
                                                                              col-id="field" role="gridcell"
@@ -724,29 +738,29 @@
 
         function subCategory(id) {
             if (document.getElementById(id + "__table").children.length > 1) return;
-            fetch(`/api/ozon/subCategory?url={{ path }}&date={{d1}} to {{d2}}`, {
+            fetch(`/api/ozon/subCategory?url={{ path }}&date={{ d1 }} to {{ d2 }}`, {
                 method: "GET"
             })
                 .then(data => data.json())
                 .then(data => {
-                    let label = [], valueSale = [], valueRev=[],str = ``
+                    let label = [], valueSale = [], valueRev = [], str = ``, value = []
                     for (let i = 0; i < data.length; i++) {
                         if (i === 6) {
                             label[i] = 'Остальные'
-                            valueSale[6] = data[i]['fbo'] === undefined?0:data[i]['fbo']['sales']
-                            valueRev[6] = data[i]['fbo'] === undefined?0:data[i]['fbo']['revenue']
+                            valueSale[6] = data[i]['fbo'] === undefined ? 0 : data[i]['fbo']['sales']
+                            valueRev[6] = data[i]['fbo'] === undefined ? 0 : data[i]['fbo']['revenue']
                         }
                         if (i > 6) {
-                            valueSale[6] += data[i]['fbo'] === undefined?0:data[i]['fbo']['sales']
-                            valueRev[6] += data[i]['fbs'] === undefined?0:data[i]['fbo']['revenue']
+                            valueSale[6] += data[i]['fbo'] === undefined ? 0 : data[i]['fbo']['sales']
+                            valueRev[6] += data[i]['fbs'] === undefined ? 0 : data[i]['fbo']['revenue']
                         }
                         if (i < 6) {
                             label[i] = data[i]['name']
-                            valueSale[i] = data[i]['fbo'] === undefined?0:data[i]['fbo']['sales']
-                            valueRev[i] = data[i]['fbo'] === undefined?0:data[i]['fbo']['revenue']
+                            valueSale[i] = data[i]['fbo'] === undefined ? 0 : data[i]['fbo']['sales']
+                            valueRev[i] = data[i]['fbo'] === undefined ? 0 : data[i]['fbo']['revenue']
                         }
                         str += `
-                        <div style="transform: translateY(${i*35}px); height: 35px;"
+                        <div style="transform: translateY(${i * 35}px); height: 35px;"
                                                                          class="ag-row-even ag-row-no-focus ag-row ag-row-level-0 ag-row-position-absolute ag-row-first"
                                                                          aria-rowindex="4" role="row">
                                                                         <div class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height ag-cell-range-left"
@@ -862,6 +876,7 @@
                                                                     </div>
                     `
                     }
+
                     document.getElementById(id + "__table").innerHTML = str
                     formatter("number")
                     drawDonutGraph('sub_graph1', label, valueSale, 'Продажи')

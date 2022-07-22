@@ -19,10 +19,10 @@
     {% block header %}
         <nav id="mp-stats-header" class="top-menu navbar navbar-expand-xl be-top-header fixed-top shadow-sm">
             <div class="logo d-none d-xl-flex"><a href="/" class="d-flex align-items-center">
-                    <img src="https://mpstats.io/i/logo.svg" alt="mpstats" 
+                    <img src="https://mpstats.io/i/logo.svg" alt="mpstats"
                          class="mr-0 mr-xxl-2"><span
                             class="d-none d-xxl-inline">mpstats.io</span>
-                    </a></div>
+                </a></div>
             <button onclick="showMenu()" type="button" data-toggle="collapse" data-target="#be-navbar-collapse"
                     aria-controls="be-navbar-collapse"
                     aria-expanded="false" class="navbar-toggler text-left py-3 px-2"><i class="fas fa-bars"></i> Меню
@@ -131,7 +131,7 @@
                                     src="https://mpstats.io/i/avatar.png" alt="" width="32"
                                     height="32"></a>
                         <div role="menu" style="display:none;" class="dropdown-menu show profile-menu">
-                             <a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt mr-2"></i>Выход
+                            <a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt mr-2"></i>Выход
                             </a></div>
                     </li>
                 </ul>
@@ -183,9 +183,20 @@
             <div class="row">
                 <div class="col-md-12 ">
                     <div class="card">
-                        <div class="card-header card-header-divider">MPSTATS 2.0<span class="card-subtitle">mpstats 2.0</span>
+                        <div class="card-header card-header-divider">MPSTATS 2.0<span
+                                    class="card-subtitle">mpstats 2.0</span>
                         </div>
-                        <div class="card-body"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales pharetra lorem varius accumsan. Donec fringilla sapien nec luctus faucibus. Cras dignissim massa eget eleifend placerat. Sed ex urna, feugiat sed euismod sit amet, aliquam finibus odio. Vestibulum ac mi et erat sodales hendrerit et pulvinar arcu. Morbi dignissim gravida nisl, et placerat leo cursus id. Etiam non nibh sed mi semper pellentesque. Morbi id mollis mi, sed commodo leo. Proin fringilla felis id iaculis pellentesque. Vestibulum vitae sem vel felis ultrices dignissim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Proin porttitor eleifend pulvinar. Aliquam iaculis, dolor et egestas aliquam, massa magna cursus erat, ac mollis nunc tellus in nibh. Nullam ante magna, aliquam id sollicitudin eget, sodales non felis.</p>
+                        <div class="card-body"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+                                sodales pharetra lorem varius accumsan. Donec fringilla sapien nec luctus faucibus. Cras
+                                dignissim massa eget eleifend placerat. Sed ex urna, feugiat sed euismod sit amet,
+                                aliquam finibus odio. Vestibulum ac mi et erat sodales hendrerit et pulvinar arcu. Morbi
+                                dignissim gravida nisl, et placerat leo cursus id. Etiam non nibh sed mi semper
+                                pellentesque. Morbi id mollis mi, sed commodo leo. Proin fringilla felis id iaculis
+                                pellentesque. Vestibulum vitae sem vel felis ultrices dignissim. Vestibulum ante ipsum
+                                primis in faucibus orci luctus et ultrices posuere cubilia curae; Proin porttitor
+                                eleifend pulvinar. Aliquam iaculis, dolor et egestas aliquam, massa magna cursus erat,
+                                ac mollis nunc tellus in nibh. Nullam ante magna, aliquam id sollicitudin eget, sodales
+                                non felis.</p>
                         </div>
                     </div>
                 </div>
@@ -214,7 +225,8 @@
                             ="mpstats 2.0" class="mr-2"> mpstats 2.0
                         </a>
                     </div>
-                    <p class="mb-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales pharetra lorem varius accumsan.</p>
+                    <p class="mb-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales pharetra
+                        lorem varius accumsan.</p>
                     </p>
 
                 </div>
@@ -365,6 +377,24 @@
         .ag-row:hover {
             background: 0 0;
             color: #4285f4;
+        }
+        .excel-btn{
+            position: relative;
+            top: -27px;
+            left: 16px;
+            color: #272727;
+            background-color: #fafafa;
+            padding: 0 6px;
+            font-size: 11px;
+            line-height: 18px;
+            border-radius: 1px;
+            font-weight: 700;
+            border: 1px solid transparent;
+            border-color: #bababa;
+            color: rgb(39, 39, 39);
+
+            display: flex;
+            align-items: center;
         }
     </style>
 {% endblock %}
@@ -553,8 +583,35 @@
 
         }
 
-        function newDataGrid(el, col, value, onclick = e => 0) {
-            let locale = {
+        let option = {
+            rowHeight: 35,
+            pagination: true,
+            defaultColDef: {
+                sortable: true,
+                filter: true,
+                enableValue: true,
+                enableRowGroup: true,
+                floatingFilter: true,
+                enablePivot: true,
+                overlayLoadingTemplate:
+                    '<span class="ag-overlay-loading-center"><div class="loader"><svg><circlecx="50"cy="50"r="40"stroke="#418200"stroke-dasharray="78.5 235.5"stroke-width="3"fill="/><circlecx="50"cy="50"r="30"stroke=" green"stroke-dasharray="62.8 188.8"stroke-width="3"fill="none"/><circlecx="50"cy="50"r="20"stroke="#81C700"stroke-dasharray="47.1 141.3"stroke-width="3"fill="none"/></svg></div></span> ',
+            },
+            suppressContextMenu: true,
+            localeText: this.getLocale()
+        }
+        let option2 = { ...option}
+
+        function getElementIndex(el){
+            for(let i=0;i<document.getElementsByClassName('excel-btn').length;i++){
+                if(document.getElementsByClassName('excel-btn')[i] == el){
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        function getLocale() {
+            return {
                 // for filter panel
                 page: "Страница",
                 more: "ещё",
@@ -654,67 +711,28 @@
                 paste: "Вставить",
                 ctrlV: "Ctrl+V",
             };
-            let option = {
-                columnDefs: col,
-                rowHeight: 35,
-                rowData: value,
-                pagination: true,
-                enableRangeSelection:true,
-                sideBar: {
-                    toolPanels: [
-                        {
-                            id: "columns",
-                            labelDefault: "Columns",
-                            labelKey: "columns",
-                            iconKey: "columns",
-                            toolPanel: "agColumnsToolPanel",
-                            minWidth: 225,
-                            maxWidth: 225,
-                            width: 225,
-                        },
-                        {
-                            id: "filters",
-                            labelDefault: "Filters",
-                            labelKey: "filters",
-                            iconKey: "filter",
-                            toolPanel: "agFiltersToolPanel",
-                            minWidth: 180,
-                            maxWidth: 400,
-                            width: 250,
-                        },
-                    ],
-                    position: "right"
-                },
-                defaultColDef: {
-                    sortable: true,
-                    filter: true,
-                    enableValue: true,
-                    enableRowGroup: true,
-                    floatingFilter: true,
-                    enablePivot: true,
-                },
-                onRowClicked: onclick,
-                suppressContextMenu: true,
-                localeText: locale,
-            };
-            new agGrid.Grid(el, option);
         }
 
         function formatter(id) {
             let intFormatter = new Intl.NumberFormat()
             for (let i = 0; i < document.getElementsByClassName(id).length; i++) {
                 let prop = document.getElementsByClassName(id)[i]
-                if (prop.innerText.indexOf(' ') !== -1) {
-                    if (prop.innerText.indexOf(',') === -1) {
-                        let str = prop.innerText.substring(prop.innerText.lastIndexOf(' '))
-                        prop.innerText = prop.innerText.substring(0, prop.innerText.lastIndexOf(' '))
-                        prop.innerText = intFormatter.format(parseInt(prop.innerText.replace(/\s+/g, ''))) + str
-                    }
-
-                } else {
+                if (Number.isInteger(tryParseInt(prop.innerText))) {
                     prop.innerText = intFormatter.format(prop.innerText)
                 }
             }
+        }
+
+        function tryParseInt(str,defaultValue) {
+            var retValue = defaultValue;
+            if(str !== null) {
+                if(str.length > 0) {
+                    if (!isNaN(str)) {
+                        retValue = parseInt(str);
+                    }
+                }
+            }
+            return retValue;
         }
 
         function searchItem() {
