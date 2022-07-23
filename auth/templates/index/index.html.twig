@@ -583,31 +583,25 @@
 
         }
 
-        let option = {
-            rowHeight: 35,
-            pagination: true,
-            defaultColDef: {
-                sortable: true,
-                filter: true,
-                enableValue: true,
-                enableRowGroup: true,
-                floatingFilter: true,
-                enablePivot: true,
-                overlayLoadingTemplate:
-                    '<span class="ag-overlay-loading-center"><div class="loader"><svg><circlecx="50"cy="50"r="40"stroke="#418200"stroke-dasharray="78.5 235.5"stroke-width="3"fill="/><circlecx="50"cy="50"r="30"stroke=" green"stroke-dasharray="62.8 188.8"stroke-width="3"fill="none"/><circlecx="50"cy="50"r="20"stroke="#81C700"stroke-dasharray="47.1 141.3"stroke-width="3"fill="none"/></svg></div></span> ',
-            },
-            suppressContextMenu: true,
-            localeText: this.getLocale()
-        }
-        let option2 = { ...option}
-
-        function getElementIndex(el){
-            for(let i=0;i<document.getElementsByClassName('excel-btn').length;i++){
-                if(document.getElementsByClassName('excel-btn')[i] == el){
-                    return i;
-                }
+        function getOptions() {
+            return {
+                rowHeight: 35,
+                pagination: true,
+                defaultColDef: {
+                    sortable: true,
+                    filter: true,
+                    enableValue: true,
+                    enableRowGroup: true,
+                    floatingFilter: true,
+                    enablePivot: true,
+                    overlayLoadingTemplate:
+                        '<span class="ag-overlay-loading-center"><div class="loader"><svg><circlecx="50"cy="50"r="40"stroke="#418200"stroke-dasharray="78.5 235.5"stroke-width="3"fill="/><circlecx="50"cy="50"r="30"stroke=" green"stroke-dasharray="62.8 188.8"stroke-width="3"fill="none"/><circlecx="50"cy="50"r="20"stroke="#81C700"stroke-dasharray="47.1 141.3"stroke-width="3"fill="none"/></svg></div></span> ',
+                },
+                suppressContextMenu: true,
+                localeText: this.getLocale(),
+                onGridReady: params => {formatter("number")},
+                onBodyScroll: params => {formatter("number")}
             }
-            return -1;
         }
 
         function getLocale() {
