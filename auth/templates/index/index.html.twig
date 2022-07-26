@@ -711,8 +711,10 @@
             let intFormatter = new Intl.NumberFormat()
             for (let i = 0; i < document.getElementsByClassName(id).length; i++) {
                 let prop = document.getElementsByClassName(id)[i]
-                if (Number.isInteger(tryParseInt(prop.innerText))) {
-                    prop.innerText = intFormatter.format(prop.innerText)
+                let str = prop.innerText
+                let str2 = str.replace(/[%₽шт/]/gi, "")
+                if (Number.isInteger(tryParseInt(str2))) {
+                    prop.innerText = intFormatter.format(tryParseInt(str2)) + " " +str.substring(str2.length)
                 }
             }
         }
