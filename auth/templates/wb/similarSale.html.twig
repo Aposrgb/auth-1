@@ -13,15 +13,132 @@
 {% block body %}
     {% include 'wb/HTML/similarSale.html.twig' %}
     <script>
+        let option = {}
         document.addEventListener("DOMContentLoaded", () => {
-            let el = document.getElementById("scrollbar")
-            el.addEventListener("input",
-                function () {
-                    let width = document.getElementById("table_sale").offsetWidth
-                    let value = (el.value * width / 300)/5
-                    document.getElementById("table_sale").style.transform = "translateX(-" + value + "vh)"
-                    document.getElementById("table_sale_header").style.transform = "translateX(-" + value + "vh)"
-                }, false)
+            option = {...getOptions()}
+            option['columnDefs'] = [
+                {
+                    headerName: 'Фото',
+                    field: 'thumb',
+                    maxWidth: 80,
+                    sortable: false,
+                    filter: false,
+                    cellRenderer: params => `<img style="height: 32px; width: 32px" src="${params.value}" />`
+                },
+                {
+                    headerName: 'SKU',
+                    field: 'sku',
+                    wrapText: true,
+                    autoHeight: true,
+                    cellRenderer: params => `<a href="https://www.wildberries.ru/catalog/${params.data.sku}/detail.aspx">${params.value}</a>`
+                },
+                {
+                    headerName: 'Название',
+                    field: 'name',
+                    cellRenderer: params => `<a href="/wb/item/${params.data.sku}">${params.value}</a>`
+                },
+                {
+                    headerName: 'Цвет',
+                    field: 'color',
+                    cellRenderer: params => `<a href="/wb/item/${params.data.sku}">${params.value}</a>`
+                },
+                {
+                    headerName: 'Категория',
+                    field: 'category',
+                    cellRenderer: params => `<a href="/wb/category?url=${params.value}">${params.value}</a>`
+                },
+                {
+                    headerName: 'Позиция',
+                    field: 'position',
+                    wrapText: true,
+                    autoHeight: true,
+                },
+                {
+                    headerName: 'Бренд',
+                    field: 'brand',
+                    wrapText: true,
+                    autoHeight: true,
+                    cellRenderer: params => `<a href="/wb/brand/${params.value}">${params.value}</a>`
+                },
+                {
+                    headerName: 'Продавец',
+                    field: 'seller',
+                },
+                {
+                    headerName: 'Наличие',
+                    field: 'balance',
+                    wrapText: true,
+                    autoHeight: true,
+                },
+                {
+                    headerName: 'Комментарии',
+                    field: 'comments',
+                    wrapText: true,
+                    autoHeight: true,
+                },
+                {
+                    headerName: 'Рейтинг',
+                    field: 'rating',
+                    wrapText: true,
+                    autoHeight: true,
+                },
+                {
+                    headerName: 'Цена',
+                    field: 'final_price',
+                    wrapText: true,
+                    autoHeight: true,
+                    cellRenderer: params => `<p class="number">${params.value}</p>`
+                },
+                {
+                    headerName: 'Цена СПП',
+                    field: 'client_price',
+                    wrapText: true,
+                    autoHeight: true,
+                    cellRenderer: params => `<p class="number">${params.value}</p>`
+                },
+                {
+                    headerName: 'Был в наличии',
+                    field: 'days_in_stock',
+                    wrapText: true,
+                    autoHeight: true,
+                },
+                {
+                    headerName: 'Продаж',
+                    field: 'sales',
+                    wrapText: true,
+                    autoHeight: true,
+                },
+                {
+                    headerName: 'Выручка',
+                    field: 'revenue',
+                    wrapText: true,
+                    autoHeight: true,
+                    cellRenderer: params => `<p class="number">${params.value}</p>`
+                },
+            ]
+            option['rowData'] = [
+                {% for item in sales %}
+                {
+                    thumb: '{{item.thumb}}',
+                    sku: '{{item.nmId}}',
+                    name: '{{item.name}}',
+                    color: '{{item.color}}',
+                    category: '{{item.category}}',
+                    position: '{{item.position}}',
+                    brand: '{{item.brand}}',
+                    balance: '{{item.balance}}',
+                    comments: '{{item.comments}}',
+                    seller: '{{item.seller}}',
+                    rating: '{{item.rating}}',
+                    client_price: '{{item.finalPrice}} ₽',
+                    final_price: '{{item.clientPrice}} ₽',
+                    days_in_stock: '{{item.dayStock}}',
+                    sales: '{{item.sales}}',
+                    revenue: '{{item.revenue}} ₽'
+                },
+                {% endfor %}
+            ]
+            new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[0], option)
         })
         function redirect(element){
             window.location.href = "/wb/item/"+element.id+"?name="+element.children[4].innerText

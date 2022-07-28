@@ -21,7 +21,8 @@
     {% include 'wb/HTML/categorySale.html.twig' %}
     <script>
         let fbs = {{ fbs??'-' }}, date = "{{ d1??'-' }} to {{ d2??'-' }}"
-        let option = {}, option2 = {}, option3 = {}, option4 = {}, option5 = {}, option6 = {}, option7 = {}, option8 = {}, option9 = {}
+        let option = {}, option2 = {}, option3 = {}, option4 = {}, option5 = {}, option6 = {}, option7 = {},
+            option8 = {}, option9 = {}
         document.addEventListener("DOMContentLoaded", () => {
             option = {...getOptions()}
             let col = [
@@ -108,33 +109,50 @@
             document.getElementById(id + afPrefix).classList.add("active")
             switch (id) {
                 case befPrefix + "75":
-                    subCategory(id)
+                    if (!option2['load']) {
+                        subCategory(id)
+                    }
                     break;
                 case befPrefix + "77":
-                    brands(id)
+                    if (!option3['load']) {
+                        brands(id)
+                    }
                     break;
                 case befPrefix + "79":
-                    sellers(id)
+                    if (!option4['load']) {
+                        sellers(id)
+                    }
                     break;
                 case befPrefix + "82":
-                    trends(id)
+                    if (!option5['load']) {
+                        trends(id)
+                    }
                     break;
                 case befPrefix + "84":
-                    onDay(id)
+                    if (!option6['load']) {
+                        onDay(id)
+                    }
                     break;
                 case befPrefix + "86":
-                    priceSegment(id)
+                    if (!option7['load']) {
+                        priceSegment(id)
+                    }
                     break;
                 case befPrefix + "88":
-                    compare(id)
+                    if (!option8['load']) {
+                        compare(id)
+                    }
                     break;
                 case befPrefix + "90":
-                    items(id)
+                    if (!option9['load']) {
+                        items(id)
+                    }
                     break;
             }
         }
 
         function compare(id) {
+            option8 = {...getOptions()}
             fetch(`{{ path('api_compare') }}?url={{ path??'-' }}`, {method: "GET"})
                 .then(data => data.json())
                 .then(data => {
@@ -161,7 +179,6 @@
                             pricefinal_diff: data[i]['pricefinal_diff']
                         }
                     }
-                    option8 = {...getOptions()}
                     option8['columnDefs'] = [
                         {
                             headerName: 'Товар',
@@ -265,462 +282,463 @@
                 })
         }
 
-            function items(id) {
-                fetch(`/api/items?url={{ path??'-' }}`, {method: "GET"})
-                    .then(data => data.json())
-                    .then(data => {
-                        let str = ``, value = []
-                        for (let i = 0; i < data.length; i++) {
-                            value[i] = {
-                                name: data[i]['name'],
-                                commision_fbo: data[i]['commision_fbo'],
-                                commision_fbs: data[i]['commision_fbs'],
-                                basic_logistics: data[i]['basic_logistics'],
-                                storage_price: data[i]['storage_price'],
-                                acceptance_price: data[i]['acceptance_price'],
-                                rating: data[i]['rating'],
-                                comments: data[i]['comments'],
-                                sales: data[i]['sales'],
-                                revenue: data[i]['revenue'],
-                                avg_price: data[i]['avg_price'],
-                                items: data[i]['items'],
-                                items_with_sells: data[i]['items_with_sells'],
-                                items_with_sells_percent: data[i]['items_with_sells_percent'],
-                                sales_per_items_average: data[i]['sales_per_items_average'],
-                                sales_per_items_with_sells_average: data[i]['sales_per_items_with_sells_average'],
-                                sellers: data[i]['sellers'],
-                                sellers_with_sells: data[i]['sellers_with_sells'],
-                                sellers_with_sells_percent: data[i]['sellers_with_sells_percent'],
-                                brands: data[i]['brands'],
-                                brands_with_sells: data[i]['brands_with_sells'],
-                                revenue_per_items_average: data[i]['revenue_per_items_average'],
-                                revenue_per_items_with_sells_average: data[i]['revenue_per_items_with_sells_average'],
-                                purchase: data[i]['purchase'],
-                                purchase_after_return: data[i]['purchase_after_return'],
-                            }
+        function items(id) {
+            option9 = {...getOptions()}
+            fetch(`/api/items?url={{ path??'-' }}`, {method: "GET"})
+                .then(data => data.json())
+                .then(data => {
+                    let str = ``, value = []
+                    for (let i = 0; i < data.length; i++) {
+                        value[i] = {
+                            name: data[i]['name'],
+                            commision_fbo: data[i]['commision_fbo'],
+                            commision_fbs: data[i]['commision_fbs'],
+                            basic_logistics: data[i]['basic_logistics'],
+                            storage_price: data[i]['storage_price'],
+                            acceptance_price: data[i]['acceptance_price'],
+                            rating: data[i]['rating'],
+                            comments: data[i]['comments'],
+                            sales: data[i]['sales'],
+                            revenue: data[i]['revenue'],
+                            avg_price: data[i]['avg_price'],
+                            items: data[i]['items'],
+                            items_with_sells: data[i]['items_with_sells'],
+                            items_with_sells_percent: data[i]['items_with_sells_percent'],
+                            sales_per_items_average: data[i]['sales_per_items_average'],
+                            sales_per_items_with_sells_average: data[i]['sales_per_items_with_sells_average'],
+                            sellers: data[i]['sellers'],
+                            sellers_with_sells: data[i]['sellers_with_sells'],
+                            sellers_with_sells_percent: data[i]['sellers_with_sells_percent'],
+                            brands: data[i]['brands'],
+                            brands_with_sells: data[i]['brands_with_sells'],
+                            revenue_per_items_average: data[i]['revenue_per_items_average'],
+                            revenue_per_items_with_sells_average: data[i]['revenue_per_items_with_sells_average'],
+                            purchase: data[i]['purchase'],
+                            purchase_after_return: data[i]['purchase_after_return'],
                         }
-                        option9 = {...getOptions()}
-                        option9['columnDefs'] = [
-                            {
-                                headerName: 'Название',
-                                field: 'name',
-                            },
-                            {
-                                headerName: 'Коммисия',
-                                field: 'commision_fbo',
-                                cellRenderer: params => `<p class="number">${params.value} %</p>`
-                            },
-                            {
-                                headerName: 'Коммисия FBS',
-                                field: 'commision_fbs',
-                                cellRenderer: params => `<p class="number">${params.value} %</p>`
-                            },
-                            {
-                                headerName: 'Базовая логистика',
-                                field: 'basic_logistics',
-                                cellRenderer: params => `<p class="number">${params.value} ₽</p>`
-                            },
-                            {
-                                headerName: 'Цена хранения',
-                                field: 'storage_price',
-                                cellRenderer: params => `<p class="number">${params.value} ₽</p>`
-                            },
-                            {
-                                headerName: 'Цена приемки',
-                                field: 'acceptance_price',
-                                cellRenderer: params => `<p class="number">${params.value} ₽</p>`
-                            },
-                            {
-                                headerName: 'Рейтинг',
-                                field: 'rating',
-                            },
-                            {
-                                headerName: 'Комментарии',
-                                field: 'comments',
-                            },
-                            {
-                                headerName: 'Продажи',
-                                field: 'sales',
-                                cellRenderer: params => `<p class="number">${params.value} шт</p>`
-                            },
-                            {
-                                headerName: 'Выручка',
-                                field: 'revenue',
-                                cellRenderer: params => `<p class="number">${params.value} ₽</p>`
-                            },
-                            {
-                                headerName: 'Средняя цена',
-                                field: 'avg_price',
-                                cellRenderer: params => `<p class="number">${params.value} ₽</p>`
-                            },
-                            {
-                                headerName: 'Товаров',
-                                field: 'items',
-                                cellRenderer: params => `<p class="number">${params.value} шт</p>`
-                            },
-                            {
-                                headerName: 'Товаров с продажами',
-                                field: 'items_with_sells',
-                                cellRenderer: params => `<p class="number">${params.value} шт</p>`
-                            },
-                            {
-                                headerName: 'Процент товаров с продажами',
-                                field: 'items_with_sells_percent',
-                                cellRenderer: params => `<p class="number">${params.value} %</p>`
-                            },
-                            {
-                                headerName: 'Среднее число продаж на 1 товар',
-                                field: 'sales_per_items_average',
-                                cellRenderer: params => `<p class="number">${params.value} шт</p>`
-                            },
-                            {
-                                headerName: 'Среднее число продаж на 1 товар с продажами',
-                                field: 'sales_per_items_with_sells_average',
-                                cellRenderer: params => `<p class="number">${params.value} шт</p>`
-                            },
-                            {
-                                headerName: 'Число продавцов',
-                                field: 'sellers',
-                                cellRenderer: params => `<p class="number">${params.value} шт</p>`
-                            },
-                            {
-                                headerName: 'Продавцов с продажами',
-                                field: 'sellers_with_sells',
-                                cellRenderer: params => `<p class="number">${params.value} шт</p>`
-                            },
-                            {
-                                headerName: 'Процент продавцов с продажами',
-                                field: 'sellers_with_sells_percent',
-                                cellRenderer: params => `<p class="number">${params.value} %</p>`
-                            },
-                            {
-                                headerName: 'Брендов',
-                                field: 'brands',
-                                cellRenderer: params => `<p class="number">${params.value} шт</p>`
-                            },
-                            {
-                                headerName: 'Брендов с продажами',
-                                field: 'brands_with_sells',
-                                cellRenderer: params => `<p class="number">${params.value} шт</p>`
-                            },
-                            {
-                                headerName: 'Средняя выручка на 1 товар',
-                                field: 'revenue_per_items_average',
-                                cellRenderer: params => `<p class="number">${params.value} шт</p>`
-                            },
-                            {
-                                headerName: 'Средняя выручка на 1 товар с продажами',
-                                field: 'revenue_per_items_with_sells_average',
-                                cellRenderer: params => `<p class="number">${params.value} шт</p>`
-                            },
-                            {
-                                headerName: 'Средний процент выкупа',
-                                field: 'purchase',
-                                cellRenderer: params => `<p class="number">${params.value} %</p>`
-                            },
-                            {
-                                headerName: 'Средний процент выкупа с учетом возвратов',
-                                field: 'purchase_after_return',
-                                cellRenderer: params => `<p class="number">${params.value} %</p>`
-                            },
-                        ]
-                        option9['rowData'] = value
-                        option9['headerHeight'] = 70
-                        let grid = new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[8], option9)
-                    })
-            }
-
-            function priceSegment(id) {
-                fetch(`/api/priceSegment?url={{ path??'-' }}`, {method: "GET"})
-                    .then(data => data.json())
-                    .then(data => {
-                        let value = []
-                        for (let i = 0; i < data.length; i++) {
-                            value[i] = {
-                                min_range_price: data[i]['min_range_price'],
-                                max_range_price: data[i]['max_range_price'],
-                                sales: data[i]['sales'],
-                                revenue: data[i]['revenue'],
-                                lost_profit: data[i]['lost_profit'],
-                                lost_profit_percent: data[i]['lost_profit_percent'],
-                                items: data[i]['items'],
-                                items_with_sells: data[i]['items_with_sells'],
-                                brands: data[i]['brands'],
-                                brands_with_sells: data[i]['brands_with_sells'],
-                                sellers: data[i]['sellers'],
-                                sellers_with_sells: data[i]['sellers_with_sells'],
-                                product_revenue: data[i]['product_revenue'],
-                            }
-                        }
-                        option7 = {...getOptions()}
-                        option7['columnDefs'] = [
-                            {
-                                headerName: 'Диапазон цен',
-                                marryChildren: true,
-                                children: [
-                                    { field: 'min_range_price', headerName: 'От' },
-                                    { field: 'max_range_price', headerName: 'До' },
-                                    {
-                                        field: 'sales',
-                                        headerName: 'Продаж',
-                                        cellRenderer: params => `<p class="number">${(params.value ?? 0)} шт</p>`
-                                    },
-                                    {
-                                        headerName: 'Выручка',
-                                        field: 'revenue',
-                                        cellRenderer: params => `<p class="number">${(params.value ?? 0)} ₽</p>`
-                                    },
-                                    {
-                                        headerName: 'Упущенная выручка',
-                                        field: 'lost_profit',
-                                        cellRenderer: params => `<p class="number">${(params.value ?? 0)} ₽</p>`
-                                    },
-                                    {
-                                        headerName: 'Упущенная выручка (%)',
-                                        field: 'lost_profit_percent',
-                                        cellRenderer: params => `<p class="number">${(params.value ?? 0)} %</p>`
-                                    },
-                                    {
-                                        headerName: 'Товаров',
-                                        field: 'items',
-                                        cellRenderer: params => `<p class="number">${(params.value ?? 0)} шт</p>`
-                                    },
-                                    {
-                                        headerName: 'Товаров с продажами',
-                                        field: 'items_with_sells',
-                                        cellRenderer: params => `<p class="number">${(params.value ?? 0)} шт</p>`
-                                    },
-                                    {
-                                        headerName: 'Брендов',
-                                        field: 'brands',
-                                        cellRenderer: params => `<p class="number">${(params.value ?? 0)}</p>`
-                                    },
-                                    {
-                                        headerName: 'Брендов с продажами',
-                                        field: 'brands_with_sells',
-                                        cellRenderer: params => `<p class="number">${(params.value ?? 0)}</p>`
-                                    },
-                                    {
-                                        headerName: 'Продавцов',
-                                        field: 'sellers',
-                                        cellRenderer: params => `<p class="number">${(params.value ?? 0)} ₽</p>`
-                                    },
-                                    {
-                                        headerName: 'Продавцов с продажами',
-                                        field: 'sellers_with_sells',
-                                        cellRenderer: params => `<p class="number">${(params.value ?? 0)} ₽</p>`
-                                    },
-                                    {
-                                        headerName: 'Выручка на товар',
-                                        field: 'product_revenue',
-                                        cellRenderer: params => `<p class="number">${(params.value ?? 0)} ₽/шт</p>`
-                                    },
-                                ],
-                            }
-                        ]
-                        option7['rowData'] = value
-
-                        let grid = new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[6], option7)
-                    })
-            }
-
-            function onDay(id) {
-                fetch(`/api/onDay?url={{ path??'-' }}`, {method: "GET"})
-                    .then(data => data.json())
-                    .then(data => {
-                        let value = []
-                        for (let i = 0; i < data.length; i++) {
-                            value[i] = {
-                                period: data[i]['period'],
-                                items: data[i]['items'],
-                                items_with_sells: data[i]['items_with_sells'],
-                                sales: data[i]['sales'],
-                                brands: data[i]['brands'],
-                                brands_with_sells: data[i]['brands_with_sells'],
-                                sellers: data[i]['sellers'],
-                                sellers_with_sells: data[i]['sellers_with_sells'],
-                                revenue: data[i]['revenue'],
-                                avg_price: data[i]['avg_price'],
-                                avg_sale_price: data[i]['avg_sale_price'],
-                                comments: data[i]['comments'],
-                                rating: data[i]['rating']
-                            }
-                        }
-                        option6 = {...getOptions()}
-                        option6['columnDefs'] = [
-                            {
-                                headerName: 'Дата',
-                                field: 'period',
-                            },
-                            {
-                                headerName: 'Товаров',
-                                field: 'items',
-                                cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)} шт</p>`
-                            },
-                            {
-                                headerName: 'Товаров с продажами',
-                                field: 'items_with_sells',
-                                cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)} шт</p>`
-                            },
-                            {
-                                headerName: 'Продаж',
-                                field: 'sales',
-                                cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)} шт</p>`
-                            },
-                            {
-                                headerName: 'Брендов',
-                                field: 'brands',
-                                cellRenderer: params => `<p class="number">${(params.value ?? 0)}</p>`
-                            },
-                            {
-                                headerName: 'Брендов с продажами',
-                                field: 'brands_with_sells',
-                                cellRenderer: params => `<p class="number">${(params.value ?? 0)}</p>`
-                            },
-                            {
-                                headerName: 'Продавцов',
-                                field: 'sellers',
-                                cellRenderer: params => `<p class="number">${(params.value ?? 0)}</p>`
-                            },
-                            {
-                                headerName: 'Продавцов с продажами',
-                                field: 'sellers_with_sells',
-                                cellRenderer: params => `<p class="number">${(params.value ?? 0)}</p>`
-                            },
-                            {
-                                headerName: 'Выручка',
-                                field: 'revenue',
-                                cellRenderer: params => `<p class="number">${(params.value ?? 0)} ₽</p>`
-                            },
-                            {
-                                headerName: 'Средняя цена',
-                                field: 'avg_price',
-                                cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)} ₽</p>`
-                            },
-                            {
-                                headerName: 'Ср. цена продажи',
-                                field: 'avg_sale_price',
-                                cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)} ₽</p>`
-                            },
-                            {
-                                headerName: 'Комментарии',
-                                field: 'comments',
-                                cellRenderer: params => `<p>${(params.value ?? 0).toFixed(2)}</p>`
-                            },
-                            {
-                                headerName: 'Рейтинг',
-                                field: 'rating',
-                                cellRenderer: params => `<p>${(params.value ?? 0).toFixed(2)}</p>`
-                            },
-                        ]
-                        option6['rowData'] = value
-
-                        let grid = new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[5], option6)
-                    })
-            }
-
-            function trends(id) {
-                fetch(`/api/trends?url={{ path??'-' }}`, {
-                    method: "GET"
+                    }
+                    option9['columnDefs'] = [
+                        {
+                            headerName: 'Название',
+                            field: 'name',
+                        },
+                        {
+                            headerName: 'Коммисия',
+                            field: 'commision_fbo',
+                            cellRenderer: params => `<p class="number">${params.value} %</p>`
+                        },
+                        {
+                            headerName: 'Коммисия FBS',
+                            field: 'commision_fbs',
+                            cellRenderer: params => `<p class="number">${params.value} %</p>`
+                        },
+                        {
+                            headerName: 'Базовая логистика',
+                            field: 'basic_logistics',
+                            cellRenderer: params => `<p class="number">${params.value} ₽</p>`
+                        },
+                        {
+                            headerName: 'Цена хранения',
+                            field: 'storage_price',
+                            cellRenderer: params => `<p class="number">${params.value} ₽</p>`
+                        },
+                        {
+                            headerName: 'Цена приемки',
+                            field: 'acceptance_price',
+                            cellRenderer: params => `<p class="number">${params.value} ₽</p>`
+                        },
+                        {
+                            headerName: 'Рейтинг',
+                            field: 'rating',
+                        },
+                        {
+                            headerName: 'Комментарии',
+                            field: 'comments',
+                        },
+                        {
+                            headerName: 'Продажи',
+                            field: 'sales',
+                            cellRenderer: params => `<p class="number">${params.value} шт</p>`
+                        },
+                        {
+                            headerName: 'Выручка',
+                            field: 'revenue',
+                            cellRenderer: params => `<p class="number">${params.value} ₽</p>`
+                        },
+                        {
+                            headerName: 'Средняя цена',
+                            field: 'avg_price',
+                            cellRenderer: params => `<p class="number">${params.value} ₽</p>`
+                        },
+                        {
+                            headerName: 'Товаров',
+                            field: 'items',
+                            cellRenderer: params => `<p class="number">${params.value} шт</p>`
+                        },
+                        {
+                            headerName: 'Товаров с продажами',
+                            field: 'items_with_sells',
+                            cellRenderer: params => `<p class="number">${params.value} шт</p>`
+                        },
+                        {
+                            headerName: 'Процент товаров с продажами',
+                            field: 'items_with_sells_percent',
+                            cellRenderer: params => `<p class="number">${params.value} %</p>`
+                        },
+                        {
+                            headerName: 'Среднее число продаж на 1 товар',
+                            field: 'sales_per_items_average',
+                            cellRenderer: params => `<p class="number">${params.value} шт</p>`
+                        },
+                        {
+                            headerName: 'Среднее число продаж на 1 товар с продажами',
+                            field: 'sales_per_items_with_sells_average',
+                            cellRenderer: params => `<p class="number">${params.value} шт</p>`
+                        },
+                        {
+                            headerName: 'Число продавцов',
+                            field: 'sellers',
+                            cellRenderer: params => `<p class="number">${params.value} шт</p>`
+                        },
+                        {
+                            headerName: 'Продавцов с продажами',
+                            field: 'sellers_with_sells',
+                            cellRenderer: params => `<p class="number">${params.value} шт</p>`
+                        },
+                        {
+                            headerName: 'Процент продавцов с продажами',
+                            field: 'sellers_with_sells_percent',
+                            cellRenderer: params => `<p class="number">${params.value} %</p>`
+                        },
+                        {
+                            headerName: 'Брендов',
+                            field: 'brands',
+                            cellRenderer: params => `<p class="number">${params.value} шт</p>`
+                        },
+                        {
+                            headerName: 'Брендов с продажами',
+                            field: 'brands_with_sells',
+                            cellRenderer: params => `<p class="number">${params.value} шт</p>`
+                        },
+                        {
+                            headerName: 'Средняя выручка на 1 товар',
+                            field: 'revenue_per_items_average',
+                            cellRenderer: params => `<p class="number">${params.value} шт</p>`
+                        },
+                        {
+                            headerName: 'Средняя выручка на 1 товар с продажами',
+                            field: 'revenue_per_items_with_sells_average',
+                            cellRenderer: params => `<p class="number">${params.value} шт</p>`
+                        },
+                        {
+                            headerName: 'Средний процент выкупа',
+                            field: 'purchase',
+                            cellRenderer: params => `<p class="number">${params.value} %</p>`
+                        },
+                        {
+                            headerName: 'Средний процент выкупа с учетом возвратов',
+                            field: 'purchase_after_return',
+                            cellRenderer: params => `<p class="number">${params.value} %</p>`
+                        },
+                    ]
+                    option9['rowData'] = value
+                    option9['headerHeight'] = 70
+                    let grid = new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[8], option9)
                 })
-                    .then(data => data.json())
-                    .then(data => {
-                        let value = [[], [], [], [], [], [], [], [], [], []], str = ``, values = [],
-                            names = [
-                                'Продажи', 'Выручка', 'Товаров', 'Товаров с продажами', 'Брендов', 'Брендов с продажами', 'Продавцов', 'Продавцов с продажами', 'Выручка на товар', 'Средний чек'
-                            ], labels = []
-                        for (let i = 0; i < data.length; i++) {
-                            labels[i] = data[i]['week']
-                            value[0][i] = data[i]['sales'] ?? 0
-                            value[1][i] = data[i]['revenue'] ?? 0
-                            value[2][i] = data[i]['items'] ?? 0
-                            value[3][i] = data[i]['items_with_sells'] ?? 0
-                            value[4][i] = data[i]['brands'] ?? 0
-                            value[5][i] = data[i]['brands_with_sells'] ?? 0
-                            value[6][i] = data[i]['sellers'] ?? 0
-                            value[7][i] = data[i]['sellers_with_sells'] ?? 0
-                            value[8][i] = data[i]['product_revenue'] ?? 0
-                            value[9][i] = data[i]['average_order_value'] ?? 0
+        }
 
-                            values[i] = {
-                                week: data[i]['week'] + " - " + data[i]['end_week'],
-                                sales: data[i]['sales'] ?? 0,
-                                revenue: data[i]['revenue'] ?? 0,
-                                items: data[i]['items'] ?? 0,
-                                items_with_sells: data[i]['items_with_sells'] ?? 0,
-                                brands: data[i]['brands'] ?? 0,
-                                brands_with_sells: data[i]['brands_with_sells'] ?? 0,
-                                sellers: data[i]['sellers'] ?? 0,
-                                sellers_with_sells: data[i]['sellers_with_sells'] ?? 0,
-                                product_revenue: data[i]['product_revenue'] ?? 0,
-                                average_order_value: data[i]['average_order_value'] ?? 0
-                            }
+        function priceSegment(id) {
+            option7 = {...getOptions()}
+            fetch(`/api/priceSegment?url={{ path??'-' }}`, {method: "GET"})
+                .then(data => data.json())
+                .then(data => {
+                    let value = []
+                    for (let i = 0; i < data.length; i++) {
+                        value[i] = {
+                            min_range_price: data[i]['min_range_price'],
+                            max_range_price: data[i]['max_range_price'],
+                            sales: data[i]['sales'],
+                            revenue: data[i]['revenue'],
+                            lost_profit: data[i]['lost_profit'],
+                            lost_profit_percent: data[i]['lost_profit_percent'],
+                            items: data[i]['items'],
+                            items_with_sells: data[i]['items_with_sells'],
+                            brands: data[i]['brands'],
+                            brands_with_sells: data[i]['brands_with_sells'],
+                            sellers: data[i]['sellers'],
+                            sellers_with_sells: data[i]['sellers_with_sells'],
+                            product_revenue: data[i]['product_revenue'],
                         }
-                        option5 = {...getOptions()}
-                        option5['columnDefs'] = [
-                            {
-                                headerName: 'Неделя',
-                                field: 'week',
-                            },
-                            {
-                                headerName: 'Продаж',
-                                field: 'sales',
-                                cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)} шт</p>`
-                            },
-                            {
-                                headerName: 'Выручка',
-                                field: 'revenue',
-                                cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)} ₽</p>`
-                            },
-                            {
-                                headerName: 'Товаров',
-                                field: 'items',
-                                cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)} шт</p>`
-                            },
-                            {
-                                headerName: 'Товаров с продажами',
-                                field: 'items_with_sells',
-                                cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)} шт</p>`
-                            },
-                            {
-                                headerName: 'Брендов',
-                                field: 'brands',
-                                cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)}</p>`
-                            },
-                            {
-                                headerName: 'Брендов с продажами',
-                                field: 'brands_with_sells',
-                                cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)}</p>`
-                            },
-                            {
-                                headerName: 'Продавцов',
-                                field: 'sellers',
-                                cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)}</p>`
-                            },
-                            {
-                                headerName: 'Продавцов с продажами',
-                                field: 'sellers_with_sells',
-                                cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)}</p>`
-                            },
-                            {
-                                headerName: 'Выручка на товар',
-                                field: 'product_revenue',
-                                cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)} ₽/шт</p>`
-                            },
-                            {
-                                headerName: 'Средний чек',
-                                field: 'average_order_value',
-                                cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)} ₽</p>`
-                            },
-                        ]
-                        option5['rowData'] = values
+                    }
+                    option7['columnDefs'] = [
+                        {
+                            headerName: 'Диапазон цен',
+                            marryChildren: true,
+                            children: [
+                                {field: 'min_range_price', headerName: 'От'},
+                                {field: 'max_range_price', headerName: 'До'},
+                                {
+                                    field: 'sales',
+                                    headerName: 'Продаж',
+                                    cellRenderer: params => `<p class="number">${(params.value ?? 0)} шт</p>`
+                                },
+                                {
+                                    headerName: 'Выручка',
+                                    field: 'revenue',
+                                    cellRenderer: params => `<p class="number">${(params.value ?? 0)} ₽</p>`
+                                },
+                                {
+                                    headerName: 'Упущенная выручка',
+                                    field: 'lost_profit',
+                                    cellRenderer: params => `<p class="number">${(params.value ?? 0)} ₽</p>`
+                                },
+                                {
+                                    headerName: 'Упущенная выручка (%)',
+                                    field: 'lost_profit_percent',
+                                    cellRenderer: params => `<p class="number">${(params.value ?? 0)} %</p>`
+                                },
+                                {
+                                    headerName: 'Товаров',
+                                    field: 'items',
+                                    cellRenderer: params => `<p class="number">${(params.value ?? 0)} шт</p>`
+                                },
+                                {
+                                    headerName: 'Товаров с продажами',
+                                    field: 'items_with_sells',
+                                    cellRenderer: params => `<p class="number">${(params.value ?? 0)} шт</p>`
+                                },
+                                {
+                                    headerName: 'Брендов',
+                                    field: 'brands',
+                                    cellRenderer: params => `<p class="number">${(params.value ?? 0)}</p>`
+                                },
+                                {
+                                    headerName: 'Брендов с продажами',
+                                    field: 'brands_with_sells',
+                                    cellRenderer: params => `<p class="number">${(params.value ?? 0)}</p>`
+                                },
+                                {
+                                    headerName: 'Продавцов',
+                                    field: 'sellers',
+                                    cellRenderer: params => `<p class="number">${(params.value ?? 0)} ₽</p>`
+                                },
+                                {
+                                    headerName: 'Продавцов с продажами',
+                                    field: 'sellers_with_sells',
+                                    cellRenderer: params => `<p class="number">${(params.value ?? 0)} ₽</p>`
+                                },
+                                {
+                                    headerName: 'Выручка на товар',
+                                    field: 'product_revenue',
+                                    cellRenderer: params => `<p class="number">${(params.value ?? 0)} ₽/шт</p>`
+                                },
+                            ],
+                        }
+                    ]
+                    option7['rowData'] = value
 
-                        let grid = new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[4], option5)
-                        drawLineGraph('trends_revenue_graph', value, names, labels)
-                    })
-            }
+                    let grid = new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[6], option7)
+                })
+        }
+
+        function onDay(id) {
+            option6 = {...getOptions()}
+            fetch(`/api/onDay?url={{ path??'-' }}`, {method: "GET"})
+                .then(data => data.json())
+                .then(data => {
+                    let value = []
+                    for (let i = 0; i < data.length; i++) {
+                        value[i] = {
+                            period: data[i]['period'],
+                            items: data[i]['items'],
+                            items_with_sells: data[i]['items_with_sells'],
+                            sales: data[i]['sales'],
+                            brands: data[i]['brands'],
+                            brands_with_sells: data[i]['brands_with_sells'],
+                            sellers: data[i]['sellers'],
+                            sellers_with_sells: data[i]['sellers_with_sells'],
+                            revenue: data[i]['revenue'],
+                            avg_price: data[i]['avg_price'],
+                            avg_sale_price: data[i]['avg_sale_price'],
+                            comments: data[i]['comments'],
+                            rating: data[i]['rating']
+                        }
+                    }
+                    option6['columnDefs'] = [
+                        {
+                            headerName: 'Дата',
+                            field: 'period',
+                        },
+                        {
+                            headerName: 'Товаров',
+                            field: 'items',
+                            cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)} шт</p>`
+                        },
+                        {
+                            headerName: 'Товаров с продажами',
+                            field: 'items_with_sells',
+                            cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)} шт</p>`
+                        },
+                        {
+                            headerName: 'Продаж',
+                            field: 'sales',
+                            cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)} шт</p>`
+                        },
+                        {
+                            headerName: 'Брендов',
+                            field: 'brands',
+                            cellRenderer: params => `<p class="number">${(params.value ?? 0)}</p>`
+                        },
+                        {
+                            headerName: 'Брендов с продажами',
+                            field: 'brands_with_sells',
+                            cellRenderer: params => `<p class="number">${(params.value ?? 0)}</p>`
+                        },
+                        {
+                            headerName: 'Продавцов',
+                            field: 'sellers',
+                            cellRenderer: params => `<p class="number">${(params.value ?? 0)}</p>`
+                        },
+                        {
+                            headerName: 'Продавцов с продажами',
+                            field: 'sellers_with_sells',
+                            cellRenderer: params => `<p class="number">${(params.value ?? 0)}</p>`
+                        },
+                        {
+                            headerName: 'Выручка',
+                            field: 'revenue',
+                            cellRenderer: params => `<p class="number">${(params.value ?? 0)} ₽</p>`
+                        },
+                        {
+                            headerName: 'Средняя цена',
+                            field: 'avg_price',
+                            cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)} ₽</p>`
+                        },
+                        {
+                            headerName: 'Ср. цена продажи',
+                            field: 'avg_sale_price',
+                            cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)} ₽</p>`
+                        },
+                        {
+                            headerName: 'Комментарии',
+                            field: 'comments',
+                            cellRenderer: params => `<p>${(params.value ?? 0).toFixed(2)}</p>`
+                        },
+                        {
+                            headerName: 'Рейтинг',
+                            field: 'rating',
+                            cellRenderer: params => `<p>${(params.value ?? 0).toFixed(2)}</p>`
+                        },
+                    ]
+                    option6['rowData'] = value
+
+                    let grid = new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[5], option6)
+                })
+        }
+
+        function trends(id) {
+            option5 = {...getOptions()}
+            fetch(`/api/trends?url={{ path??'-' }}`, {
+                method: "GET"
+            })
+                .then(data => data.json())
+                .then(data => {
+                    let value = [[], [], [], [], [], [], [], [], [], []], str = ``, values = [],
+                        names = [
+                            'Продажи', 'Выручка', 'Товаров', 'Товаров с продажами', 'Брендов', 'Брендов с продажами', 'Продавцов', 'Продавцов с продажами', 'Выручка на товар', 'Средний чек'
+                        ], labels = []
+                    for (let i = 0; i < data.length; i++) {
+                        labels[i] = data[i]['week']
+                        value[0][i] = data[i]['sales'] ?? 0
+                        value[1][i] = data[i]['revenue'] ?? 0
+                        value[2][i] = data[i]['items'] ?? 0
+                        value[3][i] = data[i]['items_with_sells'] ?? 0
+                        value[4][i] = data[i]['brands'] ?? 0
+                        value[5][i] = data[i]['brands_with_sells'] ?? 0
+                        value[6][i] = data[i]['sellers'] ?? 0
+                        value[7][i] = data[i]['sellers_with_sells'] ?? 0
+                        value[8][i] = data[i]['product_revenue'] ?? 0
+                        value[9][i] = data[i]['average_order_value'] ?? 0
+
+                        values[i] = {
+                            week: data[i]['week'] + " - " + data[i]['end_week'],
+                            sales: data[i]['sales'] ?? 0,
+                            revenue: data[i]['revenue'] ?? 0,
+                            items: data[i]['items'] ?? 0,
+                            items_with_sells: data[i]['items_with_sells'] ?? 0,
+                            brands: data[i]['brands'] ?? 0,
+                            brands_with_sells: data[i]['brands_with_sells'] ?? 0,
+                            sellers: data[i]['sellers'] ?? 0,
+                            sellers_with_sells: data[i]['sellers_with_sells'] ?? 0,
+                            product_revenue: data[i]['product_revenue'] ?? 0,
+                            average_order_value: data[i]['average_order_value'] ?? 0
+                        }
+                    }
+                    option5['columnDefs'] = [
+                        {
+                            headerName: 'Неделя',
+                            field: 'week',
+                        },
+                        {
+                            headerName: 'Продаж',
+                            field: 'sales',
+                            cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)} шт</p>`
+                        },
+                        {
+                            headerName: 'Выручка',
+                            field: 'revenue',
+                            cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)} ₽</p>`
+                        },
+                        {
+                            headerName: 'Товаров',
+                            field: 'items',
+                            cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)} шт</p>`
+                        },
+                        {
+                            headerName: 'Товаров с продажами',
+                            field: 'items_with_sells',
+                            cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)} шт</p>`
+                        },
+                        {
+                            headerName: 'Брендов',
+                            field: 'brands',
+                            cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)}</p>`
+                        },
+                        {
+                            headerName: 'Брендов с продажами',
+                            field: 'brands_with_sells',
+                            cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)}</p>`
+                        },
+                        {
+                            headerName: 'Продавцов',
+                            field: 'sellers',
+                            cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)}</p>`
+                        },
+                        {
+                            headerName: 'Продавцов с продажами',
+                            field: 'sellers_with_sells',
+                            cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)}</p>`
+                        },
+                        {
+                            headerName: 'Выручка на товар',
+                            field: 'product_revenue',
+                            cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)} ₽/шт</p>`
+                        },
+                        {
+                            headerName: 'Средний чек',
+                            field: 'average_order_value',
+                            cellRenderer: params => `<p class="number">${(params.value ?? 0).toFixed(2)} ₽</p>`
+                        },
+                    ]
+                    option5['rowData'] = values
+
+                    let grid = new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[4], option5)
+                    drawLineGraph('trends_revenue_graph', value, names, labels)
+                })
+        }
 
         function sellers(id) {
+            option4 = {...getOptions()}
             fetch(`/api/sellers?url={{ path??'-' }}`, {
                 method: "GET"
             })
@@ -763,7 +781,6 @@
                             revenue_per_items_with_sells_average: data[i]['revenue_per_items_with_sells_average']
                         }
                     }
-                    option4 = {...getOptions()}
                     option4['columnDefs'] = [
                         {
                             headerName: 'Позиция',
@@ -876,6 +893,7 @@
         }
 
         function brands(id) {
+            option3 = {...getOptions()}
             fetch(`/api/brands?url={{ path??'-' }}`, {
                 method: "GET"
             })
@@ -918,7 +936,6 @@
                             revenue_per_items_with_sells_average: data[i]['revenue_per_items_with_sells_average']
                         }
                     }
-                    option3 = {...getOptions()}
                     option3['columnDefs'] = [
                         {
                             headerName: 'Позиция',
@@ -1027,6 +1044,7 @@
         }
 
         function subCategory(id) {
+            option2 = {...getOptions()}
             fetch(`/api/subCategory?url={{ path??'-' }}`, {method: "GET"})
                 .then(data => data.json())
                 .then(data => {
@@ -1068,7 +1086,6 @@
                             revenue_per_items_with_sells_average: data[i]['revenue_per_items_with_sells_average'].toFixed(0)
                         }
                     }
-                    option2 = {...getOptions()}
                     option2['columnDefs'] = [
                         {
                             headerName: 'Рубрика', field: 'name', cellRenderer: params => {
