@@ -7,6 +7,7 @@ use App\Entity\WbDataEntity\WbDataProperty;
 use App\Helper\Status\ApiTokenStatus;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
+use GuzzleHttp\Client;
 
 class CabinetWbService extends AbstractService
 {
@@ -128,21 +129,21 @@ class CabinetWbService extends AbstractService
                 $data["orders"][$index] =
                     [
                         'city' => $data["orders"][$index]['city'],
-                        'quantity' => ($data["orders"][$index]['quantity'] + $array['quantity']),
+                        'quantity' => ($data["orders"][$index]['quantity']??1 + $array['quantity']??1),
                         'price' => $data["orders"][$index]['price'] + $array['totalPrice']
                     ];
             } else {
                 $data["orders"][] =
                     [
                         'city' => $array['oblast'],
-                        'quantity' => $array['quantity'],
+                        'quantity' => $array['quantity']??1,
                         'price' => $array['totalPrice']
                     ];
             }
         }
         $percent = array_sum(array_column($data['orders'], 'quantity'));
         $data["orders"] = array_map(function ($item) use ($percent) {
-            $item['percent'] = number_format(($item['quantity'] * 100) / $percent, 1);
+            $item['percent'] = number_format(($item['quantity']??1 * 100) / $percent, 1);
             return $item;
         }, $data['orders']);
         $data["sale"] = $data["sales"];
@@ -156,21 +157,21 @@ class CabinetWbService extends AbstractService
                 $data["sales"][$index] =
                     [
                         'city' => $data["sales"][$index]['city'],
-                        'quantity' => ($data["sales"][$index]['quantity'] + $array['quantity']),
+                        'quantity' => ($data["sales"][$index]['quantity']??1 + $array['quantity']??1),
                         'price' => $data["sales"][$index]['price'] + $array['totalPrice']
                     ];
             } else {
                 $data["sales"][] =
                     [
                         'city' => $array['regionName'],
-                        'quantity' => $array['quantity'],
+                        'quantity' => $array['quantity']??1,
                         'price' => $array['totalPrice']
                     ];
             }
         }
-        $percent = array_sum(array_column($data['sales'], 'quantity'));
+        $percent = array_sum(array_column($data['sales'], 'quantity')??1);
         $data["sales"] = array_map(function ($item) use ($percent) {
-            $item['percent'] = number_format(($item['quantity'] * 100) / $percent, 1);
+            $item['percent'] = number_format(($item['quantity']??1 * 100) / $percent, 1);
             return $item;
         }, $data['sales']);
         $context["tokens"] = $dataWb['tokens'] instanceof ApiToken ? [$dataWb['tokens']] : $dataWb['tokens'];
@@ -308,21 +309,35 @@ class CabinetWbService extends AbstractService
         for ($i = 0; $i < count($arrayPropNames); $i++) {
             $data[$arrayNames[$i]] = $repos->getProperty($arrayPropNames[$i], $dataWb['wbData']->getId());
         }
+        $data["order"] = [];
         $count = min(count($data["orders"]), 100);
         for ($i = 0; $i < $count; $i++) {
             $array = json_decode($data["orders"][$i]["property"], true);
-            $array["img"] = ((int)($array["nmId"] / 10000)) * 10000;
             $sales = array_map(function ($item) {
                 return json_decode($item["property"], true);
             }, $data["sales"]);
             $sale = array_column($sales, 'orderId');
-            $index = array_search($array['number'], $sale);
+            $index = array_search($array['number']??0, $sale);
             $sale = $sales[$index];
             $array['forPay'] = !$array['isCancel'] ? $sale['forPay'] : 0;
             $array['return'] = $array['isCancel'] ? -$sale['forPay'] : 0;
             $array['commission'] = $sale['priceWithDisc'] - $sale['forPay'];
             $array['resultPay'] = !$array['isCancel'] ? $sale['forPay'] : -$sale['forPay'];
             $data["order"][$i] = $array;
+        }
+        $client = new Client();
+        $nmIds = array_map(function ($item){ return $item['nmId'];}, $data["order"]);
+        foreach ($data['order'] as $index => $order){
+            if(!in_array($order['nmId'], $nmIds)){
+                continue;
+            }
+            unset($nmIds[$index]);
+            $img = json_decode($client->get($this->mpStatsApiWb . "item/".$order["nmId"], $this->getHeaders())->getBody()->getContents(), true)['photos'][0]['t'];;
+            $data['order'][$index]['img'] = $img;
+            while($searchItem = array_search($order['nmId'], $nmIds)){
+                unset($nmIds[$searchItem]);
+                $data['order'][$searchItem]['img'] = $img;
+            }
         }
         $context["tokens"] = $dataWb['tokens'] instanceof ApiToken ? [$dataWb['tokens']] : $dataWb['tokens'];
         $context["orders"] = $data["order"];
@@ -428,7 +443,8 @@ class CabinetWbService extends AbstractService
             ];
             foreach ($datas["sales"] as $array) {
                 $array = json_decode($array["property"], true);
-                if ($array["quantity"] == 0) continue;
+                $quantity = $array["quantity"]??1;
+                if (!$quantity || $quantity == 0) continue;
                 $dateSale = (new \DateTime($array['date']))->format('d.m.Y');
                 $dateSale = explode('.', $dateSale);
                 $dateFormat = explode('.', $date->format('d.m.Y'));
@@ -437,20 +453,21 @@ class CabinetWbService extends AbstractService
                     $isDate = $isDate && ($dateSale[$j] == $dateFormat[$j]);
                 }
                 if (!$isDate) continue;
-                if ($array["quantity"] < 0) {
+                if ($quantity < 0) {
                     $data[$i]["rubRet"] += $array["priceWithDisc"];
-                    $data[$i]["returnQ"] += -$array["quantity"];
+                    $data[$i]["returnQ"] += -$quantity;
                 }
-                $data[$i]['salesQ'] += $array["quantity"];
-                $rub = $array["finishedPrice"] * $array["quantity"];
+                $data[$i]['salesQ'] += $quantity;
+                $rub = $array["finishedPrice"] * $quantity;
                 $data[$i]['rubS'] += $rub;
-                $comm = (($rub) - ($array["forPay"] * $array["quantity"]));
+                $comm = (($rub) - ($array["forPay"] * $quantity));
                 $data[$i]['profitS'] += ($rub) - $comm;
                 $data[$i]['commissionS'] += $comm;
             }
             foreach ($datas["orders"] as $array) {
                 $array = json_decode($array["property"], true);
-                if ($array["quantity"] == 0) continue;
+                $quantity = $array["quantity"]??1;
+                if (!$quantity || $quantity == 0) continue;
                 $dateSale = (new \DateTime($array['date']))->format('d.m.Y');
                 $dateSale = explode('.', $dateSale);
                 $dateFormat = explode('.', $date->format('d.m.Y'));
@@ -459,7 +476,7 @@ class CabinetWbService extends AbstractService
                     $isDate = $isDate && ($dateSale[$j] == $dateFormat[$j]);
                 }
                 if (!$isDate) continue;
-                $data[$i]['orderQ'] += $array["quantity"];
+                $data[$i]['orderQ'] += $quantity;
                 $data[$i]['rubOr'] += $array["totalPrice"];
             }
             $date->modify("-1 day");
@@ -507,17 +524,18 @@ class CabinetWbService extends AbstractService
             $token['turnovers'] = array_sum(
                 array_map(function ($item) use ($token) {
                     $item = json_decode($item['property'], true);
-                    if ($item['quantity'] > 0) {
-                        return $item['priceWithDisc'] * $item['quantity'];
+                    $quantity = $item['quantity']??1;
+                    if ($quantity && $quantity > 0) {
+                        return $item['priceWithDisc'] * $quantity;
                     }
                     return 0;
                 }, $data['sales'])
             );
+
             $data['sales'] = $func($data['sales'], 'date');
             $data['orders'] = $func($data['orders'], 'lastChangeDate');
             $data['incomes'] = $func($data['incomes'], 'lastChangeDate');
             $data['reports'] = $func($data['reports'], 'rr_dt');
-
 
             $key = $data['sales'];
             $token['sales'] = [
@@ -559,15 +577,16 @@ class CabinetWbService extends AbstractService
         $data["mardj"] = 0;
         foreach ($sales as $array) {
             $array = json_decode($array["property"], true);
-            if ($array["quantity"] == 0) continue;
-            if ($array["quantity"] < 0) {
+            $quantity = $array["quantity"]??1;
+            if (!$quantity || $quantity == 0) continue;
+            if ($quantity < 0) {
                 $data["returnedPrice"] += $array["priceWithDisc"];
-                $data["returnedLength"] += $array["quantity"];
+                $data["returnedLength"] += $quantity;
             }
-            $data["summaPrice"] += $array["priceWithDisc"] * $array["quantity"];
-            $data["summaLength"] += $array["quantity"];
-            $data["summaProfit"] += $array["finishedPrice"] * $array["quantity"];
-            $data["summaComm"] += ($array["finishedPrice"] * $array["quantity"]) - ($array["forPay"] * $array["quantity"]);
+            $data["summaPrice"] += $array["priceWithDisc"] * $quantity;
+            $data["summaLength"] += $quantity;
+            $data["summaProfit"] += $array["finishedPrice"] * $quantity;
+            $data["summaComm"] += ($array["finishedPrice"] * $quantity) - ($array["forPay"] * $quantity);
             $data["rent"] = $array["forPay"] / ($array["totalPrice"] > 0 ? $array["totalPrice"] : 1) * 100;
             $data["mardj"] = ($array["totalPrice"] - $array["forPay"]) / ($array["totalPrice"] > 0 ? $array["totalPrice"] : 1) * 100;
         }
@@ -582,9 +601,10 @@ class CabinetWbService extends AbstractService
         $data["ordersLength"] = 0;
         foreach ($orders as $array) {
             $array = json_decode($array["property"], true);
-            if ($array["quantity"] == 0) continue;
-            $data["ordersPrice"] += ($array["totalPrice"] * $array["quantity"]);
-            $data["ordersLength"] += $array["quantity"];
+            $quantity = $array["quantity"]??1;
+            if (!$quantity || $quantity == 0) continue;
+            $data["ordersPrice"] += ($array["totalPrice"] * $quantity);
+            $data["ordersLength"] += $quantity;
         }
         return $data;
     }
@@ -595,9 +615,10 @@ class CabinetWbService extends AbstractService
         $data["retailPrice"] = 0;
         foreach ($stocks as $array) {
             $array = json_decode($array["property"], true);
-            if ($array["quantity"] == 0) continue;
-            $data["costPrice"] += ($array["Price"] * $array["quantity"] * $array["Discount"]) / 100;
-            $data["retailPrice"] += ($array["Price"] * $array["quantity"]);
+            $quantity = $array["quantity"]??1;
+            if (!$quantity || $quantity == 0) continue;
+            $data["costPrice"] += ($array["Price"] * $quantity * $array["Discount"]) / 100;
+            $data["retailPrice"] += ($array["Price"] * $quantity);
         }
         return $data;
     }

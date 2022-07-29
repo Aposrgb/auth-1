@@ -71,14 +71,136 @@
         </div>
     {% endif %}
     <script>
+        let option = {}
         document.addEventListener("DOMContentLoaded", () => {
-            let el = document.getElementById("scrollbar")
-            el.addEventListener("input",
-                function () {
-                    let width = document.getElementById("table_sale").offsetWidth
-                    let value = el.value * width/1800*width/1800
-                    document.getElementById("table_sale").style.transform = "translateX(-" + value + "px)"
-                }, false)
+            option = {...getOptions()}
+            option['columnDefs'] = [
+                {
+                    headerName: 'Товар',
+                    children: [
+                        {
+                            headerName: 'Фото',
+                            field: 'photo',
+                            maxWidth: 80,
+                            sortable: false,
+                            filter: false,
+                            cellRenderer: params => `<img style="height: 32px; width: 32px" src="${params.value}" />`
+                        },
+                        {
+                            headerName: 'Название',
+                            field: 'subject'
+                        },
+                        {
+                            headerName: 'SKU',
+                            field: 'nmId',
+                            maxWidth: 150
+                        },
+                        {
+                            headerName: 'Категория',
+                            field: 'category'
+                        },
+                        {
+                            headerName: 'Артикул',
+                            field: 'barcode'
+                        },
+                        {
+                            headerName: 'Бренд',
+                            field: 'brand'
+                        },
+                        {
+                            headerName: 'Закуп',
+                            field: 'forPay',
+                            maxWidth: 100
+                        },
+                    ]
+                },
+                {
+                    headerName: 'Идентификация',
+                    children: [
+                        {
+                            headerName: 'Номер заказа',
+                            field: 'gNumber'
+                        },
+                        {
+                            headerName: 'ШК товара',
+                            field: 'skItem',
+                            cellRenderer: params => '-'
+                        },
+                    ]
+                },
+                {
+                    headerName: 'Финансы',
+                    children: [
+                        {
+                            headerName: 'Оплачено',
+                            field: 'forPay2',
+                            maxWidth: 150
+                        },
+                        {
+                            headerName: 'Комиссия',
+                            field: 'commission',
+                            maxWidth: 150
+                        },
+                        {
+                            headerName: 'Возврат',
+                            field: 'return',
+                            maxWidth: 150
+                        },
+                        {
+                            headerName: 'К выплате',
+                            field: 'forPay3',
+                            maxWidth: 150
+                        },
+                        {
+                            headerName: 'Прибыль',
+                            field: 'resultPay',
+                            maxWidth: 150
+                        },
+                    ]
+                },
+                {
+                    headerName: 'Движение заказа',
+                    children: [
+                        {
+                            headerName: 'Заказ',
+                            field: 'date'
+                        },
+                        {
+                            headerName: 'Продажа',
+                            field: 'sales'
+                        },
+                        {
+                            headerName: 'Возврат',
+                            field: 'return2'
+                        },
+                        {
+                            headerName: 'Обратная логистика',
+                            field: 'logistic'
+                        },
+                    ]
+                },
+            ]
+            option['rowData'] = [
+                {% for order in orders %}
+                {
+                    photo: '{{ order.img }}',
+                    subject: '{{ order.subject }}',
+                    nmId: '{{ order.nmId }}',
+                    category: '{{ order.category }}',
+                    barcode: '{{ order.barcode }}',
+                    brand: '{{ order.brand }}',
+                    forPay: '{{ order.forPay }}',
+                    gNumber: '{{ order.gNumber }}',
+                    forPay2: '{{ order.forPay }}',
+                    commission: '{{ order.commission }}',
+                    return: '{{ order.return }}',
+                    forPay3: '{{ order.forPay }}',
+                    resultPay: '{{ order.resultPay }}',
+                    date: '{{ order.date|date("Y.m.d H:i:s") }}'
+                },
+                {% endfor %}
+            ]
+            new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[0], option)
         })
     </script>
 {% endblock %}

@@ -109,7 +109,7 @@ class SeoService extends AbstractService
     public function getSku($sku)
     {
         $client = new Client();
-        $data = null;
+        $data = [];
         if (is_numeric($sku)) {
             $data = json_decode($client->get($this->mpStatsApi . "seo/tools/wb-card-checker?sku=$sku", $this->getHeaders())->getBody()->getContents(), true);
             try {
@@ -207,7 +207,7 @@ class SeoService extends AbstractService
             "d2" => !($date instanceof \DateTime) ?$date[1]:$date->format('Y-m-d'),
             "d1" => !($date instanceof \DateTime) ?$date[0]:$date->modify('-29 day')->format('Y-m-d'),
         ];
-        $data = null;
+        $data = [];
         if (is_numeric($identity)) {
             $body["query"] = $identity;
             $data = json_decode($client->post($this->mpStatsApi . "seo/keywords/expanding", $this->getHeadersWithBody($body))->getBody()->getContents(), true);

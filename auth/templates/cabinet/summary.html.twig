@@ -38,6 +38,123 @@
         {% else %}
             {% include 'cabinet/HTML/summary.html.twig' %}
             <script>
+                let option = {}
+                document.addEventListener('DOMContentLoaded', () => {
+                    option = {...getOptions()}
+                    option['columnDefs'] = [
+                        {
+                            headerName: 'Дата',
+                            field: 'date',
+                            maxWidth: 150
+                        },
+                        {
+                            headerName: 'Продажи',
+                            children: [
+                                {
+                                    headerName: 'Шт',
+                                    field: 'salesQ',
+                                    maxWidth: 150
+                                },
+                                {
+                                    headerName: 'Руб',
+                                    field: 'rubS',
+                                    maxWidth: 150
+                                },
+                                {
+                                    headerName: 'Прибыль',
+                                    field: 'profitS',
+                                    maxWidth: 150
+                                },
+                                {
+                                    headerName: 'Себестоимость',
+                                    field: 'costPriceS',
+                                    maxWidth: 150
+                                },
+                                {
+                                    headerName: 'Комиссия WB',
+                                    field: 'commissionS',
+                                    maxWidth: 150
+                                },
+                                {
+                                    headerName: 'К выплате',
+                                    field: 'profitS',
+                                    maxWidth: 150
+                                },
+                            ]
+                        },
+                        {
+                            headerName: 'Заказы',
+                            children: [
+                                {
+                                    headerName: 'Шт',
+                                    field: 'orderQ',
+                                    maxWidth: 150
+                                },
+                                {
+                                    headerName: 'Руб',
+                                    field: 'rubOr',
+                                    maxWidth: 150
+                                }
+                            ]
+                        },
+                        {
+                            headerName: 'Возвраты',
+                            children: [
+                                {
+                                    headerName: 'Шт',
+                                    field: 'returnQ',
+                                    maxWidth: 150
+                                },
+                                {
+                                    headerName: 'Руб',
+                                    field: 'rubRet',
+                                    maxWidth: 150
+                                }
+                            ]
+                        },
+                        {
+                            headerName: 'Логистика',
+                            children: [
+                                {
+                                    headerName: 'К клиенту',
+                                    field: 'logisticToC',
+                                    maxWidth: 150
+                                },
+                                {
+                                    headerName: 'От клиента',
+                                    field: 'logisticFromC',
+                                    maxWidth: 150
+                                }
+                            ]
+                        },
+                        {
+                            headerName: 'Штраф',
+                            field: 'fine',
+                            maxWidth: 150
+                        }
+                    ]
+                    option['rowData'] = [
+                        {% for sale in sales %}
+                        {
+                            date: '{{ sale.date }}',
+                            salesQ: '{{ sale.salesQ }}',
+                            rubS: '{{ sale.rubS }}',
+                            profitS: '{{ sale.profitS }}',
+                            costPriceS: '{{ sale.costPriceS }}',
+                            commissionS: '{{ sale.commissionS }}',
+                            profitS: '{{ sale.profitS }}',
+                            orderQ: '{{ sale.orderQ }}',
+                            rubOr: '{{ sale.rubOr }}',
+                            returnQ: '{{ sale.returnQ }}',
+                            rubRet: '{{ sale.rubRet }}',
+                            logisticToC: '{{ sale.logisticToC }}',
+                            logisticFromC: '{{ sale.logisticFromC }}',
+                            fine: '{{ sale.fine }}',
+                        },
+                        {% endfor %}
+                    ]
+                    new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[0], option)
+                })
                 formatter("summa_price")
                 formatter("summa_length")
                 formatter("summa_profit")
@@ -50,12 +167,6 @@
                 formatter("orders_length")
                 formatter("stocks_cost_price")
                 formatter("stocks_retail_price")
-
-                function formatter(id) {
-                    let intFormatter = new Intl.NumberFormat()
-                    let prop = document.getElementById(id)
-                    prop.innerText = intFormatter.format(prop.innerText)
-                }
             </script>
         {% endif %}
     {% else %}

@@ -71,23 +71,83 @@
         </div>
     {% endif %}
     <script>
+        let option = {}, option2 = {}
         document.addEventListener("DOMContentLoaded", () => {
-            let el = document.getElementById("scrollbar")
-            el.addEventListener("input",
-                function () {
-                    let width = document.getElementById("table_sale").offsetWidth
-                    let value = el.value * width/1800*width/1800
-                    document.getElementById("table_sale").style.transform = "translateX(-" + value + "px)"
-                    document.getElementById("table_sale_header").style.transform = "translateX(-" + value + "px)"
-                }, false)
-            let el2 = document.getElementById("scrollbar2")
-            el2.addEventListener("input",
-                function () {
-                    let width = document.getElementById("table_sale2").offsetWidth
-                    let value = el2.value * width/1800*width/1800
-                    document.getElementById("table_sale2").style.transform = "translateX(-" + value + "px)"
-                    document.getElementById("table_sale_header2").style.transform = "translateX(-" + value + "px)"
-                }, false)
+            option = {...getOptions()}
+            option2 = {...getOptions()}
+
+            option['columnDefs'] = [
+                {
+                    headerName: 'Регион',
+                    field: 'city'
+                },
+                {
+                    headerName: 'Количество заказов',
+                    children: [
+                        {
+                            headerName: 'Шт',
+                            field: 'quantity'
+                        },
+                        {
+                            headerName: '% От общего',
+                            field: 'percent'
+                        },
+                        {
+                            headerName: 'Выручка',
+                            field: 'price',
+                            cellRenderer: params => `<p class="number">${params.value}</p>`
+                        },
+                    ]
+                },
+
+            ]
+            option2['columnDefs'] = [
+                {
+                    headerName: 'Регион',
+                    field: 'city'
+                },
+                {
+                    headerName: 'Количество продаж',
+                    children: [
+                        {
+                            headerName: 'Шт',
+                            field: 'quantity'
+                        },
+                        {
+                            headerName: '% От общего',
+                            field: 'percent'
+                        },
+                        {
+                            headerName: 'Выручка',
+                            field: 'price',
+                            cellRenderer: params => `<p class="number">${params.value}</p>`
+                        },
+                    ]
+                },
+
+            ]
+            option['rowData'] = [
+                {% for order in orders %}
+                {
+                    city: '{{ order.city }}',
+                    quantity: '{{ order.quantity }}',
+                    percent: '{{ order.percent }}',
+                    price: '{{ order.price }}',
+                },
+                {% endfor %}
+            ]
+            option2['rowData'] = [
+                {% for sale in sales %}
+                {
+                    city: '{{ sale.city }}',
+                    quantity: '{{ sale.quantity }}',
+                    percent: '{{ sale.percent }}',
+                    price: '{{ sale.price }}',
+                },
+                {% endfor %}
+            ]
+            new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[0], option)
+            new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[1], option2)
         })
     </script>
 {% endblock %}

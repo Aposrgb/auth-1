@@ -1752,7 +1752,6 @@ fieldset[disabled] .multiselect {
 }
 
 .multiselect__tag-icon:after {
-    content: "\D7";
     color: #266d4d;
     font-size: 14px
 }
@@ -2385,7 +2384,6 @@ li.no-mark {
 .dropdown-toggle-split:after {
     display: inline-block;
     vertical-align: middle;
-    content: "пЃё";
     font-family: Font Awesome\ 5 Free;
     border: none;
     font-size: .75rem;
@@ -2838,7 +2836,6 @@ li.no-mark {
     display: inline-block;
     margin-left: .255em;
     vertical-align: middle;
-    content: "пЃё";
     font-family: Font Awesome\ 5 Free;
     border: none
 }
@@ -3247,15 +3244,6 @@ ul .view-action i[data-v-de25ea20] {
 h3[data-v-861371ba] {
     word-break: break-word
 }
-
-.switch-button label[data-v-08387b56]:before {
-    content: "Р’С‹РєР»"
-}
-
-.switch-button input[type=checkbox]:checked + span label[data-v-08387b56]:before {
-    content: "Р’РєР»"
-}
-
 .switch-button.switch-button-xs label[data-v-08387b56]:before {
     font-size: .75rem
 }
@@ -3310,14 +3298,6 @@ h3[data-v-861371ba] {
 
 .switcher-lg .switcher-button-wrapper {
     line-height: 26px
-}
-
-.switch-button label[data-v-67905e4d]:before {
-    content: "РќРµС‚"
-}
-
-.switch-button input[type=checkbox]:checked + span label[data-v-67905e4d]:before {
-    content: "Р”Р°"
 }
 
 .cursor-pointer[data-v-946f0130]:hover {
