@@ -142,7 +142,6 @@
             await fetch("token/"+element.id)
             window.location.reload()
         }
-
         function addToken() {
             let div = document.getElementById('modal');
             if (div !== null) {
@@ -168,7 +167,6 @@
     </div>
 </div>`;
             }
-
         }
         {% if error ?? null %}
             addToken()
