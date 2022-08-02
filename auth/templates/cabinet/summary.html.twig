@@ -53,32 +53,38 @@
                                 {
                                     headerName: 'Шт',
                                     field: 'salesQ',
-                                    maxWidth: 150
+                                    maxWidth: 150,
+                                    cellRenderer: params => `<p class="number">${params.value}</p>`
                                 },
                                 {
                                     headerName: 'Руб',
                                     field: 'rubS',
-                                    maxWidth: 150
+                                    maxWidth: 150,
+                                    cellRenderer: params => `<p class="number">${params.value}</p>`
                                 },
                                 {
                                     headerName: 'Прибыль',
                                     field: 'profitS',
-                                    maxWidth: 150
+                                    maxWidth: 150,
+                                    cellRenderer: params => `<p class="number">${params.value}</p>`
                                 },
                                 {
                                     headerName: 'Себестоимость',
                                     field: 'costPriceS',
-                                    maxWidth: 150
+                                    maxWidth: 150,
+                                    cellRenderer: params => `<p class="number">${params.value}</p>`
                                 },
                                 {
                                     headerName: 'Комиссия WB',
                                     field: 'commissionS',
-                                    maxWidth: 150
+                                    maxWidth: 150,
+                                    cellRenderer: params => `<p class="number">${params.value}</p>`
                                 },
                                 {
                                     headerName: 'К выплате',
                                     field: 'profitS',
-                                    maxWidth: 150
+                                    maxWidth: 150,
+                                    cellRenderer: params => `<p class="number">${params.value}</p>`
                                 },
                             ]
                         },
@@ -88,12 +94,14 @@
                                 {
                                     headerName: 'Шт',
                                     field: 'orderQ',
-                                    maxWidth: 150
+                                    maxWidth: 150,
+                                    cellRenderer: params => `<p class="number">${params.value}</p>`
                                 },
                                 {
                                     headerName: 'Руб',
                                     field: 'rubOr',
-                                    maxWidth: 150
+                                    maxWidth: 150,
+                                    cellRenderer: params => `<p class="number">${params.value}</p>`
                                 }
                             ]
                         },
@@ -103,12 +111,14 @@
                                 {
                                     headerName: 'Шт',
                                     field: 'returnQ',
-                                    maxWidth: 150
+                                    maxWidth: 150,
+                                    cellRenderer: params => `<p class="number">${params.value}</p>`
                                 },
                                 {
                                     headerName: 'Руб',
                                     field: 'rubRet',
-                                    maxWidth: 150
+                                    maxWidth: 150,
+                                    cellRenderer: params => `<p class="number">${params.value}</p>`
                                 }
                             ]
                         },
@@ -118,19 +128,22 @@
                                 {
                                     headerName: 'К клиенту',
                                     field: 'logisticToC',
-                                    maxWidth: 150
+                                    maxWidth: 150,
+                                    cellRenderer: params => `<p class="number">${params.value}</p>`
                                 },
                                 {
                                     headerName: 'От клиента',
                                     field: 'logisticFromC',
-                                    maxWidth: 150
+                                    maxWidth: 150,
+                                    cellRenderer: params => `<p class="number">${params.value}</p>`
                                 }
                             ]
                         },
                         {
                             headerName: 'Штраф',
                             field: 'fine',
-                            maxWidth: 150
+                            maxWidth: 150,
+                            cellRenderer: params => `<p class="number">${params.value}</p>`
                         }
                     ]
                     option['rowData'] = [
@@ -142,7 +155,6 @@
                             profitS: '{{ sale.profitS }}',
                             costPriceS: '{{ sale.costPriceS }}',
                             commissionS: '{{ sale.commissionS }}',
-                            profitS: '{{ sale.profitS }}',
                             orderQ: '{{ sale.orderQ }}',
                             rubOr: '{{ sale.rubOr }}',
                             returnQ: '{{ sale.returnQ }}',

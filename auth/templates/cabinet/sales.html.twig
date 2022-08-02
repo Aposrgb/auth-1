@@ -110,7 +110,8 @@
                         {
                             headerName: 'Закуп',
                             field: 'forPay',
-                            maxWidth: 100
+                            maxWidth: 100,
+                            cellRenderer: params => `<p class="number">${params.value}</p>`
                         },
                     ]
                 },
@@ -134,27 +135,32 @@
                         {
                             headerName: 'Оплачено',
                             field: 'forPay2',
-                            maxWidth: 150
+                            maxWidth: 150,
+                            cellRenderer: params => `<p class="number">${params.value}</p>`
                         },
                         {
                             headerName: 'Комиссия',
                             field: 'commission',
-                            maxWidth: 150
+                            maxWidth: 150,
+                            cellRenderer: params => `<p class="number">${params.value}</p>`
                         },
                         {
                             headerName: 'Возврат',
                             field: 'return',
-                            maxWidth: 150
+                            maxWidth: 150,
+                            cellRenderer: params => `<p class="number">${params.value}</p>`
                         },
                         {
                             headerName: 'К выплате',
                             field: 'forPay3',
-                            maxWidth: 150
+                            maxWidth: 150,
+                            cellRenderer: params => `<p class="number">${params.value}</p>`
                         },
                         {
                             headerName: 'Прибыль',
                             field: 'resultPay',
-                            maxWidth: 150
+                            maxWidth: 150,
+                            cellRenderer: params => `<p class="number">${params.value}</p>`
                         },
                     ]
                 },

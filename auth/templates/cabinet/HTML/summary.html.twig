@@ -40,7 +40,7 @@
               </div>
               <div class="api-key-selector d-flex align-items-start align-items-xxl-center">
                 <div class="dropdown b-dropdown btn-group" id="__BVID__11"><!---->
-                  <button aria-haspopup="true" onclick="allKeys()" aria-expanded="false" type="button" class="btn dropdown-toggle btn-secondary" id="__BVID__11__BV_toggle_">
+                  <button aria-haspopup="true" onclick="allKeys()" aria-expanded="false" type="button" class="btn btn-secondary" id="__BVID__11__BV_toggle_">
                     <span>Все ключи API</span>
                   </button>
 
@@ -80,8 +80,8 @@
                   <div class="value d-flex"><span class="title mr-1" style="">Сумма</span>
                     <span
                             title="За выбранный период" class="new-value ml-auto"><span
-                            class="mdi mdi indicator-negative mdi-chevron-down"
-                            style=""></span> <span id="summa_price">{{summaPrice ?? 0}}</span> <span>₽</span></span>
+                            class="indicator-negative "
+                            style=""></span> <span class="number" id="summa_price">{{summaPrice ?? 0}}</span> <span>₽</span></span>
                   </div>
                   <div class="diff-value text-danger"><span
                           title="Разница с предыдущим периодом"><span
@@ -93,8 +93,8 @@
                   <div class="value d-flex"><span class="title mr-1"
                                                   style="">Количество</span>
                     <span title="За выбранный период" class="new-value ml-auto"><span
-                            class="mdi mdi indicator-negative mdi-chevron-down"
-                            style=""></span> <span id="summa_length">{{summaLength ?? 0}}</span> <span>шт</span></span>
+                            class="indicator-negative "
+                            style=""></span> <span class="number" id="summa_length">{{summaLength ?? 0}}</span> <span>шт</span></span>
                   </div>
                   <div class="diff-value text-danger"><span
                           title="Разница с предыдущим периодом"><span
@@ -161,7 +161,7 @@
                       <div class="data-info mt-2">
                         <div class="value d-flex"><span class="title mr-1">Сумма</span>
                           <span title="Сумма" class="new-value ml-auto"><span
-                                  class="mdi mdi indicator-negative mdi-chevron-down"></span> <span id="orders_price">{{ ordersPrice ?? 0 }}</span> <span>₽</span></span>
+                                  class="indicator-negative "></span> <span class="number" id="orders_price">{{ ordersPrice ?? 0 }}</span> <span>₽</span></span>
                         </div>
                         <div class="diff-value text-danger"><span
                                 title="Разница с предыдущим периодом"><span
@@ -173,7 +173,7 @@
                         <div class="value d-flex"><span
                                 class="title mr-1">Количество</span>
                           <span title="Количество" class="new-value ml-auto"><span
-                                  class="mdi mdi indicator-negative mdi-chevron-down"></span> <span id="orders_length">{{ ordersLength ?? 0 }}</span> <span>шт</span></span>
+                                  class="indicator-negative "></span> <span class="number" id="orders_length">{{ ordersLength ?? 0 }}</span> <span>шт</span></span>
                         </div>
                         <div class="diff-value text-danger"><span
                                 title="Разница с предыдущим периодом"><span
@@ -233,8 +233,8 @@
                   <div class="value d-flex"><span class="title mr-1" style="">Сумма</span>
                     <span
                             title="За выбранный период" class="new-value ml-auto"><span
-                            class="mdi mdi indicator-positive mdi-chevron-down"
-                            style=""></span> <span id="returned_price">{{returnedPrice ?? 0}}</span> <span>₽</span></span>
+                            class="indicator-positive "
+                            style=""></span> <span class="number" id="returned_price">{{returnedPrice ?? 0}}</span> <span>₽</span></span>
                   </div>
                   <div class="diff-value text-success"><span
                           title="Разница с предыдущим периодом"><span
@@ -246,8 +246,8 @@
                   <div class="value d-flex"><span class="title mr-1"
                                                   style="">Количество</span>
                     <span title="За выбранный период" class="new-value ml-auto"><span
-                            class="mdi mdi indicator-positive mdi-chevron-down"
-                            style=""></span> <span id="returned_length">{{returnedLength ?? 0}}</span> <span>шт</span></span></div>
+                            class="indicator-positive "
+                            style=""></span> <span class="number" id="returned_length">{{returnedLength ?? 0}}</span> <span>шт</span></span></div>
                   <div class="diff-value text-success"><span
                           title="Разница с предыдущим периодом"><span
                           style="display: none;">+</span><span>-9</span></span>
@@ -317,7 +317,7 @@
                 <div class="data-info mt-2">
                   <div class="value d-flex"><span class="title mr-1" style="">К клиенту</span>
                     <span title="За выбранный период" class="new-value ml-auto"><span
-                            class="mdi mdi indicator-positive mdi-chevron-down"
+                            class="indicator-positive "
                             style=""></span> <span>6 499</span> <span>₽</span></span>
                   </div>
                   <div class="diff-value text-success"><span
@@ -331,7 +331,7 @@
                   <div class="value d-flex"><span class="title mr-1"
                                                   style="">От клиента</span>
                     <span title="За выбранный период" class="new-value ml-auto"><span
-                            class="mdi mdi indicator-positive mdi-chevron-down"
+                            class="indicator-positive "
                             style=""></span> <span>396</span> <span>₽</span></span>
                   </div>
                   <div class="diff-value text-success"><span
@@ -361,8 +361,8 @@
                   <div class="value d-flex"><span class="title mr-1" style="">Прибыль</span>
                     <span
                             title="За выбранный период" class="new-value ml-auto"><span
-                            class="mdi mdi indicator-negative mdi-chevron-down"
-                            style=""></span> <span id="summa_profit">{{ summaProfit ?? 0}}</span> <span>₽</span></span>
+                            class="indicator-negative "
+                            style=""></span> <span class="number" id="summa_profit">{{ summaProfit ?? 0}}</span> <span>₽</span></span>
                   </div>
                   <div class="diff-value text-danger"><span
                           title="Разница с предыдущим периодом"><span
@@ -375,8 +375,8 @@
                   <div class="value d-flex"><span class="title mr-1"
                                                   style="">Комиссия WB</span>
                     <span title="За выбранный период" class="new-value ml-auto"><span
-                            class="mdi mdi indicator-negative mdi-chevron-up"
-                            style=""></span> <span id ="summa_comm">{{summaComm ?? 0}}</span> <span>₽</span></span>
+                            class="indicator-negative"
+                            style=""></span> <span class="number" id ="summa_comm">{{summaComm ?? 0}}</span> <span>₽</span></span>
                   </div>
                   <div class="diff-value text-danger"><span
                           title="Разница с предыдущим периодом"><span
@@ -404,8 +404,7 @@
                 <div class="data-info mt-2">
                   <div class="value d-flex"><span class="title mr-1"
                                                   style="">Себестоимость</span>
-                    <span class="new-value ml-auto"><span class="mdi"
-                                                          style="display: none;"></span> <span id="stocks_cost_price">{{ costPrice ?? 0 }}</span> <span>₽</span></span>
+                    <span class="new-value ml-auto"> <span class="number" id="stocks_cost_price">{{ costPrice ?? 0 }}</span> <span>₽</span></span>
                   </div>
                   <div class="diff-value text-danger" style="display: none;"><span
                           title="Разница с предыдущим периодом"><span
@@ -416,9 +415,7 @@
                 <div class="data-info mt-2">
                   <div class="value d-flex"><span class="title mr-1"
                                                   style="">Розничная цена</span> <span
-                          class="new-value ml-auto"><span
-                          class="mdi mdi indicator-positive mdi-chevron-up"
-                          style=""></span> <span id="stocks_retail_price">{{ retailPrice ?? 0}}</span> <span>₽</span></span>
+                          class="new-value ml-auto"> <span class="number" id="stocks_retail_price">{{ retailPrice ?? 0}}</span> <span>₽</span></span>
                   </div>
                   <div class="diff-value text-success" style="display: none;"><span
                           title="Разница с предыдущим периодом"><span
@@ -450,8 +447,7 @@
                                                                      class="title text-left mr-1"
                                                                      style="">Рентабельность, %</span>
                     <span data-v-291d48e2="" title="За выбранный период"
-                          class="new-value ml-auto"><span data-v-291d48e2="" class="mdi"
-                                                          style="display: none;"></span> <span id="rent">{{ rent ?? 0}}</span> <span
+                          class="new-value ml-auto"> <span class="number" id="rent">{{ rent ?? 0}}</span> <span
                             data-v-291d48e2="">%</span></span></div>
                   <div data-v-291d48e2="" class="diff-value text-danger"><span
                           data-v-291d48e2=""
@@ -466,9 +462,7 @@
                                                                      class="title text-left mr-1"
                                                                      style="">Маржинальность, %</span>
                     <span data-v-291d48e2="" title="За выбранный период"
-                          class="new-value ml-auto"><span data-v-291d48e2=""
-                                                          class="mdi mdi indicator-positive mdi-chevron-up"
-                                                          style=""></span> <span id="mardj">{{ mardj ?? 0}}</span> <span
+                          class="new-value ml-auto"> <span class="number" id="mardj">{{ mardj ?? 0}}</span> <span
                             data-v-291d48e2="">%</span></span></div>
                   <div data-v-291d48e2="" class="diff-value text-success"><span
                           data-v-291d48e2=""
@@ -482,23 +476,6 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-12">
-          <div class="alert alert-icon alert-icon-border alert-dismissible alert-danger">
-            <div class="icon"><i class="fas fa-exclamation-triangle"></i></div>
-            <div class="message"><a
-                    href="/cabinet/products#filterModel=%7B%22cost_price%22:%7B%22filterType%22:%22number%22,%22type%22:%22equals%22,%22filter%22:0%7D%7D"
-                    target="_blank">90 товаров с нулевой себестоимостью.</a> <span
-                    aria-hidden="true"
-                    class="ml-1 spinner-border spinner-border-sm text-success"
-                    style="display: none;"><!----></span>
-              <button type="button" aria-label="Закрыть" class="close"><i
-                      class="fas fa-times"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div> <!---->
       <div class="card">
         <div class="card-header">Продажи по дням</div>
         <div class="card-body">

@@ -27,7 +27,7 @@
                 </div>
                 <div class="card-body row">
                     <div class="col-12 col-lg-4">
-                        <button onclick="addToken()" class="btn btn-success mb-3"><i class="mdi mdi-plus"></i> Добавить
+                        <button onclick="addToken()" class="btn btn-success mb-3"> Добавить
                             ключ API
                         </button>
                     </div>
@@ -48,7 +48,7 @@
                                                 <div class="card-subtitle mt-2">
                                                     {% if token.status == 1 %}
                                                     Оборот:
-                                                    <span class="font-weight-normal">{{token.turnovers ?? '0' }} ₽</span> <i
+                                                    <span class="font-weight-normal number">{{(token.turnovers ?? '0')|round (0) }} ₽</span> <i
                                                             class="fas fa-info-circle ml-2"></i>
                                                     {%endif%}
                                                 </div>
@@ -56,7 +56,7 @@
                                             <div class="tools">
                                                 <div class="dropdown b-dropdown btn-group" id="__BVID__12"><!---->
                                                     <button style="color: red;" aria-haspopup="true" aria-expanded="false" type="button" onclick="deleteToken(this)"
-                                                            class="btn dropdown-toggle btn-link btn-sm text-decoration-none dropdown-toggle-no-caret"
+                                                            class="btn btn-link btn-sm text-decoration-none-no-caret"
                                                             id="{{token.id}}">Удалить
                                                     </button>
                                                 </div>
@@ -136,6 +136,8 @@
         </div>
     </div>
     <script>
+
+
         async function deleteToken(element) {
             await fetch("token/"+element.id)
             window.location.reload()

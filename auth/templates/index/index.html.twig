@@ -32,7 +32,7 @@
                     <li class="nav-item dropdown" onclick="dropdown(this)"><a data-toggle="dropdown"
                                                                               role="button"
                                                                               aria-expanded="false"
-                                                                              class="nav-link dropdown-toggle">
+                                                                              class="nav-link">
                             Кабинет WB &#9660</a>
                         <div role="menu" style="display:none;" class="dropdown-menu show "><a href="/cabinet/summary"
                                                                                               class="dropdown-item"><span>Сводка</span></a>
@@ -58,7 +58,7 @@
                                 data-toggle="dropdown"
                                 role="button"
                                 aria-expanded="false"
-                                class="nav-link dropdown-toggle">
+                                class="nav-link">
                             SEO &#9660;</a>
                         <div role="menu" style="display:none;" class="dropdown-menu show"><a href="/seo/keyword"
                                                                                              class="dropdown-item keyword-dashboard"><span>Результаты поиска (SERP)</span></a>
@@ -75,7 +75,7 @@
                     <li class="nav-item dropdown" onclick="dropdown(this)"><a data-toggle="dropdown"
                                                                               role="button"
                                                                               aria-expanded="false"
-                                                                              class="nav-link dropdown-toggle">
+                                                                              class="nav-link">
                             Ozon &#9660;</a>
                         <div role="menu" style="display:none;" class="dropdown-menu show"><a href="/ozon/category?url="
                                                                                              class="dropdown-item"><span>Категории</span></a>
@@ -86,7 +86,7 @@
                     <li class="nav-item dropdown" onclick="dropdown(this)"><a data-toggle="dropdown"
                                                                               role="button"
                                                                               aria-expanded="false"
-                                                                              class="nav-link dropdown-toggle">
+                                                                              class="nav-link">
                             Wildberries &#9660;</a>
                         <div role="menu" style="display:none;" class="dropdown-menu show"><a href="/wb/category?url="
                                                                                              class="dropdown-item"><span>Категории</span></a>
@@ -104,7 +104,7 @@
                     </li>
                     {% if is_granted("ROLE_ADMIN") %}
                         <li class="nav-item dropdown"><a href="{{ path('admin') }}" data-toggle="dropdown" role="button"
-                                                         aria-expanded="false" class="nav-link dropdown-toggle">Админ
+                                                         aria-expanded="false" class="nav-link">Админ
                                 панель</a>
                             <div role="menu" style="display:none;" class="dropdown-menu show">
                         </li>
@@ -127,7 +127,7 @@
                     <li class="nav-item dropdown" onclick="dropdown(this)"><a data-toggle="dropdown"
                                                                               role="button"
                                                                               aria-expanded="false"
-                                                                              class="nav-link dropdown-toggle"><img
+                                                                              class="nav-link"><img
                                     src="https://mpstats.io/i/avatar.png" alt="" width="32"
                                     height="32"></a>
                         <div role="menu" style="display:none;" class="dropdown-menu show profile-menu">
@@ -404,6 +404,10 @@
 </body>
 {% block scripts %}
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            formatter("number")
+        })
+
         function drawDonutGraph(id, labels, data, title, vector = 'left') {
             new Chart(document.getElementById(id).getContext('2d'), {
                 type: 'doughnut',
@@ -577,13 +581,43 @@
                 pagination: true,
                 defaultColDef: {
                     sortable: true,
-                    filter: true,
+                    filter: 'agTextColumnFilter',
+                    floatingFilter: true,
+                    resizable: true,
+                    filterParams: {
+                        buttons: ['reset', 'apply'],
+                        debounceMs: 200
+                    },
                     enableValue: true,
                     enableRowGroup: true,
-                    floatingFilter: true,
                     enablePivot: true,
                     overlayLoadingTemplate:
                         '<span class="ag-overlay-loading-center"><div class="loader"><svg><circlecx="50"cy="50"r="40"stroke="#418200"stroke-dasharray="78.5 235.5"stroke-width="3"fill="/><circlecx="50"cy="50"r="30"stroke=" green"stroke-dasharray="62.8 188.8"stroke-width="3"fill="none"/><circlecx="50"cy="50"r="20"stroke="#81C700"stroke-dasharray="47.1 141.3"stroke-width="3"fill="none"/></svg></div></span> ',
+                },
+                sideBar: {
+                    toolPanels: [
+                        {
+                            id: "columns",
+                            labelDefault: "Columns",
+                            labelKey: "columns",
+                            iconKey: "columns",
+                            toolPanel: "agColumnsToolPanel",
+                            minWidth: 225,
+                            maxWidth: 225,
+                            width: 225,
+                        },
+                        {
+                            id: "filters",
+                            labelDefault: "Filters",
+                            labelKey: "filters",
+                            iconKey: "filter",
+                            toolPanel: "agFiltersToolPanel",
+                            minWidth: 180,
+                            maxWidth: 400,
+                            width: 250,
+                        },
+                    ],
+                    position: "right",
                 },
                 suppressContextMenu: true,
                 localeText: this.getLocale(),
@@ -613,6 +647,7 @@
                 // for number filter and text filter
                 filterOoo: "Фильтровать...",
                 applyFilter: "Применить фильтр...",
+                resetFilter: "Сброс",
                 equals: "Равно",
                 notEqual: "Не равно",
 
