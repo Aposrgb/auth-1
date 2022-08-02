@@ -27,7 +27,7 @@
                 </div>
                 <div class="card-body row">
                     <div class="col-12 col-lg-4">
-                        <button onclick="addToken()" class="btn btn-success mb-3"><i class="mdi mdi-plus"></i> Добавить
+                        <button onclick="addToken()" class="btn btn-success mb-3"> Добавить
                             ключ API
                         </button>
                     </div>
@@ -140,7 +140,6 @@
             await fetch("token/"+element.id)
             window.location.reload()
         }
-
         function addToken() {
             let div = document.getElementById('modal');
             if (div !== null) {
@@ -166,7 +165,6 @@
     </div>
 </div>`;
             }
-
         }
         {% if error ?? null %}
             addToken()
