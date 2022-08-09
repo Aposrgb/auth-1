@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\ApiToken;
 use App\Entity\Token;
+use App\Repository\ApiTokenRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -15,6 +16,7 @@ abstract class AbstractService
         protected EntityManagerInterface $entityManager,
         protected SerializerInterface $serializer,
         protected UserPasswordHasherInterface $hasher,
+        protected ApiTokenRepository $apiTokenRepository,
         protected $mpStatsApi,
         protected $mpStatsApiWb,
         protected $mpStatsApiOz
@@ -22,10 +24,21 @@ abstract class AbstractService
     {
     }
 
+    protected function checkWbData($tokens)
+    {
+        $haveToken = false;
+        foreach ($tokens as $token){
+            /** @var ApiToken $token */
+            if($token->getWbData()){
+                $haveToken = true;
+            }
+        }
+        return $haveToken;
+    }
+
     protected function checkStatusToken($id, $query = [])
     {
-        $tokens = $this
-            ->entityManager
+        $tokens = $this->entityManager
             ->getRepository(ApiToken::class)
             ->getTokenWithUser($id, true);
 

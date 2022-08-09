@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\ApiToken;
+use App\Helper\Status\ApiTokenStatus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -19,6 +20,21 @@ class ApiTokenRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, ApiToken::class);
+    }
+
+    public function findByIds(array $ids): array
+    {
+        if (empty($ids)) {
+            return [];
+        }
+        $qb = $this->createQueryBuilder('u');
+        return $qb
+            ->where($qb->expr()->in('u.id', ':ids'))
+            ->setParameter('ids', $ids)
+            ->andWhere('u.status = :stat')
+            ->setParameter('stat', ApiTokenStatus::ACTIVE)
+            ->getQuery()
+            ->getResult();
     }
 
     public function findAndSet($token, $wbId)

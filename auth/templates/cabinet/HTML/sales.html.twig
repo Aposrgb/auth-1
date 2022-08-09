@@ -11,9 +11,6 @@
             class="d-flex flex-column flex-lg-row justify-content-between justify-content-lg-start align-items-lg-center">
       <div
               class="btn-group d-flex flex-column flex-md-block flex-md-row mr-3">
-        <button class="btn btn-outline-primary active">Заказы</button>
-        <button class="btn btn-outline-success">Продажи</button>
-        <button class="btn btn-outline-danger">Возвраты</button>
         <div class="d-block-inline dropdown-period ml-2"><!----><!----><!---->
           <!---->
           <!----><!----><!---->
@@ -35,14 +32,21 @@
             <button aria-haspopup="true" onclick="allKeys()" aria-expanded="false" type="button" class="btn btn-secondary" id="__BVID__11__BV_toggle_">
               <span>Все ключи API</span>
             </button>
-
-            <ul role="menu" style="display:none" class="dropdown_keys">
-              {% for token in tokens %}
-                <li role="presentation" onclick="selectKey({{loop.index-1}}, '{{path("sales")}}')">
-                  {{ token.name }}
-                </li>
+            <button style="display:none;position: absolute; top: 130px;z-index: 12;left: 59px;" onclick="apply('{{path("sales")}}')" class="dropdown_keys btn btn-secondary" >
+              <span>Применить</span>
+            </button>
+            <select style="display: none;" multiple="multiple" class="dropdown_keys">
+              <option value="all" onclick="allSelectKeys()">Все ключи API</option>
+              {% for token in allTokens %}
+                <option value="{{token.id}}">
+                  {% if token.name|length > 9 %}
+                    {{ token.name|slice(0, 9) }}...
+                  {% else %}
+                    {{token.name}}
+                  {% endif %}
+                </option>
               {% endfor %}
-            </ul>
+            </select>
 
           </div>
         </div>

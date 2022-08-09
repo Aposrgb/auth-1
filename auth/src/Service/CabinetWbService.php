@@ -293,10 +293,16 @@ class CabinetWbService extends AbstractService
 
     public function getOrders($id, $query)
     {
-        $dataWb = $this->checkStatusToken($id, $query);
-        $context['token'] = $dataWb['token'];
+        $tokenQuery = ($query['ids']??null) ? explode(',', $query['ids']): null;
+        $allTokens = null;
+        if($tokenQuery && !in_array('all', $tokenQuery)){
+            $tokens = $this->apiTokenRepository->findByIds($tokenQuery);
+        }else{
+            $tokens = $this->apiTokenRepository->findBy(['apiUser' => $id, 'status' => ApiTokenStatus::ACTIVE]);
+            $allTokens = $tokens;
+        }
 
-        if (!$dataWb['wbData']) {
+        if (!$this->checkWbData($tokens)) {
             $context["processing"] = true;
             return $context;
         }
@@ -307,7 +313,12 @@ class CabinetWbService extends AbstractService
         $data = [];
 
         for ($i = 0; $i < count($arrayPropNames); $i++) {
-            $data[$arrayNames[$i]] = $repos->getProperty($arrayPropNames[$i], $dataWb['wbData']->getId());
+            $data[$arrayNames[$i]] = [];
+            foreach ($tokens as $token){
+                if($wbData = $token->getWbData()){
+                    $data[$arrayNames[$i]] = array_merge($repos->getProperty($arrayPropNames[$i], $wbData->getId()), $data[$arrayNames[$i]]);
+                }
+            }
         }
         $data["order"] = [];
         $count = min(count($data["orders"]), 100);
@@ -339,7 +350,8 @@ class CabinetWbService extends AbstractService
                 $data['order'][$searchItem]['img'] = $img;
             }
         }
-        $context["tokens"] = $dataWb['tokens'] instanceof ApiToken ? [$dataWb['tokens']] : $dataWb['tokens'];
+        $context["tokens"] = $tokens;
+        $context["allTokens"] = $allTokens ?? $this->apiTokenRepository->findByIds($tokenQuery);
         $context["orders"] = $data["order"];
         return $context;
     }
@@ -369,11 +381,9 @@ class CabinetWbService extends AbstractService
         if (!$key || !$name) {
             $error = "Не заполнено поле";
         } else if ($key and $name) {
-            $token = $this
-                ->entityManager
+            $token = $this->entityManager
                 ->getRepository(ApiToken::class)
                 ->findBy([
-                    'name' => $name,
                     'apiUser' => $user->getId(),
                     'token' => $key
                 ]);
@@ -391,6 +401,35 @@ class CabinetWbService extends AbstractService
             }
         }
         return $error;
+    }
+
+    public function editToken(ApiToken $token, $user, $name, $key)
+    {
+        if (!$key || !$name) {
+            return "Не заполнено поле";
+        } else if ($key and $name) {
+            $tokenFound = $this->entityManager
+                ->getRepository(ApiToken::class)
+                ->findBy([
+                    'apiUser' => $user->getId(),
+                    'token' => $key
+                ]);
+            if ($tokenFound) {
+                return "Уже есть такой токен";
+            } else {
+                if($token->getApiUser() != $user){
+                    return  "Токен не найден";
+                }
+                $token
+                    ->setName($name)
+                    ->setToken($key)
+                    ->setStatus(ApiTokenStatus::UPDATING)
+                ;
+                $this->entityManager->flush();
+                shell_exec("php ../bin/console wb:data:processing $key " . $user->getId() . " > /dev/null &");
+            }
+        }
+        return '';
     }
 
     public function getWbData($id, $query)

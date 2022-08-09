@@ -163,17 +163,38 @@
                 }
             }
             {% if tokens is defined %}
+
             function allKeys() {
                 let buttonAllkey = document.getElementById("__BVID__11");
                 if (buttonAllkey !== undefined) {
                     let display = buttonAllkey.children[buttonAllkey.children.length - 1].style.display
                     display = display === "block" ? "none" : "block"
-                    buttonAllkey.children[buttonAllkey.children.length - 1].style = `display:${display};margin-block: 32px -65px;`
+                    buttonAllkey.children[buttonAllkey.children.length - 1].style = `display:${display};margin-block: 32px -65px;box-shadow: 0px 0px 4px 0px black;border: none;`
+                    buttonAllkey.children[buttonAllkey.children.length - 2].style.display = display
+                }
+            }
+            function allSelectKeys() {
+                let buttonAllkey = document.getElementById("__BVID__11");
+                let select = buttonAllkey.children[buttonAllkey.children.length - 1]
+                for (let i=0;i<select.children.length;i++){
+                    select.children[i].selected = true
                 }
             }
 
             function selectKey(id, url) {
                 window.location.href = url + "?index=" + id;
+            }
+
+            function apply(url){
+                let buttonAllkey = document.getElementById("__BVID__11");
+                let select = buttonAllkey.children[buttonAllkey.children.length - 1], ids = [], j=0
+                for (let i=0;i<select.children.length;i++){
+                    if(select.children[i].selected){
+                        ids[j] = select.children[i].value
+                        j++
+                    }
+                }
+                window.location.href = url + "?ids=" + ids;
             }
             {% endif %}
         </script>
@@ -249,20 +270,15 @@
             position: absolute;
             background: white;
             padding: 0;
+            left: -14px;
+            overflow: overlay;
         }
-
-        .dropdown_keys li {
-            min-width: 5.5vw;
-            text-align: center;
-            padding: 5px 0px;
-            border: solid 1px;
+        .dropdown_keys option:before {
+            content: " ☐  ";
         }
-
-        .dropdown_keys :hover {
-            background: #badfff82;
-            box-shadow: 0px 0px 7px 0px #030b3e2b;
+        .dropdown_keys option:checked:before {
+            content: " ☑  ";
         }
-
         .scrollbar {
             -webkit-appearance: none;
             width: 100%;
@@ -740,6 +756,16 @@
                     prop.innerText = intFormatter.format(tryParseInt(str2)) + " " +str.substring(str2.length)
                 }
             }
+        }
+
+        function getIndexClass(strClass, element){
+            let classes = document.getElementsByClassName(strClass)
+            for (let i=0;i<classes.length;i++){
+                if(classes[i]===element){
+                    return i
+                }
+            }
+            return -1
         }
 
         function tryParseInt(str,defaultValue) {

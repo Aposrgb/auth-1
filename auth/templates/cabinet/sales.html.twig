@@ -8,7 +8,7 @@
 
 {% endblock %}
 {% block body %}
-    {% if token %}
+    {% if tokens %}
         {% if processing is defined %}
             <div class="be-content">
                 <div id="mp-stats-app" class="main-content container-fluid">
@@ -187,7 +187,7 @@
                 },
             ]
             option['rowData'] = [
-                {% for order in orders %}
+                {% for order in orders ?? [] %}
                 {
                     photo: '{{ order.img }}',
                     subject: '{{ order.subject }}',
@@ -207,6 +207,16 @@
                 {% endfor %}
             ]
             new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[0], option)
+            let buttonAllkey = document.getElementById("__BVID__11");
+            let select = buttonAllkey.children[buttonAllkey.children.length - 1]
+            let tokens = [{% for token in tokens ?? [] %} {{token.id}}, {% endfor%}]
+            for(let i=0;i<select.children.length;i++){
+                for(let j=0;j<tokens.length;j++){
+                    if(tokens[j] === tryParseInt(select.children[i].value)){
+                        select.children[i].selected = true
+                    }
+                }
+            }
         })
     </script>
 {% endblock %}

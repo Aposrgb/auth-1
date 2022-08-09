@@ -127,7 +127,7 @@
 
             ]
             option['rowData'] = [
-                {% for order in orders %}
+                {% for order in orders ?? []%}
                 {
                     city: '{{ order.city }}',
                     quantity: '{{ order.quantity }}',
@@ -137,7 +137,7 @@
                 {% endfor %}
             ]
             option2['rowData'] = [
-                {% for sale in sales %}
+                {% for sale in sales ?? []%}
                 {
                     city: '{{ sale.city }}',
                     quantity: '{{ sale.quantity }}',

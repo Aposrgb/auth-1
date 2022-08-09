@@ -107,6 +107,20 @@ class CabinetController extends AbstractController
             ]
         );
     }
+    #[Route(path: '/connect/edit/{token}', name: 'connect_edit_post', methods: ["POST"])]
+    public function connectEditToken(ApiToken $token, Request $request): Response
+    {
+        $key = $request->request->get('api_key');
+        $name = $request->request->get('name');
+        $error = $this->cabinetWbService->editToken($token, $user = $this->getUser(), $name, $key);
+        return $this->redirectToRoute('connect',
+            [
+                'tokens' => $user->getApiToken(),
+                'error' => $error,
+                'data' => $error == ''?$key:null
+            ]
+        );
+    }
     #[Route(path: '/token/{id}', name: 'delete_token', methods: ["GET"])]
     public function deleteToken(ApiToken $token): Response
     {
