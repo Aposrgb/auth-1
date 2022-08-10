@@ -169,13 +169,14 @@
                 if (buttonAllkey !== undefined) {
                     let display = buttonAllkey.children[buttonAllkey.children.length - 1].style.display
                     display = display === "block" ? "none" : "block"
-                    buttonAllkey.children[buttonAllkey.children.length - 1].style = `display:${display};margin-block: 32px -65px;box-shadow: 0px 0px 4px 0px black;border: none;`
-                    buttonAllkey.children[buttonAllkey.children.length - 2].style.display = display
+                    buttonAllkey.children[buttonAllkey.children.length - 1].style.display = display;
+                    document.getElementById('__BVID__11__BV_toggle_').style.visibility = display === "block" ? "hidden" : "visible";
                 }
             }
             function allSelectKeys() {
                 let buttonAllkey = document.getElementById("__BVID__11");
                 let select = buttonAllkey.children[buttonAllkey.children.length - 1]
+                select = select.children[select.children.length - 2]
                 for (let i=0;i<select.children.length;i++){
                     select.children[i].selected = true
                 }
@@ -267,11 +268,11 @@
         .dropdown_keys {
             z-index: 11;
             list-style-type: none;
-            position: absolute;
+            position: relative;
             background: white;
             padding: 0;
-            left: -14px;
             overflow: overlay;
+            right: -2px;
         }
         .dropdown_keys option:before {
             content: " ☐  ";
