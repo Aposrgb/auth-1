@@ -8,7 +8,7 @@
 
 {% endblock %}
 {% block body %}
-    {% if token %}
+    {% if tokens %}
         {% if processing is defined %}
             <div class="be-content">
                 <div id="mp-stats-app" class="main-content container-fluid">
@@ -71,16 +71,118 @@
         </div>
     {% endif %}
     <script>
+        let option = {}
         document.addEventListener("DOMContentLoaded", () => {
-            let el = document.getElementById("scrollbar")
-            el.addEventListener("input",
-                function () {
-                    let width = document.getElementById("table_sale").offsetWidth
-                    let value = el.value * width/1800*width/1800
-                    document.getElementById("table_sale").style.transform = "translateX(-" + value + "px)"
-                    document.getElementById("table_sale_header").style.transform = "translateX(-" + value + "px)"
-                    document.getElementById("table_sale_footer").style.transform = "translateX(-" + value + "px)"
-                }, false)
+            let buttonAllkey = document.getElementById("__BVID__11");
+            let select = buttonAllkey.children[buttonAllkey.children.length - 1]
+            select = select.children[select.children.length - 2]
+            let tokens = [{% for token in tokens ?? [] %} {{ token.id }}, {% endfor %}]
+            for (let i = 0; i < select.children.length; i++) {
+                for (let j = 0; j < tokens.length; j++) {
+                    if (tokens[j] === tryParseInt(select.children[i].value)) {
+                        select.children[i].selected = true
+                    }
+                }
+            }
+            option = {...getOptions()}
+            option['columnDefs'] = [
+                {
+                    headerName: 'Товар',
+                    children: [
+                        {
+                            headerName: 'Фото',
+                            field: 'img',
+                            maxWidth: 80,
+                            pinned: 'left',
+                            sortable: false,
+                            filter: false,
+                            cellRenderer: params => `<img style="height: 32px; width: 32px" src="${params.value}" />`
+                        },
+                        {
+                            headerName: 'Название',
+                            field: 'subject',
+                            pinned: 'left',
+                        }
+                    ]
+                },
+                {
+                    headerName: 'Товар',
+                    children: [
+                        {
+                            headerName: 'Товарная группа',
+                            field: 'category'
+                        },
+                        {
+                            headerName: 'Артикул',
+                            field: 'article',
+                            cellRenderer: params => `2140арт2146олива`
+                        },
+                        {
+                            headerName: 'SKU',
+                            field: 'nmId'
+                        },
+                        {
+                            headerName: 'Бренд',
+                            field: 'brand',
+                            cellRenderer: params => `<a href="/wb/brand/${params.value}">${params.value}</a>`
+                        },
+                        {
+                            headerName: 'Себестоимость',
+                            field: 'prices',
+                            cellRenderer: params => `0`
+                        }
+                    ]
+                },
+                {
+                    headerName: 'Общeе',
+                    children: [
+                        {
+                            headerName: 'API',
+                            children: [
+                                {
+                                    headerName: 'Всего',
+                                    field: 'cityResult',
+                                    maxWidth: 130
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {% for city in cities ?? [] %}
+                {
+                    headerName: '{{ city.name }}',
+                    children: [
+                        {
+                            headerName: 'API',
+                            children: [
+                                {
+                                    headerName: 'Всего',
+                                    field: 'city{{ loop.index }}',
+                                    maxWidth:130
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {% endfor %}
+            ]
+            option['rowData'] = [
+                {% for stock in stocks ?? [] %}
+                {
+                    img: '{{ stock.img }}',
+                    subject: '{{ stock.subject }}',
+                    nmId: '{{ stock.nmId }}',
+                    category: '{{ stock.category }}',
+                    brand: '{{ stock.brand }}',
+                    prices: '',
+                    cityResult: '{{stock.cityResult}}',
+                    {% for city in cities %}
+                    city{{ loop.index }}: '{{ stock.cities[loop.index-1] }}',
+                    {% endfor %}
+                },
+                {% endfor %}
+            ]
+            new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[0], option)
         })
     </script>
 {% endblock %}

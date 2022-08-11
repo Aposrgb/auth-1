@@ -26,15 +26,26 @@
               <button aria-haspopup="true" onclick="allKeys()" aria-expanded="false" type="button" class="btn btn-secondary" id="__BVID__11__BV_toggle_">
                 <span>Все ключи API</span>
               </button>
-
-              <ul role="menu" style="display:none" class="dropdown_keys">
-                {% for token in tokens %}
-                  <li role="presentation" onclick="selectKey({{loop.index-1}}, '{{path("order-region")}}')">
-                    {{ token.name }}
-                  </li>
-                {% endfor %}
-              </ul>
-
+              <div style="display: none;position: absolute; height: 160px; right: -20px; z-index: 22; width: 150px; background: #e5e5e5; border-radius: 2px;">
+                <button style="width: inherit;" aria-haspopup="true" onclick="allKeys()" aria-expanded="false" type="button" class="btn btn-secondary">
+                  <span>Все ключи API</span>
+                </button>
+                <select style="box-shadow: 0px 0px 4px 0px black;top: 5px;border: none;" multiple="multiple" class="dropdown_keys">
+                  <option value="all" onclick="allSelectKeys()">Все ключи API</option>
+                  {% for token in allTokens %}
+                    <option value="{{token.id}}">
+                      {% if token.name|length > 9 %}
+                        {{ token.name|slice(0, 9) }}...
+                      {% else %}
+                        {{token.name}}
+                      {% endif %}
+                    </option>
+                  {% endfor %}
+                </select>
+                <button style="top: 5px; z-index: 12;left: 0px;width: inherit;" onclick="applyToken('{{path("order-region")}}')" class="dropdown_keys btn btn-secondary" >
+                  <span>Применить</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

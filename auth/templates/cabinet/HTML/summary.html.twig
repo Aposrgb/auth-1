@@ -1,551 +1,580 @@
 <div class="be-content">
-  <div id="mp-stats-app" class="main-content container-fluid">
-    <div id="global-loader-block" aria-hidden="true" class="mp-loader-overlay ag-overlay hidden">
-      <div class="ag-overlay-panel">
-        <div class="ag-overlay-wrapper ag-layout-normal ag-overlay-loading-wrapper">
-          <div class="mp-loader-static"></div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div role="alert" class="alert alert-warning alert-icon alert-dismissible">
-        <div class="message">
-          В результате технического сбоя в работе Wildberries в личном кабинете могут быть задержки
-          при
-          обновлении данных, передаваемых по API. Сведения по отчетам обновляются медленнее, чем
-          раньше,
-          мы уже работаем над решением вопроса.
-          <br> <b>Важно!</b> Обновление вашего API ключа не повлияет на скорость получения данных.
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header d-md-flex justify-content-between align-items-start pb-3 pt-3">
-          <nav aria-label="breadcrumb" role="navigation">
-            <ol class="breadcrumb page-head-nav page-header pl-0 mb-0">
-              <li class="breadcrumb-item">Сводка</li>
-            </ol>
-          </nav>
-          <div class="d-flex flex-column flex-lg-row justify-content-between justify-content-lg-start align-items-lg-center">
-            <div class="d-flex flex-column flex-lg-block flex-lg-row">
-              <div class="d-block-inline dropdown-period mr-3"><!----><!----><!----><!----><!---->
-                <!----><!---->
-                <div class="btn-group d-flex flex-column flex-lg-block flex-lg-row"><!---->
-                  <div class="btn btn-secondary">
-                    <div data-v-1ebd09d2="" class="vue-daterange-picker">
-                      <div data-v-1ebd09d2="" class=""><i data-v-1ebd09d2=""
-                                                          class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                        <span data-v-1ebd09d2="">08.03.2022 - 06.04.2022</span><b
-                                data-v-1ebd09d2="" class="caret"></b></div><!----></div>
-                  </div> <!----></div>
-              </div>
-              <div class="api-key-selector d-flex align-items-start align-items-xxl-center">
-                <div class="dropdown b-dropdown btn-group" id="__BVID__11"><!---->
-                  <button aria-haspopup="true" onclick="allKeys()" aria-expanded="false" type="button" class="btn btn-secondary" id="__BVID__11__BV_toggle_">
-                    <span>Все ключи API</span>
-                  </button>
-
-                  <ul role="menu" style="display:none" class="dropdown_keys">
-                    {% for token in tokens %}
-                    <li role="presentation" onclick="selectKey({{loop.index-1}}, '{{ path("summary") }}')">
-                       {{ token.name }}
-                    </li>
-                    {% endfor %}
-                  </ul>
-
+    <div id="mp-stats-app" class="main-content container-fluid">
+        <div id="global-loader-block" aria-hidden="true" class="mp-loader-overlay ag-overlay hidden">
+            <div class="ag-overlay-panel">
+                <div class="ag-overlay-wrapper ag-layout-normal ag-overlay-loading-wrapper">
+                    <div class="mp-loader-static"></div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
-      <div>
-        <div class="row">
-          <div class="summary-number-wrapper col-sm-12 col-md-6 col-lg flex-lg-grow-0">
-            <div class="summary-numbers widget widget-tile flex-column p-2 d-block border-color-danger">
-              <i class="fas fa-ellipsis-v text-bg-light" style=""></i> <i
-                    class="fas fa-circle-notch fa-spin text-success" style="display: none;"></i>
-              <div class="title desc text-right"><span>Продажи</span>
-                <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
-                     aria-label="info circle" id="info-popover-id-21127"
-                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                     class="bi-info-circle ml-1 b-icon bi">
-                  <g>
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                    <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-                  </g>
-                </svg>
-              </div>
-              <div class="d-flex flex-column">
-                <div class="data-info mt-2">
-                  <div class="value d-flex"><span class="title mr-1" style="">Сумма</span>
-                    <span
-                            title="За выбранный период" class="new-value ml-auto"><span
-                            class="indicator-negative "
-                            style=""></span> <span class="number" id="summa_price">{{summaPrice ?? 0}}</span> <span>₽</span></span>
-                  </div>
-                  <div class="diff-value text-danger"><span
-                          title="Разница с предыдущим периодом"><span
-                          style="display: none;">+</span><span>-23 888</span></span>
-                    <span>₽</span></div>
-                  <div style="display: none;">&nbsp;</div>
+        <div>
+            <div role="alert" class="alert alert-warning alert-icon alert-dismissible">
+                <div class="message">
+                    В результате технического сбоя в работе Wildberries в личном кабинете могут быть задержки
+                    при
+                    обновлении данных, передаваемых по API. Сведения по отчетам обновляются медленнее, чем
+                    раньше,
+                    мы уже работаем над решением вопроса.
+                    <br> <b>Важно!</b> Обновление вашего API ключа не повлияет на скорость получения данных.
                 </div>
-                <div class="data-info mt-2">
-                  <div class="value d-flex"><span class="title mr-1"
-                                                  style="">Количество</span>
-                    <span title="За выбранный период" class="new-value ml-auto"><span
-                            class="indicator-negative "
-                            style=""></span> <span class="number" id="summa_length">{{summaLength ?? 0}}</span> <span>шт</span></span>
-                  </div>
-                  <div class="diff-value text-danger"><span
-                          title="Разница с предыдущим периодом"><span
-                          style="display: none;">+</span><span>-16</span></span>
-                    <span>шт</span></div>
-                  <div style="display: none;">&nbsp;</div>
-                </div>
-              </div> <!----></div> <!----> <!----></div>
-          <div class="summary-number-wrapper col-sm-12 col-md-6 col-lg flex-lg-grow-0"><!---->
-            <div class="orders-self-redemptions-widget-numbers-wrapper summary-numbers widget widget-tile flex-column p-2 d-block border-color-danger">
-              <i class="fas fa-ellipsis-v text-bg-light" style=""></i> <i
-                    class="fas fa-circle-notch fa-spin text-success" style="display: none;"></i>
-              <div class="tabs" id="__BVID__49"><!---->
-                <div class="">
-                  <ul role="tablist" class="nav nav-tabs" id="__BVID__49__BV_tab_controls_">
-                    <!---->
-                    <li role="presentation" class="nav-item"><a role="tab"
-                                                                aria-selected="true"
-                                                                aria-setsize="2"
-                                                                aria-posinset="1" href="#"
-                                                                target="_self"
-                                                                class="nav-link active title desc pt-0 px-2 pb-1"
-                                                                id="__BVID__52___BV_tab_button__"
-                                                                aria-controls="__BVID__52"><span>Заказы</span></a>
-                    </li>
-                    <li role="presentation" class="nav-item"><a role="tab" tabindex="-1"
-                                                                aria-selected="false"
-                                                                aria-setsize="2"
-                                                                aria-posinset="2" href="#"
-                                                                target="_self"
-                                                                class="nav-link title desc pt-0 px-2 pb-1"
-                                                                id="__BVID__58___BV_tab_button__"
-                                                                aria-controls="__BVID__58"><span>Не завершенные</span></a>
-                    </li>
-                    <div>
-                      <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false"
-                           role="img" aria-label="info circle"
-                           id="info-popover-id-9712-orders"
-                           xmlns="http://www.w3.org/2000/svg"
-                           fill="currentColor" class="bi-info-circle ml-1 b-icon bi">
-                        <g>
-                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                          <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-                        </g>
-                      </svg> <!----></div>
-                    <div>
-                      <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false"
-                           role="img" aria-label="info circle"
-                           id="info-popover-id-9712-not_finished_orders"
-                           xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                           class="bi-info-circle ml-1 b-icon bi" style="display: none;">
-                        <g>
-                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                          <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-                        </g>
-                      </svg> <!----></div>
-                  </ul>
-                </div>
-                <div class="tab-content p-0 mb-0" id="__BVID__49__BV_tab_container_">
-                  <div role="tabpanel" aria-hidden="false" class="tab-pane active"
-                       id="__BVID__52"
-                       aria-labelledby="__BVID__52___BV_tab_button__" style="">
-                    <div class="d-flex flex-column">
-                      <div class="data-info mt-2">
-                        <div class="value d-flex"><span class="title mr-1">Сумма</span>
-                          <span title="Сумма" class="new-value ml-auto"><span
-                                  class="indicator-negative "></span> <span class="number" id="orders_price">{{ ordersPrice ?? 0 }}</span> <span>₽</span></span>
+            </div>
+            <div class="card">
+                <div class="card-header d-md-flex justify-content-between align-items-start pb-3 pt-3">
+                    <nav aria-label="breadcrumb" role="navigation">
+                        <ol class="breadcrumb page-head-nav page-header pl-0 mb-0">
+                            <li class="breadcrumb-item">Сводка</li>
+                        </ol>
+                    </nav>
+                    <div class="d-flex flex-column flex-lg-row justify-content-between justify-content-lg-start align-items-lg-center">
+                        <div class="d-flex flex-column flex-lg-block flex-lg-row">
+                            <div class="d-block-inline dropdown-period mr-3"><!----><!----><!----><!----><!---->
+                                <!----><!---->
+                                <div class="btn-group d-flex flex-column flex-lg-block flex-lg-row"><!---->
+                                    <div class="btn btn-secondary">
+                                        <div data-v-1ebd09d2="" class="vue-daterange-picker">
+                                            <div data-v-1ebd09d2="" class=""><i data-v-1ebd09d2=""
+                                                                                class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                                <span data-v-1ebd09d2="">08.03.2022 - 06.04.2022</span><b
+                                                        data-v-1ebd09d2="" class="caret"></b></div><!----></div>
+                                    </div> <!----></div>
+                            </div>
+                            <div class="api-key-selector d-flex align-items-start align-items-xxl-center">
+                                <div class="dropdown b-dropdown btn-group" id="__BVID__11"><!---->
+                                    <button aria-haspopup="true" onclick="allKeys()" aria-expanded="false" type="button"
+                                            class="btn btn-secondary" id="__BVID__11__BV_toggle_">
+                                        <span>Все ключи API</span>
+                                    </button>
+                                    <div style="display: none;position: absolute; height: 160px; right: -20px; z-index: 22; width: 150px; background: #e5e5e5; border-radius: 2px;">
+                                        <button style="width: inherit;" aria-haspopup="true" onclick="allKeys()"
+                                                aria-expanded="false" type="button" class="btn btn-secondary">
+                                            <span>Все ключи API</span>
+                                        </button>
+                                        <select style="box-shadow: 0px 0px 4px 0px black;top: 5px;border: none;"
+                                                multiple="multiple" class="dropdown_keys">
+                                            <option value="all" onclick="allSelectKeys()">Все ключи API</option>
+                                            {% for token in allTokens %}
+                                                <option value="{{ token.id }}">
+                                                    {% if token.name|length > 9 %}
+                                                        {{ token.name|slice(0, 9) }}...
+                                                    {% else %}
+                                                        {{ token.name }}
+                                                    {% endif %}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                        <button style="top: 5px; z-index: 12;left: 0px;width: inherit;"
+                                                onclick="applyToken('{{ path("summary") }}')"
+                                                class="dropdown_keys btn btn-secondary">
+                                            <span>Применить</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="diff-value text-danger"><span
-                                title="Разница с предыдущим периодом"><span
-                                style="display: none;">+</span><span>-10 372</span></span>
-                          <span>₽</span></div>
-                        <div style="display: none;">&nbsp;</div>
-                      </div>
-                      <div class="data-info mt-2">
-                        <div class="value d-flex"><span
-                                class="title mr-1">Количество</span>
-                          <span title="Количество" class="new-value ml-auto"><span
-                                  class="indicator-negative "></span> <span class="number" id="orders_length">{{ ordersLength ?? 0 }}</span> <span>шт</span></span>
-                        </div>
-                        <div class="diff-value text-danger"><span
-                                title="Разница с предыдущим периодом"><span
-                                style="display: none;">+</span><span>-22</span></span>
-                          <span>шт</span></div>
-                        <div style="display: none;">&nbsp;</div>
-                      </div>
                     </div>
-                  </div>
-                  <div role="tabpanel" aria-hidden="true" class="tab-pane" id="__BVID__58"
-                       aria-labelledby="__BVID__58___BV_tab_button__" style="display: none;">
-                    <div class="d-flex flex-column">
-                      <div class="data-info mt-2">
-                        <div class="value d-flex"><span class="title mr-1">Сумма</span>
-                          <span title="Сумма" class="new-value ml-auto"><span
-                                  class="mdi"></span> <span>40 064</span> <span>₽</span></span>
-                        </div>
-                        <div class="diff-value text-danger" style="display: none;"><span
-                                title="Разница с предыдущим периодом"><span
-                                style="display: none;">+</span><span>0</span></span>
-                          <span>₽</span></div>
-                        <div>&nbsp;</div>
-                      </div>
-                      <div class="data-info mt-2">
-                        <div class="value d-flex"><span
-                                class="title mr-1">Количество</span>
-                          <span title="Количество" class="new-value ml-auto"><span
-                                  class="mdi"></span> <span>28</span> <span>шт</span></span>
-                        </div>
-                        <div class="diff-value text-danger" style="display: none;"><span
-                                title="Разница с предыдущим периодом"><span
-                                style="display: none;">+</span><span>0</span></span>
-                          <span>шт</span></div>
-                        <div>&nbsp;</div>
-                      </div>
+                </div>
+            </div>
+            <div>
+                <div class="row">
+                    <div class="summary-number-wrapper col-sm-12 col-md-6 col-lg flex-lg-grow-0">
+                        <div class="summary-numbers widget widget-tile flex-column p-2 d-block border-color-danger">
+                            <i class="fas fa-ellipsis-v text-bg-light" style=""></i> <i
+                                    class="fas fa-circle-notch fa-spin text-success" style="display: none;"></i>
+                            <div class="title desc text-right"><span>Продажи</span>
+                                <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
+                                     aria-label="info circle" id="info-popover-id-21127"
+                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                     class="bi-info-circle ml-1 b-icon bi">
+                                    <g>
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                        <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <div class="data-info mt-2">
+                                    <div class="value d-flex"><span class="title mr-1" style="">Сумма</span>
+                                        <span
+                                                title="За выбранный период" class="new-value ml-auto"><span
+                                                    class="indicator-negative "
+                                                    style=""></span> <span class="number"
+                                                                           id="summa_price">{{ summaPrice ?? 0 }}</span> <span>₽</span></span>
+                                    </div>
+                                    <div class="diff-value text-danger"><span
+                                                title="Разница с предыдущим периодом"><span
+                                                    style="display: none;">+</span><span>-23 888</span></span>
+                                        <span>₽</span></div>
+                                    <div style="display: none;">&nbsp;</div>
+                                </div>
+                                <div class="data-info mt-2">
+                                    <div class="value d-flex"><span class="title mr-1"
+                                                                    style="">Количество</span>
+                                        <span title="За выбранный период" class="new-value ml-auto"><span
+                                                    class="indicator-negative "
+                                                    style=""></span> <span class="number"
+                                                                           id="summa_length">{{ summaLength ?? 0 }}</span> <span>шт</span></span>
+                                    </div>
+                                    <div class="diff-value text-danger"><span
+                                                title="Разница с предыдущим периодом"><span
+                                                    style="display: none;">+</span><span>-16</span></span>
+                                        <span>шт</span></div>
+                                    <div style="display: none;">&nbsp;</div>
+                                </div>
+                            </div> <!----></div> <!----> <!----></div>
+                    <div class="summary-number-wrapper col-sm-12 col-md-6 col-lg flex-lg-grow-0"><!---->
+                        <div class="orders-self-redemptions-widget-numbers-wrapper summary-numbers widget widget-tile flex-column p-2 d-block border-color-danger">
+                            <i class="fas fa-ellipsis-v text-bg-light" style=""></i> <i
+                                    class="fas fa-circle-notch fa-spin text-success" style="display: none;"></i>
+                            <div class="tabs" id="__BVID__49"><!---->
+                                <div class="">
+                                    <ul role="tablist" class="nav nav-tabs" id="__BVID__49__BV_tab_controls_">
+                                        <!---->
+                                        <li role="presentation" class="nav-item"><a role="tab"
+                                                                                    aria-selected="true"
+                                                                                    aria-setsize="2"
+                                                                                    aria-posinset="1" href="#"
+                                                                                    target="_self"
+                                                                                    class="nav-link active title desc pt-0 px-2 pb-1"
+                                                                                    id="__BVID__52___BV_tab_button__"
+                                                                                    aria-controls="__BVID__52"><span>Заказы</span></a>
+                                        </li>
+                                        <li role="presentation" class="nav-item"><a role="tab" tabindex="-1"
+                                                                                    aria-selected="false"
+                                                                                    aria-setsize="2"
+                                                                                    aria-posinset="2" href="#"
+                                                                                    target="_self"
+                                                                                    class="nav-link title desc pt-0 px-2 pb-1"
+                                                                                    id="__BVID__58___BV_tab_button__"
+                                                                                    aria-controls="__BVID__58"><span>Не завершенные</span></a>
+                                        </li>
+                                        <div>
+                                            <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false"
+                                                 role="img" aria-label="info circle"
+                                                 id="info-popover-id-9712-orders"
+                                                 xmlns="http://www.w3.org/2000/svg"
+                                                 fill="currentColor" class="bi-info-circle ml-1 b-icon bi">
+                                                <g>
+                                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                                    <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                                </g>
+                                            </svg> <!----></div>
+                                        <div>
+                                            <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false"
+                                                 role="img" aria-label="info circle"
+                                                 id="info-popover-id-9712-not_finished_orders"
+                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                 class="bi-info-circle ml-1 b-icon bi" style="display: none;">
+                                                <g>
+                                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                                    <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                                </g>
+                                            </svg> <!----></div>
+                                    </ul>
+                                </div>
+                                <div class="tab-content p-0 mb-0" id="__BVID__49__BV_tab_container_">
+                                    <div role="tabpanel" aria-hidden="false" class="tab-pane active"
+                                         id="__BVID__52"
+                                         aria-labelledby="__BVID__52___BV_tab_button__" style="">
+                                        <div class="d-flex flex-column">
+                                            <div class="data-info mt-2">
+                                                <div class="value d-flex"><span class="title mr-1">Сумма</span>
+                                                    <span title="Сумма" class="new-value ml-auto"><span
+                                                                class="indicator-negative "></span> <span class="number"
+                                                                                                          id="orders_price">{{ ordersPrice ?? 0 }}</span> <span>₽</span></span>
+                                                </div>
+                                                <div class="diff-value text-danger"><span
+                                                            title="Разница с предыдущим периодом"><span
+                                                                style="display: none;">+</span><span>-10 372</span></span>
+                                                    <span>₽</span></div>
+                                                <div style="display: none;">&nbsp;</div>
+                                            </div>
+                                            <div class="data-info mt-2">
+                                                <div class="value d-flex"><span
+                                                            class="title mr-1">Количество</span>
+                                                    <span title="Количество" class="new-value ml-auto"><span
+                                                                class="indicator-negative "></span> <span class="number"
+                                                                                                          id="orders_length">{{ ordersLength ?? 0 }}</span> <span>шт</span></span>
+                                                </div>
+                                                <div class="diff-value text-danger"><span
+                                                            title="Разница с предыдущим периодом"><span
+                                                                style="display: none;">+</span><span>-22</span></span>
+                                                    <span>шт</span></div>
+                                                <div style="display: none;">&nbsp;</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" aria-hidden="true" class="tab-pane" id="__BVID__58"
+                                         aria-labelledby="__BVID__58___BV_tab_button__" style="display: none;">
+                                        <div class="d-flex flex-column">
+                                            <div class="data-info mt-2">
+                                                <div class="value d-flex"><span class="title mr-1">Сумма</span>
+                                                    <span title="Сумма" class="new-value ml-auto"><span
+                                                                class="mdi"></span> <span>40 064</span> <span>₽</span></span>
+                                                </div>
+                                                <div class="diff-value text-danger" style="display: none;"><span
+                                                            title="Разница с предыдущим периодом"><span
+                                                                style="display: none;">+</span><span>0</span></span>
+                                                    <span>₽</span></div>
+                                                <div>&nbsp;</div>
+                                            </div>
+                                            <div class="data-info mt-2">
+                                                <div class="value d-flex"><span
+                                                            class="title mr-1">Количество</span>
+                                                    <span title="Количество" class="new-value ml-auto"><span
+                                                                class="mdi"></span> <span>28</span> <span>шт</span></span>
+                                                </div>
+                                                <div class="diff-value text-danger" style="display: none;"><span
+                                                            title="Разница с предыдущим периодом"><span
+                                                                style="display: none;">+</span><span>0</span></span>
+                                                    <span>шт</span></div>
+                                                <div>&nbsp;</div>
+                                            </div>
+                                        </div>
+                                    </div><!----></div>
+                            </div>
+                        </div> <!----></div>
+                    <div class="summary-number-wrapper col-sm-12 col-md-6 col-lg flex-lg-grow-0">
+                        <div class="summary-numbers widget widget-tile flex-column p-2 d-block border-color-success">
+                            <i class="fas fa-ellipsis-v text-bg-light" style=""></i> <i
+                                    class="fas fa-circle-notch fa-spin text-success" style="display: none;"></i>
+                            <div class="title desc text-right"><span>Возвраты</span>
+                                <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
+                                     aria-label="info circle" id="info-popover-id-17507"
+                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                     class="bi-info-circle ml-1 b-icon bi">
+                                    <g>
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                        <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <div class="data-info mt-2">
+                                    <div class="value d-flex"><span class="title mr-1" style="">Сумма</span>
+                                        <span
+                                                title="За выбранный период" class="new-value ml-auto"><span
+                                                    class="indicator-positive "
+                                                    style=""></span> <span class="number"
+                                                                           id="returned_price">{{ returnedPrice ?? 0 }}</span> <span>₽</span></span>
+                                    </div>
+                                    <div class="diff-value text-success"><span
+                                                title="Разница с предыдущим периодом"><span
+                                                    style="">+</span><span>17 229</span></span>
+                                        <span>₽</span></div>
+                                    <div style="display: none;">&nbsp;</div>
+                                </div>
+                                <div class="data-info mt-2">
+                                    <div class="value d-flex"><span class="title mr-1"
+                                                                    style="">Количество</span>
+                                        <span title="За выбранный период" class="new-value ml-auto"><span
+                                                    class="indicator-positive "
+                                                    style=""></span> <span class="number"
+                                                                           id="returned_length">{{ returnedLength ?? 0 }}</span> <span>шт</span></span>
+                                    </div>
+                                    <div class="diff-value text-success"><span
+                                                title="Разница с предыдущим периодом"><span
+                                                    style="display: none;">+</span><span>-9</span></span>
+                                        <span>шт</span></div>
+                                    <div style="display: none;">&nbsp;</div>
+                                </div>
+                            </div> <!----></div> <!----> <!----></div>
+                    <div class="summary-number-wrapper col-sm-12 col-md-6 col-lg flex-lg-grow-0">
+                        <div class="summary-numbers widget widget-tile flex-column p-2 d-block border-color-danger">
+                            <i class="fas fa-ellipsis-v text-bg-light" style=""></i> <i
+                                    class="fas fa-circle-notch fa-spin text-success" style="display: none;"></i>
+                            <div class="title desc text-right"><span>Самовыкупы</span>
+                                <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
+                                     aria-label="info circle" id="info-popover-id-70737"
+                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                     class="bi-info-circle ml-1 b-icon bi">
+                                    <g>
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                        <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <div class="data-info mt-2">
+                                    <div class="value d-flex"><span class="title mr-1" style="">Сумма</span>
+                                        <span
+                                                title="За выбранный период" class="new-value ml-auto"><span
+                                                    class="mdi"
+                                                    style="display: none;"></span> <span>0</span> <span>₽</span></span>
+                                    </div>
+                                    <div class="diff-value text-danger"><span
+                                                title="Разница с предыдущим периодом"><span
+                                                    style="display: none;">+</span><span>0</span></span>
+                                        <span>₽</span></div>
+                                    <div style="display: none;">&nbsp;</div>
+                                </div>
+                                <div class="data-info mt-2">
+                                    <div class="value d-flex"><span class="title mr-1"
+                                                                    style="">Количество</span>
+                                        <span title="За выбранный период" class="new-value ml-auto"><span
+                                                    class="mdi"
+                                                    style="display: none;"></span> <span>0</span> <span>шт</span></span>
+                                    </div>
+                                    <div class="diff-value text-danger"><span
+                                                title="Разница с предыдущим периодом"><span
+                                                    style="display: none;">+</span><span>0</span></span>
+                                        <span>шт</span></div>
+                                    <div style="display: none;">&nbsp;</div>
+                                </div>
+                            </div> <!----></div> <!----> <!----></div>
+                    <div class="summary-number-wrapper col-sm-12 col-md-6 col-lg flex-lg-grow-0">
+                        <div class="summary-numbers widget widget-tile flex-column p-2 d-block border-color-success">
+                            <i class="fas fa-ellipsis-v text-bg-light" style=""></i> <i
+                                    class="fas fa-circle-notch fa-spin text-success" style="display: none;"></i>
+                            <div class="title desc text-right"><span>Логистика</span>
+                                <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
+                                     aria-label="info circle" id="info-popover-id-33915"
+                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                     class="bi-info-circle ml-1 b-icon bi">
+                                    <g>
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                        <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <div class="data-info mt-2">
+                                    <div class="value d-flex"><span class="title mr-1" style="">К клиенту</span>
+                                        <span title="За выбранный период" class="new-value ml-auto"><span
+                                                    class="indicator-positive "
+                                                    style=""></span> <span>6 499</span> <span>₽</span></span>
+                                    </div>
+                                    <div class="diff-value text-success"><span
+                                                title="Разница с предыдущим периодом"><span
+                                                    style="display: none;">+</span><span>-1 976</span></span>
+                                        <span>₽</span>
+                                    </div>
+                                    <div style="display: none;">&nbsp;</div>
+                                </div>
+                                <div class="data-info mt-2">
+                                    <div class="value d-flex"><span class="title mr-1"
+                                                                    style="">От клиента</span>
+                                        <span title="За выбранный период" class="new-value ml-auto"><span
+                                                    class="indicator-positive "
+                                                    style=""></span> <span>396</span> <span>₽</span></span>
+                                    </div>
+                                    <div class="diff-value text-success"><span
+                                                title="Разница с предыдущим периодом"><span
+                                                    style="display: none;">+</span><span>-561</span></span>
+                                        <span>₽</span></div>
+                                    <div style="display: none;">&nbsp;</div>
+                                </div>
+                            </div> <!----></div> <!----> <!----></div>
+                    <div class="summary-number-wrapper col-sm-12 col-md-6 col-lg flex-lg-grow-0">
+                        <div class="summary-numbers widget widget-tile flex-column p-2 d-block"><i
+                                    class="fas fa-ellipsis-v text-bg-light" style=""></i> <i
+                                    class="fas fa-circle-notch fa-spin text-success" style="display: none;"></i>
+                            <div class="title desc text-right"><span>Прибыль и комиссия</span>
+                                <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
+                                     aria-label="info circle" id="info-popover-id-23344"
+                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                     class="bi-info-circle ml-1 b-icon bi">
+                                    <g>
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                        <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <div class="data-info mt-2">
+                                    <div class="value d-flex"><span class="title mr-1" style="">Прибыль</span>
+                                        <span
+                                                title="За выбранный период" class="new-value ml-auto"><span
+                                                    class="indicator-negative "
+                                                    style=""></span> <span class="number"
+                                                                           id="summa_profit">{{ summaProfit ?? 0 }}</span> <span>₽</span></span>
+                                    </div>
+                                    <div class="diff-value text-danger"><span
+                                                title="Разница с предыдущим периодом"><span
+                                                    style="display: none;">+</span><span>-5 436</span></span>
+                                        <span>₽</span>
+                                    </div>
+                                    <div style="display: none;">&nbsp;</div>
+                                </div>
+                                <div class="data-info mt-2">
+                                    <div class="value d-flex"><span class="title mr-1"
+                                                                    style="">Комиссия WB</span>
+                                        <span title="За выбранный период" class="new-value ml-auto"><span
+                                                    class="indicator-negative"
+                                                    style=""></span> <span class="number"
+                                                                           id="summa_comm">{{ summaComm ?? 0 }}</span> <span>₽</span></span>
+                                    </div>
+                                    <div class="diff-value text-danger"><span
+                                                title="Разница с предыдущим периодом"><span
+                                                    style="">+</span><span>1 314</span></span> <span>₽</span>
+                                    </div>
+                                    <div style="display: none;">&nbsp;</div>
+                                </div>
+                            </div> <!----></div> <!----> <!----></div>
+                    <div class="summary-number-wrapper col-sm-12 col-md-6 col-lg flex-lg-grow-0">
+                        <div class="summary-numbers widget widget-tile flex-column p-2 d-block border-color-primary">
+                            <i class="fas fa-ellipsis-v text-bg-light" style=""></i> <i
+                                    class="fas fa-circle-notch fa-spin text-success" style="display: none;"></i>
+                            <div class="title desc text-right"><span>Капитализация склада</span>
+                                <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
+                                     aria-label="info circle" id="info-popover-id-51486"
+                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                     class="bi-info-circle ml-1 b-icon bi">
+                                    <g>
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                        <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <div class="data-info mt-2">
+                                    <div class="value d-flex"><span class="title mr-1"
+                                                                    style="">Себестоимость</span>
+                                        <span class="new-value ml-auto"> <span class="number"
+                                                                               id="stocks_cost_price">{{ costPrice ?? 0 }}</span> <span>₽</span></span>
+                                    </div>
+                                    <div class="diff-value text-danger" style="display: none;"><span
+                                                title="Разница с предыдущим периодом"><span
+                                                    style="display: none;">+</span><span>0</span></span>
+                                        <span>₽</span></div>
+                                    <div>&nbsp;</div>
+                                </div>
+                                <div class="data-info mt-2">
+                                    <div class="value d-flex"><span class="title mr-1"
+                                                                    style="">Розничная цена</span> <span
+                                                class="new-value ml-auto"> <span class="number"
+                                                                                 id="stocks_retail_price">{{ retailPrice ?? 0 }}</span> <span>₽</span></span>
+                                    </div>
+                                    <div class="diff-value text-success" style="display: none;"><span
+                                                title="Разница с предыдущим периодом"><span
+                                                    style="">+</span><span>918 927</span></span>
+                                        <span>₽</span></div>
+                                    <div>&nbsp;</div>
+                                </div>
+                            </div> <!----></div> <!----> <!----></div>
+                    <div class="summary-number-wrapper col-sm-12 col-md-6 col-lg flex-lg-grow-0"><!----> <!---->
+                        <div data-v-291d48e2=""
+                             class="summary-numbers widget widget-tile flex-column p-2 d-block border-color-warning">
+                            <i data-v-291d48e2="" class="fas fa-ellipsis-v text-bg-light" style=""></i> <i
+                                    data-v-291d48e2="" class="fas fa-circle-notch fa-spin text-success"
+                                    style="display: none;"></i>
+                            <div data-v-291d48e2="" class="title desc text-right"><span data-v-291d48e2="">Рентабельность и маржинальность</span>
+                                <svg data-v-291d48e2="" viewBox="0 0 16 16" width="1em" height="1em"
+                                     focusable="false" role="img" aria-label="info circle"
+                                     id="info-popover-id-83477" xmlns="http://www.w3.org/2000/svg"
+                                     fill="currentColor" class="bi-info-circle ml-1 b-icon bi danger">
+                                    <g data-v-291d48e2="">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                        <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div data-v-291d48e2="" class="d-flex flex-column">
+                                <div data-v-291d48e2="" class="data-info mt-2">
+                                    <div data-v-291d48e2="" class="value d-flex"><span data-v-291d48e2=""
+                                                                                       class="title text-left mr-1"
+                                                                                       style="">Рентабельность, %</span>
+                                        <span data-v-291d48e2="" title="За выбранный период"
+                                              class="new-value ml-auto"> <span class="number"
+                                                                               id="rent">{{ rent ?? 0 }}</span> <span
+                                                    data-v-291d48e2="">%</span></span></div>
+                                    <div data-v-291d48e2="" class="diff-value text-danger"><span
+                                                data-v-291d48e2=""
+                                                title="Разница с предыдущим периодом"><span
+                                                    data-v-291d48e2="" style="display: none;">+</span><span
+                                                    data-v-291d48e2="">0</span></span> <span
+                                                data-v-291d48e2="">%</span></div>
+                                    <div data-v-291d48e2="" style="display: none;">&nbsp;</div>
+                                </div>
+                                <div data-v-291d48e2="" class="data-info mt-2">
+                                    <div data-v-291d48e2="" class="value d-flex"><span data-v-291d48e2=""
+                                                                                       class="title text-left mr-1"
+                                                                                       style="">Маржинальность, %</span>
+                                        <span data-v-291d48e2="" title="За выбранный период"
+                                              class="new-value ml-auto"> <span class="number"
+                                                                               id="mardj">{{ mardj ?? 0 }}</span> <span
+                                                    data-v-291d48e2="">%</span></span></div>
+                                    <div data-v-291d48e2="" class="diff-value text-success"><span
+                                                data-v-291d48e2=""
+                                                title="Разница с предыдущим периодом"><span
+                                                    data-v-291d48e2="" style="">+</span><span
+                                                    data-v-291d48e2="">14</span></span> <span
+                                                data-v-291d48e2="">%</span></div>
+                                    <div data-v-291d48e2="" style="display: none;">&nbsp;</div>
+                                </div>
+                            </div> <!----></div>
                     </div>
-                  </div><!----></div>
-              </div>
-            </div> <!----></div>
-          <div class="summary-number-wrapper col-sm-12 col-md-6 col-lg flex-lg-grow-0">
-            <div class="summary-numbers widget widget-tile flex-column p-2 d-block border-color-success">
-              <i class="fas fa-ellipsis-v text-bg-light" style=""></i> <i
-                    class="fas fa-circle-notch fa-spin text-success" style="display: none;"></i>
-              <div class="title desc text-right"><span>Возвраты</span>
-                <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
-                     aria-label="info circle" id="info-popover-id-17507"
-                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                     class="bi-info-circle ml-1 b-icon bi">
-                  <g>
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                    <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-                  </g>
-                </svg>
-              </div>
-              <div class="d-flex flex-column">
-                <div class="data-info mt-2">
-                  <div class="value d-flex"><span class="title mr-1" style="">Сумма</span>
-                    <span
-                            title="За выбранный период" class="new-value ml-auto"><span
-                            class="indicator-positive "
-                            style=""></span> <span class="number" id="returned_price">{{returnedPrice ?? 0}}</span> <span>₽</span></span>
-                  </div>
-                  <div class="diff-value text-success"><span
-                          title="Разница с предыдущим периодом"><span
-                          style="">+</span><span>17 229</span></span>
-                    <span>₽</span></div>
-                  <div style="display: none;">&nbsp;</div>
                 </div>
-                <div class="data-info mt-2">
-                  <div class="value d-flex"><span class="title mr-1"
-                                                  style="">Количество</span>
-                    <span title="За выбранный период" class="new-value ml-auto"><span
-                            class="indicator-positive "
-                            style=""></span> <span class="number" id="returned_length">{{returnedLength ?? 0}}</span> <span>шт</span></span></div>
-                  <div class="diff-value text-success"><span
-                          title="Разница с предыдущим периодом"><span
-                          style="display: none;">+</span><span>-9</span></span>
-                    <span>шт</span></div>
-                  <div style="display: none;">&nbsp;</div>
-                </div>
-              </div> <!----></div> <!----> <!----></div>
-          <div class="summary-number-wrapper col-sm-12 col-md-6 col-lg flex-lg-grow-0">
-            <div class="summary-numbers widget widget-tile flex-column p-2 d-block border-color-danger">
-              <i class="fas fa-ellipsis-v text-bg-light" style=""></i> <i
-                    class="fas fa-circle-notch fa-spin text-success" style="display: none;"></i>
-              <div class="title desc text-right"><span>Самовыкупы</span>
-                <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
-                     aria-label="info circle" id="info-popover-id-70737"
-                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                     class="bi-info-circle ml-1 b-icon bi">
-                  <g>
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                    <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-                  </g>
-                </svg>
-              </div>
-              <div class="d-flex flex-column">
-                <div class="data-info mt-2">
-                  <div class="value d-flex"><span class="title mr-1" style="">Сумма</span>
-                    <span
-                            title="За выбранный период" class="new-value ml-auto"><span
-                            class="mdi"
-                            style="display: none;"></span> <span>0</span> <span>₽</span></span>
-                  </div>
-                  <div class="diff-value text-danger"><span
-                          title="Разница с предыдущим периодом"><span
-                          style="display: none;">+</span><span>0</span></span>
-                    <span>₽</span></div>
-                  <div style="display: none;">&nbsp;</div>
-                </div>
-                <div class="data-info mt-2">
-                  <div class="value d-flex"><span class="title mr-1"
-                                                  style="">Количество</span>
-                    <span title="За выбранный период" class="new-value ml-auto"><span
-                            class="mdi"
-                            style="display: none;"></span> <span>0</span> <span>шт</span></span>
-                  </div>
-                  <div class="diff-value text-danger"><span
-                          title="Разница с предыдущим периодом"><span
-                          style="display: none;">+</span><span>0</span></span>
-                    <span>шт</span></div>
-                  <div style="display: none;">&nbsp;</div>
-                </div>
-              </div> <!----></div> <!----> <!----></div>
-          <div class="summary-number-wrapper col-sm-12 col-md-6 col-lg flex-lg-grow-0">
-            <div class="summary-numbers widget widget-tile flex-column p-2 d-block border-color-success">
-              <i class="fas fa-ellipsis-v text-bg-light" style=""></i> <i
-                    class="fas fa-circle-notch fa-spin text-success" style="display: none;"></i>
-              <div class="title desc text-right"><span>Логистика</span>
-                <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
-                     aria-label="info circle" id="info-popover-id-33915"
-                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                     class="bi-info-circle ml-1 b-icon bi">
-                  <g>
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                    <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-                  </g>
-                </svg>
-              </div>
-              <div class="d-flex flex-column">
-                <div class="data-info mt-2">
-                  <div class="value d-flex"><span class="title mr-1" style="">К клиенту</span>
-                    <span title="За выбранный период" class="new-value ml-auto"><span
-                            class="indicator-positive "
-                            style=""></span> <span>6 499</span> <span>₽</span></span>
-                  </div>
-                  <div class="diff-value text-success"><span
-                          title="Разница с предыдущим периодом"><span
-                          style="display: none;">+</span><span>-1 976</span></span>
-                    <span>₽</span>
-                  </div>
-                  <div style="display: none;">&nbsp;</div>
-                </div>
-                <div class="data-info mt-2">
-                  <div class="value d-flex"><span class="title mr-1"
-                                                  style="">От клиента</span>
-                    <span title="За выбранный период" class="new-value ml-auto"><span
-                            class="indicator-positive "
-                            style=""></span> <span>396</span> <span>₽</span></span>
-                  </div>
-                  <div class="diff-value text-success"><span
-                          title="Разница с предыдущим периодом"><span
-                          style="display: none;">+</span><span>-561</span></span>
-                    <span>₽</span></div>
-                  <div style="display: none;">&nbsp;</div>
-                </div>
-              </div> <!----></div> <!----> <!----></div>
-          <div class="summary-number-wrapper col-sm-12 col-md-6 col-lg flex-lg-grow-0">
-            <div class="summary-numbers widget widget-tile flex-column p-2 d-block"><i
-                    class="fas fa-ellipsis-v text-bg-light" style=""></i> <i
-                    class="fas fa-circle-notch fa-spin text-success" style="display: none;"></i>
-              <div class="title desc text-right"><span>Прибыль и комиссия</span>
-                <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
-                     aria-label="info circle" id="info-popover-id-23344"
-                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                     class="bi-info-circle ml-1 b-icon bi">
-                  <g>
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                    <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-                  </g>
-                </svg>
-              </div>
-              <div class="d-flex flex-column">
-                <div class="data-info mt-2">
-                  <div class="value d-flex"><span class="title mr-1" style="">Прибыль</span>
-                    <span
-                            title="За выбранный период" class="new-value ml-auto"><span
-                            class="indicator-negative "
-                            style=""></span> <span class="number" id="summa_profit">{{ summaProfit ?? 0}}</span> <span>₽</span></span>
-                  </div>
-                  <div class="diff-value text-danger"><span
-                          title="Разница с предыдущим периодом"><span
-                          style="display: none;">+</span><span>-5 436</span></span>
-                    <span>₽</span>
-                  </div>
-                  <div style="display: none;">&nbsp;</div>
-                </div>
-                <div class="data-info mt-2">
-                  <div class="value d-flex"><span class="title mr-1"
-                                                  style="">Комиссия WB</span>
-                    <span title="За выбранный период" class="new-value ml-auto"><span
-                            class="indicator-negative"
-                            style=""></span> <span class="number" id ="summa_comm">{{summaComm ?? 0}}</span> <span>₽</span></span>
-                  </div>
-                  <div class="diff-value text-danger"><span
-                          title="Разница с предыдущим периодом"><span
-                          style="">+</span><span>1 314</span></span> <span>₽</span>
-                  </div>
-                  <div style="display: none;">&nbsp;</div>
-                </div>
-              </div> <!----></div> <!----> <!----></div>
-          <div class="summary-number-wrapper col-sm-12 col-md-6 col-lg flex-lg-grow-0">
-            <div class="summary-numbers widget widget-tile flex-column p-2 d-block border-color-primary">
-              <i class="fas fa-ellipsis-v text-bg-light" style=""></i> <i
-                    class="fas fa-circle-notch fa-spin text-success" style="display: none;"></i>
-              <div class="title desc text-right"><span>Капитализация склада</span>
-                <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
-                     aria-label="info circle" id="info-popover-id-51486"
-                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                     class="bi-info-circle ml-1 b-icon bi">
-                  <g>
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                    <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-                  </g>
-                </svg>
-              </div>
-              <div class="d-flex flex-column">
-                <div class="data-info mt-2">
-                  <div class="value d-flex"><span class="title mr-1"
-                                                  style="">Себестоимость</span>
-                    <span class="new-value ml-auto"> <span class="number" id="stocks_cost_price">{{ costPrice ?? 0 }}</span> <span>₽</span></span>
-                  </div>
-                  <div class="diff-value text-danger" style="display: none;"><span
-                          title="Разница с предыдущим периодом"><span
-                          style="display: none;">+</span><span>0</span></span>
-                    <span>₽</span></div>
-                  <div>&nbsp;</div>
-                </div>
-                <div class="data-info mt-2">
-                  <div class="value d-flex"><span class="title mr-1"
-                                                  style="">Розничная цена</span> <span
-                          class="new-value ml-auto"> <span class="number" id="stocks_retail_price">{{ retailPrice ?? 0}}</span> <span>₽</span></span>
-                  </div>
-                  <div class="diff-value text-success" style="display: none;"><span
-                          title="Разница с предыдущим периодом"><span
-                          style="">+</span><span>918 927</span></span>
-                    <span>₽</span></div>
-                  <div>&nbsp;</div>
-                </div>
-              </div> <!----></div> <!----> <!----></div>
-          <div class="summary-number-wrapper col-sm-12 col-md-6 col-lg flex-lg-grow-0"><!----> <!---->
-            <div data-v-291d48e2=""
-                 class="summary-numbers widget widget-tile flex-column p-2 d-block border-color-warning">
-              <i data-v-291d48e2="" class="fas fa-ellipsis-v text-bg-light" style=""></i> <i
-                    data-v-291d48e2="" class="fas fa-circle-notch fa-spin text-success"
-                    style="display: none;"></i>
-              <div data-v-291d48e2="" class="title desc text-right"><span data-v-291d48e2="">Рентабельность и маржинальность</span>
-                <svg data-v-291d48e2="" viewBox="0 0 16 16" width="1em" height="1em"
-                     focusable="false" role="img" aria-label="info circle"
-                     id="info-popover-id-83477" xmlns="http://www.w3.org/2000/svg"
-                     fill="currentColor" class="bi-info-circle ml-1 b-icon bi danger">
-                  <g data-v-291d48e2="">
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                    <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-                  </g>
-                </svg>
-              </div>
-              <div data-v-291d48e2="" class="d-flex flex-column">
-                <div data-v-291d48e2="" class="data-info mt-2">
-                  <div data-v-291d48e2="" class="value d-flex"><span data-v-291d48e2=""
-                                                                     class="title text-left mr-1"
-                                                                     style="">Рентабельность, %</span>
-                    <span data-v-291d48e2="" title="За выбранный период"
-                          class="new-value ml-auto"> <span class="number" id="rent">{{ rent ?? 0}}</span> <span
-                            data-v-291d48e2="">%</span></span></div>
-                  <div data-v-291d48e2="" class="diff-value text-danger"><span
-                          data-v-291d48e2=""
-                          title="Разница с предыдущим периодом"><span
-                          data-v-291d48e2="" style="display: none;">+</span><span
-                          data-v-291d48e2="">0</span></span> <span
-                          data-v-291d48e2="">%</span></div>
-                  <div data-v-291d48e2="" style="display: none;">&nbsp;</div>
-                </div>
-                <div data-v-291d48e2="" class="data-info mt-2">
-                  <div data-v-291d48e2="" class="value d-flex"><span data-v-291d48e2=""
-                                                                     class="title text-left mr-1"
-                                                                     style="">Маржинальность, %</span>
-                    <span data-v-291d48e2="" title="За выбранный период"
-                          class="new-value ml-auto"> <span class="number" id="mardj">{{ mardj ?? 0}}</span> <span
-                            data-v-291d48e2="">%</span></span></div>
-                  <div data-v-291d48e2="" class="diff-value text-success"><span
-                          data-v-291d48e2=""
-                          title="Разница с предыдущим периодом"><span
-                          data-v-291d48e2="" style="">+</span><span
-                          data-v-291d48e2="">14</span></span> <span
-                          data-v-291d48e2="">%</span></div>
-                  <div data-v-291d48e2="" style="display: none;">&nbsp;</div>
-                </div>
-              </div> <!----></div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header">Продажи по дням</div>
-        <div class="card-body">
-          <div class="w35">
-            <div groupdisplaytype="singleColumn" class="ag-theme-balham">
+            </div>
+            <div class="card">
+                <div class="card-header">Продажи по дням</div>
+                <div class="card-body">
+                    <div class="w35">
+                        <div groupdisplaytype="singleColumn" class="ag-theme-balham">
 
+                        </div>
+                        <button class="excel-btn" onclick="option.api.exportDataAsExcel()">
+                            Экспорт
+                            <svg
+                                    viewBox="0 0 16 16"
+                                    width="1em"
+                                    height="1em"
+                                    focusable="false"
+                                    role="img"
+                                    aria-label="file earmark excel"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="currentColor"
+                                    class="bi-file-earmark-excel b-icon bi"
+                            >
+                                <g>
+                                    <path
+                                            d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"
+                                    ></path>
+                                    <path
+                                            d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"
+                                    ></path>
+                                </g>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
             </div>
-            <button class="excel-btn" onclick="option.api.exportDataAsExcel()">
-              Экспорт
-              <svg
-                      viewBox="0 0 16 16"
-                      width="1em"
-                      height="1em"
-                      focusable="false"
-                      role="img"
-                      aria-label="file earmark excel"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="currentColor"
-                      class="bi-file-earmark-excel b-icon bi"
-              >
-                <g>
-                  <path
-                          d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"
-                  ></path>
-                  <path
-                          d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"
-                  ></path>
-                </g>
-              </svg>
-            </button>
-          </div>
+            <div data-v-946f0130="" class="row">
+                <div data-v-946f0130="" class="col-lg-4">
+                    <div data-v-946f0130="" class="card card-flat cursor-pointer">
+                        <div data-v-946f0130="" class="card-header">Расчет поставки</div>
+                        <div data-v-946f0130="" class="card-body"><p data-v-946f0130="">Калькулятор расчета
+                                поставки
+                                Wildberries, который поможет расчитать количество к поставке.</p></div>
+                    </div>
+                </div>
+                <a data-v-946f0130="" href="/cabinet/import/cost-price" target="_blank"
+                   class="col-lg-4 cursor-pointer text-blank">
+                    <div data-v-946f0130="" class="card card-flat">
+                        <div data-v-946f0130="" class="card-header">Импорт параметров товара</div>
+                        <div data-v-946f0130="" class="card-body"><p data-v-946f0130="">Загрузка данных по
+                                товарам:
+                                себестоимость, кратность короба, тип поставки и поставщиков и многое другое</p>
+                        </div>
+                    </div>
+                </a>
+                <div data-v-946f0130="" class="col-lg-4">
+                    <div data-v-946f0130="" class="card card-flat cursor-pointer">
+                        <div data-v-946f0130="" class="card-header">Сравнение периодов</div>
+                        <div data-v-946f0130="" class="card-body"><p data-v-946f0130="">Сравнение периодов:
+                                возможность контролировать динамику продаж</p></div>
+                    </div>
+                </div> <!----> <!----></div>
         </div>
-      </div>
-      <div data-v-946f0130="" class="row">
-        <div data-v-946f0130="" class="col-lg-4">
-          <div data-v-946f0130="" class="card card-flat cursor-pointer">
-            <div data-v-946f0130="" class="card-header">Расчет поставки</div>
-            <div data-v-946f0130="" class="card-body"><p data-v-946f0130="">Калькулятор расчета
-              поставки
-              Wildberries, который поможет расчитать количество к поставке.</p></div>
-          </div>
+        <div><!---->
+            <div class="snotify snotify-left_top"></div>
+            <div class="snotify snotify-left_center"></div>
+            <div class="snotify snotify-left_bottom"></div>
+            <div class="snotify snotify-right_top"></div>
+            <div class="snotify snotify-right_center"></div>
+            <div class="snotify snotify-right_bottom"></div>
+            <div class="snotify snotify-center_top"></div>
+            <div class="snotify snotify-center_center"></div>
+            <div class="snotify snotify-center_bottom"></div>
         </div>
-        <a data-v-946f0130="" href="/cabinet/import/cost-price" target="_blank"
-           class="col-lg-4 cursor-pointer text-blank">
-          <div data-v-946f0130="" class="card card-flat">
-            <div data-v-946f0130="" class="card-header">Импорт параметров товара</div>
-            <div data-v-946f0130="" class="card-body"><p data-v-946f0130="">Загрузка данных по
-              товарам:
-              себестоимость, кратность короба, тип поставки и поставщиков и многое другое</p>
-            </div>
-          </div>
-        </a>
-        <div data-v-946f0130="" class="col-lg-4">
-          <div data-v-946f0130="" class="card card-flat cursor-pointer">
-            <div data-v-946f0130="" class="card-header">Сравнение периодов</div>
-            <div data-v-946f0130="" class="card-body"><p data-v-946f0130="">Сравнение периодов:
-              возможность контролировать динамику продаж</p></div>
-          </div>
-        </div> <!----> <!----></div>
     </div>
-    <div><!---->
-      <div class="snotify snotify-left_top"></div>
-      <div class="snotify snotify-left_center"></div>
-      <div class="snotify snotify-left_bottom"></div>
-      <div class="snotify snotify-right_top"></div>
-      <div class="snotify snotify-right_center"></div>
-      <div class="snotify snotify-right_bottom"></div>
-      <div class="snotify snotify-center_top"></div>
-      <div class="snotify snotify-center_center"></div>
-      <div class="snotify snotify-center_bottom"></div>
-    </div>
-  </div>
 </div>

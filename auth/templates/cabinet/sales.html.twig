@@ -8,7 +8,7 @@
 
 {% endblock %}
 {% block body %}
-    {% if tokens %}
+    {% if tokens is defined %}
         {% if processing is defined %}
             <div class="be-content">
                 <div id="mp-stats-app" class="main-content container-fluid">

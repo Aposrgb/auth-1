@@ -37,19 +37,36 @@ class CabinetWbService extends AbstractService
 
     public function getWeeklyReports($id, $query)
     {
-        $dataWb = $this->checkStatusToken($id, $query);
-        $context['token'] = $dataWb['token'];
-
-        if (!$dataWb['wbData']) {
-            $context["processing"] = true;
+        $tokenQuery = $this->getTokenFromQuery($query);
+        if ($tokenQuery && !in_array('all', $tokenQuery)) {
+            $tokens = $this->apiTokenRepository->findByIds($tokenQuery);
+            $allTokens = $this->apiTokenRepository->findBy(['apiUser' => $id, 'status' => ApiTokenStatus::ACTIVE]);
+        } else {
+            $tokens = $this->apiTokenRepository->findBy(['apiUser' => $id, 'status' => ApiTokenStatus::ACTIVE]);
+            $allTokens = $tokens;
+        }
+        $context["tokens"] = $tokens;
+        $context["allTokens"] = $allTokens ?? $this->apiTokenRepository->findByIds($tokenQuery);
+        if (!$this->checkWbData($tokens)) {
+            if(empty($tokens)){
+                $context["processing"] = true;
+            }else {
+                $context["reports"] = [];
+            }
             return $context;
         }
+
         $repos = $this->entityManager->getRepository(WbDataProperty::class);
         $arrayPropNames = ["wbDataReport"];
         $arrayNames = ["reports"];
         $data = [];
         for ($i = 0; $i < count($arrayPropNames); $i++) {
-            $data[$arrayNames[$i]] = $repos->getProperty($arrayPropNames[$i], $dataWb['wbData']->getId());
+            $data[$arrayNames[$i]] = [];
+            foreach ($tokens as $token){
+                if($wbData = $token->getWbData()){
+                    $data[$arrayNames[$i]] = array_merge($repos->getProperty($arrayPropNames[$i], $wbData->getId()), $data[$arrayNames[$i]]);
+                }
+            }
         }
         $data["report"] = $data["reports"];
         $data["reports"] = [];
@@ -94,7 +111,6 @@ class CabinetWbService extends AbstractService
                 $data["reports"][] = $array;
             }
         }
-        $context["tokens"] = $dataWb['tokens'] instanceof ApiToken ? [$dataWb['tokens']] : $dataWb['tokens'];
         $context["reports"] = (new ArrayCollection($data["reports"]))
             ->matching(Criteria::create()->orderBy(['realizationreport_id' => Criteria::DESC]))
             ->getValues();
@@ -103,19 +119,37 @@ class CabinetWbService extends AbstractService
 
     public function getOrderRegion($id, $query)
     {
-        $dataWb = $this->checkStatusToken($id, $query);
-        $context['token'] = $dataWb['token'];
-
-        if (!$dataWb['wbData']) {
-            $context["processing"] = true;
+        $tokenQuery = $this->getTokenFromQuery($query);
+        if ($tokenQuery && !in_array('all', $tokenQuery)) {
+            $tokens = $this->apiTokenRepository->findByIds($tokenQuery);
+            $allTokens = $this->apiTokenRepository->findBy(['apiUser' => $id, 'status' => ApiTokenStatus::ACTIVE]);
+        } else {
+            $tokens = $this->apiTokenRepository->findBy(['apiUser' => $id, 'status' => ApiTokenStatus::ACTIVE]);
+            $allTokens = $tokens;
+        }
+        $context["tokens"] = $tokens;
+        $context["allTokens"] = $allTokens ?? $this->apiTokenRepository->findByIds($tokenQuery);
+        if (!$this->checkWbData($tokens)) {
+            if(empty($tokens)){
+                $context["processing"] = true;
+            }else {
+                $context["sales"] = [];
+                $context["orders"] = [];
+            }
             return $context;
         }
+
         $repos = $this->entityManager->getRepository(WbDataProperty::class);
         $arrayPropNames = ["wbDataOrder", "wbDataSale"];
         $arrayNames = ["orders", "sales"];
         $data = [];
         for ($i = 0; $i < count($arrayPropNames); $i++) {
-            $data[$arrayNames[$i]] = $repos->getProperty($arrayPropNames[$i], $dataWb['wbData']->getId());
+            $data[$arrayNames[$i]] = [];
+            foreach ($tokens as $token){
+                if($wbData = $token->getWbData()){
+                    $data[$arrayNames[$i]] = array_merge($repos->getProperty($arrayPropNames[$i], $wbData->getId()), $data[$arrayNames[$i]]);
+                }
+            }
         }
         $data["order"] = $data["orders"];
         $data["orders"] = [];
@@ -174,7 +208,6 @@ class CabinetWbService extends AbstractService
             $item['percent'] = number_format(($item['quantity'] ?? 1 * 100) / $percent, 1);
             return $item;
         }, $data['sales']);
-        $context["tokens"] = $dataWb['tokens'] instanceof ApiToken ? [$dataWb['tokens']] : $dataWb['tokens'];
         $context["orders"] = (new ArrayCollection($data["orders"]))
             ->matching(Criteria::create()->orderBy(['price' => Criteria::DESC]))
             ->getValues();
@@ -186,11 +219,22 @@ class CabinetWbService extends AbstractService
 
     public function getWarehouses($id, $query)
     {
-        $dataWb = $this->checkStatusToken($id, $query);
-        $context['token'] = $dataWb['token'];
-
-        if (!$dataWb['wbData']) {
-            $context["processing"] = true;
+        $tokenQuery = $this->getTokenFromQuery($query);
+        if ($tokenQuery && !in_array('all', $tokenQuery)) {
+            $tokens = $this->apiTokenRepository->findByIds($tokenQuery);
+            $allTokens = $this->apiTokenRepository->findBy(['apiUser' => $id, 'status' => ApiTokenStatus::ACTIVE]);
+        } else {
+            $tokens = $this->apiTokenRepository->findBy(['apiUser' => $id, 'status' => ApiTokenStatus::ACTIVE]);
+            $allTokens = $tokens;
+        }
+        $context["tokens"] = $tokens;
+        $context["allTokens"] = $allTokens ?? $this->apiTokenRepository->findByIds($tokenQuery);
+        if (!$this->checkWbData($tokens)) {
+            if(empty($tokens)){
+                $context["processing"] = true;
+            }else {
+                $context["stocks"] = [];
+            }
             return $context;
         }
 
@@ -200,7 +244,12 @@ class CabinetWbService extends AbstractService
         $data = [];
         $city = [];
         for ($i = 0; $i < count($arrayPropNames); $i++) {
-            $data[$arrayNames[$i]] = $repos->getProperty($arrayPropNames[$i], $dataWb['wbData']->getId());
+            $data[$arrayNames[$i]] = [];
+            foreach ($tokens as $token){
+                if($wbData = $token->getWbData()){
+                    $data[$arrayNames[$i]] = array_merge($repos->getProperty($arrayPropNames[$i], $wbData->getId()), $data[$arrayNames[$i]]);
+                }
+            }
         }
 
         $data["stock"] = $data["stocks"];
@@ -257,17 +306,27 @@ class CabinetWbService extends AbstractService
         $data["stock"] = [];
         $context["cities"] = $city;
         $context["count"] = count($data['stocks']);
-        $context["tokens"] = $dataWb['tokens'] instanceof ApiToken ? [$dataWb['tokens']] : $dataWb['tokens'];
         return array_merge($context, $data);
     }
 
     public function getProducts($id, $query)
     {
-        $dataWb = $this->checkStatusToken($id, $query);
-        $context['token'] = $dataWb['token'];
-
-        if (!$dataWb['wbData']) {
-            $context["processing"] = true;
+        $tokenQuery = $this->getTokenFromQuery($query);
+        if ($tokenQuery && !in_array('all', $tokenQuery)) {
+            $tokens = $this->apiTokenRepository->findByIds($tokenQuery);
+            $allTokens = $this->apiTokenRepository->findBy(['apiUser' => $id, 'status' => ApiTokenStatus::ACTIVE]);
+        } else {
+            $tokens = $this->apiTokenRepository->findBy(['apiUser' => $id, 'status' => ApiTokenStatus::ACTIVE]);
+            $allTokens = $tokens;
+        }
+        $context["tokens"] = $tokens;
+        $context["allTokens"] = $allTokens ?? $this->apiTokenRepository->findByIds($tokenQuery);
+        if (!$this->checkWbData($tokens)) {
+            if(empty($tokens)){
+                $context["processing"] = true;
+            }else {
+                $context["products"] = [];
+            }
             return $context;
         }
 
@@ -277,7 +336,12 @@ class CabinetWbService extends AbstractService
         $data = [];
 
         for ($i = 0; $i < count($arrayPropNames); $i++) {
-            $data[$arrayNames[$i]] = $repos->getProperty($arrayPropNames[$i], $dataWb['wbData']->getId());
+            $data[$arrayNames[$i]] = [];
+            foreach ($tokens as $token){
+                if($wbData = $token->getWbData()){
+                    $data[$arrayNames[$i]] = array_merge($repos->getProperty($arrayPropNames[$i], $wbData->getId()), $data[$arrayNames[$i]]);
+                }
+            }
         }
         foreach (array_keys($data) as $datas) {
             $data[$datas] = array_map(function ($item) {
@@ -286,7 +350,6 @@ class CabinetWbService extends AbstractService
                 return $array;
             }, $data[$datas]);
         }
-        $context["tokens"] = $dataWb['tokens'] instanceof ApiToken ? [$dataWb['tokens']] : $dataWb['tokens'];
         $context["products"] = $data["stocks"];
         return $context;
     }
@@ -301,9 +364,14 @@ class CabinetWbService extends AbstractService
             $tokens = $this->apiTokenRepository->findBy(['apiUser' => $id, 'status' => ApiTokenStatus::ACTIVE]);
             $allTokens = $tokens;
         }
-
+        $context["tokens"] = $tokens;
+        $context["allTokens"] = $allTokens ?? $this->apiTokenRepository->findByIds($tokenQuery);
         if (!$this->checkWbData($tokens)) {
-            $context["processing"] = true;
+            if(empty($tokens)){
+                $context["processing"] = true;
+            }else {
+                $context["orders"] = [];
+            }
             return $context;
         }
 
@@ -350,10 +418,50 @@ class CabinetWbService extends AbstractService
                 $data['order'][$searchItem]['img'] = $img;
             }
         }
+        $context["orders"] = $data["order"];
+        return $context;
+    }
+
+    public function getWbData($id, $query)
+    {
+        $tokenQuery = $this->getTokenFromQuery($query);
+        if ($tokenQuery && !in_array('all', $tokenQuery)) {
+            $tokens = $this->apiTokenRepository->findByIds($tokenQuery);
+            $allTokens = $this->apiTokenRepository->findBy(['apiUser' => $id, 'status' => ApiTokenStatus::ACTIVE]);
+        } else {
+            $tokens = $this->apiTokenRepository->findBy(['apiUser' => $id, 'status' => ApiTokenStatus::ACTIVE]);
+            $allTokens = $tokens;
+        }
         $context["tokens"] = $tokens;
         $context["allTokens"] = $allTokens ?? $this->apiTokenRepository->findByIds($tokenQuery);
-        $context["orders"] = [];
-        return $context;
+        if (!$this->checkWbData($tokens)) {
+            if(empty($tokens)){
+                $context["processing"] = true;
+            }else {
+                $context["sales"] = [];
+            }
+            return $context;
+        }
+
+        $repos = $this->entityManager->getRepository(WbDataProperty::class);
+        $arrayPropNames = ["wbDataSale", "wbDataOrder", "wbDataStock"];
+        $arrayNames = ["sales", "orders", "stocks"];
+        $data = [];
+        for ($i = 0; $i < count($arrayPropNames); $i++) {
+            $data[$arrayNames[$i]] = [];
+            foreach ($tokens as $token){
+                if($wbData = $token->getWbData()){
+                    $data[$arrayNames[$i]] = array_merge($repos->getProperty($arrayPropNames[$i], $wbData->getId()), $data[$arrayNames[$i]]);
+                }
+            }
+        }
+        $context["sales"] = $this->salesOnDay($data);
+        return array_merge(
+            $context,
+            $this->sales($data["sales"]),
+            $this->orders($data["orders"]),
+            $this->stocks($data["stocks"])
+        );
     }
 
     public function deleteApiToken(ApiToken $token)
@@ -429,34 +537,6 @@ class CabinetWbService extends AbstractService
             }
         }
         return '';
-    }
-
-    public function getWbData($id, $query)
-    {
-        $dataWb = $this->checkStatusToken($id, $query);
-        $context['token'] = $dataWb['token'];
-
-        if (!$dataWb['wbData']) {
-            $context["processing"] = true;
-            return $context;
-        }
-
-        $repos = $this->entityManager->getRepository(WbDataProperty::class);
-        $arrayPropNames = ["wbDataSale", "wbDataOrder", "wbDataStock"];
-        $arrayNames = ["sales", "orders", "stocks"];
-        $data = [];
-
-        for ($i = 0; $i < count($arrayPropNames); $i++) {
-            $data[$arrayNames[$i]] = $repos->getProperty($arrayPropNames[$i], $dataWb['wbData']->getId());
-        }
-        $context["tokens"] = $dataWb['tokens'] instanceof ApiToken ? [$dataWb['tokens']] : $dataWb['tokens'];
-        $context["sales"] = $this->salesOnDay($data);
-        return array_merge(
-            $context,
-            $this->sales($data["sales"]),
-            $this->orders($data["orders"]),
-            $this->stocks($data["stocks"])
-        );
     }
 
     private function salesOnDay($datas)
