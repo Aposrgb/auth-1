@@ -36,6 +36,14 @@ abstract class AbstractService
         return $haveToken;
     }
 
+    protected function getTokenFromQuery($query)
+    {
+        if ($query['ids'] ?? null) {
+            $tokenQuery = explode(',', $query['ids']);
+        }
+        return $tokenQuery??null;
+    }
+
     protected function checkStatusToken($id, $query = [])
     {
         $tokens = $this->entityManager

@@ -209,6 +209,7 @@
             new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[0], option)
             let buttonAllkey = document.getElementById("__BVID__11");
             let select = buttonAllkey.children[buttonAllkey.children.length - 1]
+            select = select.children[select.children.length - 2]
             let tokens = [{% for token in tokens ?? [] %} {{token.id}}, {% endfor%}]
             for(let i=0;i<select.children.length;i++){
                 for(let j=0;j<tokens.length;j++){

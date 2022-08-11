@@ -186,9 +186,10 @@
                 window.location.href = url + "?index=" + id;
             }
 
-            function apply(url){
+            function applyToken(url){
                 let buttonAllkey = document.getElementById("__BVID__11");
                 let select = buttonAllkey.children[buttonAllkey.children.length - 1], ids = [], j=0
+                select = select.children[select.children.length - 2]
                 for (let i=0;i<select.children.length;i++){
                     if(select.children[i].selected){
                         ids[j] = select.children[i].value
