@@ -146,6 +146,7 @@
                 },
                 {% endfor %}
             ]
+            newDatePicker('date', function () {}, "d.m.Y")
             new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[0], option)
             new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[1], option2)
             let buttonAllkey = document.getElementById("__BVID__11");

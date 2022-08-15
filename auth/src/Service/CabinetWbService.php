@@ -117,6 +117,29 @@ class CabinetWbService extends AbstractService
         return $context;
     }
 
+    public function getCostPrice($id, $query)
+    {
+        $tokenQuery = $this->getTokenFromQuery($query);
+        if ($tokenQuery && !in_array('all', $tokenQuery)) {
+            $tokens = $this->apiTokenRepository->findByIds($tokenQuery);
+            $allTokens = $this->apiTokenRepository->findBy(['apiUser' => $id, 'status' => ApiTokenStatus::ACTIVE]);
+        } else {
+            $tokens = $this->apiTokenRepository->findBy(['apiUser' => $id, 'status' => ApiTokenStatus::ACTIVE]);
+            $allTokens = $tokens;
+        }
+        $context["tokens"] = $tokens;
+        $context["allTokens"] = $allTokens ?? $this->apiTokenRepository->findByIds($tokenQuery);
+        if (!$this->checkWbData($tokens)) {
+            if(empty($tokens)){
+                $context["processing"] = true;
+            }else {
+                $context["sales"] = [];
+                $context["orders"] = [];
+            }
+        }
+        return $context;
+    }
+
     public function getOrderRegion($id, $query)
     {
         $tokenQuery = $this->getTokenFromQuery($query);

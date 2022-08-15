@@ -63,9 +63,11 @@ class CabinetController extends AbstractController
             $this->cabinetWbService->getOrderRegion($this->getUser()->getId(), $query));
     }
     #[Route(path: '/import/cost-price', name: 'cost-price')]
-    public function costPrice(): Response
+    public function costPrice(Request $request): Response
     {
-        return $this->render('cabinet/cost-price.html.twig');
+        return $this->render('cabinet/cost-price.html.twig',
+            $this->cabinetWbService->getCostPrice($this->getUser()->getId(),$request->query->all())
+        );
     }
     #[Route(path: '/compare', name: 'compare')]
     public function compare(Request $request): Response

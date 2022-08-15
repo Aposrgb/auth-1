@@ -34,7 +34,7 @@
                                         <div data-v-1ebd09d2="" class="vue-daterange-picker">
                                             <div data-v-1ebd09d2="" class=""><i data-v-1ebd09d2=""
                                                                                 class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                                                <span data-v-1ebd09d2="">08.03.2022 - 06.04.2022</span><b
+                                                <input disabled id="datePicker" /><b
                                                         data-v-1ebd09d2="" class="caret"></b></div><!----></div>
                                     </div> <!----></div>
                             </div>
@@ -81,15 +81,7 @@
                             <i class="fas fa-ellipsis-v text-bg-light" style=""></i> <i
                                     class="fas fa-circle-notch fa-spin text-success" style="display: none;"></i>
                             <div class="title desc text-right"><span>Продажи</span>
-                                <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
-                                     aria-label="info circle" id="info-popover-id-21127"
-                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                     class="bi-info-circle ml-1 b-icon bi">
-                                    <g>
-                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                                        <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-                                    </g>
-                                </svg>
+
                             </div>
                             <div class="d-flex flex-column">
                                 <div class="data-info mt-2">
@@ -129,46 +121,11 @@
                                 <div class="">
                                     <ul role="tablist" class="nav nav-tabs" id="__BVID__49__BV_tab_controls_">
                                         <!---->
-                                        <li role="presentation" class="nav-item"><a role="tab"
-                                                                                    aria-selected="true"
-                                                                                    aria-setsize="2"
-                                                                                    aria-posinset="1" href="#"
-                                                                                    target="_self"
-                                                                                    class="nav-link active title desc pt-0 px-2 pb-1"
-                                                                                    id="__BVID__52___BV_tab_button__"
-                                                                                    aria-controls="__BVID__52"><span>Заказы</span></a>
-                                        </li>
-                                        <li role="presentation" class="nav-item"><a role="tab" tabindex="-1"
-                                                                                    aria-selected="false"
-                                                                                    aria-setsize="2"
-                                                                                    aria-posinset="2" href="#"
-                                                                                    target="_self"
-                                                                                    class="nav-link title desc pt-0 px-2 pb-1"
-                                                                                    id="__BVID__58___BV_tab_button__"
-                                                                                    aria-controls="__BVID__58"><span>Не завершенные</span></a>
-                                        </li>
+                                        <span class="title mr-1">Заказы</span>
                                         <div>
-                                            <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false"
-                                                 role="img" aria-label="info circle"
-                                                 id="info-popover-id-9712-orders"
-                                                 xmlns="http://www.w3.org/2000/svg"
-                                                 fill="currentColor" class="bi-info-circle ml-1 b-icon bi">
-                                                <g>
-                                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                                                    <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-                                                </g>
-                                            </svg> <!----></div>
+                                             <!----></div>
                                         <div>
-                                            <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false"
-                                                 role="img" aria-label="info circle"
-                                                 id="info-popover-id-9712-not_finished_orders"
-                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                 class="bi-info-circle ml-1 b-icon bi" style="display: none;">
-                                                <g>
-                                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                                                    <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-                                                </g>
-                                            </svg> <!----></div>
+                                            <!----></div>
                                     </ul>
                                 </div>
                                 <div class="tab-content p-0 mb-0" id="__BVID__49__BV_tab_container_">
@@ -238,15 +195,7 @@
                             <i class="fas fa-ellipsis-v text-bg-light" style=""></i> <i
                                     class="fas fa-circle-notch fa-spin text-success" style="display: none;"></i>
                             <div class="title desc text-right"><span>Возвраты</span>
-                                <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
-                                     aria-label="info circle" id="info-popover-id-17507"
-                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                     class="bi-info-circle ml-1 b-icon bi">
-                                    <g>
-                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                                        <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-                                    </g>
-                                </svg>
+
                             </div>
                             <div class="d-flex flex-column">
                                 <div class="data-info mt-2">
@@ -283,15 +232,7 @@
                             <i class="fas fa-ellipsis-v text-bg-light" style=""></i> <i
                                     class="fas fa-circle-notch fa-spin text-success" style="display: none;"></i>
                             <div class="title desc text-right"><span>Самовыкупы</span>
-                                <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
-                                     aria-label="info circle" id="info-popover-id-70737"
-                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                     class="bi-info-circle ml-1 b-icon bi">
-                                    <g>
-                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                                        <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-                                    </g>
-                                </svg>
+
                             </div>
                             <div class="d-flex flex-column">
                                 <div class="data-info mt-2">
@@ -326,15 +267,7 @@
                             <i class="fas fa-ellipsis-v text-bg-light" style=""></i> <i
                                     class="fas fa-circle-notch fa-spin text-success" style="display: none;"></i>
                             <div class="title desc text-right"><span>Логистика</span>
-                                <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
-                                     aria-label="info circle" id="info-popover-id-33915"
-                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                     class="bi-info-circle ml-1 b-icon bi">
-                                    <g>
-                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                                        <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-                                    </g>
-                                </svg>
+
                             </div>
                             <div class="d-flex flex-column">
                                 <div class="data-info mt-2">
@@ -369,15 +302,7 @@
                                     class="fas fa-ellipsis-v text-bg-light" style=""></i> <i
                                     class="fas fa-circle-notch fa-spin text-success" style="display: none;"></i>
                             <div class="title desc text-right"><span>Прибыль и комиссия</span>
-                                <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
-                                     aria-label="info circle" id="info-popover-id-23344"
-                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                     class="bi-info-circle ml-1 b-icon bi">
-                                    <g>
-                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                                        <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-                                    </g>
-                                </svg>
+
                             </div>
                             <div class="d-flex flex-column">
                                 <div class="data-info mt-2">
@@ -415,15 +340,7 @@
                             <i class="fas fa-ellipsis-v text-bg-light" style=""></i> <i
                                     class="fas fa-circle-notch fa-spin text-success" style="display: none;"></i>
                             <div class="title desc text-right"><span>Капитализация склада</span>
-                                <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
-                                     aria-label="info circle" id="info-popover-id-51486"
-                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                     class="bi-info-circle ml-1 b-icon bi">
-                                    <g>
-                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                                        <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-                                    </g>
-                                </svg>
+
                             </div>
                             <div class="d-flex flex-column">
                                 <div class="data-info mt-2">
@@ -458,15 +375,7 @@
                                     data-v-291d48e2="" class="fas fa-circle-notch fa-spin text-success"
                                     style="display: none;"></i>
                             <div data-v-291d48e2="" class="title desc text-right"><span data-v-291d48e2="">Рентабельность и маржинальность</span>
-                                <svg data-v-291d48e2="" viewBox="0 0 16 16" width="1em" height="1em"
-                                     focusable="false" role="img" aria-label="info circle"
-                                     id="info-popover-id-83477" xmlns="http://www.w3.org/2000/svg"
-                                     fill="currentColor" class="bi-info-circle ml-1 b-icon bi danger">
-                                    <g data-v-291d48e2="">
-                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                                        <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-                                    </g>
-                                </svg>
+
                             </div>
                             <div data-v-291d48e2="" class="d-flex flex-column">
                                 <div data-v-291d48e2="" class="data-info mt-2">
@@ -538,32 +447,6 @@
                     </div>
                 </div>
             </div>
-            <div data-v-946f0130="" class="row">
-                <div data-v-946f0130="" class="col-lg-4">
-                    <div data-v-946f0130="" class="card card-flat cursor-pointer">
-                        <div data-v-946f0130="" class="card-header">Расчет поставки</div>
-                        <div data-v-946f0130="" class="card-body"><p data-v-946f0130="">Калькулятор расчета
-                                поставки
-                                Wildberries, который поможет расчитать количество к поставке.</p></div>
-                    </div>
-                </div>
-                <a data-v-946f0130="" href="/cabinet/import/cost-price" target="_blank"
-                   class="col-lg-4 cursor-pointer text-blank">
-                    <div data-v-946f0130="" class="card card-flat">
-                        <div data-v-946f0130="" class="card-header">Импорт параметров товара</div>
-                        <div data-v-946f0130="" class="card-body"><p data-v-946f0130="">Загрузка данных по
-                                товарам:
-                                себестоимость, кратность короба, тип поставки и поставщиков и многое другое</p>
-                        </div>
-                    </div>
-                </a>
-                <div data-v-946f0130="" class="col-lg-4">
-                    <div data-v-946f0130="" class="card card-flat cursor-pointer">
-                        <div data-v-946f0130="" class="card-header">Сравнение периодов</div>
-                        <div data-v-946f0130="" class="card-body"><p data-v-946f0130="">Сравнение периодов:
-                                возможность контролировать динамику продаж</p></div>
-                    </div>
-                </div> <!----> <!----></div>
         </div>
         <div><!---->
             <div class="snotify snotify-left_top"></div>

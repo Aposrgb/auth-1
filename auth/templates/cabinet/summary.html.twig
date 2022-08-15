@@ -165,6 +165,7 @@
                         },
                         {% endfor %}
                     ]
+                    newDatePicker('datePicker', function () {}, "d.m.Y")
                     new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[0], option)
                     let buttonAllkey = document.getElementById("__BVID__11");
                     let select = buttonAllkey.children[buttonAllkey.children.length - 1]
@@ -177,19 +178,19 @@
                             }
                         }
                     }
+                    formatter("summa_price")
+                    formatter("summa_length")
+                    formatter("summa_profit")
+                    formatter("summa_comm")
+                    formatter("returned_length")
+                    formatter("returned_price")
+                    formatter("rent")
+                    formatter("mardj")
+                    formatter("orders_price")
+                    formatter("orders_length")
+                    formatter("stocks_cost_price")
+                    formatter("stocks_retail_price")
                 })
-                formatter("summa_price")
-                formatter("summa_length")
-                formatter("summa_profit")
-                formatter("summa_comm")
-                formatter("returned_length")
-                formatter("returned_price")
-                formatter("rent")
-                formatter("mardj")
-                formatter("orders_price")
-                formatter("orders_length")
-                formatter("stocks_cost_price")
-                formatter("stocks_retail_price")
             </script>
         {% endif %}
     {% else %}
