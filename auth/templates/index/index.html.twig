@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://unpkg.com/ag-grid-enterprise@28.0.0/dist/ag-grid-enterprise.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shortcut-buttons-flatpickr@0.1.0/dist/themes/light.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/shortcut-buttons-flatpickr@0.1.0/dist/shortcut-buttons-flatpickr.min.js"></script>
 </head>
 <body>
 <div class="be-wrapper be-nosidebar-left">
@@ -520,6 +522,91 @@
                 onClose: function (selectedDates, dateStr, instance) {
                     func(dateStr)
                 },
+                plugins: [
+                    ShortcutButtonsPlugin({
+                        button: [
+                            {
+                                label: "Последние 7 дней"
+                            },
+                            {
+                                label: "Последние 30 дней"
+                            },
+                            {
+                                label: "Текущий месяц"
+                            },
+                            {
+                                label: "Прошлый месяц"
+                            },
+                            {
+                                label: "Последний год"
+                            },
+                            {
+                                label: "Применить"
+                            }
+                        ],
+                        label: "",
+                        onClick: (index, fp) => {
+                            let date;
+                            switch (index) {
+                                // Последние 7 дней
+                                case 0:
+                                    date = [new Date(Date.now()), new Date(Date.now() - 24 * 60 * 60 * 1000 * 7)]
+                                    break;
+                                // Последние 30 дней
+                                case 1:
+                                    date = [new Date(Date.now()), new Date(Date.now() - 24 * 60 * 60 * 1000 * 30)]
+                                    break;
+                                // Текущий месяц
+                                case 2:
+                                    Date.prototype.daysInMonth = function() {
+                                        return 33 - new Date(this.getFullYear(), this.getMonth(), 33).getDate();
+                                    };
+                                    var days = new Date().daysInMonth(); // Кол-во дней
+                                    var today = new Date(); // Сегодня
+                                    //var firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1); // Первый день
+                                    //var lastDayOfMonth = new Date(today.getFullYear(), today.getMonth()+1, 0); // Последниый день
+                                    var arr = [];
+                                    var i = 0;
+                                    while (i < days) {
+                                        i = i + 1;
+                                        arr.push(new Date(today.getFullYear(), today.getMonth(), i));
+                                    }
+                                    date = [arr[0], arr[arr.length-1]]
+                                    break;
+                                // Прошлый месяц
+                                case 3:
+                                    Date.prototype.daysInMonth = function() {
+                                        return 33 - new Date(this.getFullYear(), this.getMonth(), 33).getDate();
+                                    };
+                                    var days = new Date().daysInMonth() - 1; // Кол-во дней
+                                    var today = new Date(); // Сегодня
+                                    var firstDayOfMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1); // Первый день
+                                    var arr = [];
+                                    var i = 0;
+                                    while (i < days) {
+                                        i = i + 1;
+                                        arr.push(new Date(today.getFullYear(), today.getMonth() - 1, i));
+                                    }
+                                    date = [arr[0], arr[arr.length-1]]
+                                    break;
+                                // Последний год
+                                case 4:
+                                    var arr = [];
+                                    var i = 0;
+                                    while (i < 365000) {
+                                        i = i + 1000;
+                                        arr.push(new Date(Date.now() - 24 * 60 * 60 * i));
+                                    }
+                                    date = [arr[0], arr[arr.length-1]]
+                                    break;
+                                case 5:
+                                    func(date)
+                                    break;
+                            }
+                            fp.setDate(date);
+                        }
+                    })
+                ]
             })
         }
 
