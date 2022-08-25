@@ -19,7 +19,7 @@
 {% block body %}
     {% include 'ozon/HTML/categorySale.html.twig' %}
     <script>
-        let date = "{{ d1 }} to {{ d2 }}"
+        let date = "{{ d1 }} to {{ d2 }}", option = {}
         document.addEventListener("DOMContentLoaded", () => {
             let col = [
                 {
@@ -62,7 +62,7 @@
                 },
                 {% endfor %}
             ]
-
+            option = {...getOptions()}
             option['columnDefs'] = col
             option['rowData'] = value
             option['onRowClicked'] = event => {
@@ -73,22 +73,6 @@
             newDatePicker('datePicker', function (date) {
                 window.location.href = "{{ path("ozon_category") }}?url={{ path }}&date=" + date
             })
-            let el = document.getElementById("scrollbar")
-            el.addEventListener("input",
-                function () {
-                    let width = document.getElementById("table_sale").offsetWidth
-                    let value = (el.value * width / 600) / 5
-                    document.getElementById("table_sale").style.transform = "translateX(-" + value + "vh)"
-                    document.getElementById("table_sale_header").style.transform = "translateX(-" + value + "vh)"
-                }, false)
-            let el6 = document.getElementById("scrollbar6")
-            el6.addEventListener("input",
-                function () {
-                    let width = document.getElementById("table_sale6").offsetWidth
-                    let value = (el6.value * width / 1800) / 5
-                    document.getElementById("table_sale6").style.transform = "translateX(-" + value + "vh)"
-                    document.getElementById("table_sale6_header").style.transform = "translateX(-" + value + "vh)"
-                }, false)
         })
 
         function select(el) {

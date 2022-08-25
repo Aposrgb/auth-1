@@ -11,9 +11,9 @@ class OzonService extends AbstractService
 {
     public function getItem($sku, $query)
     {
-        $context = ['sku' => $sku];
-        $client = new Client();
         try {
+            $context = ['sku' => $sku];
+            $client = new Client();
             $date = $query['date']??null;
             $date = $date?explode(' to ', $date):null;
             $context['d2'] = $date?$date[1]:(new \DateTime())->modify('-1 day')->format('Y-m-d');
@@ -76,6 +76,7 @@ class OzonService extends AbstractService
                     'summa' => $byKeywords['sales'][$i] * $byKeywords['final_price'][$i]
                 ];
             }
+            $countSale = $countSale == 0?1: $countSale;
             $context['average'] = (int)($context['result'] / count($sales));
             $context['summa_average'] = (int)($context['summa'] / count($sales));
             $context['balance_price'] = (int)($context['price'] / $countSale) * $context['balance']/$countSale;
@@ -94,6 +95,7 @@ class OzonService extends AbstractService
                 $context['dayG'][] = $sale['day'];
             }
         } catch (\Exception $exception) {
+            $context = null;
         }
         return $context;
     }

@@ -48,9 +48,10 @@
                                     class="dropdown-item"><span>География заказов</span></a>
                             <div class="dropdown-divider"></div>
                             <a href="/cabinet/import/cost-price" class="dropdown-item"><span>Импорт себестоимости и параметров товара</span></a>
-                            <a href="/cabinet/compare" class="dropdown-item"><span>Сравнение периодов</span></a> <a
-                                    href="/cabinet/income-calc"
-                                    class="dropdown-item d-flex justify-content-between"><span>Расчет поставки</span></a>
+                            <a href="/cabinet/compare" class="dropdown-item"><span>Сравнение периодов</span></a>
+
+{#                            <a href="/cabinet/income-calc" class="dropdown-item d-flex justify-content-between"><span>Расчет поставки</span></a>#}
+
                             <div class="dropdown-divider"></div>
                             <a href="/cabinet/weekly-reports" class="dropdown-item"><span>Еженедельные отчеты</span></a>
                             <a
@@ -519,9 +520,6 @@
             flatpickr("#" + id, {
                 mode: "range",
                 dateFormat: format,
-                onClose: function (selectedDates, dateStr, instance) {
-                    func(dateStr)
-                },
                 plugins: [
                     ShortcutButtonsPlugin({
                         button: [
@@ -600,7 +598,7 @@
                                     date = [arr[0], arr[arr.length-1]]
                                     break;
                                 case 5:
-                                    func(date)
+                                    func(document.getElementById(id).value)
                                     break;
                             }
                             fp.setDate(date);

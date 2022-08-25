@@ -34,12 +34,24 @@
                     filter: false,
                     cellRenderer: params => `<img style="height: 32px; width: 32px" src="${params.value}" />`
                 },
-                {headerName: 'SKU', field: 'sku'},
+                {
+                    headerName: 'SKU',
+                    field: 'sku',
+                    cellRenderer: params => `<a href="item/${params.value}">${params.value}</a>`
+                },
                 {headerName: 'Название', field: 'name'},
                 {headerName: 'Цвет', field: 'color'},
-                {headerName: 'Категория', field: 'category'},
-                {headerName: 'Позиция', field: 'position'},
-                {headerName: 'Бренд', field: 'brand'},
+                {
+                    headerName: 'Категория',
+                    field: 'category',
+                    cellRenderer: params => `<a href="category?url=${params.value}">${params.value}</a>`
+                },
+                {headerName: 'Позиция', field: 'position',},
+                {
+                    headerName: 'Бренд',
+                    field: 'brand',
+                    cellRenderer: params => `<a href="brand/${params.value}">${params.value}</a>`
+                },
                 {headerName: 'Продавец', field: 'seller'},
                 {headerName: 'Наличие', field: 'balance'},
                 {headerName: 'Комментарии', field: 'comments'},
@@ -75,9 +87,7 @@
 
             option['columnDefs'] = col
             option['rowData'] = value
-            option['onRowClicked'] = event => {
-                window.location.href = 'item/' + event.data.sku
-            }
+
             new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[0], option)
 
             newDatePicker('datePicker', function (date) {
