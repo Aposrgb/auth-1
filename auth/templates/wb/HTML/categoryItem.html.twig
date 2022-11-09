@@ -156,7 +156,7 @@
                                         </svg>
                                     </td>
                                     <td class="item">Предмет</td>
-                                    <td>{{ category??'' }}</td>
+                                    <td>{{ item.name??'' }}</td>
                                 </tr>
                                 <tr>
                                     <td><!----></td>
@@ -256,7 +256,9 @@
                                 <tr>
                                     <td class="icon"></td>
                                     <td class="item">Дополнительно</td>
-                                    <td>Рейтинг:{{ item.rating??'' }}</td>
+                                    <td><span>Рейтинг:{{ item.rating??'' }}</span>
+                                        <span>Комментариев:{{item.comments??'' }}</span>
+                                    </td>
                                 </tr> <!---->
                                 <tr>
                                     <td>
