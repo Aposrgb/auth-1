@@ -17,12 +17,13 @@
                                                    style="max-height: 49px !important; max-width: 49px !important;">
                                 <!----></div>
                             <div class="d-flex flex-column">
-                                <div class="d-flex justify-content-start align-items-center">
-                                    <span>{{ item.full_name??'' }}</span> <span
-                                            class="ml-1">{{ item.brand??'' }}</span>
-                                <div><a href="https://www.wildberries.ru/catalog/{{ sku }}/detail.aspx" target="_blank"
+                                <div class="ml-1">
+                                    <span>{{ item.brand??'' }}</span>&nbsp;/&nbsp;
+                                    <span>{{ item.full_name??'' }}</span>
+                                </div>    
+                                <a href="https://www.wildberries.ru/catalog/{{ sku }}/detail.aspx" target="_blank"
                                         class="mp-green-link mr-3">{{ item.link??'' }}</a>
-                                </div>
+                                
                             </div>
                             <div class="d-flex justify-content-end align-items-center ml-5 flex-grow-1">
                                 <div class="d-flex align-items-center"><i class="fa fa-info-circle mr-2"></i>
@@ -70,7 +71,7 @@
                                                                                         class="number">{{ result??'' }} шт</span>
                                 <span
                                         data-v-1e0b8860=""
-                                        class="indicator indicator-equal mdi  mx-1"></span> <span
+                                        class="mdi mdi-chevron-right mx-1"></span> <span
                                         data-v-1e0b8860="" class="number">{{ summa??'' }} ₽</span></div>
                         </div>
                     </div>
@@ -86,7 +87,7 @@
                             <div data-v-1e0b8860="" class="value"><!----> <!----> <span data-v-1e0b8860=""
                                                                                         class="number">{{ summa??'' }}</span>
                                 <span data-v-1e0b8860=""
-                                      class="indicator indicator-equal mdi  mx-1"></span> <span
+                                      class="mdi mdi-chevron-right mx-1"></span> <span
                                         data-v-1e0b8860="" class="number text-bold">
                         0 ₽
                          (0 %)
@@ -102,7 +103,7 @@
                                                                                         class="number">{{ average??'0' }} шт</span>
                                 <span
                                         data-v-1e0b8860=""
-                                        class="indicator indicator-equal mdi  mx-1"></span> <span
+                                        class="mdi mdi-chevron-right mx-1"></span> <span
                                         data-v-1e0b8860="" class="number">{{ summa_average??'0' }} ₽</span></div>
                         </div>
                     </div>
@@ -118,7 +119,7 @@
                                                                                         class="number">{{ average??'0' }} шт</span>
                                 <span
                                         data-v-1e0b8860=""
-                                        class="indicator indicator-equal mdi  mx-1"></span> <span
+                                        class="mdi mdi-chevron-right mx-1"></span> <span
                                         data-v-1e0b8860="" class="number">{{ summa_average??'0' }} ₽</span></div>
                         </div>
                     </div>
@@ -155,12 +156,12 @@
                                         </svg>
                                     </td>
                                     <td class="item">Предмет</td>
-                                    <td>{{ item.full_name??'' }}</td>
+                                    <td>{{ item.name??'' }}</td>
                                 </tr>
                                 <tr>
                                     <td><!----></td>
                                     <td class="item">Название</td>
-                                    <td>{{ item.name??'' }}</td>
+                                    <td>{{ item.full_name??'' }}</td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -176,7 +177,7 @@
                                     <td><a href="/wb/brand?brand=United%20Colors%20of%20Benetton"
                                            target="_blank">{{ item.brand??'' }}</a></td>
                                 </tr>
-                                <tr>
+                            <!--    <tr>
                                     <td>
                                         <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
                                              aria-label="person" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -188,7 +189,7 @@
                                     </td>
                                     <td class="item">Пол</td>
                                     <td>Мальчики</td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <td>
                                         <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"
@@ -248,10 +249,17 @@
                                     <td>Италия</td>
                                 </tr> <!---->
                                 <tr>
-                                    <td class="icon"></td>
+                                    <td><span class="mdi mdi-binoculars"></span></td>
                                     <td class="item">Впервые обнаружен</td>
                                     <td>{{ item.first_date??'' }}</td>
                                 </tr> <!---->
+                                 <tr>
+                                    <td><span class="mdi mdi-account-group"></span></td>
+                                    <td class="item">Дополнительно</td>
+                                    <td><span>Рейтинг:{{ item.rating??'' }}</span>
+                                        <span>Комментариев:{{item.comments??'' }}</span>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td>
                                         <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img"

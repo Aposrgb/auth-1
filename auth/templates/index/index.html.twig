@@ -14,6 +14,8 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://unpkg.com/ag-grid-enterprise@28.0.0/dist/ag-grid-enterprise.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shortcut-buttons-flatpickr@0.1.0/dist/themes/light.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@mdi/font@6.9.96/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/shortcut-buttons-flatpickr@0.1.0/dist/shortcut-buttons-flatpickr.min.js"></script>
 </head>
 <body>
@@ -21,9 +23,8 @@
     {% block header %}
         <nav id="mp-stats-header" class="top-menu navbar navbar-expand-xl be-top-header fixed-top shadow-sm">
             <div class="logo d-none d-xl-flex"><a href="/" class="d-flex align-items-center">
-                    <img src="https://mpstats.io/i/logo.svg" alt="mpstats"
-                         class="mr-0 mr-xxl-2"><span
-                            class="d-none d-xxl-inline">mpstats.io</span>
+                    <img src="https://mpstats.io/public/images/v4/logo_black.svg" alt="mpstats"
+                         class="mr-0 mr-xxl-2">
                 </a></div>
             <button onclick="showMenu()" type="button" data-toggle="collapse" data-target="#be-navbar-collapse"
                     aria-controls="be-navbar-collapse"
@@ -35,7 +36,7 @@
                                                                               role="button"
                                                                               aria-expanded="false"
                                                                               class="nav-link">
-                            Кабинет WB &#9660</a>
+                            Кабинет WB<span class="mdi mdi-menu-down mdi-24px"></a>
                         <div role="menu" style="display:none;" class="dropdown-menu show "><a href="/cabinet/summary"
                                                                                               class="dropdown-item"><span>Сводка</span></a>
                             <a
@@ -62,7 +63,7 @@
                                 role="button"
                                 aria-expanded="false"
                                 class="nav-link">
-                            SEO &#9660;</a>
+                            SEO<span class="mdi mdi-menu-down mdi-24px"></a>
                         <div role="menu" style="display:none;" class="dropdown-menu show"><a href="/seo/keyword"
                                                                                              class="dropdown-item keyword-dashboard"><span>Результаты поиска (SERP)</span></a>
                             <a href="/seo/keywords/expanding"
@@ -79,7 +80,7 @@
                                                                               role="button"
                                                                               aria-expanded="false"
                                                                               class="nav-link">
-                            Ozon &#9660;</a>
+                            Ozon<span class="mdi mdi-menu-down mdi-24px"></a>
                         <div role="menu" style="display:none;" class="dropdown-menu show"><a href="/ozon/category?url="
                                                                                              class="dropdown-item"><span>Категории</span></a>
                             <a href="/ozon/seller" class="dropdown-item"><span>Продавцы</span></a> <a href="/ozon/brand"
@@ -90,7 +91,7 @@
                                                                               role="button"
                                                                               aria-expanded="false"
                                                                               class="nav-link">
-                            Wildberries &#9660;</a>
+                            Wildberries<span class="mdi mdi-menu-down mdi-24px"></a>
                         <div role="menu" style="display:none;" class="dropdown-menu show"><a href="/wb/category?url="
                                                                                              class="dropdown-item"><span>Категории</span></a>
                             <a
