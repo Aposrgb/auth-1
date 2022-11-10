@@ -6,3 +6,4 @@
 /.idea/php.xml
 *.lock
 auth/composer.lock
+*.lock
