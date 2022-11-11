@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 {% endblock %}
 {% block body %}
-    {% if tokens %}
+    {% if token %}
         {% if processing is defined %}
             <div class="be-content">
                 <div id="mp-stats-app" class="main-content container-fluid">
@@ -39,159 +39,24 @@
         {% else %}
             {% include 'cabinet/HTML/summary.html.twig' %}
             <script>
-                let option = {}
-                document.addEventListener('DOMContentLoaded', () => {
-                    option = {...getOptions()}
-                    option['columnDefs'] = [
-                        {
-                            headerName: 'Дата',
-                            field: 'date',
-                            maxWidth: 150
-                        },
-                        {
-                            headerName: 'Продажи',
-                            children: [
-                                {
-                                    headerName: 'Шт',
-                                    field: 'salesQ',
-                                    maxWidth: 150,
-                                    cellRenderer: params => `<p class="number">${params.value}</p>`
-                                },
-                                {
-                                    headerName: 'Руб',
-                                    field: 'rubS',
-                                    maxWidth: 150,
-                                    cellRenderer: params => `<p class="number">${params.value}</p>`
-                                },
-                                {
-                                    headerName: 'Прибыль',
-                                    field: 'profitS',
-                                    maxWidth: 150,
-                                    cellRenderer: params => `<p class="number">${params.value}</p>`
-                                },
-                                {
-                                    headerName: 'Себестоимость',
-                                    field: 'costPriceS',
-                                    maxWidth: 150,
-                                    cellRenderer: params => `<p class="number">${params.value}</p>`
-                                },
-                                {
-                                    headerName: 'Комиссия WB',
-                                    field: 'commissionS',
-                                    maxWidth: 150,
-                                    cellRenderer: params => `<p class="number">${params.value}</p>`
-                                },
-                                {
-                                    headerName: 'К выплате',
-                                    field: 'profitS',
-                                    maxWidth: 150,
-                                    cellRenderer: params => `<p class="number">${params.value}</p>`
-                                },
-                            ]
-                        },
-                        {
-                            headerName: 'Заказы',
-                            children: [
-                                {
-                                    headerName: 'Шт',
-                                    field: 'orderQ',
-                                    maxWidth: 150,
-                                    cellRenderer: params => `<p class="number">${params.value}</p>`
-                                },
-                                {
-                                    headerName: 'Руб',
-                                    field: 'rubOr',
-                                    maxWidth: 150,
-                                    cellRenderer: params => `<p class="number">${params.value}</p>`
-                                }
-                            ]
-                        },
-                        {
-                            headerName: 'Возвраты',
-                            children: [
-                                {
-                                    headerName: 'Шт',
-                                    field: 'returnQ',
-                                    maxWidth: 150,
-                                    cellRenderer: params => `<p class="number">${params.value}</p>`
-                                },
-                                {
-                                    headerName: 'Руб',
-                                    field: 'rubRet',
-                                    maxWidth: 150,
-                                    cellRenderer: params => `<p class="number">${params.value}</p>`
-                                }
-                            ]
-                        },
-                        {
-                            headerName: 'Логистика',
-                            children: [
-                                {
-                                    headerName: 'К клиенту',
-                                    field: 'logisticToC',
-                                    maxWidth: 150,
-                                    cellRenderer: params => `<p class="number">${params.value}</p>`
-                                },
-                                {
-                                    headerName: 'От клиента',
-                                    field: 'logisticFromC',
-                                    maxWidth: 150,
-                                    cellRenderer: params => `<p class="number">${params.value}</p>`
-                                }
-                            ]
-                        },
-                        {
-                            headerName: 'Штраф',
-                            field: 'fine',
-                            maxWidth: 150,
-                            cellRenderer: params => `<p class="number">${params.value}</p>`
-                        }
-                    ]
-                    option['rowData'] = [
-                        {% for sale in sales %}
-                        {
-                            date: '{{ sale.date }}',
-                            salesQ: '{{ sale.salesQ }}',
-                            rubS: '{{ sale.rubS }}',
-                            profitS: '{{ sale.profitS }}',
-                            costPriceS: '{{ sale.costPriceS }}',
-                            commissionS: '{{ sale.commissionS }}',
-                            orderQ: '{{ sale.orderQ }}',
-                            rubOr: '{{ sale.rubOr }}',
-                            returnQ: '{{ sale.returnQ }}',
-                            rubRet: '{{ sale.rubRet }}',
-                            logisticToC: '{{ sale.logisticToC }}',
-                            logisticFromC: '{{ sale.logisticFromC }}',
-                            fine: '{{ sale.fine }}',
-                        },
-                        {% endfor %}
-                    ]
-                    newDatePicker('datePicker', function () {}, "d.m.Y")
-                    new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[0], option)
-                    let buttonAllkey = document.getElementById("__BVID__11");
-                    let select = buttonAllkey.children[buttonAllkey.children.length - 1]
-                    select = select.children[select.children.length - 2]
-                    let tokens = [{% for token in tokens ?? [] %} {{token.id}}, {% endfor%}]
-                    for(let i=0;i<select.children.length;i++){
-                        for(let j=0;j<tokens.length;j++){
-                            if(tokens[j] === tryParseInt(select.children[i].value)){
-                                select.children[i].selected = true
-                            }
-                        }
-                    }
-                    formatter("summa_price")
-                    formatter("summa_length")
-                    formatter("summa_profit")
-                    formatter("summa_comm")
-                    formatter("returned_length")
-                    formatter("returned_price")
-                    formatter("rent")
-                    formatter("mardj")
-                    formatter("orders_price")
-                    formatter("orders_length")
-                    formatter("stocks_cost_price")
-                    formatter("stocks_retail_price")
-                })
+                formatter("summa_price")
+                formatter("summa_length")
+                formatter("summa_profit")
+                formatter("summa_comm")
+                formatter("returned_length")
+                formatter("returned_price")
+                formatter("rent")
+                formatter("mardj")
+                formatter("orders_price")
+                formatter("orders_length")
+                formatter("stocks_cost_price")
+                formatter("stocks_retail_price")
+
+                function formatter(id) {
+                    let intFormatter = new Intl.NumberFormat()
+                    let prop = document.getElementById(id)
+                    prop.innerText = intFormatter.format(prop.innerText)
+                }
             </script>
         {% endif %}
     {% else %}

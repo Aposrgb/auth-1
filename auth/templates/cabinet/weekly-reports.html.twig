@@ -9,7 +9,7 @@
 
 {% endblock %}
 {% block body %}
-    {% if tokens %}
+    {% if token %}
         {% if processing is defined %}
             <div class="be-content">
                 <div id="mp-stats-app" class="main-content container-fluid">
@@ -72,139 +72,15 @@
         </div>
     {% endif %}
     <script>
-        let option = {}
         document.addEventListener("DOMContentLoaded", () => {
-            option = {...getOptions()}
-            let buttonAllkey = document.getElementById("__BVID__11");
-            let select = buttonAllkey.children[buttonAllkey.children.length - 1]
-            select = select.children[select.children.length - 2]
-            let tokens = [{% for token in tokens ?? [] %} {{ token.id }}, {% endfor %}]
-            for (let i = 0; i < select.children.length; i++) {
-                for (let j = 0; j < tokens.length; j++) {
-                    if (tokens[j] === tryParseInt(select.children[i].value)) {
-                        select.children[i].selected = true
-                    }
-                }
-            }
-            option['columnDefs'] = [
-                {
-                    headerName: 'ID отчета',
-                    field: 'realizationreport_id'
-                },
-                {
-                    headerName: 'Период',
-                    children: [
-                        {
-                            headerName: 'Дата начала',
-                            field: 'dateStart'
-                        },
-                        {
-                            headerName: 'Дата конца',
-                            field: 'dateEnd'
-                        }
-                    ]
-                },
-                {
-                    headerName: 'Суммы',
-                    children: [
-                        {
-                            headerName: 'Продажи',
-                            field: 'retail',
-                            cellRenderer: params => `<p class="number">${params.value} </p>`
-                        },
-                        {
-                            headerName: 'Себестоимость продаж',
-                            field: 'sales',
-                            cellRenderer: params => `<p class="number">${params.value} </p>`
-                        },
-                        {
-                            headerName: 'Возвраты',
-                            field: 'returned',
-                            cellRenderer: params => `<p class="number">${params.value} </p>`
-                        },
-                        {
-                            headerName: 'Себестоимость возвратов',
-                            field: 'returneds',
-                            cellRenderer: params => `<p class="number">${params.value} </p>`
-                        },
-                        {
-                            headerName: 'Общее',
-                            field: 'retail2',
-                            cellRenderer: params => `<p class="number">${params.value} </p>`
-                        },
-                        {
-                            headerName: 'По заказам',
-                            field: 'retail_price',
-                            cellRenderer: params => `<p class="number">${params.value} </p>`
-                        },
-                    ]
-                },
-                {
-                    headerName: 'Стоимость логистики',
-                    children: [
-                        {
-                            headerName: 'К клиенту',
-                            field: 'toClient'
-                        },
-                        {
-                            headerName: 'От клиента',
-                            field: 'fromClient'
-                        },
-                        {
-                            headerName: 'Общая',
-                            field: 'allClient'
-                        },
-                    ]
-                },
-                {
-                    headerName: 'Комиссия',
-                    children: [
-                        {
-                            headerName: 'От продажи',
-                            field: 'commission',
-                            cellRenderer: params => `<p class="number">${params.value} </p>`
-                        },
-                        {
-                            headerName: 'За возврат',
-                            field: 'com_return',
-                            cellRenderer: params => `<p class="number">${params.value} </p>`
-                        },
-                        {
-                            headerName: 'Общая',
-                            field: 'commisson_return',
-                            cellRenderer: params => `<p class="number">${params.value} </p>`
-                        },
-                        {
-                            headerName: 'Чистая прибыль',
-                            field: 'all_retail',
-                            cellRenderer: params => `<p class="number">${params.value} </p>`
-                        }
-                    ]
-                },
-            ]
-            option['rowData'] = [
-                {% for report in reports %}
-                {
-                    realizationreport_id: '{{ report.realizationreport_id }}',
-                    dateStart: '{{ report.dateStart }}',
-                    dateEnd: '{{ report.dateEnd }}',
-                    retail: '{{ report.retail }}',
-                    sales: '0, 00 ₽',
-                    returned: '{{ report.returned }}',
-                    returneds: '0, 00 ₽',
-                    retail2: '{{ report.retail }}',
-                    retail_price : '{{ report.retail_price }}',
-                    toClient: '1875, 00 ₽',
-                    fromClient: '33, 00₽,',
-                    allClient: '1908, 00 ₽',
-                    commission: '{{ report.commission }}',
-                    com_return: '{{ report.com_return }}',
-                    commisson_return: '{{ report.commission+report.com_return }}',
-                    all_retail:'{{ report.retail-(report.commission+report.com_return) }}'
-                },
-                {% endfor %}
-            ]
-            new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[0], option)
+            let el = document.getElementById("scrollbar")
+            el.addEventListener("input",
+                function () {
+                    let width = document.getElementById("table_sale").offsetWidth
+                    let value = el.value * width/1200*width/1200
+                    document.getElementById("table_sale").style.transform = "translateX(-" + value + "px)"
+                    document.getElementById("table_sale_header").style.transform = "translateX(-" + value + "px)"
+                }, false)
         })
     </script>
 {%endblock%}

@@ -59,7 +59,7 @@
                                                                                             class="number">{{ result??'' }} шт</span>
                                     <span
                                             data-v-1e0b8860=""
-                                            class="indicator indicator-equal  -chevron-right mx-1"></span> <span
+                                            class="indicator indicator-equal mdi mdi-chevron-right mx-1"></span> <span
                                             data-v-1e0b8860="" class="number">{{ summa??'' }} ₽</span></div>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                                 <div data-v-1e0b8860="" class="desc">Потенциал <i class="far fa-question-circle ml-1"></i>/ Упущенная выручка <i class="far fa-question-circle ml-1"></i></div>
                                 <div data-v-1e0b8860="" class="value">
                                     <span class="number">{{ potensial??'' }}</span>
-                                    <span class="indicator indicator-equal  -chevron-right mx-1"></span> <span class="number text-bold">
+                                    <span class="indicator indicator-equal mdi mdi-chevron-right mx-1"></span> <span class="number text-bold">
                         0 ₽
                          (0 %)
                     </span></div>
@@ -85,7 +85,7 @@
                                                                                             class="number">{{ average??'0' }} шт</span>
                                     <span
                                             data-v-1e0b8860=""
-                                            class="indicator indicator-equal  -chevron-right mx-1"></span> <span
+                                            class="indicator indicator-equal mdi mdi-chevron-right mx-1"></span> <span
                                             data-v-1e0b8860="" class="number">{{ summa_average??'0' }} ₽</span></div>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                                                                                             class="number">{{ balance??'0' }} шт</span>
                                     <span
                                             data-v-1e0b8860=""
-                                            class="indicator indicator-equal  -chevron-right mx-1"></span> <span
+                                            class="indicator indicator-equal mdi mdi-chevron-right mx-1"></span> <span
                                             data-v-1e0b8860="" class="number">{{ balance_price??'0' }} ₽</span></div>
                             </div>
                         </div>
@@ -114,12 +114,12 @@
                             <div class="card-body">
                                 <table class="table table-borderless">
                                     <tr>
-                                        <td ></td>
+                                        <td class="icon lead"></td>
                                         <td class="item">SKU</td>
                                         <td>{{ sku }}</td>
                                     </tr>
                                     <tr>
-                                        <td ><span class=""></span></td>
+                                        <td class="icon lead"><span class="mdi mdi-group"></span></td>
                                         <td class="item">Группы</td>
                                         <td>
                                             <div>
@@ -137,31 +137,31 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td ><span class=" -pin"></span></td>
+                                        <td class="icon lead"><span class="mdi mdi-pin"></span></td>
                                         <td class="item">Название</td>
                                         <td>{{ item.name}}</td>
                                     </tr>
                                     <tr>
-                                        <td ><span class=" -pin"></span></td>
+                                        <td class="icon lead"><span class="mdi mdi-pin"></span></td>
                                         <td class="item">Бренд</td>
                                         <td><a href="/ozon/brand/{{item.brand}}"
                                                target="_blank">{{item.brand}}</a></td>
                                     </tr>
                                     <tr>
-                                        <td ><span class=" -money"></span></td>
+                                        <td class="icon lead"><span class="mdi mdi-money"></span></td>
                                         <td class="item">Цена</td>
                                         <td><span>{{item.final_price}}</span> р.
                                         </td>
                                     </tr> <!---->
                                     <tr>
-                                        <td ><span class=" -store"></span></td>
+                                        <td class="icon lead"><span class="mdi mdi-store"></span></td>
                                         <td class="item">Продавец</td>
                                         <td><span class="mr-2"><a href="/ozon/seller/{{item.seller}}"
                                                                   target="_blank">{{item.seller}}</a></span> <span
                                                     title="Схема работы" class="badge badge-danger">Retail</span></td>
                                     </tr>
                                     <tr>
-                                        <td ><span class=" "></span></td>
+                                        <td class="icon lead"><span class="mdi "></span></td>
                                         <td class="item">Наличие</td>
                                         <td>{{item.balance}}</td>
                                     </tr> <!---->
@@ -175,7 +175,7 @@
                                 Комментариев: <span>{{item.comments}}</span></span></td>
                                     </tr>
                                     <tr>
-                                        <td ><span class=" -comment-text"></span></td>
+                                        <td class="icon lead"><span class="mdi mdi-comment-text"></span></td>
                                         <td class="item align-top">Примечание</td>
                                         <td><textarea rows="2" maxlength="250"
                                                       class="form-control form-control-sm"></textarea>
@@ -218,7 +218,7 @@
                                 </div> <!----></div>
                         </div>
                         <div role="alert" class="alert alert-info alert-simple alert-dismissible mt-3 withoutborder">
-                            <div class="icon"><span class=" -info-outline"></span></div>
+                            <div class="icon"><span class="mdi mdi-info-outline"></span></div>
                             <div class="message"><span>
             Данные о наличии и цене - последние из полученных;<br>
             Изображения товаров транслируются с сайта
@@ -3102,7 +3102,7 @@
                                                                                                                         aria-haspopup="true"
                                                                                                                         aria-expanded="false"
                                                                                                                         type="button"
-                                                                                                                        class="btn btn-secondary font-weight-normal">
+                                                                                                                        class="btn dropdown-toggle btn-secondary font-weight-normal">
                                                                                                                     Сохраненные
                                                                                                                     предст.
                                                                                                                 </button>
@@ -3170,7 +3170,7 @@
                                                                                                                         aria-haspopup="true"
                                                                                                                         aria-expanded="false"
                                                                                                                         type="button"
-                                                                                                                        class="btn btn-secondary font-weight-normal">
+                                                                                                                        class="btn dropdown-toggle btn-secondary font-weight-normal">
                                                                                                                     Сохраненные
                                                                                                                     фильтры
                                                                                                                 </button>
@@ -3258,7 +3258,7 @@
                                                                  id="__BVID__135"><!---->
                                                                 <button aria-haspopup="true" aria-expanded="false"
                                                                         type="button"
-                                                                        class="btn btn-secondary btn-xs"
+                                                                        class="btn dropdown-toggle btn-secondary btn-xs"
                                                                         id="__BVID__135__BV_toggle_">
                                                                     Экспорт
                                                                     <svg viewBox="0 0 16 16" width="1em" height="1em"
@@ -3437,7 +3437,7 @@
                             </div>
                             <div class="widget-chart-container" style="display: none;">
                                 <div role="alert" class="alert alert-warning alert-icon mt-3">
-                                    <div class="icon"><span class=" -info-outline"></span></div>
+                                    <div class="icon"><span class="mdi mdi-info-outline"></span></div>
                                     <div class="message">
                                         Продаж и остатков за <span>60</span> дней не зафиксировано
                                     </div>
@@ -4539,7 +4539,7 @@
                                 </div>
                                 <div class="p-3">
                                     <div role="alert" class="alert alert-info alert-icon alert-icon-border">
-                                        <div class="icon"><span class=" -info-outline"></span></div>
+                                        <div class="icon"><span class="mdi mdi-info-outline"></span></div>
                                         <div class="message" style="font-size: 12px; line-height: 14px;">
                                             В данный отчет гарантированно попадает информация только первой страницы
                                             результатов поиска на WB (до 100 позиций), для более глубокого анализа

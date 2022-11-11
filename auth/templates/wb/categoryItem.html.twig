@@ -20,330 +20,55 @@
 {% block body %}
     {% include 'wb/HTML/categoryItem.html.twig' %}
     <script>
-        let fbs = {{ fbs??0 }}, option = {}, option2 = {}, option3 = {}, option4 = {}, option5 = {}, option6 = {}, option7 = {};
+        let fbs = {{fbs??0}};
         document.addEventListener("DOMContentLoaded", () => {
-            option = {...getOptions()}
-            option2 = {...getOptions()}
-            option3 = {...getOptions()}
-            option4 = {...getOptions()}
-            option5 = {...getOptions()}
-            option6 = {...getOptions()}
-            option7 = {...getOptions()}
-            drawDonutGraph('graphic1', [{% for day in graphic1[0] %}"{{ day }}",{% endfor %}], [{{ graphic1[1] |join(",") }}], "Склады")
-            drawDonutGraph('graphic2', [{% for day in graphic2[0] %}"{{ day }}",{% endfor %}], [{{ graphic2[1] |join(",") }}], "Склады")
-            drawLineGraph('graph', [[{{ salesG |join(",") }}], [{{ balanceG |join(",") }}], [{{ priceG |join(",") }}], [{{ summaG |join(",") }}], [{{ keyG |join(",") }}], [{{ posG |join(",") }}], [{{ catG|join(",") }}]], ["Продажи", "Остаток", "Цена", "Выручка", "Видимость ключей", "Ср. позиция по ключам", "Кол-во категорий"],
-                [{% for day in dayG %}"{{ day }}",{% endfor %}]
+            drawDonutGraph('graphic1', [{% for day in graphic1[0] %}"{{day}}",{% endfor %}], [{{graphic1[1] |join(",")}}], "Склады")
+            drawDonutGraph('graphic2', [{% for day in graphic2[0] %}"{{day}}",{% endfor %}], [{{graphic2[1] |join(",")}}], "Склады")
+            drawLineGraph('graph', [[{{salesG |join(",")}}],[{{balanceG |join(",")}}],[{{priceG |join(",")}}], [{{summaG |join(",")}}], [{{keyG |join(",")}}], [{{posG |join(",")}}], [{{catG|join(",") }}]], ["Продажи","Остаток","Цена","Выручка", "Видимость ключей", "Ср. позиция по ключам", "Кол-во категорий"],
+                [{% for day in dayG %}"{{day}}",{% endfor %}]
             )
-            document.getElementById("switcher-element-64157").checked = fbs === 0 ? false : true
+            document.getElementById("switcher-element-64157").checked = fbs === 0 ?false:true
             document.getElementById("switcher-element-64157").addEventListener("input",
-                function () {
-                    fbs = fbs === 0 ? 1 : 0
-                    window.location.href = "{{ path('wb_item', {sku:sku}) }}?date={{ d1 }} to {{ d2 }}" + "&fbs=" + fbs
+                function (){
+                    fbs = fbs === 0 ?1:0
+                    window.location.href="{{ path('wb_item', {sku:sku}) }}?date={{d1}} to {{d2}}"+"&fbs="+fbs
                 }
             )
-            newDatePicker('period', function (date) {
-                window.location.href = "{{ path('wb_item', {sku:sku}) }}?date=" + date + "&fbs=" + fbs
+            newDatePicker('period', function (date){
+                window.location.href = "{{ path('wb_item', {sku:sku}) }}?date="+date+"&fbs="+fbs
             })
-
-            option['columnDefs'] = [
-                {headerName: 'Дата', field: 'date'},
-                {headerName: 'Продажи', field: 'sales'},
-                {headerName: 'Остаток', field: 'balance'},
-                {headerName: 'Цена', field: 'price'},
-                {headerName: 'Со скидкой и промо', field: 'final_price'},
-                {headerName: 'СПП', field: 'client_sale'},
-                {headerName: 'Сумма продаж', field: 'summa'},
-                {headerName: 'Комментарии', field: 'comments'},
-                {headerName: 'Рейтинг', field: 'rating'},
-            ]
-            option['rowData'] = [
-                {% if by_keywords is defined %}
-                {% for item in salesArr %}
-                {
-                    date: '{{ item.data }}',
-                    sales: '{{ item.sales }} шт',
-                    balance: '{{ item.balance }}',
-                    price: '{{ item.price }} ₽',
-                    final_price: '{{ item.final_price }} ₽',
-                    client_sale: '{{ item.client_sale??0 }} %',
-                    summa: '{{ item.final_price * item.sales }} ₽',
-                    comments: '{{ item.comments }}',
-                    rating: {{ item.rating }},
-                },
-                {% endfor %}
-                {% endif %}
-            ]
-            new agGrid.Grid(document.getElementsByClassName("ag-table")[0], option)
-
-            option2['columnDefs'] = [
-                {
-                    headerName: 'Фото',
-                    field: 'thumb',
-                    maxWidth: 80,
-                    sortable: false,
-                    filter: false,
-                    cellRenderer: params => `<img style="height: 32px; width: 32px" src="${params.value}" />`
-                },
-                {
-                    headerName: 'SKU',
-                    field: 'id',
-                    cellRenderer: params => `<a href="https://www.wildberries.ru/catalog/${params.value}/detail.aspx">${params.value}</a>`
-                },
-                {
-                    headerName: 'Название',
-                    field: 'name',
-                    cellRenderer: params => `<a href="/wb/item/${params.data.id}">${params.value}`
-                },
-                {
-                    headerName: 'Бренд',
-                    field: 'brand'
-                },
-                {
-                    headerName: 'Продавец',
-                    field: 'seller'
-                },
-                {
-                    headerName: 'Наличие',
-                    field: 'balance',
-                    cellRenderer: params => `<p class="number">${params.value}</p>`
-                },
-                {
-                    headerName: 'Комментарии',
-                    field: 'comments'
-                },
-                {
-                    headerName: 'Рейтинг',
-                    field: 'rating'
-                },
-                {
-                    headerName: 'Цена',
-                    field: 'final_price',
-                    cellRenderer: params => `<p class="number">${params.value}</p>`
-                },
-                {
-                    headerName: 'Продаж',
-                    field: 'sales',
-                    cellRenderer: params => `<p class="number">${params.value}</p>`
-                },
-                {
-                    headerName: 'Выручка',
-                    field: 'revenue',
-                    cellRenderer: params => `<p class="number">${params.value}</p>`
-                },
-            ]
-            option2['rowData'] = [
-                {% if similar is defined %}
-                {% for sim in similar %}
-                {
-                    thumb: '{{ sim.thumb }}',
-                    id: '{{ sim.id }}',
-                    name: '{{ sim.name }}',
-                    brand: '{{ sim.brand }}',
-                    seller: '{{ sim.seller }}',
-                    balance: '{{ sim.balance }}',
-                    comments: '{{ sim.comments }}',
-                    rating: '{{ sim.rating }}',
-                    final_price: '{{ sim.final_price }} ₽',
-                    sales: '{{ sim.sales }}',
-                    revenue: '{{ sim.revenue }} ₽',
-                },
-                {% endfor %}
-                {% endif %}
-            ]
-            new agGrid.Grid(document.getElementsByClassName("ag-table")[1], option2)
-
-            option3['columnDefs'] = [
-                {
-                    headerName: 'Ключевое слово',
-                    field: 'keyword',
-                    filter: false
-                },
-                {
-                    headerName: 'Частотность',
-                    field: 'frequency',
-                    filter: false,
-                    wrapText: true,
-                    autoHeight: true,
-                },
-                {
-                    headerName: 'Результатов',
-                    field: 'result',
-                    filter: false,
-                    wrapText: true,
-                    autoHeight: true,
-                },
-                {
-                    headerName: 'Ср. позиция',
-                    field: 'avg_pos',
-                    filter: false,
-                    wrapText: true,
-                    autoHeight: true,
-                },
-                {% for key in days %}
-                {
-                    headerName: '{{ key }}',
-                    field: 'date{{ loop.index }}',
-                    filter: false,
-                    cellStyle: {'background-color': 'rgba(174, 227, 160, .8)'},
-                    wrapText: true,
-                    autoHeight: true,
-                },
-                {% endfor %}
-            ]
-            option3['rowData'] = [
-                {% for key in keywords %}
-                {
-                    keyword: '{{ key.name }}',
-                    frequency: '{{ key.count }}',
-                    result: '{{ key.total }}',
-                    avg_pos: '{{ key.avgPos }}',
-                    {% for pos in key.pos %}
-                    date{{ loop.index }}: '{% if pos == "NaN" %}-{% else %}{{ pos }}{% endif %}',
-                    {% endfor %}
-                },
-                {% endfor %}
-            ]
-            new agGrid.Grid(document.getElementsByClassName("ag-table")[2], option3)
-            option3.api.setPinnedTopRowData([
-                {
-                    keyword: 'Видимость',
-                    frequency: 'Запросы',
-                    {% for key in days %}
-                    date{{ loop.index }}: '0',
-                    {% endfor %}
-                },
-                {
-                    keyword: 'Ср. позиция',
-                    {% for key in days %}
-                    date{{ loop.index }}: '0',
-                    {% endfor %}
-                },
-            ])
-
-            option4['columnDefs'] = [
-                {
-                    headerName: 'Склад',
-                    field: 'store',
-                    wrapText: true,
-                    autoHeight: true,
-                },
-                {
-                    headerName: 'Остаток',
-                    field: 'balance',
-                    wrapText: true,
-                    autoHeight: true,
-                }
-            ]
-            option4['rowData'] = [
-                {% if balance_by_region is defined %}
-                {% for balance in balance_by_region %}
-                {
-                    store: '{{ balance.store }}',
-                    balance: '{{ balance.balance }}'
-                },
-                {% endfor %}
-                {% endif %}
-            ]
-            new agGrid.Grid(document.getElementsByClassName("ag-mini-table")[0], option4)
-
-            option5['columnDefs'] = [
-                {
-                    headerName: 'Размер',
-                    field: 'size_name',
-                    wrapText: true,
-                    autoHeight: true,
-                },
-                {
-                    headerName: 'Размер поставщика',
-                    field: 'size_origin',
-                    wrapText: true,
-                    autoHeight: true,
-                },
-                {
-                    headerName: 'Остаток',
-                    field: 'balance',
-                    wrapText: true,
-                    autoHeight: true,
-                }
-            ]
-            option5['rowData'] = [
-                {% if balance_by_size is defined %}
-                {% for balance in balance_by_size %}
-                {
-                    size_name: '{{ balance.size_name }}',
-                    size_origin: '{{ balance.size_origin }}',
-                    balance: '{{ balance.balance }}'
-                },
-                {% endfor %}
-                {% endif %}
-            ]
-            new agGrid.Grid(document.getElementsByClassName("ag-mini-table")[1], option5)
-
-            option6['columnDefs'] = [
-                {
-                    headerName: 'Склад',
-                    field: 'store',
-                    wrapText: true,
-                    autoHeight: true,
-                },
-                {
-                    headerName: 'Продажи',
-                    field: 'sales',
-                    wrapText: true,
-                    autoHeight: true,
-                }
-            ]
-            option6['rowData'] = [
-                {% if sales_by_region is defined %}
-                {% for balance in sales_by_region %}
-                {
-                    store: '{{ balance.store }}',
-                    sales: '{{ balance.sales }}'
-                },
-                {% endfor %}
-                {% endif %}
-            ]
-            new agGrid.Grid(document.getElementsByClassName("ag-mini-table")[2], option6)
-
-            option7['columnDefs'] = [
-                {
-                    headerName: 'Размер',
-                    field: 'size_name',
-                    wrapText: true,
-                    autoHeight: true,
-                },
-                {
-                    headerName: 'Размер поставщика',
-                    field: 'size_origin',
-                    wrapText: true,
-                    autoHeight: true,
-                },
-                {
-                    headerName: 'Продажи',
-                    field: 'sales',
-                    wrapText: true,
-                    autoHeight: true,
-                }
-            ]
-            option7['rowData'] = [
-                {% if sales_by_size is defined %}
-                {% for balance in sales_by_size %}
-                {
-                    size_name: '{{ balance.size_name }}',
-                    size_origin: '{{ balance.size_origin }}',
-                    sales: '{{ balance.sales }}'
-                },
-                {% endfor %}
-                {% endif %}
-            ]
-            new agGrid.Grid(document.getElementsByClassName("ag-mini-table")[3], option7)
+            let el = document.getElementById("scrollbar")
+            el.addEventListener("input",
+                function () {
+                    let width = document.getElementById("table_sale").offsetWidth
+                    let value =(el.value * width/2000*width/2000)/5
+                    document.getElementById("table_sale").style.transform = "translateX(-" + value + "vh)"
+                    document.getElementById("table_sale_header").style.transform = "translateX(-" + value + "vh)"
+                }, false)
+            let el2 = document.getElementById("scrollbar2")
+            el2.addEventListener("input",
+                function () {
+                    let width = document.getElementById("table_sale2").offsetWidth
+                    let value =(el2.value * width/2000*width/2000)/5
+                    document.getElementById("table_sale2").style.transform = "translateX(-" + value + "vh)"
+                    document.getElementById("table_sale_header2").style.transform = "translateX(-" + value + "vh)"
+                }, false)
+            let el3 = document.getElementById("scrollbar3")
+            el3.addEventListener("input",
+                function () {
+                    let width = document.getElementById("table_sale3").offsetWidth
+                    let value =(el3.value * width/1000*width/1000)/5
+                    document.getElementById("table_sale3").style.transform = "translateX(-" + value + "vh)"
+                    document.getElementById("table_sale_header3").style.transform = "translateX(-" + value + "vh)"
+                    document.getElementById("table_sale_header3_add1").style.transform = "translateX(-" + value + "vh)"
+                    document.getElementById("table_sale_header3_add2").style.transform = "translateX(-" + value + "vh)"
+                }, false)
         })
-
-        function setGraph(i, classes) {
+        function setGraph(i, classes){
             let graph = document.getElementById(classes).children
-            document.getElementById('graph' + i).classList.add("active")
-            document.getElementById('size' + i).classList.remove("active")
-            document.getElementById('income' + i).classList.remove("active")
+            document.getElementById('graph'+i).classList.add("active")
+            document.getElementById('size'+i).classList.remove("active")
+            document.getElementById('income'+i).classList.remove("active")
             graph[0].style = ""
             graph[0].classList.add("active")
             graph[1].style = "display:none"
@@ -351,12 +76,11 @@
             graph[2].style = "display:none"
             graph[2].classList.remove("active")
         }
-
-        function setIncomes(i, classes) {
+        function setIncomes(i, classes){
             let income = document.getElementById(classes).children
-            document.getElementById('income' + i).classList.add("active")
-            document.getElementById('size' + i).classList.remove("active")
-            document.getElementById('graph' + i).classList.remove("active")
+            document.getElementById('income'+i).classList.add("active")
+            document.getElementById('size'+i).classList.remove("active")
+            document.getElementById('graph'+i).classList.remove("active")
             income[1].style = ""
             income[1].classList.add("active")
             income[0].style = "display:none"
@@ -364,8 +88,7 @@
             income[2].style = "display:none"
             income[2].classList.remove("active")
         }
-
-        function setSize(i, classes) {
+        function setSize(i, classes){
             let income = document.getElementById(classes).children
             income[1].style = "display:none"
             income[1].classList.remove("active")
@@ -373,9 +96,16 @@
             income[2].classList.add("active")
             income[0].style = "display:none"
             income[0].classList.remove("active")
-            document.getElementById('income' + i).classList.remove("active")
-            document.getElementById('graph' + i).classList.remove("active")
-            document.getElementById('size' + i).classList.add("active")
+            document.getElementById('income'+i).classList.remove("active")
+            document.getElementById('graph'+i).classList.remove("active")
+            document.getElementById('size'+i).classList.add("active")
+        }
+        function exportSales(){
+            let text = `Date;Sale;Balance;Price;Final Price;Client Sale;Sale summa;Comments;Rating
+            {% for sale in salesArr%}
+            {{ sale.data }};{{ sale.sales }};{{ sale.balance }};{{ sale.price }};{{ sale.final_price }};{{ sale.client_sale??0 }};{{ sale.final_price * sale.sales }};{{ sale.comments }};{{ sale.rating }}
+            {% endfor %}`
+            download("export.csv", text)
         }
     </script>
 {% endblock %}

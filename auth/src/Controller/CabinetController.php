@@ -63,11 +63,9 @@ class CabinetController extends AbstractController
             $this->cabinetWbService->getOrderRegion($this->getUser()->getId(), $query));
     }
     #[Route(path: '/import/cost-price', name: 'cost-price')]
-    public function costPrice(Request $request): Response
+    public function costPrice(): Response
     {
-        return $this->render('cabinet/cost-price.html.twig',
-            $this->cabinetWbService->getCostPrice($this->getUser()->getId(),$request->query->all())
-        );
+        return $this->render('cabinet/cost-price.html.twig');
     }
     #[Route(path: '/compare', name: 'compare')]
     public function compare(Request $request): Response
@@ -101,20 +99,6 @@ class CabinetController extends AbstractController
         $key = $request->request->get('api_key');
         $name = $request->request->get('name');
         $error = $this->cabinetWbService->addApiToken($user = $this->getUser(), $name, $key);
-        return $this->redirectToRoute('connect',
-            [
-                'tokens' => $user->getApiToken(),
-                'error' => $error,
-                'data' => $error == ''?$key:null
-            ]
-        );
-    }
-    #[Route(path: '/connect/edit/{token}', name: 'connect_edit_post', methods: ["POST"])]
-    public function connectEditToken(ApiToken $token, Request $request): Response
-    {
-        $key = $request->request->get('api_key');
-        $name = $request->request->get('name');
-        $error = $this->cabinetWbService->editToken($token, $user = $this->getUser(), $name, $key);
         return $this->redirectToRoute('connect',
             [
                 'tokens' => $user->getApiToken(),

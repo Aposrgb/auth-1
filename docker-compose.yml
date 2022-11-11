@@ -38,7 +38,7 @@ services:
     image: nginx:latest
     container_name: nginx-auth
     ports:
-      - 8080:80
+      - 8560:80
     depends_on:
       - php-fpm
     networks:

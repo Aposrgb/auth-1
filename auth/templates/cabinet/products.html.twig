@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 {% endblock %}
 {% block body %}
-    {% if tokens %}
+    {% if token %}
         {% if processing is defined %}
             <div class="be-content">
                 <div id="mp-stats-app" class="main-content container-fluid">
@@ -71,114 +71,15 @@
         </div>
     {% endif %}
     <script>
-        let option = {}
         document.addEventListener("DOMContentLoaded", () => {
-            option = {...getOptions()}
-            option['columnDefs'] = [
-                {
-                    headerName: 'Товар',
-                    pinned: 'left',
-                    children: [
-                        {
-                            headerName: 'Фото',
-                            field: 'img',
-                            maxWidth: 80,
-                            pinned: 'left',
-                            filter: false,
-                            sortable: false,
-                            cellRenderer: params => `<img style="height: 32px; width: 32px" src="${params.value}" />`
-                        },
-                        {
-                            headerName: 'Название',
-                            field: 'subject',
-                            pinned: 'left',
-                        }
-                    ]
-                },
-                {
-                    headerName: 'Товар',
-                    children: [
-                        {
-                            headerName: 'SKU',
-                            maxWidth: 130,
-                            field: 'nmId',
-                            cellRenderer: params => `<a href="https://www.wildberries.ru/catalog/${params.value}/detail.aspx">${params.value}</a>`
-                        },
-                        {
-                            headerName: 'Комиссия за ед. (руб)',
-                            maxWidth: 200,
-                            field: 'undefined1'
-                        },
-                        {
-                            headerName: 'Комиссия за ед. (%)',
-                            maxWidth: 200,
-                            field: 'undefined2'
-                        },
-                        {
-                            headerName: 'Дней на сайте',
-                            maxWidth: 200,
-                            field: 'daysOnSite'
-                        },
-                        {
-                            headerName: 'Рейтинг',
-                            maxWidth: 130,
-                            field: 'undefined3'
-                        },
-                        {
-                            headerName: 'Бренд',
-                            field: 'brand',
-                        },
-                        {
-                            headerName: 'Категория',
-                            field: 'category',
-                        },
-                        {
-                            headerName: 'Артикул',
-                            field: 'barcode',
-                        },
-                        {
-                            headerName: 'Размер',
-                            field: 'techSize',
-                            maxWidth: 130
-                        },
-                        {
-                            headerName: 'Дней в наличии',
-                            field: 'daysOnSite2',
-                        },
-                    ]
-                },
-            ]
-            option['rowData'] = [
-                {% for product in products %}
-                {
-                    img: '{{ product.img }}',
-                    subject: '{{ product.subject }}',
-                    nmId: '{{ product.nmId }}',
-                    undefined1: '149,12',
-                    undefined2: '5,39 %',
-                    daysOnSite: '{{ product.daysOnSite }}',
-                    undefined3: 5,
-                    brand: '{{ product.brand }}',
-                    category: '{{ product.category }}',
-                    barcode: '{{ product.barcode }}',
-                    techSize: '{{ product.techSize }}',
-                    daysOnSite2: '{{ product.daysOnSite }}',
-                },
-                {% endfor %}
-            ]
-            newDatePicker('date', function () {}, "d.m.Y")
-            new agGrid.Grid(document.getElementsByClassName("ag-theme-balham")[0], option)
-            let buttonAllkey = document.getElementById("__BVID__11");
-            let select = buttonAllkey.children[buttonAllkey.children.length - 1]
-            select = select.children[select.children.length - 2]
-            let tokens = [{% for token in tokens ?? [] %} {{token.id}}, {% endfor%}]
-            for(let i=0;i<select.children.length;i++){
-                for(let j=0;j<tokens.length;j++){
-                    if(tokens[j] === tryParseInt(select.children[i].value)){
-                        select.children[i].selected = true
-                    }
-                }
-            }
+            let el = document.getElementById("scrollbar")
+            el.addEventListener("input",
+                function () {
+                    let width = document.getElementById("table_sale").offsetWidth
+                    let value = el.value * width/2000
+                    document.getElementById("table_sale").style.transform = "translateX(-" + value + "px)"
+                    document.getElementById("table_sale_header").style.transform = "translateX(-" + value + "px)"
+                }, false)
         })
     </script>
 {% endblock %}

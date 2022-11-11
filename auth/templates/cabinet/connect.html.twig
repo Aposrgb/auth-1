@@ -28,7 +28,7 @@
                 </div>
                 <div class="card-body row">
                     <div class="col-12 col-lg-4">
-                        <button onclick="addToken()" class="btn btn-success mb-3"> Добавить
+                        <button onclick="addToken()" class="btn btn-success mb-3"><i class="mdi mdi-plus"></i> Добавить
                             ключ API
                         </button>
                     </div>
@@ -40,7 +40,7 @@
                                          style="position: relative;">
                                         <div class="card-header card-header-contrast d-flex justify-content-between">
                                             <div class="w-75">
-                                                <div class="tokenName">{{token.name}}</div>
+                                                <div>{{token.name}}</div>
                                                 <div class="card-subtitle">{{token.token}}</div>
                                                 <div class="card-subtitle mt-2">
                                                     Статус: <span class="font-weight-bold">{{token.statusName}}</span> <i
@@ -49,19 +49,15 @@
                                                 <div class="card-subtitle mt-2">
                                                     {% if token.status == 1 %}
                                                     Оборот:
-                                                    <span class="font-weight-normal number">{{(token.turnovers ?? '0')|round (0) }} ₽</span> <i
+                                                    <span class="font-weight-normal">{{token.turnovers ?? '0' }} ₽</span> <i
                                                             class="fas fa-info-circle ml-2"></i>
                                                     {%endif%}
                                                 </div>
                                             </div>
                                             <div class="tools">
-                                                <div style="display: flex;background: white;flex-direction: column;" class="dropdown b-dropdown btn-group" id="__BVID__12"><!---->
-                                                    <button aria-haspopup="true" aria-expanded="false" type="button" onclick="editToken(this)"
-                                                            class="btn btn-link btn-sm text-decoration-none-no-caret editButton"
-                                                            id="{{token.id}}">Редактировать
-                                                    </button>
+                                                <div class="dropdown b-dropdown btn-group" id="__BVID__12"><!---->
                                                     <button style="color: red;" aria-haspopup="true" aria-expanded="false" type="button" onclick="deleteToken(this)"
-                                                            class="btn btn-link btn-sm text-decoration-none-no-caret"
+                                                            class="btn dropdown-toggle btn-link btn-sm text-decoration-none dropdown-toggle-no-caret"
                                                             id="{{token.id}}">Удалить
                                                     </button>
                                                 </div>
@@ -141,37 +137,11 @@
         </div>
     </div>
     <script>
-        function editToken(el){
-            let index = getIndexClass('editButton', el)
-            let div = document.getElementById('modal');
-            if (div !== null) {
-                div.parentNode.removeChild(div);
-            } else {
-                document.getElementsByClassName('be-wrapper')[0].innerHTML += `
-<div id="modal">
-    <div onclick="addToken()" style="background: #000000a3;width: 100vw;position: fixed;height: 100vh;z-index: 11;top: 0;"></div>
-    <div style="position: fixed;left: 50vh;top: 0vh;right: 50vh;z-index: 11;" class="modal-dialog modal-md modal-dialog-centered">
-    <span tabindex="0"></span>
-    <div id="newApiKeyModalBlock___BV_modal_content_" tabindex="-1" class="modal-content">
-    <header id="newApiKeyModalBlock___BV_modal_header_" class="modal-header"><h5 id="newApiKeyModalBlock___BV_modal_title_" class="modal-title">Редактировать ключ API</h5><button type="button" aria-label="Close" class="close">×</button></header>
-    <div id="newApiKeyModalBlock___BV_modal_body_" class="modal-body">
-        <form action="connect/edit/${el.id}" method="post">
-            <input type="hidden" name="apiKey"> <div class="form-group"><div class="font-weight-bold h4 mt-0">Редактирование ключа для Wildberries</div> <label for="api-name">
-                            Название <sup title="Обязательно для заполнения" class="text-danger">*</sup></label> <input id="api-name" type="text" name="name" value="${document.getElementsByClassName('tokenName')[index].innerText}" placeholder="Введите название ключа API" class="form-control"> <div class="invalid-feedback"></div></div> <div class="form-group"><label for="api-key">
-                            Ключ в формате base64 <sup title="Обязательно для заполнения" class="text-danger">*</sup></label> <input id="api-key" type="text" name="api_key" placeholder="Введите ключ API в формате Base64" class="form-control"> <div class="invalid-feedback"></div></div>
-            <div style = "color:red;">{{ error ?? ''}}</div>
-            <footer id="newApiKeyModalBlock___BV_modal_footer_" class="modal-footer"><!----><button type="submit" class="btn btn-success"> Сохранить</button></footer>
-        </form>
-    </div>
-    </div><span tabindex="0"></span>
-    </div>
-</div>`;
-            }
-        }
         async function deleteToken(element) {
             await fetch("token/"+element.id)
             window.location.reload()
         }
+
         function addToken() {
             let div = document.getElementById('modal');
             if (div !== null) {
@@ -190,13 +160,14 @@
                             Название <sup title="Обязательно для заполнения" class="text-danger">*</sup></label> <input id="api-name" type="text" name="name" placeholder="Введите название ключа API" class="form-control"> <div class="invalid-feedback"></div></div> <div class="form-group"><label for="api-key">
                             Ключ в формате base64 <sup title="Обязательно для заполнения" class="text-danger">*</sup></label> <input id="api-key" type="text" name="api_key" placeholder="Введите ключ API в формате Base64" class="form-control"> <div class="invalid-feedback"></div></div>
             <div style = "color:red;">{{ error ?? ''}}</div>
-            <footer id="newApiKeyModalBlock___BV_modal_footer_" class="modal-footer"><!----><button type="submit" class="btn btn-success"> Добавить</button></footer>
+            <footer id="newApiKeyModalBlock___BV_modal_footer_" class="modal-footer"><!----><button type="submit" class="btn btn-success"><i class="mdi mdi-plus"></i> Добавить</button></footer>
         </form>
     </div>
     </div><span tabindex="0"></span>
     </div>
 </div>`;
             }
+
         }
         {% if error ?? null %}
             addToken()

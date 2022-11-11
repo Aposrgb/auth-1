@@ -30,13 +30,17 @@ class CabinetApiController extends AbstractController
             $this->mpStatsApi."cabinet/wb/get/reports/compare?".http_build_query($request->query->all()),
             $this->service->getHeaders()
         )->getBody()->getContents();
+        $page = $request->query->get('page', 0);
         $data = array_map(
             function ($item) {
                 $item['img'] = ((int)($item["nm_id"] / 10000)) * 10000;
                 return $item;},
             json_decode($data, true)['data']
         );
-        $data['data'] = $data;
+        $count = count($data);
+        $data['data'] = array_splice($data,$page*300, 300);
+        $data['page'] = $page+1;
+        $data['limit'] = (int)($count/300);
         return $this->json($data);
     }
 }

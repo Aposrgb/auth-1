@@ -76,10 +76,8 @@ class OzonController extends AbstractController
     {
         $check = $this->checkStatusUser();
         if($check) return $check;
-        $context = $this->ozonService->getItem($sku, $request->query->all());
-        if (!$context){
-            return $this->redirectToRoute('ozon_search');
-        }
-        return $this->render('ozon/item.html.twig', $context);
+        return $this->render('ozon/item.html.twig',
+            $this->ozonService->getItem($sku, $request->query->all())
+        );
     }
 }
