@@ -25,8 +25,7 @@
     {% block header %}
         <nav id="mp-stats-header" class="top-menu navbar navbar-expand-xl be-top-header fixed-top shadow-sm">
             <div class="logo d-none d-xl-flex"><a href="/" class="d-flex align-items-center">
-                    <img src="https://mpstats.io/public/images/v4/logo_black.svg" alt="mpstats"
-                         class="mr-0 mr-xxl-2">
+                    <img src="/img/Logo-NoBackground.svg" alt="marketplaceanalytics.pro" width="50"height="50">
                 </a></div>
             <button onclick="showMenu()" type="button" data-toggle="collapse" data-target="#be-navbar-collapse"
                     aria-controls="be-navbar-collapse"
@@ -137,7 +136,7 @@
                                                                               role="button"
                                                                               aria-expanded="false"
                                                                               class="nav-link"><img
-                                    src="https://mpstats.io/i/avatar.png" alt="" width="32"
+                                    src="/img/profile_pic.png" alt="" width="32"
                                     height="32"></a>
                         <div role="menu" style="display:none;" class="dropdown-menu show profile-menu">
                             <a href="/userpanel" class="dropdown-item "><i class="far fa-user mr-2"></i>Аккаунт
@@ -216,9 +215,21 @@
             <div class="row">
                 <div class="col-md-12 ">
                     <div class="card">
-                        <div class="card-header card-header-divider">MPSTATS 2.0
+                        <div class="card-header card-header-divider">Marketplaceanalytics.pro<span class="card-subtitle">Моментальный анализ продаж миллионов товаров на Российских маркетплейсах</span>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body"><p>MARKETPLACE - это комплекс из нескольких узлов:
+                                система сбора данных,
+                                система хранения и системы анализа. Ежедневно мы обрабатываем сотни гигабайтов данных,
+                                чтобы
+                                получить информацию о товарах на основных маркетплейсах: их остатках, продавцах и
+                                брендах.
+                                Эти
+                                данные нормируются и укладываются в удобные интерфейсы, чтобы наши пользователи смогли
+                                быстро
+                                сориентироваться и принять верные решения. </p>
+                                <p>Проект находится на стадии Бета-тестирования, но мы обещаем стремительно развиваться и вскоре
+                                перерастем в нечто большее, чем просто статитстика 2 маркетплейсов. По всем вопросам и предложениям
+                                писать в наш<a href="https://t.me/marketplaceanalytics"> Телеграм-канал <a></p>
                          
                         </div>
                     </div>
@@ -240,27 +251,28 @@
     {% block footer %}
     <footer onclick="" class="be-footer">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="logo d-flex">
-                        <a href="/" class="d-flex align-items-center">
-                            <alt
-                            ="mpstats 2.0" class="mr-2"> mpstats 2.0
-                        </a>
-                    </div>
-                    <p class="mb-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales pharetra
-                        lorem varius accumsan.</p>
-                    </p>
-
+            <div class="pl-1 info">
+            <p class="mb-3">marketplaceanalytics.pro</p>        
+              
+            <div class="socially">
+                <a href="https://t.me/marketplaceanalytics" "><i class="fa-brands fa-telegram fa-2x" style="color:#5b4be1"></i></a>
+                <a><i class="fa-brands fa-vk fa-2x" style="color:#f5f5f5"></i></a>
+                <a href="mailto:info@marketplaceanalytics.pro"><i class="fa-solid fa-envelope fa-2x" style="color:#5b4be1"></i></a>
+            </div>
+            <div class="d-flex align-items-center flex-wrap payment-system mt-3">
+                <div class="mb-1 mb-sm-0">
+                    <img src="/img/payment-system/MainVisaWhite.png" width="50" class="mr-2"/>
+                </div>
+                <div class="mb-1 mb-sm-0">
+                    <img src="/img/payment-system/securecode.png" width="50" class="mr-2"/>
+                </div>
+                <div class="mb-1 mb-sm-0">
+                    <img src="/img/payment-system/logo-mir.png" width="50" class="mr-2"/>
                 </div>
             </div>
-            </a>
-            </li>
-            </ul>
+              
+
         </div>
-</div>
-</div>
-</div>
 </div>
 </footer>
 {% endblock %} 
