@@ -1752,7 +1752,6 @@ fieldset[disabled] .multiselect {
 }
 
 .multiselect__tag-icon:after {
-    content: "\D7";
     color: #266d4d;
     font-size: 14px
 }
@@ -2092,7 +2091,7 @@ fieldset[disabled] .multiselect {
     right: 0;
     bottom: 0;
     left: 0;
-    border-left: 3px solid #5b4be1
+    border-left: 3px solid #4285f4
 }
 
 .rub-top-12 {
@@ -2155,7 +2154,7 @@ fieldset[disabled] .multiselect {
 }
 
 .mp-blue-link {
-    color: #5b4be1;
+    color: #4285f4;
     font-size: 13px
 }
 
@@ -2187,7 +2186,7 @@ fieldset[disabled] .multiselect {
 }
 
 .be-top-header .navbar-nav > li.dropdown .dropdown-menu a:hover, .be-top-header .navbar-nav > li.dropdown .dropdown-menu div:hover, .dropdown-item .dropdown-menu a.dropdown-item.active {
-    background-color: #5b4be1;
+    background-color: #4285f4;
     color: #fff
 }
 
@@ -2204,7 +2203,7 @@ div.dropdown-item > .submenu.dropdown-menu:after, div.dropdown-item > .submenu.d
 }
 
 .custom-control.custom-switch .custom-control-input:checked ~ .custom-control-label:after {
-    background-color: #5b4be1
+    background-color: #4285f4
 }
 
 .page-header {
@@ -2385,7 +2384,6 @@ li.no-mark {
 .dropdown-toggle-split:after {
     display: inline-block;
     vertical-align: middle;
-    content: "пЃё";
     font-family: Font Awesome\ 5 Free;
     border: none;
     font-size: .75rem;
@@ -2601,7 +2599,7 @@ li.no-mark {
 }
 
 .summary-numbers.border-color-primary {
-    border-top: 3px solid #5b4be1
+    border-top: 3px solid #4285f4
 }
 
 .summary-numbers.border-color-warning {
@@ -2838,7 +2836,6 @@ li.no-mark {
     display: inline-block;
     margin-left: .255em;
     vertical-align: middle;
-    content: "пЃё";
     font-family: Font Awesome\ 5 Free;
     border: none
 }
@@ -3247,15 +3244,6 @@ ul .view-action i[data-v-de25ea20] {
 h3[data-v-861371ba] {
     word-break: break-word
 }
-
-.switch-button label[data-v-08387b56]:before {
-    content: "Р’С‹РєР»"
-}
-
-.switch-button input[type=checkbox]:checked + span label[data-v-08387b56]:before {
-    content: "Р’РєР»"
-}
-
 .switch-button.switch-button-xs label[data-v-08387b56]:before {
     font-size: .75rem
 }
@@ -3310,14 +3298,6 @@ h3[data-v-861371ba] {
 
 .switcher-lg .switcher-button-wrapper {
     line-height: 26px
-}
-
-.switch-button label[data-v-67905e4d]:before {
-    content: "РќРµС‚"
-}
-
-.switch-button input[type=checkbox]:checked + span label[data-v-67905e4d]:before {
-    content: "Р”Р°"
 }
 
 .cursor-pointer[data-v-946f0130]:hover {

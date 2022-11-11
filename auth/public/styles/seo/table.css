@@ -26,198 +26,6 @@
     -moz-osx-font-smoothing: grayscale
 }
 
-.ag-theme-material .ag-icon-aggregation:before {
-    content: "п„Ѓ"
-}
-
-.ag-theme-material .ag-icon-arrows:before {
-    content: "п„‚"
-}
-
-.ag-theme-material .ag-icon-asc:before {
-    content: "п„ѓ"
-}
-
-.ag-theme-material .ag-icon-cancel:before {
-    content: "п„„"
-}
-
-.ag-theme-material .ag-icon-chart:before {
-    content: "п„…"
-}
-
-.ag-theme-material .ag-icon-color-picker:before {
-    content: "п„‰"
-}
-
-.ag-theme-material .ag-icon-columns:before {
-    content: "п„Љ"
-}
-
-.ag-theme-material .ag-icon-contracted:before {
-    content: "п„‹"
-}
-
-.ag-theme-material .ag-icon-copy:before {
-    content: "п„Њ"
-}
-
-.ag-theme-material .ag-icon-cross:before {
-    content: "п„Ќ"
-}
-
-.ag-theme-material .ag-icon-csv:before {
-    content: "п„Ћ"
-}
-
-.ag-theme-material .ag-icon-desc:before {
-    content: "п„Џ"
-}
-
-.ag-theme-material .ag-icon-excel:before {
-    content: "п„ђ"
-}
-
-.ag-theme-material .ag-icon-expanded:before {
-    content: "п„‘"
-}
-
-.ag-theme-material .ag-icon-eye-slash:before {
-    content: "п„’"
-}
-
-.ag-theme-material .ag-icon-eye:before {
-    content: "п„“"
-}
-
-.ag-theme-material .ag-icon-filter:before {
-    content: "п„”"
-}
-
-.ag-theme-material .ag-icon-first:before {
-    content: "п„•"
-}
-
-.ag-theme-material .ag-icon-grip:before {
-    content: "п„–"
-}
-
-.ag-theme-material .ag-icon-group:before {
-    content: "п„—"
-}
-
-.ag-theme-material .ag-icon-last:before {
-    content: "п„"
-}
-
-.ag-theme-material .ag-icon-left:before {
-    content: "п„™"
-}
-
-.ag-theme-material .ag-icon-linked:before {
-    content: "п„љ"
-}
-
-.ag-theme-material .ag-icon-loading:before {
-    content: "п„›"
-}
-
-.ag-theme-material .ag-icon-maximize:before {
-    content: "п„њ"
-}
-
-.ag-theme-material .ag-icon-menu:before {
-    content: "п„ќ"
-}
-
-.ag-theme-material .ag-icon-minimize:before {
-    content: "п„ћ"
-}
-
-.ag-theme-material .ag-icon-next:before {
-    content: "п„џ"
-}
-
-.ag-theme-material .ag-icon-none:before {
-    content: "п„ "
-}
-
-.ag-theme-material .ag-icon-not-allowed:before {
-    content: "п„Ў"
-}
-
-.ag-theme-material .ag-icon-paste:before {
-    content: "п„ў"
-}
-
-.ag-theme-material .ag-icon-pin:before {
-    content: "п„Ј"
-}
-
-.ag-theme-material .ag-icon-pivot:before {
-    content: "п„¤"
-}
-
-.ag-theme-material .ag-icon-previous:before {
-    content: "п„Ґ"
-}
-
-.ag-theme-material .ag-icon-right:before {
-    content: "п„Ё"
-}
-
-.ag-theme-material .ag-icon-save:before {
-    content: "п„©"
-}
-
-.ag-theme-material .ag-icon-small-down:before {
-    content: "п„Є"
-}
-
-.ag-theme-material .ag-icon-small-left:before {
-    content: "п„«"
-}
-
-.ag-theme-material .ag-icon-small-right:before {
-    content: "п„¬"
-}
-
-.ag-theme-material .ag-icon-small-up:before {
-    content: "п„­"
-}
-
-.ag-theme-material .ag-icon-tick:before {
-    content: "п„®"
-}
-
-.ag-theme-material .ag-icon-tree-closed:before {
-    content: "п„Ї"
-}
-
-.ag-theme-material .ag-icon-tree-indeterminate:before {
-    content: "п„°"
-}
-
-.ag-theme-material .ag-icon-tree-open:before {
-    content: "п„±"
-}
-
-.ag-theme-material .ag-icon-unlinked:before {
-    content: "п„І"
-}
-
-.ag-theme-material .ag-icon-row-drag:before {
-    content: "п„–"
-}
-
-.ag-theme-material .ag-left-arrow:before {
-    content: "п„™"
-}
-
-.ag-theme-material .ag-right-arrow:before {
-    content: "п„Ё"
-}
-
 .ag-theme-material .ag-root-wrapper {
     background-color: #fff;
     background-color: var(--ag-background-color, #fff)
@@ -3935,7 +3743,6 @@
     text-transform: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    content: "п„”";
     position: absolute
 }
 
@@ -4656,7 +4463,6 @@
 }
 
 .ag-theme-material .ag-checkbox-input-wrapper:after {
-    content: "п„€";
     color: #333;
     color: var(--ag-checkbox-unchecked-color, #333);
     position: absolute;
@@ -4666,7 +4472,6 @@
 }
 
 .ag-theme-material .ag-checkbox-input-wrapper.ag-checked:after {
-    content: "п„†";
     color: #ff4081;
     color: var(--ag-checkbox-checked-color, var(--ag-material-accent-color, #ff4081));
     position: absolute;
@@ -4676,7 +4481,6 @@
 }
 
 .ag-theme-material .ag-checkbox-input-wrapper.ag-indeterminate:after {
-    content: "п„‡";
     color: #333;
     color: var(--ag-checkbox-indeterminate-color, var(--ag-checkbox-unchecked-color, #333));
     position: absolute;
@@ -4780,7 +4584,6 @@
 }
 
 .ag-theme-material .ag-radio-button-input-wrapper:after {
-    content: "п„¦";
     color: #333;
     color: var(--ag-checkbox-unchecked-color, #333);
     position: absolute;
@@ -4790,7 +4593,6 @@
 }
 
 .ag-theme-material .ag-radio-button-input-wrapper.ag-checked:after {
-    content: "п„§";
     color: #ff4081;
     color: var(--ag-checkbox-checked-color, var(--ag-material-accent-color, #ff4081));
     position: absolute;

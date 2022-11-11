@@ -2092,7 +2092,7 @@ fieldset[disabled] .multiselect {
     right: 0;
     bottom: 0;
     left: 0;
-    border-left: 3px solid #5b4be1
+    border-left: 3px solid #4285f4
 }
 
 .rub-top-12 {
@@ -2155,7 +2155,7 @@ fieldset[disabled] .multiselect {
 }
 
 .mp-blue-link {
-    color: #5b4be1;
+    color: #4285f4;
     font-size: 13px
 }
 
@@ -2187,7 +2187,7 @@ fieldset[disabled] .multiselect {
 }
 
 .be-top-header .navbar-nav > li.dropdown .dropdown-menu a:hover, .be-top-header .navbar-nav > li.dropdown .dropdown-menu div:hover, .dropdown-item .dropdown-menu a.dropdown-item.active {
-    background-color: #5b4be1;
+    background-color: #4285f4;
     color: #fff
 }
 
@@ -2204,7 +2204,7 @@ div.dropdown-item > .submenu.dropdown-menu:after, div.dropdown-item > .submenu.d
 }
 
 .custom-control.custom-switch .custom-control-input:checked ~ .custom-control-label:after {
-    background-color: #5b4be1
+    background-color: #4285f4
 }
 
 .page-header {
@@ -2595,7 +2595,7 @@ li.no-mark {
 }
 
 .summary-numbers.border-color-primary {
-    border-top: 3px solid #5b4be1
+    border-top: 3px solid #4285f4
 }
 
 .summary-numbers.border-color-warning {
@@ -2949,7 +2949,7 @@ small[data-v-72879a0e] {
 }
 
 .card a h4[data-v-3a8f4aa7] {
-    border-bottom: 1px dashed #5b4be1
+    border-bottom: 1px dashed #4285f4
 }
 
 .card .edit-project[data-v-3a8f4aa7] {
