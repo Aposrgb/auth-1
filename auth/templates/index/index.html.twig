@@ -39,17 +39,13 @@
                                                                               aria-expanded="false"
                                                                               class="nav-link">
                             Кабинет WB<span class="mdi mdi-menu-down mdi-24px"></a>
-                        <div role="menu" style="display:none;" class="dropdown-menu show "><a href="/cabinet/summary"
-                                                                                              class="dropdown-item"><span>Сводка</span></a>
-                            <a
-                                    href="/cabinet/sales" class="dropdown-item"><span>Продажи и заказы</span></a> <a
-                                    href="/cabinet/products" class="dropdown-item"><span>Товары</span></a> <a
-                                    href="/cabinet/warehouses"
-                                    class="dropdown-item"><span>Раскладка по складам</span></a>
-                            <a
-                                    href="/cabinet/order-region"
-                                    class="dropdown-item"><span>География заказов</span></a>
-                            <div class="dropdown-divider"></div>
+                        <div role="menu" style="display:none;" class="dropdown-menu show ">
+                        <a href="/cabinet/summary" class="dropdown-item"><span>Сводка</span></a>
+                        <a href="/cabinet/sales" class="dropdown-item"><span>Продажи и заказы</span></a> 
+                        <a href="/cabinet/products" class="dropdown-item"><span>Товары</span></a> 
+                        <a href="/cabinet/warehouses" class="dropdown-item"><span>Раскладка по складам</span></a>
+                        <a href="/cabinet/order-region" class="dropdown-item"><span>География заказов</span></a>
+                        <div class="dropdown-divider"></div>
                             <a href="/cabinet/import/cost-price" class="dropdown-item"><span>Импорт себестоимости и параметров товара</span></a>
                             <a href="/cabinet/compare" class="dropdown-item"><span>Сравнение периодов</span></a>
 
@@ -94,18 +90,16 @@
                                                                               aria-expanded="false"
                                                                               class="nav-link">
                             Wildberries<span class="mdi mdi-menu-down mdi-24px"></a>
-                        <div role="menu" style="display:none;" class="dropdown-menu show"><a href="/wb/category?url="
-                                                                                             class="dropdown-item"><span>Категории</span></a>
-                            <a
-                                    href="/wb/seller" class="dropdown-item"><span>Продавцы</span></a> <a
-                                    href="/wb/brand"
-                                    class="dropdown-item"><span>Бренды</span></a>
-                            <a href="/wb/similar" class="dropdown-item"><span>Похожие товары</span></a> <a
-                                    href="/wb/search"
-                                    class="dropdown-item"><span>Поиск по SKU</span></a>
-                            <div class="dropdown-divider"></div>
-                            <a href="/wb/top-brands" class="dropdown-item"><span>Рейтинг брендов</span></a> <a
-                                    href="/wb/top-sellers" class="dropdown-item"><span>Рейтинг поставщиков</span></a>
+                        <div role="menu" style="display:none;" class="dropdown-menu show">
+                        <a href="/wb/category?url=" class="dropdown-item"><span>Категории</span></a>
+                        <a href="/wb/bysearch" class="dropdown-item"><span>Поиск на площадке</span></a>
+                        <a href="/wb/seller" class="dropdown-item"><span>Продавцы</span></a> 
+                        <a href="/wb/brand" class="dropdown-item"><span>Бренды</span></a>
+                        <a href="/wb/similar" class="dropdown-item"><span>Похожие товары</span></a> 
+                        <a href="/wb/search" class="dropdown-item"><span>Поиск по SKU</span></a>
+                        <div class="dropdown-divider"></div>
+                        <a href="/wb/top-brands" class="dropdown-item"><span>Рейтинг брендов</span></a> 
+                        <a href="/wb/top-sellers" class="dropdown-item"><span>Рейтинг поставщиков</span></a>
                         </div>
                     </li>
                     {% if is_granted("ROLE_ADMIN") %}
