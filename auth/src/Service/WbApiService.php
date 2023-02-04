@@ -30,9 +30,11 @@ class WbApiService
         $data['dateTo'] = (new \DateTime())
             ->format("Y-m-d");
 
-        $data['key'] = $this->token;
         $request = (new Client())
-            ->request($method, $this->apiUrl . $path . "?" . http_build_query( $data ));
+            ->request(
+                $method, $this->apiUrl . $path . "?" . http_build_query( $data ),
+                ['headers' => ['Authorization' => 'Bearer ' . $this->token]]
+            );
 
         return json_decode(
         $request
