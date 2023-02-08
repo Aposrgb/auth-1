@@ -17,7 +17,8 @@ class AdminController extends AbstractController
     #[Route("/admin", name: 'admin', methods: ["GET"])]
     public function admin()
     {
-
+        $check = $this->checkStatusUser();
+        if($check) return $check;
         return $this->render('admin/admin.html.twig', [
             "users" => $this->entityManager->getRepository(User::class)->findAll()
         ]);
@@ -26,6 +27,8 @@ class AdminController extends AbstractController
     #[Route("/admin", name: 'admin_post', methods: ["POST"])]
     public function adminPost(Request $request)
     {
+        $check = $this->checkStatusUser();
+        if($check) return $check;
         $name = $request->request->get("name");
         $password =$request->request->get("password");
         $date = $request->request->get("dateExpired");
@@ -56,6 +59,8 @@ class AdminController extends AbstractController
     #[Route("/admin/token", name: 'admin_token', methods: ["GET"])]
     public function token(Request $request)
     {
+        $check = $this->checkStatusUser();
+        if($check) return $check;
         $token = $this->entityManager->getRepository(Token::class)->find(1)??null;
         $context = ['token'  => $token?->getToken()];
         try {
@@ -76,6 +81,8 @@ class AdminController extends AbstractController
     #[Route("/admin/token", name: 'admin_token_post', methods: ["POST"])]
     public function setToken(Request $request)
     {
+        $check = $this->checkStatusUser();
+        if($check) return $check;
         $context = ['token' => $request->request->all()['token']];
         if(strlen($context['token'])<30){
             $context['error'] = "Токен слишком короткий";

@@ -30,10 +30,11 @@ class ExceptionListener extends AbstractController
     }
 
     public function onKernelException(ExceptionEvent $event): void
-    {return;
+    {
        $path = $event->getRequest()->getPathInfo();
        $exception = $event->getThrowable();
        $this->logger->error($exception->getMessage(), $exception->getTrace());
+       echo "<br><br><br><br><br><br><br><br>". $exception->getMessage();
        if (!str_contains($path, "/api")){
            $msg = $exception instanceof ClientException?$exception->getResponse()->getBody():null;
            $event->setResponse($this->render("error/error.html.twig", [

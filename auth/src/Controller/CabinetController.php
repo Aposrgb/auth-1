@@ -26,6 +26,8 @@ class CabinetController extends AbstractController
     #[Route(path: '/summary', name: 'summary')]
     public function summary(Request $request): Response
     {
+        $check = $this->checkStatusUser();
+        if($check) return $check;
         $query = $request->query->all();
         return $this->render('cabinet/summary.html.twig',
             $this->cabinetWbService->getWbData($this->getUser()->getId(), $query)
@@ -34,6 +36,8 @@ class CabinetController extends AbstractController
     #[Route(path: '/sales', name: 'sales')]
     public function sales(Request $request): Response
     {
+        $check = $this->checkStatusUser();
+        if($check) return $check;
         $query = $request->query->all();
         return $this->render('cabinet/sales.html.twig',
             $this->cabinetWbService->getOrders($this->getUser()->getId(), $query)
@@ -42,6 +46,8 @@ class CabinetController extends AbstractController
     #[Route(path: '/products', name: 'products')]
     public function products(Request $request): Response
     {
+        $check = $this->checkStatusUser();
+        if($check) return $check;
         $query = $request->query->all();
         return $this->render('cabinet/products.html.twig',
             $this->cabinetWbService->getProducts($this->getUser()->getId(), $query)
@@ -50,6 +56,8 @@ class CabinetController extends AbstractController
     #[Route(path: '/warehouses', name: 'warehouse')]
     public function warehouse(Request $request): Response
     {
+        $check = $this->checkStatusUser();
+        if($check) return $check;
         $query = $request->query->all();
         return $this->render('cabinet/warehouse.html.twig',
             $this->cabinetWbService->getWarehouses($this->getUser()->getId(), $query)
@@ -58,6 +66,8 @@ class CabinetController extends AbstractController
     #[Route(path: '/order-region', name: 'order-region')]
     public function orderRegion(Request $request): Response
     {
+        $check = $this->checkStatusUser();
+        if($check) return $check;
         $query = $request->query->all();
         return $this->render('cabinet/order-region.html.twig',
             $this->cabinetWbService->getOrderRegion($this->getUser()->getId(), $query));
@@ -65,6 +75,8 @@ class CabinetController extends AbstractController
     #[Route(path: '/import/cost-price', name: 'cost-price')]
     public function costPrice(Request $request): Response
     {
+        $check = $this->checkStatusUser();
+        if($check) return $check;
         return $this->render('cabinet/cost-price.html.twig',
             $this->cabinetWbService->getCostPrice($this->getUser()->getId(),$request->query->all())
         );
@@ -72,6 +84,8 @@ class CabinetController extends AbstractController
     #[Route(path: '/compare', name: 'compare')]
     public function compare(Request $request): Response
     {
+        $check = $this->checkStatusUser();
+        if($check) return $check;
         return $this->render('cabinet/compare.html.twig',
             $this->cabinetWbService->compare($request->query->all())
         );
@@ -79,11 +93,15 @@ class CabinetController extends AbstractController
     #[Route(path: '/income-calc', name: 'income-calc')]
     public function incomeCalc(): Response
     {
+        $check = $this->checkStatusUser();
+        if($check) return $check;
         return $this->render('cabinet/income-calc.html.twig');
     }
     #[Route(path: '/weekly-reports', name: 'weekly-reports')]
     public function weeklyReports(Request $request): Response
     {
+        $check = $this->checkStatusUser();
+        if($check) return $check;
         $query = $request->query->all();
         return $this->render('cabinet/weekly-reports.html.twig',
             $this->cabinetWbService->getWeeklyReports($this->getUser()->getId(), $query));
@@ -91,6 +109,8 @@ class CabinetController extends AbstractController
     #[Route(path: '/connect', name: 'connect', methods: ["GET"])]
     public function connect(Request $request): Response
     {
+        $check = $this->checkStatusUser();
+        if($check) return $check;
         $query = $request->query->all();
         return $this->render('cabinet/connect.html.twig',
             $this->cabinetWbService->connected($this->getUser()->getApiToken(), $query));
@@ -98,6 +118,8 @@ class CabinetController extends AbstractController
     #[Route(path: '/connect', name: 'connect_post', methods: ["POST"])]
     public function connectAddToken(Request $request): Response
     {
+        $check = $this->checkStatusUser();
+        if($check) return $check;
         $key = $request->request->get('api_key');
         $name = $request->request->get('name');
         $error = $this->cabinetWbService->addApiToken($user = $this->getUser(), $name, $key);
@@ -112,6 +134,8 @@ class CabinetController extends AbstractController
     #[Route(path: '/connect/edit/{token}', name: 'connect_edit_post', methods: ["POST"])]
     public function connectEditToken(ApiToken $token, Request $request): Response
     {
+        $check = $this->checkStatusUser();
+        if($check) return $check;
         $key = $request->request->get('api_key');
         $name = $request->request->get('name');
         $error = $this->cabinetWbService->editToken($token, $user = $this->getUser(), $name, $key);
@@ -126,6 +150,8 @@ class CabinetController extends AbstractController
     #[Route(path: '/token/{id}', name: 'delete_token', methods: ["GET"])]
     public function deleteToken(ApiToken $token): Response
     {
+        $check = $this->checkStatusUser();
+        if($check) return $check;
         $this->cabinetWbService->deleteApiToken($token);
         return $this->json(["data" => ["messages" => "ok"]]);
     }
