@@ -17,7 +17,7 @@ class DeployCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        shell_exec("composer install; bin/console doctrine:schema:update -f; bin/console cancel:data:processing;  php bin/console wb:data:start > /dev/null &");
+        shell_exec("composer install; bin/console doctrine:schema:update -f; bin/console cache:clear; bin/console cancel:data:processing;  php bin/console wb:data:start > /dev/null &");
         return Command::SUCCESS;
     }
 }

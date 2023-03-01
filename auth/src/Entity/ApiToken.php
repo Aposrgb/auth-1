@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class ApiToken
 {
     use StatusTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]

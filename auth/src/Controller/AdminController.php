@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Proxy;
 use App\Entity\Token;
 use App\Entity\User;
 use App\Helper\Status\UserStatus;
+use App\Repository\ProxyRepository;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,7 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends AbstractController
 {
-
     #[Route("/admin", name: 'admin', methods: ["GET"])]
     public function admin()
     {
@@ -104,5 +105,41 @@ class AdminController extends AbstractController
             }
         }
         return $this->render('admin/adminToken.html.twig', $context);
+    }
+
+    #[Route("/admin/proxy", name: 'admin_proxy', methods: ["GET"])]
+    public function proxy(ProxyRepository $proxyRepository)
+    {
+        $check = $this->checkStatusUser();
+        if($check) return $check;
+
+        return $this->render('admin/adminProxy.html.twig',[
+            'proxies' => $proxyRepository->findAll(),
+        ]);
+    }
+    #[Route("/admin/proxy", name: 'admin_proxy_post', methods: ["POST"])]
+    public function addProxy(Request $request, ProxyRepository $proxyRepository)
+    {
+        $req = $request->request->all();
+        $logPass = $req['logPass'];
+        $ipPort = $req['ipPort'];
+        $error = null;
+        if($logPass && $ipPort){
+            if(!$proxyRepository->findBy(['loginPass' => $logPass, 'ipPort' => $ipPort])){
+                $proxy = (new Proxy())
+                    ->setIpPort($ipPort)
+                    ->setLoginPass($logPass);
+                $this->entityManager->persist($proxy);
+                $this->entityManager->flush();
+            }else{
+                $error = true;
+            }
+        }else{
+            $error = true;
+        }
+        return $this->render("admin/adminProxy.html.twig", [
+            "error" => $error,
+            'proxies' => $proxyRepository->findAll(),
+        ]);
     }
 }
